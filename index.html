@@ -1,0 +1,251 @@
+<html>
+
+<head>
+    <title>Dietinha - Calculadora de Calorias</title>
+</head>
+
+<body>
+
+    <h1> Calculadora Consumo Diário de Calorias</h1>
+
+    <label>Digite o seu peso:</label><br />
+    <input type="number" id="inputPeso" /> <br /> <br />
+
+    <label>Agora precisamos saber o seu nível de atividade Física:</label>
+    <br />
+    <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
+    <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
+    <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br /><br />
+
+    <label>Agora precisamos saber do seu gênero:</label>
+    <br />
+    <input type="radio" name="inputGenero" value="1" /> Masculino <br />
+    <input type="radio" name="inputGenero" value="2" /> Feminino <br />
+    <br />
+    <label>Digite a sua altura:</label><br />
+    <input type="number" id="inputAltura" /> <br /> <br />
+
+    <label>Digite a sua Idade:</label><br />
+    <input type="number" id="inputIdade" /> <br /> <br />
+
+    <button onclick="calcularConsumoDiario()">Calcular</button>
+
+    <p>
+    <div id='output'></div>
+    <div id='lista'></div>
+    </p>
+
+    <hr />
+
+    <h1>Calculadora de Calorias de Alimentos</h1>
+
+    <div id='outputListaAlimentos'></div>
+    <br />
+    <div id='outputHistoricoCalculos'></div>
+
+
+    <script>
+        //Calcular consumo diário calorias
+        var listaCaloria = new Array();
+
+        function calcularConsumoDiario() {
+
+            var numPeso = document.getElementById("inputPeso").value;
+            numPeso = parseFloat(numPeso);
+
+            var opcaoAtividadeFisica = document.querySelector('input[name=inputAtividadeFisica]:checked').value;
+            opcaoAtividadeFisica = parseInt(opcaoAtividadeFisica);
+
+            var output = document.querySelector('#output');
+
+            var lista = document.querySelector('#lista');
+
+            var genero = document.querySelector('input[name=inputGenero]:checked').value;
+
+            var altura = document.getElementById("inputAltura").value;
+            altura = parseInt(altura);
+
+            var idade = document.getElementById("inputIdade").value;
+            idade = parseInt(idade);
+
+
+
+            if (!isNaN(numPeso) || !isNaN(opcaoAtividadeFisica)) {
+
+                var numTMB = 0;
+
+                //masculino
+                if (genero === "1") {
+                    numTMB = 88.362 + (13.397 * numPeso) + (4.799 * altura) - (5.677 * idade);
+                }
+                // feminino  
+                if (genero === "2") {
+                    numTMB = 447.593 + (9.247 * numPeso) + (3.098 * altura) - (4.330 * idade);
+                }
+
+                //var numTMB = numPeso * 22;
+
+                if (opcaoAtividadeFisica >= 1 && opcaoAtividadeFisica <= 3) {
+
+                    var resultadoCaloriasPorDia = 0;
+
+                    if (opcaoAtividadeFisica === 1) {
+                        resultadoCaloriasPorDia = numTMB * 1.4;
+                    }
+
+                    if (opcaoAtividadeFisica === 2) {
+                        resultadoCaloriasPorDia = numTMB * 1.6;
+                    }
+
+                    if (opcaoAtividadeFisica === 3) {
+                        resultadoCaloriasPorDia = numTMB * 1.8;
+                    }
+
+                    resultadoCaloriasPorDia = Math.round(resultadoCaloriasPorDia);
+
+                    var resultadoParaEmagrecer = Math.round(resultadoCaloriasPorDia - (resultadoCaloriasPorDia * 0.2));
+
+                    var resultadoParaGanharMassa = Math.round(resultadoCaloriasPorDia + (resultadoCaloriasPorDia * 0.1));
+
+                    output.innerHTML = "Calorias para manter o seu peso: " + resultadoCaloriasPorDia + ". <br/>Para emagrecer: " + resultadoParaEmagrecer + ". <br/>Para ganhar massa: " + resultadoParaGanharMassa;
+
+                    var msg = 'Resultado das Calorias: ';
+
+                    listaCaloria.push(resultadoCaloriasPorDia);
+
+                    for (var i = 0; i < listaCaloria.length; i++) {
+                        msg += ' <br> ' + listaCaloria[i];
+                    }
+
+                    lista.innerHTML = msg;
+
+                } else {
+                    output.innerHTML = "Digite de 1 a 3";
+                }
+
+            } else {
+                output.innerHTML = "Digite opções numéricas.";
+            }
+
+        }
+
+        //Calcular calorias dos alimentos
+        var listaAlimentos = new Array();
+        var listaHistorico = new Array();
+        var outputListaAlimentos = document.querySelector('#outputListaAlimentos');
+        var outputHistoricoCalculos = document.querySelector('#outputHistoricoCalculos');
+
+        function buscarProdutoPorId(idProduto) {
+
+            //Busca o produto na listaProdutos comparando a propriedade Id com o paramëtro "idProduto"
+            for (var i = 0; i < listaAlimentos.length; i++) {
+                var produto = listaAlimentos[i];
+
+                if (produto.id === idProduto) {
+                    return produto;
+                }
+            }
+
+            return null;
+        }
+
+        function calcularCaloriaProduto(idProduto) {
+
+            var produto = buscarProdutoPorId(idProduto);
+
+            var peso = prompt('Insira o peso:');
+            peso = parseFloat(peso);
+
+            var proteinas = Math.round((peso * produto.proteina) / produto.peso);
+            var calorias = Math.round((peso * produto.calorias) / produto.peso);
+
+            var msgResultado = produto.nome + ": " + calorias + " calorias e ";
+            msgResultado += proteinas + " proteínas por " + peso + produto.unidade;
+            msgResultado += " <br/><button class='btnCafeManha' onclick='addDieta(1, " + idProduto + "," + proteinas + "," + calorias + "," + peso + ")'> Adicionar café da manhã </button>"
+            msgResultado += " <button class='btnAlmoco' onclick='addDieta(2, " + idProduto + "," + proteinas + "," + calorias + "," + peso + ")'> Adicionar almoço </button>"
+            msgResultado += " <button class='btnCafeLancheTarde' onclick='addDieta(3, " + idProduto + "," + proteinas + "," + calorias + "," + peso + ")'> Adicionar café/lanche da tarde </button>"
+            msgResultado += " <button class='btnJantar' onclick='addDieta(4, " + idProduto + "," + proteinas + "," + calorias + "," + peso + ")'> Adicionar jantar </button>"
+            msgResultado += "<hr/>";
+
+            listaHistorico.push(msgResultado);
+
+            var msgHistorico = "<h4>Histórico</h4>";
+
+            for (var i = 0; i < listaHistorico.length; i++) {
+                msgHistorico += listaHistorico[i];
+            }
+
+            outputHistoricoCalculos.innerHTML = msgHistorico;
+        }
+
+        function addDieta(numOperacao, idProduto, qtdProteinas, qtdCalorias, peso) {
+            alert(numOperacao + " " + idProduto);
+        }
+
+        function exibeAlimentos() {
+
+            listaAlimentos.push({
+                "id": 115,
+                "nome": "Queijo Muçarela",
+                "calorias": 127,
+                "peso": 40,
+                "unidade": "g",
+                "proteina": 9.2
+            });
+
+            listaAlimentos.push({
+                "id": 120,
+                "nome": "Arroz Cozido",
+                "calorias": 129,
+                "peso": 100,
+                "unidade": "g",
+                "proteina": 2.5
+            });
+
+            listaAlimentos.push({
+                "id": 131,
+                "nome": "Feijão Cozido",
+                "calorias": 132,
+                "peso": 100,
+                "unidade": "g",
+                "proteina": 8
+            });
+
+            listaAlimentos.push({
+                "id": 124,
+                "nome": "Pão Francês",
+                "calorias": 280,
+                "peso": 100,
+                "unidade": "g"
+            });
+
+            listaAlimentos.push({
+                "id": 533,
+                "nome": "Batata Inglesa",
+                "calorias": 52,
+                "peso": 100,
+                "unidade": "g"
+            });
+
+
+            var msg = "<h2 style='margin-bottom:0px'>Alimentos</h2> ";
+
+            //Lista os produtos na tela com o botão calcular em cada um dos produtos
+            for (var i = 0; i < listaAlimentos.length; i++) {
+                var produto = listaAlimentos[i];
+                msg += "<br> <h3 style='margin-bottom:0px'>" + listaAlimentos[i].nome + "</h3> " + listaAlimentos[i].calorias + "cal por " + listaAlimentos[i].peso + listaAlimentos[i].unidade + " <button onclick=\"calcularCaloriaProduto(" + listaAlimentos[i].id + ")\"> Calcular </button>";
+            }
+
+            outputListaAlimentos.innerHTML = msg;
+        }
+
+    
+        exibeAlimentos();
+
+    </script>
+
+
+
+</body>
+
+</html>
