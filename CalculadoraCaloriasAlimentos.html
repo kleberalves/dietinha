@@ -1,0 +1,128 @@
+<html>
+
+<head>
+    <title>Calculadora Calorias Alimentos</title>
+</head>
+
+<body>
+
+    <div id='output'></div>
+    <br />
+    <div id='outputResultado'></div>
+
+    <script>
+        var listaProdutos = new Array();
+        var listaHistorico = new Array();
+        var output = document.querySelector('#output');
+        var outputResultado = document.querySelector('#outputResultado');
+
+        listaProdutos.push({
+            "id": 115,
+            "nome": "Queijo Muçarela",
+            "calorias": 127,
+            "peso": 40,
+            "unidade": "g",
+            "proteina": 9.2
+        });
+
+        listaProdutos.push({
+            "id": 120,
+            "nome": "Arroz Cozido",
+            "calorias": 129,
+            "peso": 100,
+            "unidade": "g",
+            "proteina": 2.5
+        });
+
+        listaProdutos.push({
+            "id": 131,
+            "nome": "Feijão Cozido",
+            "calorias": 132,
+            "peso": 100,
+            "unidade": "g",
+            "proteina": 8
+        });
+
+        listaProdutos.push({
+            "id": 124,
+            "nome": "Pão Francês",
+            "calorias": 280,
+            "peso": 100,
+            "unidade": "g"
+        });
+
+        listaProdutos.push({
+            "id": 533,
+            "nome": "Batata Inglesa",
+            "calorias": 52,
+            "peso": 100,
+            "unidade": "g"
+        });
+
+
+        var msg = "<h2 style='margin-bottom:0px'>Produtos</h2> ";
+
+
+        //Lista os produtos na tela com o botão calcular em cada um dos produtos
+        for (var i = 0; i < listaProdutos.length; i++) {
+            var produto = listaProdutos[i];
+            msg += "<br> <h3 style='margin-bottom:0px'>" + listaProdutos[i].nome + "</h3> " + listaProdutos[i].calorias + "cal por " + listaProdutos[i].peso + listaProdutos[i].unidade + " <button onclick=\"calcular(" + listaProdutos[i].id + ")\"> Calcular </button>";
+        }
+
+        output.innerHTML = msg;
+
+        //idProduto = 3
+        function buscarProdutoPorId(idProduto) {
+
+            //Busca o produto na listaProdutos comparando a propriedade Id com o paramëtro "idProduto"
+            for (var i = 0; i < listaProdutos.length; i++) {
+                var produto = listaProdutos[i];
+
+                if (produto.id === idProduto) {
+                    return produto;
+                }
+            }
+
+            return null;
+        }
+
+        function calcular(idProduto) {
+
+            var produto = buscarProdutoPorId(idProduto);
+
+            var peso = prompt('Insira o peso:');
+            peso = parseFloat(peso);
+
+            var proteinas = Math.round((peso * produto.proteina) / produto.peso);
+            var calorias = Math.round((peso * produto.calorias) / produto.peso);
+
+            var msgResultado = produto.nome + ": " + calorias + " calorias e ";
+            msgResultado += proteinas + " proteínas por " + peso + produto.unidade;
+            msgResultado += " <br/><button class='btnCafeManha' onclick='addDieta(1, " + idProduto + "," + proteinas + "," + calorias + ","+ peso + ")'> Adicionar café da manhã </button>"
+            msgResultado += " <button class='btnAlmoco' onclick='addDieta(2, " + idProduto + "," + proteinas + "," + calorias + ","+ peso + ")'> Adicionar almoço </button>"
+            msgResultado += " <button class='btnCafeLancheTarde' onclick='addDieta(3, " + idProduto + "," + proteinas + "," + calorias + ","+ peso + ")'> Adicionar café/lanche da tarde </button>"
+            msgResultado += " <button class='btnJantar' onclick='addDieta(4, " + idProduto + "," + proteinas + "," + calorias + ","+ peso + ")'> Adicionar jantar </button>"
+             msgResultado += "<hr/>";
+
+            listaHistorico.push(msgResultado);
+
+            var msgHistorico = "<h4>Histórico</h4>";
+
+            for (var i = 0; i < listaHistorico.length; i++) {
+                msgHistorico += listaHistorico[i];
+            }
+
+            outputResultado.innerHTML = msgHistorico;
+        }
+
+        function addDieta(numOperacao, idProduto, qtdProteinas, qtdCalorias, peso){
+            alert(numOperacao + " " + idProduto);
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<html>
+
+<head>
+    <title>Calculadora Calorias</title>
+</head>
+
+<body>
+
+    <label>Digite o seu peso:</label><br />
+    <input type="number" id="inputPeso" /> <br /> <br />
+
+    <label>Agora precisamos saber o seu nível de atividade Física:</label>
+    <br />
+    <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
+    <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
+    <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br /><br />
+
+    <label>Agora precisamos saber do seu gênero:</label>
+    <br />
+    <input type="radio" name="inputGenero" value="1" /> Masculino <br />
+    <input type="radio" name="inputGenero" value="2" /> Feminino <br />
+    <br />
+    <label>Digite a sua altura:</label><br />
+    <input type="number" id="inputAltura" /> <br /> <br />
+
+    <label>Digite a sua Idade:</label><br />
+    <input type="number" id="inputIdade" /> <br /> <br />
+
+
+
+    <button onclick="calcular()">Calcular</button>
+
+    <p>
+    <div id='output'></div>
+    <div id='lista'></div>
+    </p>
+    <script>
+        var listaCaloria = new Array();
+
+        function calcular() {
+
+            var numPeso = document.getElementById("inputPeso").value;
+            numPeso = parseFloat(numPeso);
+
+            var opcaoAtividadeFisica = document.querySelector('input[name=inputAtividadeFisica]:checked').value;
+            opcaoAtividadeFisica = parseInt(opcaoAtividadeFisica);
+
+            var output = document.querySelector('#output');
+
+            var lista =  document.querySelector('#lista');
+
+            var genero = document.querySelector('input[name=inputGenero]:checked').value;
+            
+            var altura = document.getElementById("inputAltura").value;
+            altura = parseInt(altura);
+
+            var idade =  document.getElementById("inputIdade").value;
+            idade = parseInt(idade);
+
+
+
+            if (!isNaN(numPeso) || !isNaN(opcaoAtividadeFisica)) {
+
+                var numTMB = 0;
+
+                //masculino
+                if (genero === "1") {
+                    numTMB = 88.362 + (13.397 * numPeso) + (4.799 * altura) - (5.677 * idade);
+                }
+                // feminino  
+                if (genero === "2") {
+                    numTMB = 447.593 + (9.247 * numPeso) + (3.098 * altura) - (4.330 * idade);
+                }
+
+                //var numTMB = numPeso * 22;
+
+                if (opcaoAtividadeFisica >= 1 && opcaoAtividadeFisica <= 3) {
+
+                    var resultadoCaloriasPorDia = 0;
+
+                    if (opcaoAtividadeFisica === 1) {
+                        resultadoCaloriasPorDia = numTMB * 1.4;
+                    }
+
+                    if (opcaoAtividadeFisica === 2) {
+                        resultadoCaloriasPorDia = numTMB * 1.6;
+                    }
+
+                    if (opcaoAtividadeFisica === 3) {
+                        resultadoCaloriasPorDia = numTMB * 1.8;
+                    }
+
+                    resultadoCaloriasPorDia = Math.round(resultadoCaloriasPorDia);
+
+                    var resultadoParaEmagrecer = Math.round(resultadoCaloriasPorDia - (resultadoCaloriasPorDia * 0.2));
+
+                    var resultadoParaGanharMassa = Math.round(resultadoCaloriasPorDia + (resultadoCaloriasPorDia * 0.1));
+
+                    output.innerHTML = "Calorias para manter o seu peso: " + resultadoCaloriasPorDia + ". <br/>Para emagrecer: " + resultadoParaEmagrecer + ". <br/>Para ganhar massa: " + resultadoParaGanharMassa;
+
+                    var msg = 'Resultado das Calorias: ';
+
+                    listaCaloria.push(resultadoCaloriasPorDia);
+
+                    for (var i = 0; i < listaCaloria.length; i++) {
+                        msg += ' <br> ' + listaCaloria[i];
+                    }
+
+                    lista.innerHTML = msg;
+
+                } else {
+                    output.innerHTML = "Digite de 1 a 3";
+                }
+
+            } else {
+                output.innerHTML = "Digite opções numéricas.";
+            }
+
+        }
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
