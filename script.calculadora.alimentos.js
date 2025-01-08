@@ -54,7 +54,7 @@ function addDieta(numOperacao, idProduto, qtdProteinas, qtdCalorias, peso) {
 function exibeAlimentos() {
 
     listaAlimentos.push({
-        "id": 115,
+        "id": 1,
         "nome": "Queijo Muçarela",
         "calorias": 127,
         "peso": 40,
@@ -63,7 +63,7 @@ function exibeAlimentos() {
     });
 
     listaAlimentos.push({
-        "id": 120,
+        "id": 2,
         "nome": "Arroz Cozido",
         "calorias": 129,
         "peso": 100,
@@ -72,7 +72,7 @@ function exibeAlimentos() {
     });
 
     listaAlimentos.push({
-        "id": 131,
+        "id": 3,
         "nome": "Feijão Cozido",
         "calorias": 132,
         "peso": 100,
@@ -81,7 +81,7 @@ function exibeAlimentos() {
     });
 
     listaAlimentos.push({
-        "id": 124,
+        "id": 4,
         "nome": "Pão Francês",
         "calorias": 280,
         "peso": 100,
@@ -89,13 +89,30 @@ function exibeAlimentos() {
     });
 
     listaAlimentos.push({
-        "id": 533,
+        "id": 5,
         "nome": "Batata Inglesa",
         "calorias": 52,
         "peso": 100,
         "unidade": "g"
     });
 
+    listaAlimentos.push({
+        "id": 6,
+        "nome": "Banana Prata",
+        "calorias": 89,
+        "peso": 100,
+        "unidade": "g",
+        "proteina": 1.3
+    });
+
+    listaAlimentos.push({
+        "id": 7,
+        "nome": "Mortadela",
+        "calorias": 311,
+        "peso": 100,
+        "unidade": "g",
+        "proteina": 16
+    });
 
     var msg = "<h4 style='margin-bottom:0px'>Alimentos</h4> ";
 
