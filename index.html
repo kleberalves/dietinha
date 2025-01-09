@@ -12,10 +12,18 @@
         * {
             font-family: Roboto;
         }
+
+        body {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
         label {
             font-weight: bold;
             color: #124c74;
         }
+
         button {
             padding: 10px 30px;
             border-radius: 10px;
@@ -23,14 +31,83 @@
             background-color: #124c74;
             color: #fff;
         }
+
         input {
             padding: 5px 10px;
             border-radius: 10px;
             margin-top: 2px;
         }
-        .descricao{
+
+        .textForm {
+            width: 100%;
+            height: 40px;
+        }
+
+        .descricao {
             font-size: 13px;
             color: #808080;
+        }
+
+        .rowList {
+            display: flex;
+            justify-content: flex-start;
+            align-items: stretch;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        .rowList .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .rowList .title span {
+            font-size: 12px;
+            padding-left: 5px;
+            color: #9d9d9d;
+        }
+
+        .rowList .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rowList .actions .action {
+            font-size: 13px;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 550px;
+            min-width: 570px;
+            padding: 10px;
+            box-shadow: 10px 10px 100px 2px #ccc;
+            border-radius: 26px;
+            margin-bottom: 20px;
+        }
+
+        .form .title {
+            font-size: 20px;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .form>div {
+            margin-top: 10px;
+            width: 49%;
+        }
+
+        .form > .action {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .form .full{
+            width: 100%;
         }
     </style>
 </head>
@@ -38,42 +115,52 @@
 <body>
     <h1>Calculadora de Calorias</h1>
 
-    <h3>Calorias de Alimentos</h3>
+    <div class="form">
+        <div class="title">Calorias de Alimentos</div>
+        <div>
+            <label>Digite o nome do alimento:</label> <br />
+            <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
+        </div>
+        <div class="full">
+            <div id='outputListaAlimentos'></div>
+            <div id='outputHistoricoCalculos'></div>
+        </div>
+    </div>
 
-    <label>Digite o nome do alimento:</label> <br/>
-    <input type="text" id="txtPesquisa" oninput="txtPequisaAlterado()" />
 
-    <div id='outputListaAlimentos'></div>
-    <br />
-    <div id='outputHistoricoCalculos'></div>
-    <hr/>
-   
-    <h3>Consumo Diário </h3>
-    <label>Digite a sua Idade:</label><br />
-    <input type="number" id="inputIdade" /> <br /> <br />
-
-    <label>Digite o seu peso:</label><br />
-    <input type="number" id="inputPeso" />
-    <div class="descricao">Em quilogramas.</div>
-    <br />
-    <label>Digite a sua altura:</label><br />
-    <input type="number" id="inputAltura" /> 
-    <div class="descricao">Em centímetros.</div>
-    <br /> 
-
-    <label>Seu gênero:</label>
-    <br/>
-    <input type="radio" name="inputGenero" value="1" /> Masculino <br />
-    <input type="radio" name="inputGenero" value="2" /> Feminino <br />
-    <br/>
-
-    <label>Agora precisamos saber o seu nível de atividade física:</label>
-    <br />
-    <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
-    <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
-    <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br /><br />
-
-    <button onclick="calcularConsumoDiario()">Calcular</button>
+    <div class="form">
+        <div class="title">Consumo Diário </div>
+        <div>
+            <label>Digite a sua Idade:</label>
+            <input type="number" class="textForm" id="inputIdade" />
+        </div>
+        <div>
+            <label>Digite o seu peso:</label><br />
+            <input type="number" class="textForm" id="inputPeso" />
+            <div class="descricao">Em quilogramas.</div>
+        </div>
+        <div>
+            <label>Digite a sua altura:</label><br />
+            <input type="number" id="inputAltura" />
+            <div class="descricao">Em centímetros.</div>
+        </div>
+        <div>
+            <label>Seu gênero:</label>
+            <br />
+            <input type="radio" name="inputGenero" value="1" /> Masculino <br />
+            <input type="radio" name="inputGenero" value="2" /> Feminino <br />
+        </div>
+        <div>
+            <label>Agora precisamos saber o seu nível de atividade física:</label>
+            <br />
+            <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
+            <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
+            <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br />
+        </div>
+        <div class="action">
+            <button onclick="calcularConsumoDiario()">Calcular</button>
+        </div>
+    </div>
 
     <p>
     <div id='lista'></div>
