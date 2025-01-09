@@ -51,77 +51,131 @@ function addDieta(numOperacao, idProduto, qtdProteinas, qtdCalorias, peso) {
     alert(numOperacao + " " + idProduto);
 }
 
-function exibeAlimentos() {
 
-    listaAlimentos.push({
-        "id": 1,
-        "nome": "Queijo Muçarela",
-        "calorias": 127,
-        "peso": 40,
-        "unidade": "g",
-        "proteina": 9.2
-    });
 
-    listaAlimentos.push({
-        "id": 2,
-        "nome": "Arroz Cozido",
-        "calorias": 129,
-        "peso": 100,
-        "unidade": "g",
-        "proteina": 2.5
-    });
+listaAlimentos.push({
+    "id": 1,
+    "nome": "Queijo Muçarela",
+    "calorias": 127,
+    "peso": 40,
+    "unidade": "g",
+    "proteina": 9.2
+});
 
-    listaAlimentos.push({
-        "id": 3,
-        "nome": "Feijão Cozido",
-        "calorias": 132,
-        "peso": 100,
-        "unidade": "g",
-        "proteina": 8
-    });
+listaAlimentos.push({
+    "id": 2,
+    "nome": "Arroz Cozido",
+    "calorias": 129,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 2.5
+});
 
-    listaAlimentos.push({
-        "id": 4,
-        "nome": "Pão Francês",
-        "calorias": 280,
-        "peso": 100,
-        "unidade": "g"
-    });
+listaAlimentos.push({
+    "id": 3,
+    "nome": "Feijão Cozido",
+    "calorias": 132,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 8
+});
 
-    listaAlimentos.push({
-        "id": 5,
-        "nome": "Batata Inglesa",
-        "calorias": 52,
-        "peso": 100,
-        "unidade": "g"
-    });
+listaAlimentos.push({
+    "id": 4,
+    "nome": "Pão Francês",
+    "calorias": 280,
+    "peso": 100,
+    "unidade": "g"
+});
 
-    listaAlimentos.push({
-        "id": 6,
-        "nome": "Banana Prata",
-        "calorias": 89,
-        "peso": 100,
-        "unidade": "g",
-        "proteina": 1.3
-    });
+listaAlimentos.push({
+    "id": 5,
+    "nome": "Batata Inglesa",
+    "calorias": 52,
+    "peso": 100,
+    "unidade": "g"
+});
 
-    listaAlimentos.push({
-        "id": 7,
-        "nome": "Mortadela",
-        "calorias": 311,
-        "peso": 100,
-        "unidade": "g",
-        "proteina": 16
-    });
+listaAlimentos.push({
+    "id": 6,
+    "nome": "Banana Prata",
+    "calorias": 89,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 1.3
+});
 
-    var msg = "<h4 style='margin-bottom:0px'>Alimentos</h4> ";
+listaAlimentos.push({
+    "id": 7,
+    "nome": "Mortadela",
+    "calorias": 311,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 16
+});
 
-    //Lista os produtos na tela com o botão calcular em cada um dos produtos
-    for (var i = 0; i < listaAlimentos.length; i++) {
-        var produto = listaAlimentos[i];
-        msg += "<h4 style='margin-bottom:0px; margin-top:10px'>" + listaAlimentos[i].nome + "</h4> " + listaAlimentos[i].calorias + "cal por " + listaAlimentos[i].peso + listaAlimentos[i].unidade + " <button onclick=\"calcularCaloriaProduto(" + listaAlimentos[i].id + ")\"> Calcular </button>";
+listaAlimentos.push({
+    "id": 8,
+    "nome": "Peito de Frango",
+    "calorias": 146,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 29
+});
+
+listaAlimentos.push({
+    "id": 9,
+    "nome": "Pernil",
+    "calorias": 340,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 33
+});
+
+listaAlimentos.push({
+    "id": 10,
+    "nome": "Sobre-Coxa",
+    "calorias": 162,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 18
+});
+
+listaAlimentos.push({
+    "id": 11,
+    "nome": "Beterraba Cozida",
+    "calorias": 32,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 1.3
+});
+
+listaAlimentos.push({
+    "id": 12,
+    "nome": "Cenoura Cozida",
+    "calorias": 17,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 0
+});
+
+
+function txtPequisaAlterado() {
+    var alimentoDigitado = document.getElementById("txtPesquisa").value;
+
+    if (alimentoDigitado === "") {
+        outputListaAlimentos.innerHTML = "";
+    } else {
+        var msg = "";
+
+        //Lista os produtos na tela com o botão calcular em cada um dos produtos
+        for (var i = 0; i < listaAlimentos.length; i++) {
+
+            if (listaAlimentos[i].nome.toLowerCase().indexOf(alimentoDigitado) > -1) {
+                msg += "<h4 style='margin-bottom:0px; margin-top:10px'>" + listaAlimentos[i].nome + "</h4> " + listaAlimentos[i].calorias + "cal por " + listaAlimentos[i].peso + listaAlimentos[i].unidade + " <button onclick=\"calcularCaloriaProduto(" + listaAlimentos[i].id + ")\"> Calcular </button>";
+            }
+        }
+
+        outputListaAlimentos.innerHTML = msg;
     }
-
-    outputListaAlimentos.innerHTML = msg;
 }
-

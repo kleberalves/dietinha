@@ -36,9 +36,18 @@
 </head>
 
 <body>
-
     <h1>Calculadora de Calorias</h1>
 
+    <h3>Calorias de Alimentos</h3>
+
+    <label>Digite o nome do alimento:</label> <br/>
+    <input type="text" id="txtPesquisa" oninput="txtPequisaAlterado()" />
+
+    <div id='outputListaAlimentos'></div>
+    <br />
+    <div id='outputHistoricoCalculos'></div>
+    <hr/>
+   
     <h3>Consumo Diário </h3>
     <label>Digite a sua Idade:</label><br />
     <input type="number" id="inputIdade" /> <br /> <br />
@@ -72,18 +81,10 @@
 
     <hr />
 
-    <h3>Calorias de Alimentos</h3>
 
-    <div id='outputListaAlimentos'></div>
-    <br />
-    <div id='outputHistoricoCalculos'></div>
 
     <script src="script.consumo.diario.js"></script>
     <script src="script.calculadora.alimentos.js"></script>
-    
-    <script>
-        exibeAlimentos();
-    </script>
 
 </body>
 
