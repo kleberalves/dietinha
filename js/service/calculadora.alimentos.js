@@ -233,3 +233,34 @@ listaAlimentos.push({
     "unidade": "g",
     "proteina": 0
 });
+
+listaAlimentos.push({
+    "id": 13,
+    "nome": "Ovos Cozidos",
+    "calorias": 155,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 13,
+    "gordura": 11
+});
+
+
+listaAlimentos.push({
+    "id": 14,
+    "nome": "Farinha de Aveia",
+    "calorias": 385,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 15,
+    "gordura": 7.2
+});
+
+listaAlimentos.push({
+    "id": 15,
+    "nome": "Morango",
+    "calorias": 33,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 0.7,
+    "gordura": 7.2
+});

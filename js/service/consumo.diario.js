@@ -73,7 +73,7 @@ function calcularConsumoDiario() {
 
             salvarConsumoDiario(resultado);
             showConsumoDiario(resultado);
-            
+
 
         } else {
             showWarning("Digite de 1 a 3");
@@ -105,10 +105,14 @@ function showConsumoDiario(resultado) {
 
     var outputResultadoConsumoDiario = document.querySelector('#outputResultadoConsumoDiario');
 
-    var msgResultado = "Manter o seu peso <b>" + resultado.manterPeso + "</b>.";
-    msgResultado += "<br/>Para emagrecer: <b>" + resultado.perderPeso + "</b>. ";
-    msgResultado += "<br/>Para ganhar massa: <b>" + resultado.ganharMassa + "</b> ";
-    msgResultado += "<br/>Proteínas: <b>" + resultado.proteinas + "</b> ";
+    var msgResultado = "<div class='list' style='margin-bottom: 20px;'>";
+    msgResultado += "<div class='cols'>";
+    msgResultado += "<div>Manter o peso <b>" + resultado.manterPeso + "</b> </div>";
+    msgResultado += "<div>Para emagrecer <b>" + resultado.perderPeso + "</b> </div>";
+    msgResultado += "<div>Para ganhar massa <b>" + resultado.ganharMassa + "</b> </div>";
+    msgResultado += "<div>Proteínas <b>" + resultado.proteinas + "</b> </div>";
+    msgResultado += "</div>";
+    msgResultado += "</div>";
 
     outputResultadoConsumoDiario.innerHTML = msgResultado;
 

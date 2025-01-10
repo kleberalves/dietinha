@@ -11,7 +11,7 @@ function swapForms(idx) {
         tabs[idx].style.height = tabs[idx].children[1].clientHeight;
 
         setTimeout(() => {
-            tabs[idx].style.height = 45;
+            tabs[idx].style.height = 42;
         }, 150);
     } else {
         var newHeight = tabs[idx].children[1].clientHeight;
