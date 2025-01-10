@@ -1,0 +1,62 @@
+.form {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 550px;
+
+    overflow: hidden;
+    padding: 13px;
+    padding-top: 10px;
+    z-index: 0;
+
+}
+
+@media (min-width: 600px) {
+    .form {
+        min-width: 570px;
+    }
+}
+
+.form>.title {
+    font-size: 20px;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.form>div {
+    margin-top: 10px;
+    width: 49%;
+}
+
+.form>.action {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form .full {
+    width: 100%;
+}
+
+.tab {
+    position: relative;
+    padding: 10px;
+    box-shadow: 10px 10px 100px 2px #ccc;
+    border-radius: 26px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+}
+.tab.close{
+    height: 45px;
+}
+
+.tab>.btn-close {
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}

@@ -1,0 +1,22 @@
+.alert {
+    position: absolute;
+    width: 200px;
+    box-shadow: 3px 3px 100px #000;
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 22px;
+    color: #fff;
+}
+
+.alert.error {
+    background-color: brown;
+    ;
+}
+
+.alert.success {
+    background-color: #2b7515;
+}
+
+.alert.warning {
+    background-color: #a57805;
+}

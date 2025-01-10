@@ -8,56 +8,65 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-        <link rel="stylesheet" href="style.css?v1" crossorigin="" />
+    <link rel="stylesheet" href="css/buttons.css" crossorigin="" />
+    <link rel="stylesheet" href="css/form.css" crossorigin="" />
+    <link rel="stylesheet" href="css/style.css?v2" crossorigin="" />
+    <link rel="stylesheet" href="css/theme.css" crossorigin="" />
+    <link rel="stylesheet" href="css/show.message.css" crossorigin="" />
 </head>
 
 <body>
     <h1>Calculadora de Calorias</h1>
 
-    <div class="form">
-        <div class="title">Calorias de Alimentos</div>
-        <div>
-            <label>Digite o nome do alimento:</label> <br />
-            <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
-        </div>
-        <div class="full">
-            <div id='outputListaAlimentos'></div>
-            <div id='outputHistoricoCalculos'></div>
+    <div class="tab">
+        <button class="btn-close" onclick="swapForms(0)">x</button>
+        <div class="form">
+            <div class="title">Calorias de Alimentos</div>
+            <div class="full">
+                <label>Digite o nome do alimento:</label> <br />
+                <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
+            </div>
+            <div class="full">
+                <div id='outputListaAlimentos'></div>
+                <div id='outputHistoricoCalculos'></div>
+            </div>
         </div>
     </div>
 
-
-    <div class="form">
-        <div class="title">Consumo Diário </div>
-        <div>
-            <label>Digite a sua Idade:</label>
-            <input type="number" class="textForm" id="inputIdade" />
-        </div>
-        <div>
-            <label>Digite o seu peso:</label><br />
-            <input type="number" class="textForm" id="inputPeso" />
-            <div class="descricao">Em quilogramas.</div>
-        </div>
-        <div>
-            <label>Digite a sua altura:</label><br />
-            <input type="number" id="inputAltura" />
-            <div class="descricao">Em centímetros.</div>
-        </div>
-        <div>
-            <label>Seu gênero:</label>
-            <br />
-            <input type="radio" name="inputGenero" value="1" /> Masculino <br />
-            <input type="radio" name="inputGenero" value="2" /> Feminino <br />
-        </div>
-        <div>
-            <label>Agora precisamos saber o seu nível de atividade física:</label>
-            <br />
-            <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
-            <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
-            <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br />
-        </div>
-        <div class="action">
-            <button onclick="calcularConsumoDiario()">Calcular</button>
+    <div class="tab close" state="close">
+        <button class="btn-close" onclick="swapForms(1)">x</button>
+        <div class="form">
+            <div class="title">Consumo Diário </div>
+            <div>
+                <label>Digite a sua Idade:</label>
+                <input type="number" class="textForm" id="inputIdade" />
+            </div>
+            <div>
+                <label>Digite o seu peso:</label><br />
+                <input type="number" class="textForm" id="inputPeso" />
+                <div class="descricao">Em quilogramas.</div>
+            </div>
+            <div>
+                <label>Digite a sua altura:</label><br />
+                <input type="number" id="inputAltura" />
+                <div class="descricao">Em centímetros.</div>
+            </div>
+            <div>
+                <label>Seu gênero:</label>
+                <br />
+                <input type="radio" name="inputGenero" value="1" /> Masculino <br />
+                <input type="radio" name="inputGenero" value="2" /> Feminino <br />
+            </div>
+            <div>
+                <label>Agora precisamos saber o seu nível de atividade física:</label>
+                <br />
+                <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
+                <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
+                <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br />
+            </div>
+            <div class="action">
+                <button onclick="calcularConsumoDiario()">Calcular</button>
+            </div>
         </div>
     </div>
 
@@ -65,8 +74,10 @@
     <div id='lista'></div>
     </p>
 
-    <script src="script.consumo.diario.js"></script>
-    <script src="script.calculadora.alimentos.js"></script>
+    <script src="js/lib/show.message.js"></script>
+    <script src="js/lib/forms.js"></script>
+    <script src="js/service/calculadora.alimentos.js"></script>
+    <script src="js/service/consumo.diario.js"></script>
 
 </body>
 

@@ -51,7 +51,7 @@ function calcularCaloriaProduto(peso, idxResultado, idProduto) {
 
     var produto = buscarProdutoPorId(idProduto);
 
-    if (peso !== "" && peso !== null && !isNaN(peso)) {
+    if (peso !== "" && peso !== null && !isNaN(peso) && peso > 0) {
         peso = parseFloat(peso);
 
         var proteinas = Math.round((peso * produto.proteina) / produto.peso);
@@ -60,54 +60,70 @@ function calcularCaloriaProduto(peso, idxResultado, idProduto) {
         itemResultadoCalorias.innerHTML = calorias;
         itemResultadoProteinas.innerHTML = proteinas;
     } else {
-        itemResultadoCalorias.innerHTML = Math.round((peso * produto.calorias) / produto.peso);
-        itemResultadoProteinas.innerHTML = Math.round((peso * produto.proteina) / produto.peso);
+        itemResultadoCalorias.innerHTML = "-";
+        itemResultadoProteinas.innerHTML = "-";
     }
 }
 
 function adicionarCalculo(idxResultado, idProduto) {
 
-    var produto = buscarProdutoPorId(idProduto);
+    try {
+        var pesoValue = parseFloat(document.getElementById("itemResultadoPeso" + idxResultado).value);
 
-    var itemResultadoCaloriasValue = parseFloat(document.getElementById("itemResultadoCalorias" + idxResultado).innerText);
-    var itemResultadoProteinasValue = parseFloat(document.getElementById("itemResultadoProteinas" + idxResultado).innerText);
-    var itemResultadoPesoValue = parseFloat(document.getElementById("itemResultadoPeso" + idxResultado).value);
+        if (pesoValue <= 0 || isNaN(pesoValue)) {
+            throw new Error("Peso deve ser maior que zero");
+        }
 
-    listaCalculos.push({
-        "nome": produto.nome,
-        "calorias": itemResultadoCaloriasValue,
-        "proteinas": itemResultadoProteinasValue,
-        "peso": itemResultadoPesoValue,
-        "unidade": produto.unidade
-    });
+        var produto = buscarProdutoPorId(idProduto);
 
+        var caloriasValue = parseFloat(document.getElementById("itemResultadoCalorias" + idxResultado).innerText);
+        var proteinasValue = parseFloat(document.getElementById("itemResultadoProteinas" + idxResultado).innerText);
+        
+        listaCalculos.push({
+            "nome": produto.nome,
+            "calorias": caloriasValue,
+            "proteinas": proteinasValue,
+            "peso": pesoValue,
+            "unidade": produto.unidade
+        });
 
-    listaHistoricoCalculos();
+        listaHistoricoCalculos();
 
-
-    document.getElementById("txtPesquisa").value = "";
-    outputListaAlimentos.innerHTML = "";
+        document.getElementById("txtPesquisa").value = "";
+        outputListaAlimentos.innerHTML = "";
+    }
+    catch (e) {
+        showMessage(e.message, "warning");
+    }
 }
 
 function listaHistoricoCalculos() {
-    var msgHistorico = "<b>Cálculos</b>";
+    var strOutput = "<div class='list'>";
+    strOutput += "<div class='title'>Cálculos</div>";
+
     var totalCalorias = 0;
     var totalProteinas = 0;
 
     for (var i = 0; i < listaCalculos.length; i++) {
         var itemCalculo = listaCalculos[i];
 
-        msgHistorico += "<hr/><b>" + itemCalculo.nome + "</b> " + itemCalculo.calorias + " calorias e ";
-        msgHistorico += itemCalculo.proteinas + " proteínas em " + itemCalculo.peso + itemCalculo.unidade;
+        strOutput += "<div class='item'><b>" + itemCalculo.nome + "</b> " + itemCalculo.calorias + " calorias e ";
+        strOutput += itemCalculo.proteinas + " proteínas em " + itemCalculo.peso + itemCalculo.unidade;
+        strOutput += "</div>";
 
         totalCalorias += itemCalculo.calorias;
         totalProteinas += itemCalculo.proteinas;
     }
 
-    msgHistorico += "<br/><br/><b> Total Calorias</b> " + totalCalorias;
-    msgHistorico += "<br/><b> Total Proteínas</b> " + totalProteinas;
+    strOutput += "<div class='cols'>";
+    strOutput += "  <div><b> Total Calorias</b> <span class='txtSuccess'>" + totalCalorias;
+    strOutput += "  </span></div>";
+    strOutput += "  <div><b> Total Proteínas</b> <span class='txtSuccess'>" + totalProteinas;
+    strOutput += "  </span></div>";
+    strOutput += "</div>";
+    strOutput += "</div>";
 
-    outputHistoricoCalculos.innerHTML = msgHistorico;
+    outputHistoricoCalculos.innerHTML = strOutput;
 }
 
 listaAlimentos.push({
