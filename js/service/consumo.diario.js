@@ -9,8 +9,6 @@ function calcularConsumoDiario() {
     var opcaoAtividadeFisica = document.querySelector('input[name=inputAtividadeFisica]:checked').value;
     opcaoAtividadeFisica = parseInt(opcaoAtividadeFisica);
 
-    var lista = document.querySelector('#lista');
-
     var genero = document.querySelector('input[name=inputGenero]:checked').value;
 
     var altura = document.getElementById("inputAltura").value;
@@ -24,11 +22,11 @@ function calcularConsumoDiario() {
         var numTMB = 0;
 
         //masculino
-        if (genero === "1") {
+        if (genero === "M") {
             numTMB = 88.362 + (13.397 * numPeso) + (4.799 * altura) - (5.677 * idade);
         }
         // feminino  
-        if (genero === "2") {
+        if (genero === "F") {
             numTMB = 447.593 + (9.247 * numPeso) + (3.098 * altura) - (4.330 * idade);
         }
 
@@ -58,26 +56,67 @@ function calcularConsumoDiario() {
 
             var resultadoProteinas = Math.round(numPeso * 1.6);
 
-            var resultado = "<hr/>Calorias para manter o seu peso: <b>" + resultadoCaloriasPorDia + "</b>. <br/>Para emagrecer: <b>" + resultadoParaEmagrecer + "</b>. ";
-            resultado += "<br/>Para ganhar massa: <b>" + resultadoParaGanharMassa + "</b> ";
-            resultado += "<br/>Proteínas: <b>" + resultadoProteinas + "</b> ";
 
-            listaCaloria.push(resultado);
-
-            var msg = "";
-
-            for (var i = 0; i < listaCaloria.length; i++) {
-                msg += ' <br> ' + listaCaloria[i];
+            var resultado = {
+                "genero": genero,
+                "altura": altura,
+                "idade": idade,
+                "tmb": numTMB,
+                "peso": numPeso,
+                "atividadeFisica": opcaoAtividadeFisica,
+                "manterPeso": resultadoCaloriasPorDia,
+                "perderPeso": resultadoParaEmagrecer,
+                "ganharMassa": resultadoParaGanharMassa,
+                "proteinas": resultadoProteinas,
+                "when": new Date()
             }
 
-            lista.innerHTML = msg;
+            salvarConsumoDiario(resultado);
+            showConsumoDiario(resultado);
+            
 
         } else {
-            output.innerHTML = "Digite de 1 a 3";
+            showWarning("Digite de 1 a 3");
         }
 
     } else {
-        output.innerHTML = "Digite opções numéricas.";
+        showWarning("Digite opções numéricas.");
     }
+
+}
+
+function salvarConsumoDiario(resultado) {
+    saveDataLocal(resultado, "consumoDiario");
+}
+
+function loadConsumoDiario() {
+    return loadDataLocal("consumoDiario");
+}
+
+function showConsumoDiario(resultado) {
+
+    if (resultado === undefined) {
+        resultado = loadConsumoDiario();
+    }
+
+    if (resultado === undefined) {
+        return;
+    }
+
+    var outputResultadoConsumoDiario = document.querySelector('#outputResultadoConsumoDiario');
+
+    var msgResultado = "Manter o seu peso <b>" + resultado.manterPeso + "</b>.";
+    msgResultado += "<br/>Para emagrecer: <b>" + resultado.perderPeso + "</b>. ";
+    msgResultado += "<br/>Para ganhar massa: <b>" + resultado.ganharMassa + "</b> ";
+    msgResultado += "<br/>Proteínas: <b>" + resultado.proteinas + "</b> ";
+
+    outputResultadoConsumoDiario.innerHTML = msgResultado;
+
+    setRadiosCheck("inputGenero", resultado.genero);
+    setRadiosCheck("inputAtividadeFisica", resultado.atividadeFisica);
+    setNumberField("inputPeso", resultado.peso);
+    setNumberField("inputAltura", resultado.altura);
+    setNumberField("inputIdade", resultado.idade);
+
 
 }

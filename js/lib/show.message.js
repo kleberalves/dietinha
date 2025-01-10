@@ -24,3 +24,7 @@ function showMessage(msg, type) {
         document.getElementById("msgWindow").remove();
     }, msg.length * 150);
 }
+
+function showWarning(msg) {
+    showMessage(msg, "warning");
+}

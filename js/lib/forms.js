@@ -25,3 +25,18 @@ function swapForms(idx) {
         }, 150);
     }
 }
+
+function setRadiosCheck(id, value) {
+
+    var radios = document.querySelectorAll('input[name="' + id + '"]');
+
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].value === value.toString()) {
+            radios[i].checked = true;
+        }
+    }
+}
+
+function setNumberField(id, value) {
+    document.getElementById(id).value = value;
+}

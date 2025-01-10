@@ -15,10 +15,10 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
         for (var i = 0; i < listaAlimentos.length; i++) {
 
             if (listaAlimentos[i].nome.toLowerCase().indexOf(alimentoDigitadoValue.toLowerCase()) > -1) {
-                msg += "<div class='rowList'>";
+                msg += "<div class='listItem delay"+i+"'>";
                 msg += "<div class='title'>" + listaAlimentos[i].nome + "<span>" + listaAlimentos[i].calorias + "cal por " + listaAlimentos[i].peso + listaAlimentos[i].unidade + "</span></div> ";
                 msg += "<div class='actions'>";
-                msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 70px;' placeholder='peso' oninput='calcularCaloriaProduto(this.value, " + i + ", " + listaAlimentos[i].id + ")' />";
+                msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 100px;height: 40px;' placeholder='peso' oninput='calcularCaloriaProduto(this.value, " + i + ", " + listaAlimentos[i].id + ")' />";
                 msg += "<div class='action'><b>Calorias</b><div id='itemResultadoCalorias" + i + "'>-</div></div>";
                 msg += "<div class='action'><b>Proteínas</b><div id='itemResultadoProteinas" + i + "'>-</div></div>";
                 msg += "<button onclick=\"adicionarCalculo(" + i + ", " + listaAlimentos[i].id + ")\"> Adicionar </button></div></div>";

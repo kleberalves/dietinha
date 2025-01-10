@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/style.css?v2" crossorigin="" />
     <link rel="stylesheet" href="css/theme.css" crossorigin="" />
     <link rel="stylesheet" href="css/show.message.css" crossorigin="" />
+    <link rel="stylesheet" href="css/animations.css" crossorigin="" />
+    <link rel="stylesheet" href="css/list.css" crossorigin="" />
 </head>
 
 <body>
@@ -37,29 +39,30 @@
         <button class="btn-close" onclick="swapForms(1)">x</button>
         <div class="form">
             <div class="title">Consumo Diário </div>
+
+            <div id='outputResultadoConsumoDiario' class="full"></div>
+
             <div>
                 <label>Digite a sua Idade:</label>
                 <input type="number" class="textForm" id="inputIdade" />
             </div>
             <div>
-                <label>Digite o seu peso:</label><br />
+                <label>Digite o seu peso:</label>
                 <input type="number" class="textForm" id="inputPeso" />
                 <div class="descricao">Em quilogramas.</div>
             </div>
             <div>
-                <label>Digite a sua altura:</label><br />
+                <label>Digite a sua altura:</label>
                 <input type="number" id="inputAltura" />
                 <div class="descricao">Em centímetros.</div>
             </div>
             <div>
                 <label>Seu gênero:</label>
-                <br />
-                <input type="radio" name="inputGenero" value="1" /> Masculino <br />
-                <input type="radio" name="inputGenero" value="2" /> Feminino <br />
+                <input type="radio" name="inputGenero" value="M" /> Masculino <br />
+                <input type="radio" name="inputGenero" value="F" /> Feminino <br />
             </div>
             <div>
                 <label>Agora precisamos saber o seu nível de atividade física:</label>
-                <br />
                 <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
                 <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
                 <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br />
@@ -70,15 +73,14 @@
         </div>
     </div>
 
-    <p>
-    <div id='lista'></div>
-    </p>
 
+    <script src="js/data/local.storage.js"></script>
     <script src="js/lib/show.message.js"></script>
     <script src="js/lib/forms.js"></script>
     <script src="js/service/calculadora.alimentos.js"></script>
     <script src="js/service/consumo.diario.js"></script>
 
+    <script> showConsumoDiario(); </script>
 </body>
 
 </html>

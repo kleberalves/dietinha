@@ -1,0 +1,120 @@
+@keyframes slide-in {
+    from {
+        translate: 150vw 0;
+        scale: 200% 1;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 100% 1;
+    }
+}
+
+/*
+Script utilizado para gerar os delays
+https://developer.mozilla.org/en-US/play
+
+for (var i=0; i<100; i++){
+  console.log(".delay"+i+ " { animation-delay: 0."+(i*2).toString().padStart(3, '0')+"s; } ")
+}
+ */
+ .delay0 { animation-delay: 0.00s; }
+ .delay1 { animation-delay: 0.02s; }
+ .delay2 { animation-delay: 0.04s; }
+ .delay3 { animation-delay: 0.06s; }
+ .delay4 { animation-delay: 0.08s; }
+ .delay5 { animation-delay: 0.10s; }
+ .delay6 { animation-delay: 0.12s; }
+ .delay7 { animation-delay: 0.14s; }
+ .delay8 { animation-delay: 0.16s; }
+ .delay9 { animation-delay: 0.18s; }
+ .delay10 { animation-delay: 0.20s; }
+ .delay11 { animation-delay: 0.22s; }
+ .delay12 { animation-delay: 0.24s; }
+ .delay13 { animation-delay: 0.26s; }
+ .delay14 { animation-delay: 0.28s; }
+ .delay15 { animation-delay: 0.30s; }
+ .delay16 { animation-delay: 0.32s; }
+ .delay17 { animation-delay: 0.34s; }
+ .delay18 { animation-delay: 0.36s; }
+ .delay19 { animation-delay: 0.38s; }
+ .delay20 { animation-delay: 0.40s; }
+ .delay21 { animation-delay: 0.42s; }
+ .delay22 { animation-delay: 0.44s; }
+ .delay23 { animation-delay: 0.46s; }
+ .delay24 { animation-delay: 0.48s; }
+ .delay25 { animation-delay: 0.50s; }
+ .delay26 { animation-delay: 0.52s; }
+ .delay27 { animation-delay: 0.54s; }
+ .delay28 { animation-delay: 0.56s; }
+ .delay29 { animation-delay: 0.58s; }
+ .delay30 { animation-delay: 0.60s; }
+ .delay31 { animation-delay: 0.62s; }
+ .delay32 { animation-delay: 0.64s; }
+ .delay33 { animation-delay: 0.66s; }
+ .delay34 { animation-delay: 0.68s; }
+ .delay35 { animation-delay: 0.70s; }
+ .delay36 { animation-delay: 0.72s; }
+ .delay37 { animation-delay: 0.74s; }
+ .delay38 { animation-delay: 0.76s; }
+ .delay39 { animation-delay: 0.78s; }
+ .delay40 { animation-delay: 0.80s; }
+ .delay41 { animation-delay: 0.82s; }
+ .delay42 { animation-delay: 0.84s; }
+ .delay43 { animation-delay: 0.86s; }
+ .delay44 { animation-delay: 0.88s; }
+ .delay45 { animation-delay: 0.90s; }
+ .delay46 { animation-delay: 0.92s; }
+ .delay47 { animation-delay: 0.94s; }
+ .delay48 { animation-delay: 0.96s; }
+ .delay49 { animation-delay: 0.98s; }
+ .delay50 { animation-delay: 0.100s; }
+ .delay51 { animation-delay: 0.102s; }
+ .delay52 { animation-delay: 0.104s; }
+ .delay53 { animation-delay: 0.106s; }
+ .delay54 { animation-delay: 0.108s; }
+ .delay55 { animation-delay: 0.110s; }
+ .delay56 { animation-delay: 0.112s; }
+ .delay57 { animation-delay: 0.114s; }
+ .delay58 { animation-delay: 0.116s; }
+ .delay59 { animation-delay: 0.118s; }
+ .delay60 { animation-delay: 0.120s; }
+ .delay61 { animation-delay: 0.122s; }
+ .delay62 { animation-delay: 0.124s; }
+ .delay63 { animation-delay: 0.126s; }
+ .delay64 { animation-delay: 0.128s; }
+ .delay65 { animation-delay: 0.130s; }
+ .delay66 { animation-delay: 0.132s; }
+ .delay67 { animation-delay: 0.134s; }
+ .delay68 { animation-delay: 0.136s; }
+ .delay69 { animation-delay: 0.138s; }
+ .delay70 { animation-delay: 0.140s; }
+ .delay71 { animation-delay: 0.142s; }
+ .delay72 { animation-delay: 0.144s; }
+ .delay73 { animation-delay: 0.146s; }
+ .delay74 { animation-delay: 0.148s; }
+ .delay75 { animation-delay: 0.150s; }
+ .delay76 { animation-delay: 0.152s; }
+ .delay77 { animation-delay: 0.154s; }
+ .delay78 { animation-delay: 0.156s; }
+ .delay79 { animation-delay: 0.158s; }
+ .delay80 { animation-delay: 0.160s; }
+ .delay81 { animation-delay: 0.162s; }
+ .delay82 { animation-delay: 0.164s; }
+ .delay83 { animation-delay: 0.166s; }
+ .delay84 { animation-delay: 0.168s; }
+ .delay85 { animation-delay: 0.170s; }
+ .delay86 { animation-delay: 0.172s; }
+ .delay87 { animation-delay: 0.174s; }
+ .delay88 { animation-delay: 0.176s; }
+ .delay89 { animation-delay: 0.178s; }
+ .delay90 { animation-delay: 0.180s; }
+ .delay91 { animation-delay: 0.182s; }
+ .delay92 { animation-delay: 0.184s; }
+ .delay93 { animation-delay: 0.186s; }
+ .delay94 { animation-delay: 0.188s; }
+ .delay95 { animation-delay: 0.190s; }
+ .delay96 { animation-delay: 0.192s; }
+ .delay97 { animation-delay: 0.194s; }
+ .delay98 { animation-delay: 0.196s; }
+ .delay99 { animation-delay: 0.198s; }
