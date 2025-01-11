@@ -2,7 +2,8 @@
 
 .btn-tab-switch,
 .tab,
-button {
+button,
+.listItem {
     transition: all 0.3s ease-in-out;
 }
 

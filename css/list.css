@@ -19,6 +19,16 @@
     animation-timing-function: ease-in-out;
 }
 
+.list.mini {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list>.item.mini {
+    font-size: 14px;
+    color: #909090;
+}
+
 .list>.cols {
     display: flex;
     justify-content: space-around;
@@ -30,6 +40,19 @@
     justify-content: space-between;
 }
 
+.list>.cols.bar-add-ingredientes {
+    margin-top: 50px;
+}
+
+.list>.cols>.options {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.list>.cols>.options>div {
+    width: 50%;
+}
+
 .list>.cols>div b {
     color: #5495c2;
 }
@@ -37,6 +60,7 @@
 
 .listItem {
     display: flex;
+    position: relative;
     justify-content: flex-start;
     align-items: stretch;
     flex-direction: column;

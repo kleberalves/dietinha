@@ -37,6 +37,16 @@
     <div class="tab close" state="close">
         <div class="btn-tab-switch" onclick="swapForms(1, this)"></div>
         <div class="form">
+            <div class="title">Meu cardápio</div>
+            <div class="full">
+                <div id='outputListaCardapio'></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab close" state="close">
+        <div class="btn-tab-switch" onclick="swapForms(2, this)"></div>
+        <div class="form">
             <div class="title">Consumo diário de calorías</div>
 
             <div id='outputResultadoConsumoDiario' class="full"></div>
@@ -75,11 +85,16 @@
 
     <script src="js/data/local.storage.js"></script>
     <script src="js/lib/show.message.js"></script>
+    <script src="js/lib/uuidv4.js"></script>
     <script src="js/lib/forms.js"></script>
     <script src="js/service/calculadora.alimentos.js"></script>
+    <script src="js/service/cardapio.js"></script>
     <script src="js/service/consumo.diario.js"></script>
 
-    <script> showConsumoDiario(); </script>
+    <script>
+        showConsumoDiario();
+        showCardapio();
+    </script>
 </body>
 
 </html>

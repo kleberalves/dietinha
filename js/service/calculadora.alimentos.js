@@ -1,6 +1,6 @@
 //Calcular calorias dos alimentos
 var listaAlimentos = new Array();
-var listaCalculos = new Array();
+var listaIngredientes = new Array();
 var outputListaAlimentos = document.querySelector('#outputListaAlimentos');
 var outputHistoricoCalculos = document.querySelector('#outputHistoricoCalculos');
 
@@ -13,7 +13,6 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
 
         //Lista os produtos na tela com o botão calcular em cada um dos produtos
         for (var i = 0; i < listaAlimentos.length; i++) {
-
             if (listaAlimentos[i].nome.toLowerCase().indexOf(alimentoDigitadoValue.toLowerCase()) > -1) {
                 msg += "<div class='listItem delay" + i + "'>";
                 msg += "<div class='title'>" + listaAlimentos[i].nome + "<span>" + listaAlimentos[i].calorias + "cal por " + listaAlimentos[i].peso + listaAlimentos[i].unidade + "</span></div> ";
@@ -79,7 +78,7 @@ function adicionarCalculo(idxResultado, idProduto) {
         var caloriasValue = parseFloat(document.getElementById("itemResultadoCalorias" + idxResultado).innerText);
         var proteinasValue = parseFloat(document.getElementById("itemResultadoProteinas" + idxResultado).innerText);
 
-        listaCalculos.push({
+        listaIngredientes.push({
             "nome": produto.nome,
             "calorias": caloriasValue,
             "proteinas": proteinasValue,
@@ -93,28 +92,33 @@ function adicionarCalculo(idxResultado, idProduto) {
         outputListaAlimentos.innerHTML = "";
     }
     catch (e) {
-        showMessage(e.message, "warning");
+        showWarning(e.message);
     }
 }
 
 function removerCalculo(idx) {
-    listaCalculos.splice(idx, 1);
+    listaIngredientes.splice(idx, 1);
     listaHistoricoCalculos();
+}
+
+function reiniciarListaIngredientes() {
+    listaIngredientes = [];
+    outputHistoricoCalculos.innerHTML = "";
 }
 
 function listaHistoricoCalculos() {
 
-    if (listaCalculos.length === 0) {
+    if (listaIngredientes.length === 0) {
         outputHistoricoCalculos.innerHTML = "";
     } else {
         var strOutput = "<div class='list'>";
-        strOutput += "<div class='title'>Cálculos</div>";
+        strOutput += "<div class='title'>Ingredientes</div>";
 
         var totalCalorias = 0;
         var totalProteinas = 0;
 
-        for (var i = 0; i < listaCalculos.length; i++) {
-            var itemCalculo = listaCalculos[i];
+        for (var i = 0; i < listaIngredientes.length; i++) {
+            var itemCalculo = listaIngredientes[i];
 
             strOutput += "<div class='item delay" + i + "'><b>" + itemCalculo.nome + "</b> " + itemCalculo.calorias + " calorias e ";
             strOutput += itemCalculo.proteinas + " proteínas em " + itemCalculo.peso + itemCalculo.unidade;
@@ -131,12 +135,23 @@ function listaHistoricoCalculos() {
         strOutput += "  <div><b> Total de proteínas</b> <span class=''>" + totalProteinas;
         strOutput += "  </span></div>";
         strOutput += "</div>";
+
+        strOutput += "<div class='cols bar-add-ingredientes'>";
+        strOutput += "  <div class='options'>";
+        strOutput += "      <div><input type=\"radio\" name=\"inputTipoCardapio\" value=\"CM\" /> Café da manhã </div>";
+        strOutput += "      <div><input type=\"radio\" name=\"inputTipoCardapio\" value=\"AL\" /> Almoço </div>";
+        strOutput += "      <div><input type=\"radio\" name=\"inputTipoCardapio\" value=\"CT\" /> Café/lanche da tarde </div>";
+        strOutput += "      <div><input type=\"radio\" name=\"inputTipoCardapio\" value=\"JA\" /> Jantar </div>";
+        strOutput += "  </div>";
+
+        strOutput += "  <div><button onclick=\"adicionarItemCardapio()\"> Adicionar ao cardápio </button></div>";
+        strOutput += "</div>";
+
         strOutput += "</div>";
 
         outputHistoricoCalculos.innerHTML = strOutput;
     }
 }
-
 listaAlimentos.push({
     "id": 1,
     "nome": "Queijo muçarela",
@@ -336,11 +351,21 @@ listaAlimentos.push({
 });
 
 listaAlimentos.push({
-    "id": 21,
+    "id": 22,
     "nome": "Queijo ricota",
     "calorias": 139,
     "peso": 100,
     "unidade": "g",
     "proteina": 25.6,
+    "gordura": 0
+});
+
+listaAlimentos.push({
+    "id": 23,
+    "nome": "Paleta carne",
+    "calorias": 155,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 21,
     "gordura": 0
 });

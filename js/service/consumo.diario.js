@@ -51,9 +51,7 @@ function calcularConsumoDiario() {
             resultadoCaloriasPorDia = Math.round(resultadoCaloriasPorDia);
 
             var resultadoParaEmagrecer = Math.round(resultadoCaloriasPorDia - (resultadoCaloriasPorDia * 0.2));
-
             var resultadoParaGanharMassa = Math.round(resultadoCaloriasPorDia + (resultadoCaloriasPorDia * 0.1));
-
             var resultadoProteinas = Math.round(numPeso * 1.6);
 
 

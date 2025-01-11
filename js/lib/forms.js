@@ -26,6 +26,16 @@ function swapForms(idx) {
     }
 }
 
+function getRadiosCheck(id) {
+    var field = document.querySelector('input[name=' + id + ']:checked');
+
+    if (field !== null) {
+        return field.value;
+    } else {
+        return null;
+    }
+}
+
 function setRadiosCheck(id, value) {
 
     var radios = document.querySelectorAll('input[name="' + id + '"]');
