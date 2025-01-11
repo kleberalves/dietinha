@@ -55,6 +55,8 @@
 
 .list>.cols.bar-add-ingredientes {
     margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .list>.cols>.options {
@@ -68,8 +70,7 @@
     margin: auto;
     border-radius: 16px;
     height: 40px;
-    display: flex
-;
+    display: flex;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 6px;
@@ -79,12 +80,21 @@
     text-align: left;
 }
 
-.list>.cols>.options>label>input{
+.list>.cols>.options>label>input {
     margin-right: 6px;
 }
 
 .list>.cols>div b {
     color: #5495c2;
+}
+
+.list.resumo-calorias-diarias {
+    box-shadow: 3px 3px 10px 0px #ccc;
+}
+
+.list.resumo-calorias-diarias>.cols>div {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 

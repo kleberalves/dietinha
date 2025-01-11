@@ -190,7 +190,7 @@ listaAlimentos.push({
     "calorias": 280,
     "peso": 100,
     "unidade": "g",
-    "proteina": 0
+    "proteina": 11
 });
 
 listaAlimentos.push({

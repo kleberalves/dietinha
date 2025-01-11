@@ -12,11 +12,12 @@
 }
 
 .btn-add-cardapio {
-    width: 160px;
-    height: 52px;
+    width: 200px;
+    height: 47px;
     padding-left: 10px;
     padding-right: 10px;
     font-size: 15px;
+    margin-top: 15px;
 }
 
 .btn-remove {

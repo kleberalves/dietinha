@@ -53,6 +53,7 @@ input[type="number"] {
     border-radius: 26px;
     margin-bottom: 20px;
     overflow: hidden;
+    min-width: 391px;
 }
 
 .tab.close {

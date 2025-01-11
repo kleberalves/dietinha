@@ -103,7 +103,7 @@ function showConsumoDiario(resultado) {
 
     var outputResultadoConsumoDiario = document.querySelector('#outputResultadoConsumoDiario');
 
-    var msgResultado = "<div class='list' style='margin-bottom: 20px;'>";
+    var msgResultado = "<div class='list resumo-calorias-diarias' style='margin-bottom: 20px;'>";
     msgResultado += "<div class='cols'>";
     msgResultado += "<div><div class='title'>Manter o peso</div> <b>" + resultado.manterPeso + "</b> </div>";
     msgResultado += "<div><div class='title'>Para emagrecer</div> <b>" + resultado.perderPeso + "</b> </div>";
