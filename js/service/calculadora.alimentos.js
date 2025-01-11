@@ -11,16 +11,21 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
     } else {
         var msg = "";
 
+        //Contador para definir a ordem do delay corretamente
+        var cont = 0;
+
         //Lista os produtos na tela com o botão calcular em cada um dos produtos
         for (var i = 0; i < listaAlimentos.length; i++) {
             if (listaAlimentos[i].nome.toLowerCase().indexOf(alimentoDigitadoValue.toLowerCase()) > -1) {
-                msg += "<div class='listItem delay" + i + "'>";
+                msg += "<div class='listItem delay" + cont + "'>";
                 msg += "<div class='title'>" + listaAlimentos[i].nome + "<span>" + listaAlimentos[i].calorias + "cal por " + listaAlimentos[i].peso + listaAlimentos[i].unidade + "</span></div> ";
                 msg += "<div class='actions'>";
                 msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 85px;height: 40px;' placeholder='peso' oninput='calcularCaloriaProduto(this.value, " + i + ", " + listaAlimentos[i].id + ")' />";
                 msg += "<div class='action'><b>Calorias</b><div id='itemResultadoCalorias" + i + "'>-</div></div>";
                 msg += "<div class='action'><b>Proteínas</b><div id='itemResultadoProteinas" + i + "'>-</div></div>";
-                msg += "<button onclick=\"adicionarCalculo(" + i + ", " + listaAlimentos[i].id + ")\"> Adicionar </button></div></div>";
+                msg += "<button onclick=\"adicionarCalculo(" + i + ", " + listaAlimentos[i].id + ")\"> Selecionar </button></div></div>";
+
+                cont++;
             }
         }
 
@@ -112,7 +117,7 @@ function listaHistoricoCalculos() {
         outputHistoricoCalculos.innerHTML = "";
     } else {
         var strOutput = "<div class='list'>";
-        strOutput += "<div class='title'>Ingredientes</div>";
+        strOutput += "<div class='title'>Ingredientes selecionados</div>";
 
         var totalCalorias = 0;
         var totalProteinas = 0;
@@ -129,22 +134,22 @@ function listaHistoricoCalculos() {
             totalProteinas += itemCalculo.proteinas;
         }
 
-        strOutput += "<div class='cols'>";
-        strOutput += "  <div><b> Total de calorias</b> <span class=''>" + totalCalorias;
+        strOutput += "<div class='cols total'>";
+        strOutput += "  <div>Total de calorias <span class='text'>" + totalCalorias;
         strOutput += "  </span></div>";
-        strOutput += "  <div><b> Total de proteínas</b> <span class=''>" + totalProteinas;
+        strOutput += "  <div>Total de proteínas <span class='text'>" + totalProteinas;
         strOutput += "  </span></div>";
         strOutput += "</div>";
 
         strOutput += "<div class='cols bar-add-ingredientes'>";
         strOutput += "  <div class='options'>";
-        strOutput += "      <div><input type=\"radio\" name=\"inputTipoCardapio\" value=\"CM\" /> Café da manhã </div>";
-        strOutput += "      <div><input type=\"radio\" name=\"inputTipoCardapio\" value=\"AL\" /> Almoço </div>";
-        strOutput += "      <div><input type=\"radio\" name=\"inputTipoCardapio\" value=\"CT\" /> Café/lanche da tarde </div>";
-        strOutput += "      <div><input type=\"radio\" name=\"inputTipoCardapio\" value=\"JA\" /> Jantar </div>";
+        strOutput += "      <label><input type=\"radio\" name=\"inputTipoCardapio\" value=\"CM\" /> Café da manhã </label>";
+        strOutput += "      <label><input type=\"radio\" name=\"inputTipoCardapio\" value=\"AL\" /> Almoço </label>";
+        strOutput += "      <label><input type=\"radio\" name=\"inputTipoCardapio\" value=\"CT\" /> Café/lanche da tarde </label>";
+        strOutput += "      <label><input type=\"radio\" name=\"inputTipoCardapio\" value=\"JA\" /> Jantar </label>";
         strOutput += "  </div>";
 
-        strOutput += "  <div><button onclick=\"adicionarItemCardapio()\"> Adicionar ao cardápio </button></div>";
+        strOutput += "  <div><button class='btn-add-cardapio' onclick=\"adicionarItemCardapio()\"> Adicionar ao cardápio </button></div>";
         strOutput += "</div>";
 
         strOutput += "</div>";

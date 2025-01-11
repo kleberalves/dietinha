@@ -36,8 +36,10 @@ function adicionarItemCardapio() {
 
             var cardapio = salvarItemCardapio(itemCardapio);
             showCardapio(cardapio);
-
             reiniciarListaIngredientes();
+
+            closeForm(1);
+            openForm(2);
         }
     } catch (e) {
         showWarning(e.message);
@@ -61,6 +63,8 @@ function showCardapio(cardapio) {
     var strCafeTarde = "<h4>Café/Lanche da tarde</h4>";
     var strJantar = "<h4>Jantar</h4>";
 
+    var contDelay = 0;
+
     for (var i = 0; i < cardapio.length; i++) {
 
         var strOutputList = "<div class='list mini'>";
@@ -71,7 +75,7 @@ function showCardapio(cardapio) {
         strOutputList += "</div>";
 
 
-        var strOutput = "<div class='listItem delay" + i + "'>";
+        var strOutput = "<div class='listItem delay" + contDelay + "'>";
         strOutput += "  <div class='title'>" + cardapio[i].nome + "<span>" + cardapio[i].calorias + " de calorias e " + cardapio[i].proteinas + " de proteínas</span></div> ";
         strOutput += strOutputList;
         strOutput += "  <button class=\"btn-remove\" onclick=\"removerItemCardapio('" + cardapio[i].id + "')\">x</button>";
@@ -93,6 +97,7 @@ function showCardapio(cardapio) {
             strJantar += strOutput;
         }
 
+        contDelay++;
     }
 
     outputListaCardapio.innerHTML = strCafeManha + strAlmoco + strCafeTarde + strJantar;
@@ -100,7 +105,7 @@ function showCardapio(cardapio) {
 
 function removerItemCardapio(id) {
 
-    if (window.confirm("Você tem certeza que deseja remover este item do seu cardário?")) {
+    showConfirm("Você tem certeza que deseja remover este item do seu cardário?", () => {
 
         var cardapio = loadCardapio();
 
@@ -113,7 +118,7 @@ function removerItemCardapio(id) {
 
         salvarCardapio(cardapio);
         showCardapio(cardapio);
-    }
+    })
 }
 
 /* Salva e retorna a lista completa */

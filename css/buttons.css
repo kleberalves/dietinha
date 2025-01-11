@@ -11,10 +11,17 @@
     font-weight: bold;
 }
 
+.btn-add-cardapio {
+    width: 160px;
+    height: 52px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+}
+
 .btn-remove {
     top: 0px;
     right: 0px;
-    background-color: #f03272;
 }
 
 .btn-tab-switch {
@@ -24,7 +31,6 @@
     width: 30px;
     height: 30px;
     border-radius: 40px;
-    background-color: #ccc;
 
     display: flex;
 
@@ -37,7 +43,7 @@
 
 }
 
-.btn-tab-switch:hover{
+.btn-tab-switch:hover {
     opacity: 0.5;
 }
 

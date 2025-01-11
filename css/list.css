@@ -1,12 +1,13 @@
 .list {
-    width: 94%;
-    box-shadow: 3px 3px 10px 0px #ccc;
+    /* box-shadow: 3px 3px 10px 0px #ccc; */
     border-radius: 18px;
     padding: 14px;
 }
 
 .list>.title {
-    color: #e87610;
+    font-weight: 100;
+    font-size: 22px;
+    margin-bottom: 16px;
 }
 
 .list>.item {
@@ -36,12 +37,24 @@
 
 .list>.cols>div {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+}
+
+.list>.cols.total {
+    margin-top: 25px;
+    padding: 10px;
+    border-radius: 16px;
+    font-weight: 100;
+    font-size: 17px;
+}
+
+.list>.cols>div>.text {
+    font-size: 18px;
+    margin-left: 10px;
+    font-weight: bold;
 }
 
 .list>.cols.bar-add-ingredientes {
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 .list>.cols>.options {
@@ -49,8 +62,25 @@
     flex-wrap: wrap;
 }
 
-.list>.cols>.options>div {
-    width: 50%;
+.list>.cols>.options>label {
+    width: 46%;
+    background-color: #f3f3f3;
+    margin: auto;
+    border-radius: 16px;
+    height: 40px;
+    display: flex
+;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 6px;
+    margin-left: 0px;
+    font-size: 14px;
+    padding-left: 11px;
+    text-align: left;
+}
+
+.list>.cols>.options>label>input{
+    margin-right: 6px;
 }
 
 .list>.cols>div b {

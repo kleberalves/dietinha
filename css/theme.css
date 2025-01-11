@@ -3,3 +3,58 @@
     font-size: 16px;
     font-weight: bold;
 }
+
+/* BUTTONS */
+
+.btn-remove {
+    background-color: #f03272;
+}
+
+.btn-ok {
+    background-color: #007767;
+}
+
+.btn-cancelar {
+    background-color: #000000;
+}
+
+/* TABS */
+
+.btn-tab-switch {
+    background-color: #ccc;
+}
+
+/* LISTAS */
+
+.list>.title {
+    color: #e87610;
+}
+
+.list>.cols>div > .text {
+    color: #4CAF50;
+}
+
+.list>.cols.total {
+    background-color: #fafafa;
+}
+
+
+/* ALERTS */
+
+.alert {
+    color: #fff;
+    background-color: #ccc;
+    box-shadow: 3px 3px 100px #000;
+}
+
+.alert.error {
+    background-color: brown;
+}
+
+.alert.success {
+    background-color: #2b7515;
+}
+
+.alert.warning {
+    background-color: #4f3103;
+}

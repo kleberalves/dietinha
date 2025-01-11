@@ -23,6 +23,13 @@
         <div class="btn-tab-switch" onclick="swapForms(0, this)"></div>
         <div class="form">
             <div class="title">O que você comeu hoje?</div>
+        </div>
+    </div>
+
+    <div class="tab">
+        <div class="btn-tab-switch" onclick="swapForms(1, this)"></div>
+        <div class="form">
+            <div class="title">Calculadora de alimentos</div>
             <div class="full">
                 <label>Digite o nome do alimento:</label>
                 <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
@@ -35,7 +42,7 @@
     </div>
 
     <div class="tab close" state="close">
-        <div class="btn-tab-switch" onclick="swapForms(1, this)"></div>
+        <div class="btn-tab-switch" onclick="swapForms(2, this)"></div>
         <div class="form">
             <div class="title">Meu cardápio</div>
             <div class="full">
@@ -45,7 +52,7 @@
     </div>
 
     <div class="tab close" state="close">
-        <div class="btn-tab-switch" onclick="swapForms(2, this)"></div>
+        <div class="btn-tab-switch" onclick="swapForms(3, this)"></div>
         <div class="form">
             <div class="title">Consumo diário de calorías</div>
 
