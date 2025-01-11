@@ -18,14 +18,13 @@
 </head>
 
 <body>
-    <h1>Calculadora de Calorias</h1>
 
     <div class="tab">
-        <button class="btn-close" onclick="swapForms(0)">x</button>
+        <div class="btn-tab-switch" onclick="swapForms(0, this)"></div>
         <div class="form">
-            <div class="title">Calorias de Alimentos</div>
+            <div class="title">O que você comeu hoje?</div>
             <div class="full">
-                <label>Digite o nome do alimento:</label> <br />
+                <label>Digite o nome do alimento:</label>
                 <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
             </div>
             <div class="full">
@@ -36,10 +35,9 @@
     </div>
 
     <div class="tab close" state="close">
-        
-        <button class="btn-close" onclick="swapForms(1)">x</button>
+        <div class="btn-tab-switch" onclick="swapForms(1, this)"></div>
         <div class="form">
-            <div class="title">Consumo Diário </div>
+            <div class="title">Consumo diário de calorías</div>
 
             <div id='outputResultadoConsumoDiario' class="full"></div>
 

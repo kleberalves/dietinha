@@ -12,12 +12,28 @@
 .list>.item {
     border-bottom: 1px solid #cbd7e0;
     padding: 8px;
+    margin-bottom: 10px;
+    position: relative;
+    animation-duration: 0.5s;
+    animation-name: slide-in;
+    animation-timing-function: ease-in-out;
 }
 
 .list>.cols {
     display: flex;
     justify-content: space-around;
 }
+
+.list>.cols>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list>.cols>div b {
+    color: #5495c2;
+}
+
 
 .listItem {
     display: flex;

@@ -15,10 +15,10 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
         for (var i = 0; i < listaAlimentos.length; i++) {
 
             if (listaAlimentos[i].nome.toLowerCase().indexOf(alimentoDigitadoValue.toLowerCase()) > -1) {
-                msg += "<div class='listItem delay"+i+"'>";
+                msg += "<div class='listItem delay" + i + "'>";
                 msg += "<div class='title'>" + listaAlimentos[i].nome + "<span>" + listaAlimentos[i].calorias + "cal por " + listaAlimentos[i].peso + listaAlimentos[i].unidade + "</span></div> ";
                 msg += "<div class='actions'>";
-                msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 100px;height: 40px;' placeholder='peso' oninput='calcularCaloriaProduto(this.value, " + i + ", " + listaAlimentos[i].id + ")' />";
+                msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 85px;height: 40px;' placeholder='peso' oninput='calcularCaloriaProduto(this.value, " + i + ", " + listaAlimentos[i].id + ")' />";
                 msg += "<div class='action'><b>Calorias</b><div id='itemResultadoCalorias" + i + "'>-</div></div>";
                 msg += "<div class='action'><b>Proteínas</b><div id='itemResultadoProteinas" + i + "'>-</div></div>";
                 msg += "<button onclick=\"adicionarCalculo(" + i + ", " + listaAlimentos[i].id + ")\"> Adicionar </button></div></div>";
@@ -78,7 +78,7 @@ function adicionarCalculo(idxResultado, idProduto) {
 
         var caloriasValue = parseFloat(document.getElementById("itemResultadoCalorias" + idxResultado).innerText);
         var proteinasValue = parseFloat(document.getElementById("itemResultadoProteinas" + idxResultado).innerText);
-        
+
         listaCalculos.push({
             "nome": produto.nome,
             "calorias": caloriasValue,
@@ -97,47 +97,58 @@ function adicionarCalculo(idxResultado, idProduto) {
     }
 }
 
+function removerCalculo(idx) {
+    listaCalculos.splice(idx, 1);
+    listaHistoricoCalculos();
+}
+
 function listaHistoricoCalculos() {
-    var strOutput = "<div class='list'>";
-    strOutput += "<div class='title'>Cálculos</div>";
 
-    var totalCalorias = 0;
-    var totalProteinas = 0;
+    if (listaCalculos.length === 0) {
+        outputHistoricoCalculos.innerHTML = "";
+    } else {
+        var strOutput = "<div class='list'>";
+        strOutput += "<div class='title'>Cálculos</div>";
 
-    for (var i = 0; i < listaCalculos.length; i++) {
-        var itemCalculo = listaCalculos[i];
+        var totalCalorias = 0;
+        var totalProteinas = 0;
 
-        strOutput += "<div class='item'><b>" + itemCalculo.nome + "</b> " + itemCalculo.calorias + " calorias e ";
-        strOutput += itemCalculo.proteinas + " proteínas em " + itemCalculo.peso + itemCalculo.unidade;
+        for (var i = 0; i < listaCalculos.length; i++) {
+            var itemCalculo = listaCalculos[i];
+
+            strOutput += "<div class='item delay" + i + "'><b>" + itemCalculo.nome + "</b> " + itemCalculo.calorias + " calorias e ";
+            strOutput += itemCalculo.proteinas + " proteínas em " + itemCalculo.peso + itemCalculo.unidade;
+            strOutput += "<button class='btn-remove' onclick='removerCalculo(" + i + ")'>x</button>";
+            strOutput += "</div>";
+
+            totalCalorias += itemCalculo.calorias;
+            totalProteinas += itemCalculo.proteinas;
+        }
+
+        strOutput += "<div class='cols'>";
+        strOutput += "  <div><b> Total de calorias</b> <span class=''>" + totalCalorias;
+        strOutput += "  </span></div>";
+        strOutput += "  <div><b> Total de proteínas</b> <span class=''>" + totalProteinas;
+        strOutput += "  </span></div>";
+        strOutput += "</div>";
         strOutput += "</div>";
 
-        totalCalorias += itemCalculo.calorias;
-        totalProteinas += itemCalculo.proteinas;
+        outputHistoricoCalculos.innerHTML = strOutput;
     }
-
-    strOutput += "<div class='cols'>";
-    strOutput += "  <div><b> Total Calorias</b> <span class='txtSuccess'>" + totalCalorias;
-    strOutput += "  </span></div>";
-    strOutput += "  <div><b> Total Proteínas</b> <span class='txtSuccess'>" + totalProteinas;
-    strOutput += "  </span></div>";
-    strOutput += "</div>";
-    strOutput += "</div>";
-
-    outputHistoricoCalculos.innerHTML = strOutput;
 }
 
 listaAlimentos.push({
     "id": 1,
-    "nome": "Queijo Muçarela",
-    "calorias": 127,
-    "peso": 40,
+    "nome": "Queijo muçarela",
+    "calorias": 320,
+    "peso": 100,
     "unidade": "g",
-    "proteina": 9.2
+    "proteina": 23.8
 });
 
 listaAlimentos.push({
     "id": 2,
-    "nome": "Arroz Cozido",
+    "nome": "Arroz cozido",
     "calorias": 129,
     "peso": 100,
     "unidade": "g",
@@ -146,7 +157,7 @@ listaAlimentos.push({
 
 listaAlimentos.push({
     "id": 3,
-    "nome": "Feijão Cozido",
+    "nome": "Feijão cozido",
     "calorias": 132,
     "peso": 100,
     "unidade": "g",
@@ -155,7 +166,7 @@ listaAlimentos.push({
 
 listaAlimentos.push({
     "id": 4,
-    "nome": "Pão Francês",
+    "nome": "Pão francês",
     "calorias": 280,
     "peso": 100,
     "unidade": "g",
@@ -173,7 +184,7 @@ listaAlimentos.push({
 
 listaAlimentos.push({
     "id": 6,
-    "nome": "Banana Prata",
+    "nome": "Banana prata",
     "calorias": 89,
     "peso": 100,
     "unidade": "g",
@@ -191,7 +202,7 @@ listaAlimentos.push({
 
 listaAlimentos.push({
     "id": 8,
-    "nome": "Peito de Frango",
+    "nome": "Peito de frango",
     "calorias": 146,
     "peso": 100,
     "unidade": "g",
@@ -209,7 +220,7 @@ listaAlimentos.push({
 
 listaAlimentos.push({
     "id": 10,
-    "nome": "Sobre-Coxa",
+    "nome": "Sobre-Coxa de frango",
     "calorias": 162,
     "peso": 100,
     "unidade": "g",
@@ -218,7 +229,7 @@ listaAlimentos.push({
 
 listaAlimentos.push({
     "id": 11,
-    "nome": "Beterraba Cozida",
+    "nome": "Beterraba cozida",
     "calorias": 32,
     "peso": 100,
     "unidade": "g",
@@ -227,7 +238,7 @@ listaAlimentos.push({
 
 listaAlimentos.push({
     "id": 12,
-    "nome": "Cenoura Cozida",
+    "nome": "Cenoura cozida",
     "calorias": 17,
     "peso": 100,
     "unidade": "g",
@@ -236,7 +247,7 @@ listaAlimentos.push({
 
 listaAlimentos.push({
     "id": 13,
-    "nome": "Ovos Cozidos",
+    "nome": "Ovo cozido",
     "calorias": 155,
     "peso": 100,
     "unidade": "g",
@@ -244,10 +255,9 @@ listaAlimentos.push({
     "gordura": 11
 });
 
-
 listaAlimentos.push({
     "id": 14,
-    "nome": "Farinha de Aveia",
+    "nome": "Farinha de aveia",
     "calorias": 385,
     "peso": 100,
     "unidade": "g",
@@ -263,4 +273,74 @@ listaAlimentos.push({
     "unidade": "g",
     "proteina": 0.7,
     "gordura": 7.2
+});
+
+listaAlimentos.push({
+    "id": 16,
+    "nome": "Queijo minas frescal",
+    "calorias": 243,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 15.9,
+    "gordura": 0
+});
+
+listaAlimentos.push({
+    "id": 17,
+    "nome": "Queijo gorgonzola",
+    "calorias": 324,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 19.1,
+    "gordura": 0
+});
+
+listaAlimentos.push({
+    "id": 18,
+    "nome": "Queijo muçarela de búfula",
+    "calorias": 311,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 21.4,
+    "gordura": 0
+});
+
+listaAlimentos.push({
+    "id": 19,
+    "nome": "Queijo parmesão",
+    "calorias": 448,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 31.9,
+    "gordura": 0
+});
+
+listaAlimentos.push({
+    "id": 20,
+    "nome": "Queijo prato",
+    "calorias": 346,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 24.2,
+    "gordura": 0
+});
+
+listaAlimentos.push({
+    "id": 21,
+    "nome": "Queijo provolone",
+    "calorias": 350,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 25.6,
+    "gordura": 0
+});
+
+listaAlimentos.push({
+    "id": 21,
+    "nome": "Queijo ricota",
+    "calorias": 139,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 25.6,
+    "gordura": 0
 });

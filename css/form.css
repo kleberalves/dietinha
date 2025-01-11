@@ -42,17 +42,29 @@
     width: 100%;
 }
 
+input[type="number"] {
+    width: 100%;
+}
+
 .tab {
     position: relative;
     padding: 10px;
     box-shadow: 10px 10px 100px 2px #ccc;
     border-radius: 26px;
     margin-bottom: 20px;
-    transition: all 0.3s ease-in-out;
     overflow: hidden;
 }
-.tab.close{
+
+.tab.close {
     height: 42px;
+}
+
+.tab.open .btn-close {
+    transform: rotate(0deg);
+}
+
+.tab.close .btn-close {
+    transform: rotate(90deg);
 }
 
 .tab>.btn-close {
