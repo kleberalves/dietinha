@@ -3,21 +3,10 @@ var timedoutshowMessage = 0;
 
 function showMessage(msg, type) {
 
-    // var win = document.getElementById("msgWindow");
-    // if (win !== null) {
-    //     win.remove();
-    //     clearTimeout(timedoutshowMessage);
-    // }
+    var msgWindow = createWindow(type);
 
-    // var msgWindow = document.createElement("div");
-    // msgWindow.id = "msgWindow";
-    // msgWindow.classList.add("alert");
-    // msgWindow.classList.add(type);
-
-    createWindow(msg, type);
-
-    // var msgNode = document.createTextNode(msg);
-    // msgWindow.appendChild(msgNode);
+    var msgNode = document.createTextNode(msg);
+    msgWindow.appendChild(msgNode);
 
     timedoutshowMessage = setTimeout(() => {
         removeWindow();

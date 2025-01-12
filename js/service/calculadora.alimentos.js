@@ -74,8 +74,12 @@ function adicionarCalculo(idxResultado, idProduto) {
     try {
         var pesoValue = parseFloat(document.getElementById("itemResultadoPeso" + idxResultado).value);
 
-        if (pesoValue <= 0 || isNaN(pesoValue)) {
-            throw new Error("Peso deve ser maior que zero");
+        if (isNaN(pesoValue)) {
+            throw new Error("Informe o peso do ingrediente.");
+        }
+
+        if (pesoValue <= 0) {
+            throw new Error("Peso deve ser maior que zero.");
         }
 
         var produto = buscarProdutoPorId(idProduto);
@@ -372,5 +376,81 @@ listaAlimentos.push({
     "peso": 100,
     "unidade": "g",
     "proteina": 21,
+    "gordura": 0
+});
+
+
+listaAlimentos.push({
+    "id": 24,
+    "nome": "Cacau em pó 100%",
+    "calorias": 230,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 19.5,
+    "gordura": 0
+});
+
+
+listaAlimentos.push({
+    "id": 25,
+    "nome": "Leite em pó desnatado",
+    "calorias": 360,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 33,
+    "gordura": 0
+});
+
+
+listaAlimentos.push({
+    "id": 26,
+    "nome": "Leite desnatado",
+    "calorias": 44,
+    "peso": 100,
+    "unidade": "ml",
+    "proteina": 6.5,
+    "gordura": 0
+});
+
+
+listaAlimentos.push({
+    "id": 27,
+    "nome": "Yorgut natural desnatado",
+    "calorias": 31,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 3.6,
+    "gordura": 0
+});
+
+
+listaAlimentos.push({
+    "id": 28,
+    "nome": "Leite condensado",
+    "calorias": 325,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 7.5,
+    "gordura": 0
+});
+
+listaAlimentos.push({
+    "id": 29,
+    "nome": "Gelatinas sabores",
+    "calorias": 357,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 18.5,
+    "gordura": 0
+});
+
+
+listaAlimentos.push({
+    "id": 30,
+    "nome": "Macarrão cozido",
+    "calorias": 150,
+    "peso": 100,
+    "unidade": "g",
+    "proteina": 3.54,
     "gordura": 0
 });
