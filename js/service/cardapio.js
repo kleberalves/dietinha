@@ -10,6 +10,7 @@ function adicionarItemCardapio() {
             }
             var totalCalorias = 0;
             var totalProteinas = 0;
+            var totalPeso = 0;
 
             for (var i = 0; i < listaIngredientes.length; i++) {
                 var itemCalculo = listaIngredientes[i];
@@ -17,13 +18,14 @@ function adicionarItemCardapio() {
                 if (i === 0) {
                     nomeItemCardapio += itemCalculo.nome;
                 } else if (i === listaIngredientes.length - 1) {
-                    nomeItemCardapio += " e " + itemCalculo.nome;
+                    nomeItemCardapio += " e " + itemCalculo.nome.toLowerCase();
                 } else {
-                    nomeItemCardapio += ", " + itemCalculo.nome;
+                    nomeItemCardapio += ", " + itemCalculo.nome.toLowerCase();
                 }
 
                 totalCalorias += itemCalculo.calorias;
                 totalProteinas += itemCalculo.proteinas;
+                totalPeso += itemCalculo.peso;
             }
 
             var itemCardapio = {
@@ -32,6 +34,7 @@ function adicionarItemCardapio() {
                 "tipo": tipoItemCardapio,
                 "calorias": totalCalorias,
                 "proteinas": totalProteinas,
+                "peso": totalPeso,
                 "itens": listaIngredientes,
                 "created": new Date()
             }
@@ -75,14 +78,14 @@ function showCardapio(cardapio) {
             var peso = cardapio[i].itens[t].peso === undefined ? "100" : cardapio[i].itens[t].peso;
             var unidade = cardapio[i].itens[t].unidade === undefined ? "g" : cardapio[i].itens[t].unidade;
 
-            strOutputList += "<div class='item mini'><b>" + cardapio[i].itens[t].nome + "</b> <br/>" + peso + unidade;
-            strOutputList += "</div>";
+            strOutputList += "<div class='item mini'>" + cardapio[i].itens[t].nome + "<span>" + peso + unidade;
+            strOutputList += "</span></div>";
         }
         strOutputList += "</div>";
 
-
-        var strOutput = "<div class='listItem delay" + contDelay + "'>";
-        strOutput += "  <div class='title'>" + cardapio[i].nome + "<span>" + cardapio[i].calorias + " de calorias e " + cardapio[i].proteinas + " de proteínas</span></div> ";
+        var strOutput = "<div class='listItem cardapio delay" + contDelay + "'>";
+        strOutput += "  <div class='title'>" + cardapio[i].nome + "<div><span>" + cardapio[i].peso + "</span> gramas, ";
+        strOutput += "<span>" + cardapio[i].calorias + "</span> de calorias e <span>" + cardapio[i].proteinas + "</span> de proteínas</div></div> ";
         strOutput += strOutputList;
         strOutput += "  <button class=\"btn-remove\" onclick=\"removerItemCardapio('" + cardapio[i].id + "')\">x</button>";
         strOutput += "</div>";

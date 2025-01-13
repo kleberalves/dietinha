@@ -20,6 +20,11 @@
     animation-timing-function: ease-in-out;
 }
 
+.list.selecionados {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .list.mini {
     display: flex;
     flex-wrap: wrap;
@@ -28,7 +33,12 @@
 
 .list>.item.mini {
     font-size: 14px;
-    color: #909090;
+    border: 0px;
+}
+
+.list>.item.mini span {
+    display: block;
+
 }
 
 .list>.cols {
@@ -116,8 +126,8 @@
     border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
 
-    box-shadow: 3px 3px 10px 0px #ccc;
-    padding: 10px;
+    box-shadow: 3px 3px 10px 0px rgb(204 204 204 / 34%);
+    padding: 15px;
     border-radius: 21px;
 
     margin: 10px;
@@ -128,17 +138,22 @@
     animation-timing-function: ease-in-out;
 }
 
+.listItem.cardapio {
+    padding-bottom: 0px;
+}
+
 .listItem .title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #e87610;
+    font-size: 18px;
     margin-bottom: 7px;
 }
 
-.listItem .title span {
+.listItem .title div {
     font-size: 12px;
-    padding-left: 5px;
-    color: #9d9d9d;
+    margin-top: 5px;
+}
+
+.listItem .title div span {
+    font-size: 14px;
 }
 
 .listItem .actions {

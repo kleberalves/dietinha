@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="css/buttons.css" crossorigin="" />
     <link rel="stylesheet" href="css/form.css" crossorigin="" />
     <link rel="stylesheet" href="css/style.css?v2" crossorigin="" />
-    <link rel="stylesheet" href="css/theme.css" crossorigin="" />
     <link rel="stylesheet" href="css/show.message.css" crossorigin="" />
     <link rel="stylesheet" href="css/animations.css" crossorigin="" />
     <link rel="stylesheet" href="css/list.css" crossorigin="" />
+    <link rel="stylesheet" href="css/theme.light.css" crossorigin="" id="styTheme" />
+
 </head>
 
 <body>
@@ -84,14 +85,14 @@
                 <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br />
             </div>
             <div class="action">
-                <button onclick="calcularConsumoDiario()">Calcular</button>
+                <button class="btn-main" onclick="calcularConsumoDiario()">Calcular</button>
             </div>
         </div>
     </div>
 
 
     <script src="js/data/lista.alimentos.js"></script>
-    <script src="js/data/local.storage.js"></script>
+    <script src="js/lib/local.storage.js"></script>
     <script src="js/lib/show.message.js"></script>
     <script src="js/lib/uuidv4.js"></script>
     <script src="js/lib/forms.js"></script>

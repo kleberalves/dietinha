@@ -1,0 +1,90 @@
+body {
+    background-color: #fff;
+}
+
+.txtSuccess {
+    color: #007767;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* TEXTS */
+
+h4 {
+    color: #000000;
+    border-bottom-color: #fff1cf;
+}
+
+/* BUTTONS */
+
+.btn-remove {
+    background-color: #f03272;
+}
+
+.btn-ok {
+    background-color: #4CAF50;
+}
+
+.btn-cancelar {
+    background-color: #000000;
+}
+
+/* TABS */
+
+.btn-tab-switch {
+    background-color: #ccc;
+}
+
+/* LISTAS */
+
+.list>.title {
+    color: #e87610;
+}
+
+.list>.cols>div > .text {
+    color: #4CAF50;
+}
+
+.list>.cols.total {
+    background-color: #fafafa;
+}
+
+.listItem .title {
+    color: #e87610;
+}
+
+.listItem .title div {
+    color: #9d9d9d;
+
+}
+.listItem .title div span {
+    color: #06a47a;
+}
+
+.list>.item.mini {
+    color: #000;
+}
+.list>.item.mini span{
+    color: #06a47a;
+}
+
+
+/* ALERTS */
+
+.alert {
+    color: #fff;
+    background-color: #ccc;
+    box-shadow: 3px 3px 100px #000;
+}
+
+.alert.error {
+    background-color: brown;
+}
+
+.alert.success {
+    background-color: #4CAF50;
+}
+
+.alert.warning {
+    background-color: #4f3103;
+}
