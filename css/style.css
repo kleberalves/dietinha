@@ -10,7 +10,6 @@ body {
 
 label {
     font-weight: bold;
-    color: #124c74;
     margin-bottom: 5px;
     display: block;
 }
@@ -43,9 +42,6 @@ input[type="text"] {
     padding: 5px 10px;
     border-radius: 10px;
     margin-top: 2px;
-    border-color: #ccc;
-    border-style: solid;
-    box-shadow: 3px 3px 8px #e0dede inset;
 }
 
 .textForm {

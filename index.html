@@ -90,6 +90,10 @@
         </div>
     </div>
 
+    <div class="footer">
+        <button class="btn-mini" onclick="swapTheme()">Trocar tema</button>
+    </div>
+
 
     <script src="js/data/lista.alimentos.js"></script>
     <script src="js/lib/local.storage.js"></script>
@@ -99,8 +103,10 @@
     <script src="js/service/calculadora.alimentos.js"></script>
     <script src="js/service/cardapio.js"></script>
     <script src="js/service/consumo.diario.js"></script>
+    <script src="js/service/configs.js"></script>
 
     <script>
+        loadConfigs();
         showConsumoDiario();
         showCardapio();
     </script>

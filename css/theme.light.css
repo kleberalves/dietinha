@@ -2,10 +2,41 @@ body {
     background-color: #fff;
 }
 
+* {
+    color: #000;
+}
+
+/* FORMS */
+
+.form>.title {
+    color: #000;
+}
+
+label {
+    color: #124c74;
+}
+
+.tab {
+    box-shadow: 10px 10px 100px 2px #ccc;
+}
+
 .txtSuccess {
     color: #007767;
     font-size: 16px;
     font-weight: bold;
+}
+
+button {
+    background-color: #124c74;
+    color: #fff;
+}
+
+
+input[type="number"],
+input[type="text"] {
+    border-color: #ccc;
+    border-style: solid;
+    box-shadow: 3px 3px 8px #e0dede inset;
 }
 
 /* TEXTS */
@@ -41,12 +72,20 @@ h4 {
     color: #e87610;
 }
 
-.list>.cols>div > .text {
+.list>.cols>div>.text {
     color: #4CAF50;
 }
 
 .list>.cols.total {
     background-color: #fafafa;
+}
+
+.list>.cols.total>div {
+    color: #000;
+}
+
+.list>.cols>.options>label {
+    background-color: #f3f3f3;
 }
 
 .listItem .title {
@@ -57,6 +96,7 @@ h4 {
     color: #9d9d9d;
 
 }
+
 .listItem .title div span {
     color: #06a47a;
 }
@@ -64,7 +104,8 @@ h4 {
 .list>.item.mini {
     color: #000;
 }
-.list>.item.mini span{
+
+.list>.item.mini span {
     color: #06a47a;
 }
 

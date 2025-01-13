@@ -25,15 +25,23 @@
     padding-right: 0px;
 }
 
+.list.selecionados .item{
+    padding-right: 30px;
+}
+
 .list.mini {
     display: flex;
     flex-wrap: wrap;
     padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .list>.item.mini {
     font-size: 14px;
     border: 0px;
+    margin-bottom: 5px;
+    padding-bottom: 0px;
 }
 
 .list>.item.mini span {
@@ -84,7 +92,6 @@
 
 .list>.cols>.options>label {
     width: 46%;
-    background-color: #f3f3f3;
     margin: auto;
     border-radius: 16px;
     height: 40px;

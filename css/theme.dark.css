@@ -2,9 +2,37 @@ body {
     background-color: #000;
 }
 
+* {
+    color: #fff;
+}
+
+/* FORMS */
+
+.form>.title {
+    color: #fff;
+}
+
+label {
+    color: #5db1ea;
+}
+
+.tab {
+    box-shadow: 10px 10px 100px 2px #3a3a3a;
+}
+
+button {
+    background-color: #a4d8ff;
+    color: #000000;
+}
+
+input[type="number"],
+input[type="text"] {
+    box-shadow: 3px 3px 8px #59595982 inset;
+    background-color: #111111;
+    border-color: #808080;
+}
+
 .txtSuccess {
-
-
     color: #007767;
     font-size: 16px;
     font-weight: bold;
@@ -13,28 +41,33 @@ body {
 /* TEXTS */
 
 h4 {
-    color: #000000;
-    border-bottom-color: #fff1cf;
+    color: #fff;
+    border-bottom-color: #383838;
 }
 
 /* BUTTONS */
+.btn-mini {
+    background-color: #515151;
+    color: #ffffff;
+}
 
 .btn-remove {
     background-color: #f03272;
+    color: #fff;
 }
 
 .btn-ok {
-    background-color: #007767;
+    background-color: #4CAF50;
 }
 
 .btn-cancelar {
-    background-color: #000000;
+    background-color: #c6c6c6;
 }
 
 /* TABS */
 
 .btn-tab-switch {
-    background-color: #ccc;
+    background-color: #454545;
 }
 
 /* LISTAS */
@@ -43,12 +76,20 @@ h4 {
     color: #e87610;
 }
 
-.list>.cols>div > .text {
+.list>.cols>div>.text {
     color: #4CAF50;
 }
 
 .list>.cols.total {
-    background-color: #fafafa;
+    background-color: #232323;
+}
+
+.list>.cols.total>div {
+    color: #fff;
+}
+
+.list>.cols>.options>label {
+    background-color: #2f2f2f;
 }
 
 .listItem .title {
@@ -59,16 +100,26 @@ h4 {
     color: #9d9d9d;
 
 }
+
 .listItem .title div span {
     color: #06a47a;
 }
+
+.list>.item.mini {
+    color: #fff;
+}
+
+.list>.item.mini span {
+    color: #06a47a;
+}
+
 
 /* ALERTS */
 
 .alert {
     color: #fff;
     background-color: #ccc;
-    box-shadow: 3px 3px 100px #000;
+    box-shadow: 3px 3px 100px #646464;
 }
 
 .alert.error {
@@ -76,7 +127,7 @@ h4 {
 }
 
 .alert.success {
-    background-color: #2b7515;
+    background-color: #4CAF50;
 }
 
 .alert.warning {
