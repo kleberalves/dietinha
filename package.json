@@ -1,0 +1,19 @@
+{
+  "name": "dietinha",
+  "version": "1.0.0",
+  "description": "Rastreamento de calorias",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kleberalves/dietinha.git"
+  },
+  "author": "Kleber Alves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kleberalves/dietinha/issues"
+  },
+  "homepage": "https://github.com/kleberalves/dietinha#readme"
+}

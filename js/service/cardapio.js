@@ -16,6 +16,8 @@ function adicionarItemCardapio() {
 
                 if (i === 0) {
                     nomeItemCardapio += itemCalculo.nome;
+                } else if (i === listaIngredientes.length - 1) {
+                    nomeItemCardapio += " e " + itemCalculo.nome;
                 } else {
                     nomeItemCardapio += ", " + itemCalculo.nome;
                 }
@@ -58,10 +60,10 @@ function showCardapio(cardapio) {
 
     var outputListaCardapio = document.querySelector('#outputListaCardapio');
 
-    var strCafeManha = "<h4>Café da manhã</h4>";
-    var strAlmoco = "<h4>Almoço</h4>";
-    var strCafeTarde = "<h4>Café/Lanche da tarde</h4>";
-    var strJantar = "<h4>Jantar</h4>";
+    var strCafes = "<h4>Café da manhã/tarde</h4>";
+    var strAlmocoJantar = "<h4>Almoço/jantar</h4>";
+    var strLanches = "<h4>Lanches</h4>";
+    var strSobremesas = "<h4>Sobremesas</h4>";
 
     var contDelay = 0;
 
@@ -69,7 +71,11 @@ function showCardapio(cardapio) {
 
         var strOutputList = "<div class='list mini'>";
         for (var t = 0; t < cardapio[i].itens.length; t++) {
-            strOutputList += "<div class='item mini'><b>" + cardapio[i].itens[t].nome + "</b> " + cardapio[i].itens[t].peso + cardapio[i].itens[t].unidade;
+
+            var peso = cardapio[i].itens[t].peso === undefined ? "100" : cardapio[i].itens[t].peso;
+            var unidade = cardapio[i].itens[t].unidade === undefined ? "g" : cardapio[i].itens[t].unidade;
+
+            strOutputList += "<div class='item mini'><b>" + cardapio[i].itens[t].nome + "</b> <br/>" + peso + unidade;
             strOutputList += "</div>";
         }
         strOutputList += "</div>";
@@ -81,26 +87,25 @@ function showCardapio(cardapio) {
         strOutput += "  <button class=\"btn-remove\" onclick=\"removerItemCardapio('" + cardapio[i].id + "')\">x</button>";
         strOutput += "</div>";
 
-        if (cardapio[i].tipo === "CM") {
-            strCafeManha += strOutput;
-        }
-
-        if (cardapio[i].tipo === "AL") {
-            strAlmoco += strOutput;
-        }
-
-        if (cardapio[i].tipo === "CT") {
-            strCafeTarde += strOutput;
-        }
-
-        if (cardapio[i].tipo === "JA") {
-            strJantar += strOutput;
+        switch (cardapio[i].tipo) {
+            case "CA":
+                strCafes += strOutput;
+                break;
+            case "AJ":
+                strAlmocoJantar += strOutput;
+                break;
+            case "LC":
+                strLanches += strOutput;
+                break;
+            case "SM":
+                strSobremesas += strOutput;
+                break;
         }
 
         contDelay++;
     }
 
-    outputListaCardapio.innerHTML = strCafeManha + strAlmoco + strCafeTarde + strJantar;
+    outputListaCardapio.innerHTML = strCafes + strAlmocoJantar + strLanches + strSobremesas;
 }
 
 function removerItemCardapio(id) {
