@@ -25,7 +25,7 @@
     padding-right: 0px;
 }
 
-.list.selecionados .item{
+.list.selecionados .item {
     padding-right: 30px;
 }
 
@@ -116,8 +116,24 @@
 .list.resumo-calorias-diarias>.cols>div {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
+.list.resumo-calorias-diarias>.cols>div .title {
+    font-weight: 100;
+}
+
+@media (max-width: 500px) {
+    .list.resumo-calorias-diarias>.cols>div {
+        width: 45%;
+    }
+
+    .list>.cols {
+        flex-wrap: wrap;
+    }
+}
 
 .listItem {
     display: flex;
@@ -144,13 +160,15 @@
 }
 
 .listItem .title {
-    font-size: 18px;
-    margin-bottom: 7px;
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: 100;
 }
 
 .listItem .title div {
-    font-size: 12px;
+    font-size: 15px;
     margin-top: 5px;
+    font-weight: 500;
 }
 
 .listItem .title div span {

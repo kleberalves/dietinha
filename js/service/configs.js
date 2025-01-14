@@ -17,14 +17,31 @@ function setTheme(theme) {
     var link = document.getElementById("styTheme");
     link.setAttribute("href", "css/theme." + theme + ".css");
 
-    saveDataLocal({ "theme": theme }, "theme");
+    saveConfig("theme", theme);
 }
 
+
 function loadTheme() {
-    var theme = loadDataLocal("theme");
-    if (theme === null) {
+    var config = loadConfig();
+    if (config === null || config.theme === undefined) {
         setTheme("light");
     } else {
-        setTheme(theme.theme);
+        setTheme(config.theme);
     }
+}
+
+function loadConfig() {
+    return loadDataLocal("config");
+}
+
+function saveConfig(key, value) {
+
+    var config = loadConfig();
+
+    config = {
+        ...config,
+        [key]: value
+    }
+
+    saveDataLocal(config, "config");
 }

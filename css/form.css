@@ -24,12 +24,19 @@
     width: 100%;
     font-weight: bold;
     margin-top: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .form>div {
     margin-top: 10px;
     width: 49%;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 500px) {
+    .form>div {
+        width: 99%;
+    }
 }
 
 .form>.action {
@@ -40,10 +47,7 @@
 
 .form .full {
     width: 100%;
-}
-
-input[type="number"] {
-    width: 100%;
+    margin: 0px;
 }
 
 .tab {
@@ -54,6 +58,12 @@ input[type="number"] {
     margin-bottom: 20px;
     overflow: hidden;
     min-width: 391px;
+}
+
+@media (max-width: 500px) {
+    .tab {
+        min-width: 95%;
+    }
 }
 
 .tab.close {

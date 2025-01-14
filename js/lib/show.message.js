@@ -47,6 +47,7 @@ function showConfirm(msg, callback) {
 
 function removeWindow() {
     document.getElementById("msgWindow").remove();
+    document.getElementById("main").classList.remove("blur");
 }
 
 function createWindow(type) {
@@ -64,6 +65,8 @@ function createWindow(type) {
 
     var body = document.getElementsByTagName("body");
     body[0].appendChild(msgWindow);
+
+    document.getElementById("main").classList.add("blur");
 
     return msgWindow;
 }

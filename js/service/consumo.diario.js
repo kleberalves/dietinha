@@ -54,7 +54,6 @@ function calcularConsumoDiario() {
             var resultadoParaGanharMassa = Math.round(resultadoCaloriasPorDia + (resultadoCaloriasPorDia * 0.1));
             var resultadoProteinas = Math.round(numPeso * 1.6);
 
-
             var resultado = {
                 "genero": genero,
                 "altura": altura,
@@ -105,10 +104,10 @@ function showConsumoDiario(resultado) {
 
     var msgResultado = "<div class='list resumo-calorias-diarias' style='margin-bottom: 20px;'>";
     msgResultado += "<div class='cols'>";
-    msgResultado += "<div><div class='title'>Manter o peso</div> <b>" + resultado.manterPeso + "</b> </div>";
-    msgResultado += "<div><div class='title'>Para emagrecer</div> <b>" + resultado.perderPeso + "</b> </div>";
-    msgResultado += "<div><div class='title'>Para ganhar massa</div> <b>" + resultado.ganharMassa + "</b> </div>";
-    msgResultado += "<div><div class='title'>Proteínas</div> <b>" + resultado.proteinas + "</b> </div>";
+    msgResultado += "<div><div class='title'>Manter o peso</div> <b>" + resultado.manterPeso + " cal por dia</b> </div>";
+    msgResultado += "<div><div class='title'>Para emagrecer</div> <b>" + resultado.perderPeso + " cal por dia</b> </div>";
+    msgResultado += "<div><div class='title'>Para ganhar massa</div> <b>" + resultado.ganharMassa + " cal por dia</b> </div>";
+    msgResultado += "<div><div class='title'>Proteínas</div> <b>" + resultado.proteinas + " por dia</b> </div>";
     msgResultado += "</div>";
     msgResultado += "</div>";
 

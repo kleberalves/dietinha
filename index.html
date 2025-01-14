@@ -19,81 +19,89 @@
 </head>
 
 <body>
-
-    <div class="tab close">
-        <div class="btn-tab-switch" onclick="swapForms(0, this)"><div></div></div>
-        <div class="form">
-            <div class="title">O que você comeu hoje?</div>
-        </div>
-    </div>
-
-    <div class="tab open">
-        <div class="btn-tab-switch" onclick="swapForms(1, this)"><div></div></div>
-        <div class="form">
-            <div class="title">Calculadora de alimentos</div>
-            <div class="full">
-                <label>Digite o nome do alimento:</label>
-                <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
+    <div id="main">
+        <div class="tab close">
+            <div class="btn-tab-switch" onclick="swapForms(0, this)">
+                <div></div>
             </div>
-            <div class="full">
-                <div id='outputListaAlimentos'></div>
-                <div id='outputHistoricoCalculos'></div>
+            <div class="form">
+                <div class="title">O que você comeu hoje?</div>
             </div>
         </div>
-    </div>
 
-    <div class="tab close">
-        <div class="btn-tab-switch" onclick="swapForms(2, this)"><div></div></div>
-        <div class="form">
-            <div class="title">Meu cardápio</div>
-            <div class="full">
-                <div id='outputListaCardapio'></div>
+        <div class="tab open">
+            <div class="btn-tab-switch" onclick="swapForms(1, this)">
+                <div></div>
+            </div>
+            <div class="form">
+                <div class="title">Calculadora de alimentos</div>
+                <div class="full">
+                    <label>Digite o nome do alimento:</label>
+                    <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
+                </div>
+                <div class="full">
+                    <div id='outputListaAlimentos'></div>
+                    <div id='outputHistoricoCalculos'></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="tab close">
-        <div class="btn-tab-switch" onclick="swapForms(3, this)"><div></div></div>
-        <div class="form">
-            <div class="title">Consumo diário de calorías</div>
-
-            <div id='outputResultadoConsumoDiario' class="full"></div>
-
-            <div>
-                <label>Digite a idade:</label>
-                <input type="number" class="textForm" id="inputIdade" />
+        <div class="tab close">
+            <div class="btn-tab-switch" onclick="swapForms(2, this)">
+                <div></div>
             </div>
-            <div>
-                <label>Digite o peso:</label>
-                <input type="number" class="textForm" id="inputPeso" />
-                <div class="descricao">Em quilogramas.</div>
-            </div>
-            <div>
-                <label>Digite a altura:</label>
-                <input type="number" id="inputAltura" />
-                <div class="descricao">Em centímetros.</div>
-            </div>
-            <div>
-                <label>Gênero:</label>
-                <input type="radio" name="inputGenero" value="M" /> Masculino <br />
-                <input type="radio" name="inputGenero" value="F" /> Feminino <br />
-            </div>
-            <div>
-                <label>Nível de atividade física:</label>
-                <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
-                <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
-                <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br />
-            </div>
-            <div class="action">
-                <button class="btn-main" onclick="calcularConsumoDiario()">Calcular</button>
+            <div class="form">
+                <div class="title">Meu cardápio</div>
+                <div class="full">
+                    <div id='outputListaCardapio'></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="footer">
-        <button class="btn-mini" onclick="swapTheme()">Trocar tema</button>
-    </div>
+        <div class="tab close">
+            <div class="btn-tab-switch" onclick="swapForms(3, this)">
+                <div></div>
+            </div>
+            <div class="form">
+                <div class="title">Consumo diário de calorías</div>
 
+                <div id='outputResultadoConsumoDiario' class="full"></div>
+
+                <div>
+                    <label>Digite a idade:</label>
+                    <input type="number" class="textForm" id="inputIdade" />
+                </div>
+                <div>
+                    <label>Digite o peso:</label>
+                    <input type="number" class="textForm" id="inputPeso" />
+                    <div class="descricao">Em quilogramas.</div>
+                </div>
+                <div>
+                    <label>Digite a altura:</label>
+                    <input type="number" id="inputAltura" />
+                    <div class="descricao">Em centímetros.</div>
+                </div>
+                <div>
+                    <label>Gênero:</label>
+                    <input type="radio" name="inputGenero" value="M" /> Masculino <br />
+                    <input type="radio" name="inputGenero" value="F" /> Feminino <br />
+                </div>
+                <div>
+                    <label>Nível de atividade física:</label>
+                    <input type="radio" name="inputAtividadeFisica" value="1" /> Sedentário <br />
+                    <input type="radio" name="inputAtividadeFisica" value="2" /> Ativo <br />
+                    <input type="radio" name="inputAtividadeFisica" value="3" /> Muito ativo <br />
+                </div>
+                <div class="action">
+                    <button class="btn-main" onclick="calcularConsumoDiario()">Calcular</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <button class="btn-mini" onclick="swapTheme()">Trocar tema</button>
+        </div>
+    </div>
 
     <script src="js/data/lista.alimentos.js"></script>
     <script src="js/lib/local.storage.js"></script>

@@ -34,9 +34,8 @@ button {
 
 input[type="number"],
 input[type="text"] {
-    border-color: #ccc;
-    border-style: solid;
-    box-shadow: 3px 3px 8px #e0dede inset;
+    box-shadow: 2px 3px 11px #e0dede inset;
+  
 }
 
 /* TEXTS */
@@ -112,7 +111,7 @@ h4 {
 }
 
 .listItem .title div span {
-    color: #06a47a;
+    color: #e87610;
 }
 
 .list>.item.mini {
@@ -141,5 +140,5 @@ h4 {
 }
 
 .alert.warning {
-    background-color: #4f3103;
+    background-color: #9a5900;
 }

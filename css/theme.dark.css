@@ -27,9 +27,8 @@ button {
 
 input[type="number"],
 input[type="text"] {
-    box-shadow: 3px 3px 8px #59595982 inset;
+    box-shadow: 2px 3px 11px #59595982 inset;
     background-color: #111111;
-    border-color: #808080;
 }
 
 .txtSuccess {
@@ -105,7 +104,7 @@ h4 {
 }
 
 .listItem .title {
-    color: #e87610;
+    color: #5db1ea;
 }
 
 .listItem .title div {
@@ -114,7 +113,7 @@ h4 {
 }
 
 .listItem .title div span {
-    color: #06a47a;
+    color: #5db1ea;
 }
 
 .list>.item.mini {
