@@ -107,7 +107,7 @@ function showConsumoDiario(resultado) {
     msgResultado += "<div><div class='title'>Manter o peso</div> <b>" + resultado.manterPeso + " cal por dia</b> </div>";
     msgResultado += "<div><div class='title'>Para emagrecer</div> <b>" + resultado.perderPeso + " cal por dia</b> </div>";
     msgResultado += "<div><div class='title'>Para ganhar massa</div> <b>" + resultado.ganharMassa + " cal por dia</b> </div>";
-    msgResultado += "<div><div class='title'>Proteínas</div> <b>" + resultado.proteinas + " por dia</b> </div>";
+    msgResultado += "<div><div class='title'>Proteínas</div> <b>" + resultado.proteinas + "g por dia</b> </div>";
     msgResultado += "</div>";
     msgResultado += "</div>";
 
