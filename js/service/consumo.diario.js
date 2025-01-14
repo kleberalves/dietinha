@@ -96,7 +96,7 @@ function showConsumoDiario(resultado) {
         resultado = loadConsumoDiario();
     }
 
-    if (resultado === undefined) {
+    if (resultado === undefined || resultado === null) {
         return;
     }
 
