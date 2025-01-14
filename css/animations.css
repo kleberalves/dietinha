@@ -1,6 +1,8 @@
 /* Transição padrão */
 
-.btn-tab-switch,
+.btn-tab-switch>div,
+.btn-tab-switch>div::after,
+.btn-tab-switch>div::before,
 .tab,
 button,
 .listItem {

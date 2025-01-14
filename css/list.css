@@ -113,10 +113,6 @@
     color: #5495c2;
 }
 
-.list.resumo-calorias-diarias {
-    box-shadow: 3px 3px 10px 0px #ccc;
-}
-
 .list.resumo-calorias-diarias>.cols>div {
     display: flex;
     flex-wrap: wrap;
@@ -130,10 +126,8 @@
     align-items: stretch;
     flex-direction: column;
     padding-bottom: 8px;
-    border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
 
-    box-shadow: 3px 3px 10px 0px rgb(204 204 204 / 34%);
     padding: 15px;
     border-radius: 21px;
 

@@ -62,11 +62,21 @@ h4 {
 
 /* TABS */
 
-.btn-tab-switch {
+.btn-tab-switch > div {
     background-color: #ccc;
 }
 
+.tab.open .btn-tab-switch > div {
+    background-color: #E91E67;
+    color: #fff;
+}
+
 /* LISTAS */
+
+.list.resumo-calorias-diarias {
+    background-color: #f5f5f5;
+}
+
 
 .list>.title {
     color: #e87610;
@@ -86,6 +96,10 @@ h4 {
 
 .list>.cols>.options>label {
     background-color: #f3f3f3;
+}
+
+.listItem.cardapio {
+    background-color: #f5f5f5;
 }
 
 .listItem .title {

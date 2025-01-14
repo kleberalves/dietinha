@@ -1,24 +1,27 @@
 function swapForms(idx) {
 
     var tabs = document.getElementsByClassName('tab');
-    var state = tabs[idx].getAttribute("state");
+    var state = tabs[idx].classList.contains("close");
 
-    if (state === undefined || state === null || state === "open") {
-        tabs[idx].setAttribute("state", "close");
+    if (!state) {
+        tabs[idx].classList.remove("open");
 
         //Define temporariamente a altura em pixels pelo tamanho interno (form)
         //substituindo o parâmento "auto"
         tabs[idx].style.height = tabs[idx].children[1].clientHeight;
 
         setTimeout(() => {
+            tabs[idx].classList.add("close");
             tabs[idx].style.height = 42;
         }, 150);
     } else {
+
         var newHeight = tabs[idx].children[1].clientHeight;
-        tabs[idx].setAttribute("state", "open");
 
         setTimeout(() => {
             tabs[idx].style.height = newHeight;
+            tabs[idx].classList.add("open");
+            tabs[idx].classList.remove("close");
             setTimeout(() => {
                 tabs[idx].style.height = "auto";
             }, 250);
