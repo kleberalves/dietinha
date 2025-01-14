@@ -114,9 +114,13 @@
     <script src="js/service/configs.js"></script>
 
     <script>
-        loadConfigs();
-        showConsumoDiario();
-        showCardapio();
+        try {
+            loadConfigs();
+            showConsumoDiario();
+            showCardapio();
+        } catch (e) {
+            alert(e.message);
+        }
     </script>
 </body>
 
