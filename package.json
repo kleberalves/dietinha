@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kleberalves/dietinha/issues"
   },
-  "homepage": "https://github.com/kleberalves/dietinha#readme"
+  "homepage": "https://github.com/kleberalves/dietinha#readme",
+  "dependencies": {
+    "@neplex/vectorizer": "^0.0.5"
+  }
 }

@@ -3,12 +3,15 @@
 .btn-tab-switch>div,
 .btn-tab-switch>div::after,
 .btn-tab-switch>div::before,
+.btn-trash::before,
 .tab,
 button,
 .listItem {
     transition: all 0.3s ease-in-out;
+    animation-name: slide-in;
+    animation-timing-function: ease-in-out;
+    animation-duration: 0.5s;
 }
-
 
 @keyframes slide-in {
     from {

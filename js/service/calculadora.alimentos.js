@@ -24,7 +24,7 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
                 var peso = listaAlimentos[i].peso === undefined ? "100" : listaAlimentos[i].peso;
                 var unidade = listaAlimentos[i].unidade === undefined ? "g" : listaAlimentos[i].unidade;
 
-                msg += "<div class='listItem delay" + cont + "'>";
+                msg += "<div class='listItem filtro delay" + cont + "'>";
                 msg += "<div class='title'>" + listaAlimentos[i].nome + "<div><span>" + listaAlimentos[i].calorias + "</span> cal por <span>" + peso + unidade + "</span></div></div> ";
                 msg += "<div class='actions'>";
                 msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 85px;height: 40px;' placeholder='peso' oninput=\"calcularCaloriaProduto(this.value," + i + ", '" + listaAlimentos[i].id + "')\" />";

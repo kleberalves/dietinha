@@ -88,7 +88,9 @@ function showCardapio(cardapio) {
         strOutput += "  <div class='title'>" + cardapio[i].nome + "<div><span>" + cardapio[i].peso + "</span> gramas, ";
         strOutput += "<span>" + cardapio[i].calorias + "</span> de calorias e <span>" + cardapio[i].proteinas + "</span> de proteínas</div></div> ";
         strOutput += strOutputList;
-        strOutput += "  <button class=\"btn-remove\" onclick=\"removerItemCardapio('" + cardapio[i].id + "')\">x</button>";
+        strOutput += "<div class='actions right'>";
+        strOutput += "   <div class=\"btn-trash\" onclick=\"removerItemCardapio('" + cardapio[i].id + "')\"></div>";
+        strOutput += "</div>";
         strOutput += "</div>";
 
         switch (cardapio[i].tipo) {

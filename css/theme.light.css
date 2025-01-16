@@ -35,7 +35,8 @@ button {
 input[type="number"],
 input[type="text"] {
     box-shadow: 2px 3px 11px #e0dede inset;
-  
+ 
+    border: 1px solid #000; 
 }
 
 /* TEXTS */
@@ -100,6 +101,16 @@ h4 {
     background-color: #f5f5f5;
 }
 
+.listItem.filtro {
+    background-color: #f1f1f1;
+}
+
+.listItem.filtro .actions .action {
+    color: #000;
+}
+
+
+
 .listItem .title {
     color: #e87610;
 }
@@ -139,5 +150,5 @@ h4 {
 }
 
 .alert.warning {
-    background-color: #9a5900;
+    background-color: #c87200;
 }
