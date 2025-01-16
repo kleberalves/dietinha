@@ -109,10 +109,9 @@ h4 {
     color: #000;
 }
 
-
-
 .listItem .title {
     color: #e87610;
+    border-bottom-color: #ccc;
 }
 
 .listItem .title div {

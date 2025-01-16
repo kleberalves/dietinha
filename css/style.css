@@ -37,6 +37,10 @@ input[type="number"] {
     width: 100%;
 }
 
+#txtPesquisa {
+    margin-bottom: 15px;;
+}
+
 .textForm {
     width: 100%;
     height: 40px;

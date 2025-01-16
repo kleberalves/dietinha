@@ -79,13 +79,13 @@ function showCardapio(cardapio) {
             var peso = cardapio[i].itens[t].peso === undefined ? "100" : cardapio[i].itens[t].peso;
             var unidade = cardapio[i].itens[t].unidade === undefined ? "g" : cardapio[i].itens[t].unidade;
 
-            strOutputList += "<div class='item mini'>" + cardapio[i].itens[t].nome + "<span>" + peso + unidade;
-            strOutputList += "</span></div>";
+            strOutputList += "<div class='item mini'><span>" + peso + unidade + "</span> de " + cardapio[i].itens[t].nome;
+            strOutputList += "</div>";
         }
         strOutputList += "</div>";
 
         var strOutput = "<div class='listItem cardapio delay" + contDelay + "'>";
-        strOutput += "  <div class='title'>" + cardapio[i].nome + "<div><span>" + cardapio[i].peso + "</span> gramas, ";
+        strOutput += "  <div class='title'>" + cardapio[i].nome + "<div> Total de <span>" + cardapio[i].peso + "</span>g, ";
         strOutput += "<span>" + cardapio[i].calorias + "</span> de calorias e <span>" + cardapio[i].proteinas + "</span> de proteínas</div></div> ";
         strOutput += strOutputList;
         strOutput += "<div class='actions right'>";

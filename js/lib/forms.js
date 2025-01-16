@@ -17,6 +17,12 @@ function swapForms(idx) {
         }, 150);
     } else {
 
+        for (var i = 0; i < tabs.length; i++) {
+            if (tabs[i].id !== tabs[idx].id) {
+                closeForm(tabs[i].id);
+            }
+        }
+
         var newHeight = tabs[idx].children[1].clientHeight;
 
         setTimeout(() => {
@@ -50,16 +56,20 @@ function closeForm(tabId) {
         return;
     }
 
-    tab.classList.remove("open");
+    //Só fecha se estiver aberto
+    if (tab.classList.contains("open")) {
 
-    //Define temporariamente a altura em pixels pelo tamanho interno (form)
-    //substituindo o parâmento "auto"
-    tab.style.height = tab.children[1].clientHeight;
+        tab.classList.remove("open");
 
-    setTimeout(() => {
-        tab.style.height = 42;
-        tab.classList.add("close");
-    }, 150);
+        //Define temporariamente a altura em pixels pelo tamanho interno (form)
+        //substituindo o parâmento "auto"
+        tab.style.height = tab.children[1].clientHeight;
+
+        setTimeout(() => {
+            tab.style.height = 42;
+            tab.classList.add("close");
+        }, 150);
+    }
 
 }
 

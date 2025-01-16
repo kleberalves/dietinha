@@ -56,7 +56,7 @@ h4 {
 }
 
 .btn-cancelar {
-    background-color: #c6c6c6;
+    background-color: #555555;
 }
 
 /* TABS */
@@ -115,6 +115,7 @@ h4 {
 
 .listItem .title {
     color: #5db1ea;
+    border-bottom-color: #232323;
 }
 
 .listItem .title div {
@@ -140,7 +141,7 @@ h4 {
 .alert {
     color: #fff;
     background-color: #ccc;
-    box-shadow: 3px 3px 100px #646464;
+    box-shadow: 3px 3px 30px #000000;
 }
 
 .alert.error {

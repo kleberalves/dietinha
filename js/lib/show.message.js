@@ -38,6 +38,7 @@ function showConfirm(msg, callback) {
     var btnCancelar = document.createElement("button");
     btnCancelar.innerText = "Cancelar";
     btnCancelar.classList.add("btn-cancelar");
+    btnCancelar.classList.add("delay1");
     btnCancelar.onclick = () => {
         removeWindow();
     }
