@@ -43,8 +43,8 @@ function adicionarItemCardapio() {
             showCardapio(cardapio);
             reiniciarListaIngredientes();
 
-            closeForm(1);
-            openForm(2);
+            closeForm("tabHomeCalculadora");
+            openForm("tabHomeCardapio");
         }
     } catch (e) {
         showWarning(e.message);
@@ -53,12 +53,13 @@ function adicionarItemCardapio() {
 
 function showCardapio(cardapio) {
 
-    if (cardapio === undefined) {
+    if (isNullOrEmpty(cardapio)) {
         cardapio = loadCardapio();
     }
 
-    if (cardapio === undefined) {
-        return;
+    if (isNullOrEmpty(cardapio)) {
+        //Vazio para mostrar os labels
+        cardapio = [];
     }
 
     var outputListaCardapio = document.querySelector('#outputListaCardapio');

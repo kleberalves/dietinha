@@ -142,13 +142,9 @@
     align-items: stretch;
     flex-direction: column;
     padding-bottom: 8px;
-    margin-bottom: 10px;
 
     padding: 15px;
     border-radius: 21px;
-
-    margin: 10px;
-    margin-left: 4px;
 
     animation-duration: 0.5s;
     animation-name: slide-in;

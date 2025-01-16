@@ -3,11 +3,12 @@ function swapForms(idx) {
     var tabs = document.getElementsByClassName('tab');
     var state = tabs[idx].classList.contains("close");
 
+    //Se não tem o close é porque está aberto. Se está aberto, quer fechar.
     if (!state) {
         tabs[idx].classList.remove("open");
 
         //Define temporariamente a altura em pixels pelo tamanho interno (form)
-        //substituindo o parâmento "auto"
+        //substituindo o value "auto"
         tabs[idx].style.height = tabs[idx].children[1].clientHeight;
 
         setTimeout(() => {
@@ -29,32 +30,54 @@ function swapForms(idx) {
     }
 }
 
-function closeForm(idx) {
+function getTab(tabId) {
 
     var tabs = document.getElementsByClassName('tab');
-    tabs[idx].setAttribute("state", "close");
+    var tab = null;
+
+    for (var i = 0; i < tabs.length; i++) {
+        if (tabs[i].id === tabId) {
+            tab = tabs[i];
+        }
+    }
+    return tab;
+}
+
+function closeForm(tabId) {
+
+    var tab = getTab(tabId);
+    if (isNullOrEmpty(tab)) {
+        return;
+    }
+
+    tab.classList.remove("open");
 
     //Define temporariamente a altura em pixels pelo tamanho interno (form)
     //substituindo o parâmento "auto"
-    tabs[idx].style.height = tabs[idx].children[1].clientHeight;
+    tab.style.height = tab.children[1].clientHeight;
 
     setTimeout(() => {
-        tabs[idx].style.height = 42;
+        tab.style.height = 42;
+        tab.classList.add("close");
     }, 150);
 
 }
 
-function openForm(idx) {
+function openForm(tabId) {
 
-    var tabs = document.getElementsByClassName('tab');
+    var tab = getTab(tabId);
+    if (isNullOrEmpty(tab)) {
+        return;
+    }
 
-    var newHeight = tabs[idx].children[1].clientHeight;
-    tabs[idx].setAttribute("state", "open");
+    var newHeight = tab.children[1].clientHeight;
 
     setTimeout(() => {
-        tabs[idx].style.height = newHeight;
+        tab.style.height = newHeight;
+        tab.classList.add("open");
+        tab.classList.remove("close");
         setTimeout(() => {
-            tabs[idx].style.height = "auto";
+            tab.style.height = "auto";
         }, 250);
     }, 150);
 }

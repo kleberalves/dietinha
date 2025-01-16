@@ -57,10 +57,9 @@
     border-radius: 26px;
     margin-bottom: 20px;
     overflow: hidden;
-    min-width: 391px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 625px) {
     .tab {
         min-width: 95%;
     }

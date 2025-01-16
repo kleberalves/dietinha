@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="css/animations.css" crossorigin="" />
     <link rel="stylesheet" href="css/list.css" crossorigin="" />
     <link rel="stylesheet" href="css/theme.light.css" crossorigin="" id="styTheme" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/x-icon" href="img/icons/icon-128x128.png">
 
 </head>
 
@@ -29,7 +31,7 @@
             </div>
         </div>
 
-        <div class="tab open">
+        <div class="tab open" id="tabHomeCalculadora">
             <div class="btn-tab-switch" onclick="swapForms(1, this)">
                 <div></div>
             </div>
@@ -46,7 +48,7 @@
             </div>
         </div>
 
-        <div class="tab close">
+        <div class="tab close" id="tabHomeCardapio">
             <div class="btn-tab-switch" onclick="swapForms(2, this)">
                 <div></div>
             </div>
@@ -108,6 +110,8 @@
     <script src="js/lib/show.message.js"></script>
     <script src="js/lib/uuidv4.js"></script>
     <script src="js/lib/forms.js"></script>
+    <script src="js/lib/treatments.js"></script>
+    <script src="js/sw/install.js"></script>
     <script src="js/service/calculadora.alimentos.js"></script>
     <script src="js/service/cardapio.js"></script>
     <script src="js/service/consumo.diario.js"></script>
@@ -118,7 +122,9 @@
             loadConfigs();
             showConsumoDiario();
             showCardapio();
+            swInstall();
         } catch (e) {
+            console.log(e);
             alert(e.message);
         }
     </script>

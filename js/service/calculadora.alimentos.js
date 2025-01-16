@@ -17,9 +17,7 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
         for (var i = 0; i < listaAlimentos.length; i++) {
 
             var nome = listaAlimentos[i].nome;
-            //Remover caracteres especiais
-            //ChatGPT
-            nome = nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            nome = removeCarecEspec(nome);
 
             if (nome.indexOf(alimentoDigitadoValue.toLowerCase()) > -1) {
 
@@ -32,7 +30,7 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
                 msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 85px;height: 40px;' placeholder='peso' oninput=\"calcularCaloriaProduto(this.value," + i + ", '" + listaAlimentos[i].id + "')\" />";
                 msg += "<div class='action'><b>Calorias</b><div id='itemResultadoCalorias" + i + "'>-</div></div>";
                 msg += "<div class='action'><b>Proteínas</b><div id='itemResultadoProteinas" + i + "'>-</div></div>";
-                msg += "<button onclick=\"adicionarCalculo(" + i + ", '" + listaAlimentos[i].id + "')\"> Selecionar </button></div></div>";
+                msg += "<button class='btn-selecionar' onclick=\"adicionarCalculo(" + i + ", '" + listaAlimentos[i].id + "')\"> Selecionar </button></div></div>";
 
                 cont++;
             }
@@ -165,7 +163,7 @@ function listaHistoricoCalculos() {
         strOutput += "  </span></div>";
         strOutput += "  <div>Peso <span class='text'>" + totalPeso;
         strOutput += "  </span></div>";
-    
+
         strOutput += "</div>";
 
         strOutput += "<div class='cols bar-add-ingredientes'>";

@@ -64,11 +64,11 @@ h4 {
 
 /* TABS */
 
-.btn-tab-switch > div {
+.btn-tab-switch>div {
     background-color: #454545;
 }
 
-.tab.open .btn-tab-switch > div {
+.tab.open .btn-tab-switch>div {
     background-color: #E91E67;
 }
 
@@ -95,7 +95,12 @@ h4 {
 }
 
 .list>.cols>.options>label {
-    background-color: #2f2f2f;
+    background-color: #a4d8ff;
+    color: #000000;
+}
+
+.list>.cols>.options>label input:checked ~ label {
+    background-color: #da7d00;
 }
 
 .listItem.cardapio {
