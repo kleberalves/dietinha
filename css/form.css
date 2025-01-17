@@ -49,36 +49,3 @@
     width: 100%;
     margin: 0px;
 }
-
-.tab {
-    position: relative;
-    padding: 10px;
-    box-shadow: 10px 10px 100px 2px #ccc;
-    border-radius: 26px;
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-
-@media (max-width: 625px) {
-    .tab {
-        min-width: 95%;
-    }
-}
-
-.tab.close {
-    height: 42px;
-}
-
-.tab.open .btn-close {
-    transform: rotate(0deg);
-}
-
-.tab.close .btn-close {
-    transform: rotate(90deg);
-}
-
-.tab>.btn-close {
-    top: 10px;
-    right: 10px;
-    z-index: 1;
-}

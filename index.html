@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/buttons.css" crossorigin="" />
     <link rel="stylesheet" href="css/form.css" crossorigin="" />
+    <link rel="stylesheet" href="css/tabs.css" crossorigin="" />
     <link rel="stylesheet" href="css/style.css?v2" crossorigin="" />
     <link rel="stylesheet" href="css/show.message.css" crossorigin="" />
     <link rel="stylesheet" href="css/animations.css" crossorigin="" />
@@ -25,11 +26,12 @@
     <div id="main">
 
         <div class="tab close" id="tabHomeCardapio">
+
             <div class="btn-tab-switch" onclick="swapForms(0, this)">
-                <div></div>
+                <div class="title">Meu cardápio</div>
+                <div class="btn"></div>
             </div>
             <div class="form">
-                <div class="title">Meu cardápio</div>
                 <div class="full">
                     <div id='outputListaCardapio'></div>
                 </div>
@@ -38,12 +40,12 @@
 
         <div class="tab close delay1" id="tabHomeCalculadora">
             <div class="btn-tab-switch" onclick="swapForms(1, this)">
-                <div></div>
+                <div class="title">Calculadora de alimentos</div>
+                <div class="btn"></div>
             </div>
             <div class="form">
-                <div class="title">Calculadora de alimentos</div>
                 <div class="full">
-                    <label>Digite o nome do alimento:</label>
+                    <label>Digite o nome do alimento</label>
                     <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
                 </div>
                 <div class="full">
@@ -55,19 +57,19 @@
 
         <div class="tab close delay2" id="tabHomeLog">
             <div class="btn-tab-switch" onclick="swapForms(2, this)">
-                <div></div>
+                <div class="title">O que comi hoje</div>
+                <div class="btn"></div>
             </div>
             <div class="form">
-                <div class="title">O que você comeu hoje?</div>
             </div>
         </div>
 
         <div class="tab close delay3" id="tabHomeCaloriaDiaria">
             <div class="btn-tab-switch" onclick="swapForms(3, this)">
-                <div></div>
+                <div class="title">Consumo diário de calorías</div>
+                <div class="btn"></div>
             </div>
             <div class="form">
-                <div class="title">Consumo diário de calorías</div>
 
                 <div id='outputResultadoConsumoDiario' class="full"></div>
 

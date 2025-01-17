@@ -1,4 +1,3 @@
-
 button {
     padding: 10px 30px;
     border-radius: 15px;
@@ -43,14 +42,21 @@ button:hover {
     position: absolute;
     top: 0px;
     left: 0px;
-    height: 50px;
+    height: 62px;
     width: 100%;
     z-index: 1000;
-
     cursor: pointer;
+    background-color: rgb(157 157 157 / 34%);
 }
 
-.btn-tab-switch>div {
+.btn-tab-switch>.title {
+    font-weight: 200;
+    font-size: 25px;
+    padding-left: 20px;
+    padding-top: 15px;
+}
+
+.btn-tab-switch>.btn {
     position: absolute;
     top: 15px;
     right: 10px;
@@ -64,7 +70,7 @@ button:hover {
     align-items: center;
 }
 
-.tab.open>.btn-tab-switch>div {
+.tab.open>.btn-tab-switch>.btn {
     transform: rotate(45deg);
 }
 
@@ -72,7 +78,7 @@ button:hover {
     opacity: 0.5;
 } */
 
-.btn-tab-switch>div::after {
+.btn-tab-switch>.btn::after {
     content: "|";
     transform: rotate(90deg);
     position: absolute;
@@ -80,7 +86,7 @@ button:hover {
     top: 10px;
 }
 
-.btn-tab-switch>div::before {
+.btn-tab-switch>.btn::before {
     content: "|";
     transform: rotate(90deg);
     position: absolute;
@@ -89,7 +95,7 @@ button:hover {
 }
 
 
-.tab.open>.btn-tab-switch>div::after {
+.tab.open>.btn-tab-switch>.btn::after {
     content: "|";
     transform: rotate(90deg);
     position: absolute;
@@ -97,7 +103,7 @@ button:hover {
     top: 6px;
 }
 
-.tab.open>.btn-tab-switch>div::before {
+.tab.open>.btn-tab-switch>.btn::before {
     content: "|";
     transform: rotate(0deg);
     position: absolute;
@@ -125,8 +131,7 @@ button:hover {
 
 /* Cover */
 
-.btn-trash:hover::before
-{
+.btn-trash:hover::before {
     transform: rotate(-20deg);
     left: 6px;
     top: 3px;
@@ -155,4 +160,3 @@ button:hover {
     background-size: contain;
     background-repeat: no-repeat;
 }
-

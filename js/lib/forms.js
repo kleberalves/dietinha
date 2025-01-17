@@ -9,7 +9,8 @@ function swapForms(idx) {
 
         //Define temporariamente a altura em pixels pelo tamanho interno (form)
         //substituindo o value "auto"
-        tabs[idx].style.height = tabs[idx].children[1].clientHeight;
+        //60 do margint-top do .form dentro da tab
+        tabs[idx].style.height = tabs[idx].children[1].clientHeight+60;
 
         setTimeout(() => {
             tabs[idx].classList.add("close");
@@ -63,7 +64,7 @@ function closeForm(tabId) {
 
         //Define temporariamente a altura em pixels pelo tamanho interno (form)
         //substituindo o parâmento "auto"
-        tab.style.height = tab.children[1].clientHeight;
+        tab.style.height = tab.children[1].clientHeight+60;
 
         setTimeout(() => {
             tab.style.height = 42;

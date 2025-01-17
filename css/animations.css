@@ -1,8 +1,8 @@
 /* Transição padrão */
 
-.btn-tab-switch>div,
-.btn-tab-switch>div::after,
-.btn-tab-switch>div::before,
+.btn-tab-switch>.btn,
+.btn-tab-switch>.btn::after,
+.btn-tab-switch>.btn::before,
 .btn-trash::before,
 .tab,
 button,

@@ -61,11 +61,11 @@ h4 {
 
 /* TABS */
 
-.btn-tab-switch>div {
+.btn-tab-switch>.btn {
     background-color: #454545;
 }
 
-.tab.open .btn-tab-switch>div {
+.tab.open .btn-tab-switch>.btn {
     background-color: #e23674;
 }
 
