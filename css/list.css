@@ -127,6 +127,15 @@
     }
 }
 
+ka-pesquisa-item::part(listItem){
+    border: 1px solid red;
+}
+
+
+ka-pesquisa-item::part(title){
+    font-size: 20px;
+}
+
 .listItem {
     display: flex;
     position: relative;
@@ -139,7 +148,7 @@
     border-radius: 21px;
 }
 
-.listItem .actions.right {
+ka-pesquisa-item .listItem .actions.right {
     position: absolute;
     top: -29px;
     right: -4px;
@@ -151,17 +160,17 @@
     padding-top: 10px;
 }
 
-.listItem.cardapio {
+ka-pesquisa-item .listItem.cardapio {
     padding-bottom: 0px;
     margin-bottom: 20px;
 }
 
-.listItem.filtro {
+ka-pesquisa-item .listItem.filtro {
     margin-top: 5px;
     margin-bottom: 10px;
 }
 
-.listItem .title {
+ka-pesquisa-item .listItem .title {
     display: flex;
     font-size: 20px;
     margin-bottom: 5px;
@@ -172,17 +181,17 @@
 
 }
 
-.listItem .title div {
+ka-pesquisa-item .listItem .title div {
     font-size: 15px;
     margin-top: 5px;
     font-weight: 500;
 }
 
-.listItem .title div span {
+ka-pesquisa-item .listItem .title div span {
     font-size: 14px;
 }
 
-.listItem .actions {
+ka-pesquisa-item .listItem .actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -190,23 +199,23 @@
 }
 
 @media (max-width: 399px) {
-    .listItem .actions {
+    ka-pesquisa-item .listItem .actions {
         justify-content: space-around;
         align-items: center;
         flex-wrap: wrap;
         margin-top: 15px;
     }
 
-    .listItem .actions .btn-selecionar {
+    ka-pesquisa-item .listItem .actions .btn-selecionar {
         margin-top: 15px;
     }
 
-    .listItem .actions .action {
+    ka-pesquisa-item .listItem .actions .action {
         width: 33.33333%;
     }
 }
 
-.listItem .actions .action {
+ka-pesquisa-item .listItem .actions .action {
     font-size: 15px;
     text-align: center;
 }

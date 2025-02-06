@@ -1,3 +1,5 @@
+//DEPRECIADO
+
 //transforma uma array de objetos adicionando a propriedade id no formato uuid
 
 const fs = require("fs");

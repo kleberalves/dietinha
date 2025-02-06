@@ -24,14 +24,23 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
                 var peso = listaAlimentos[i].peso === undefined ? "100" : listaAlimentos[i].peso;
                 var unidade = listaAlimentos[i].unidade === undefined ? "g" : listaAlimentos[i].unidade;
 
-                msg += "<div class='listItem filtro delay" + cont + "'>";
-                msg += "<div class='title'>" + listaAlimentos[i].nome + "<div><span>" + listaAlimentos[i].calorias + "</span> cal por <span>" + peso + unidade + "</span></div></div> ";
-                msg += "<div class='actions'>";
-                msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 85px;height: 40px;' placeholder='peso' oninput=\"calcularCaloriaProduto(this.value," + i + ", '" + listaAlimentos[i].id + "')\" />";
-                msg += "<div class='action'><b>Calorias</b><div id='itemResultadoCalorias" + i + "'>-</div></div>";
-                msg += "<div class='action'><b>Proteínas</b><div id='itemResultadoProteinas" + i + "'>-</div></div>";
-                msg += "<button class='btn-selecionar' onclick=\"adicionarCalculo(" + i + ", '" + listaAlimentos[i].id + "')\"> Selecionar </button></div></div>";
 
+                // msg += "<div class='listItem filtro delay" + cont + "'>";
+                // msg += "<div class='title'>" + listaAlimentos[i].nome + "<div><span>" + listaAlimentos[i].calorias + "</span> cal por <span>" + peso + unidade + "</span></div></div> ";
+                // msg += "<div class='actions'>";
+                // msg += "<input type='number' id='itemResultadoPeso" + i + "' style='width: 85px;height: 40px;' placeholder='peso' oninput=\"calcularCaloriaProduto(this.value," + i + ", '" + listaAlimentos[i].id + "')\" />";
+                // msg += "<div class='action'><b>Calorias</b><div id='itemResultadoCalorias" + i + "'>-</div></div>";
+                // msg += "<div class='action'><b>Proteínas</b><div id='itemResultadoProteinas" + i + "'>-</div></div>";
+                // msg += "<button class='btn-selecionar' onclick=\"adicionarCalculo(" + i + ", '" + listaAlimentos[i].id + "')\"> Selecionar </button></div></div>";
+
+                msg += `<ka-pesquisa-item 
+                            nome="${listaAlimentos[i].nome}"
+                            id="${listaAlimentos[i].id}"
+                            idx="${i}"
+                            peso="${peso}"
+                            unidade="${unidade}"
+                            cont="${cont}"
+                            > </ka-pesquisa-item>`;
                 cont++;
             }
         }
@@ -40,9 +49,9 @@ function txtPequisaAlterado(alimentoDigitadoValue) {
     }
 }
 
-var produtoCalculo = { "id": "" };
+var produtoCalculo = { "id": 0 };
 
-function buscarProdutoPorId(idProduto) {
+function buscarProdutoPorId2(idProduto) {
 
     //Busca o produto na listaProdutos comparando a propriedade Id com o paramëtro "idProduto"
     for (var i = 0; i < listaAlimentos.length; i++) {
@@ -57,14 +66,14 @@ function buscarProdutoPorId(idProduto) {
 }
 
 //Função chamada a cada input do peso
-function calcularCaloriaProduto(peso, idxResultado, idProduto) {
+function calcularCaloriaProduto2(peso, idxResultado, idProduto) {
 
     var itemResultadoCalorias = document.getElementById("itemResultadoCalorias" + idxResultado);
     var itemResultadoProteinas = document.getElementById("itemResultadoProteinas" + idxResultado);
 
     //Busca o produto em memória apenas quando o id for diferente do anterior
     if (produtoCalculo.id !== idProduto) {
-        produtoCalculo = buscarProdutoPorId(idProduto)
+        produtoCalculo = buscarProdutoPorId2(idProduto)
     };
 
     if (peso !== "" && peso !== null && !isNaN(peso) && peso > 0) {
@@ -82,7 +91,7 @@ function calcularCaloriaProduto(peso, idxResultado, idProduto) {
     }
 }
 
-function adicionarCalculo(idxResultado, idProduto) {
+function adicionarCalculo2(idxResultado, idProduto) {
 
     try {
         var pesoValue = parseFloat(document.getElementById("itemResultadoPeso" + idxResultado).value);
@@ -95,7 +104,7 @@ function adicionarCalculo(idxResultado, idProduto) {
             throw new Error("Peso deve ser maior que zero.");
         }
 
-        var produto = buscarProdutoPorId(idProduto);
+        var produto = buscarProdutoPorId2(idProduto);
 
         var caloriasValue = parseFloat(document.getElementById("itemResultadoCalorias" + idxResultado).innerText);
         var proteinasValue = parseFloat(document.getElementById("itemResultadoProteinas" + idxResultado).innerText);
