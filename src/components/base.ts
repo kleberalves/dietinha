@@ -7,7 +7,7 @@ export class Base extends HTMLElement {
         super();
     }
 
-    getProp(prop: string): any | undefined {
+    p(prop: string): any | undefined {
 
         var value = this.getAttribute(prop);
         if (value !== null) {

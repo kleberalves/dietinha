@@ -112,19 +112,11 @@ h4 {
     color: #5db1ea;
 }
 
-
-.listItem .title {
-    color: #5db1ea;
-    border-bottom-color: #232323;
-}
-
-.listItem .title div {
-    color: #9d9d9d;
-
-}
-
-.listItem .title div span {
-    color: #5db1ea;
+ka-pesquisa-item {
+    --list-item-title-color: #5db1ea;
+    --list-item-title-border-color: #232323;
+    --list-item-title-div-color: #9d9d9d;
+    --list-item-title-div-span-color: #5db1ea;
 }
 
 .list>.item.mini {

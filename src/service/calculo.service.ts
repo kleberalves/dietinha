@@ -1,5 +1,11 @@
 declare var listaAlimentos: any;
 
+let produtoCalculo = {
+    "id": 0,
+    "proteina": 0,
+    "calorias": 0
+};
+
 var listaIngredientes = new Array();
 var outputListaAlimentos: HTMLDivElement = document.querySelector('#outputListaAlimentos') as HTMLDivElement;
 var outputHistoricoCalculos: HTMLDivElement = document.querySelector('#outputHistoricoCalculos') as HTMLDivElement;
@@ -47,7 +53,7 @@ export const calcularCaloriaProduto = (dom: ShadowRoot, peso: string, idxResulta
     }
 }
 
-export const adicionarCalculo = (dom:ShadowRoot, idxResultado:number, idProduto:number) => {
+export const adicionarCalculo = (dom: ShadowRoot, idxResultado: number, idProduto: number) => {
 
     try {
         var elementPeso: HTMLInputElement = dom.getElementById("itemResultadoPeso" + idxResultado) as HTMLInputElement;

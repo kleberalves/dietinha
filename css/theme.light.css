@@ -109,18 +109,11 @@ h4 {
     color: #000;
 }
 
-.listItem .title {
-    color: #e87610;
-    border-bottom-color: #ccc;
-}
-
-.listItem .title div {
-    color: #9d9d9d;
-
-}
-
-.listItem .title div span {
-    color: #e87610;
+ka-pesquisa-item {
+    --list-item-title-color: #e87610;
+    --list-item-title-border-color: #ccc;
+    --list-item-title-div-color: #9d9d9d;
+    --list-item-title-div-span-color: #e87610;
 }
 
 .list>.item.mini {
