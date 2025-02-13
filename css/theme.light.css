@@ -106,7 +106,7 @@ input[type="text"] {
 * {
     --primary-color: #e87610;
     --secondary-color: #38a297;
-    --border-color: #ccc;
+    --theme-color: #e8e8e8;
     --destaque-color: #d6d6d6;
     --contrast-color: #000;
 

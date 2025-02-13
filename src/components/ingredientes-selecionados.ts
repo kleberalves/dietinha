@@ -44,6 +44,20 @@ class IngredientesSelecionados extends Base {
 
     }
 
+    connectedCallback() {
+
+        this.props = {
+            idx: this.p("idx"),
+            id: this.p("id"),
+        }
+
+        this.listaIngredientes = store.getItems(INGREDIENTES_STORE);
+
+        if (this.listaIngredientes.length > 0) {
+            this.render();
+        }
+    }
+
     render() {
         var totalCalorias = 0;
         var totalProteinas = 0;
@@ -150,15 +164,6 @@ class IngredientesSelecionados extends Base {
 
     reiniciarListaIngredientes() {
         store.clear(INGREDIENTES_STORE);
-    }
-
-    connectedCallback() {
-
-        this.props = {
-            idx: this.p("idx"),
-            id: this.p("id"),
-        }
-
     }
 }
 

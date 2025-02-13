@@ -52,6 +52,8 @@ export const store = (() => {
 
                 store.items = [];
 
+                saveDataLocal(store, storeName);
+
                 window.dispatchEvent(
                     new CustomEvent(STORE_CLEARED, {
                         detail: {

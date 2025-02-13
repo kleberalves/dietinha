@@ -1,14 +1,16 @@
 button {
     padding: 10px 30px;
     border-radius: 15px;
-    background-color: #124c74;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--contrast-color);
     border: 0px;
 }
 
 button:hover {
     opacity: 0.7;
     cursor: pointer;
+    color: var(--theme-color);
+    background-color: var(--secondary-color);
 }
 
 .btn-close,
