@@ -31,7 +31,7 @@
             </div>
             <div class="form">
                 <div class="full">
-                    <div id='outputListaCardapio'></div>
+                    <app-cardapio></app-cardapio>
                 </div>
             </div>
         </div>
@@ -42,12 +42,10 @@
             </div>
             <div class="form">
                 <div class="full">
-                    <label>Digite o nome do alimento</label>
-                    <input type="text" class="textForm" id="txtPesquisa" oninput="txtPequisaAlterado(this.value)" />
+                    <app-pesquisa-alimento></app-pesquisa-alimento>
                 </div>
                 <div class="full">
-                    <div id='outputListaAlimentos'></div>
-                    <div id='outputHistoricoCalculos'></div>
+                    <app-ingredientes-selecionados></app-ingredientes-selecionados>
                 </div>
             </div>
         </div>
@@ -105,17 +103,14 @@
             <button class="btn-mini" onclick="swapTheme()">Trocar tema</button>
         </div>
     </div>
-    
+
     <script src="dist/bundle.js"></script>
     <script src="js/data/lista.alimentos.js"></script>
     <script src="js/lib/local.storage.js"></script>
     <script src="js/lib/show.message.js"></script>
-    <script src="js/lib/uuidv4.js"></script>
     <script src="js/lib/forms.js"></script>
     <script src="js/lib/treatments.js"></script>
     <script src="js/sw/install.js"></script>
-    <script src="js/service/calculadora.alimentos.js"></script>
-    <script src="js/service/cardapio.js"></script>
     <script src="js/service/consumo.diario.js"></script>
     <script src="js/service/configs.js"></script>
 
@@ -123,7 +118,7 @@
         try {
             loadConfigs();
             showConsumoDiario();
-            showCardapio();
+            //showCardapio();
             swInstall();
         } catch (e) {
             console.log(e);

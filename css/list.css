@@ -1,5 +1,20 @@
+.list>.item.mini {
+    color:  var(--contrast-color);
+}
+
+.list>.item.mini span {
+    color: var(--primary-color);
+}
+
+.list>.title {
+    color: var(--primary-color);
+}
+
+.list>.cols>div>.text {
+    color: var(--primary-color);
+}
+
 .list {
-    /* box-shadow: 3px 3px 10px 0px #ccc; */
     border-radius: 18px;
     padding: 14px;
 }
@@ -125,4 +140,95 @@
     .list>.cols {
         flex-wrap: wrap;
     }
+}
+
+
+
+.listItem {
+    display: flex;
+    position: relative;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-direction: column;
+    padding-bottom: 8px;
+
+    padding: 15px;
+    border-radius: 21px;
+
+    transition: all 0.3s ease-in-out;
+    animation-name: slide-in;
+    animation-timing-function: ease-in-out;
+    animation-duration: 0.5s;
+}
+
+.listItem .actions.right {
+    position: absolute;
+    top: -29px;
+    right: -4px;
+    width: 30px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.listItem.cardapio {
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+}
+
+.listItem.filtro {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.listItem .title {
+    display: flex;
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: 100;
+    justify-content: space-between;
+    border-bottom: 1px solid #373737;
+    padding-bottom: 9px;
+
+}
+
+.listItem .title div {
+    font-size: 15px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.listItem .title div span {
+    font-size: 14px;
+}
+
+.listItem .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+@media (max-width: 399px) {
+    .listItem .actions {
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 15px;
+    }
+
+    .listItem .actions .btn-selecionar {
+        margin-top: 15px;
+    }
+
+    .listItem .actions .action {
+        width: 33.33333%;
+    }
+}
+
+.listItem .actions .action {
+    font-size: 15px;
+    text-align: center;
 }

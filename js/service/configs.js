@@ -5,12 +5,13 @@ function loadConfigs() {
     if (isNullOrEmpty(consumo)) {
         openForm("tabHomeCaloriaDiaria");
     } else {
-        var cardapio = loadCardapio();
-        if (isNullOrEmpty(cardapio)) {
-            openForm("tabHomeCalculadora");
-        } else {
-            openForm("tabHomeCardapio");
-        }
+        //TODO
+        // var cardapio = loadCardapio();
+        // if (isNullOrEmpty(cardapio)) {
+        //     openForm("tabHomeCalculadora");
+        // } else {
+        //     openForm("tabHomeCardapio");
+        // }
     }
 }
 

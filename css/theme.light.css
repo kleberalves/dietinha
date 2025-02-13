@@ -77,13 +77,13 @@ h4 {
 }
 
 
-.list>.title {
+/* .list>.title {
     color: #e87610;
 }
 
 .list>.cols>div>.text {
     color: #4CAF50;
-}
+} */
 
 .list>.cols.total {
     background-color: #fafafa;
@@ -109,21 +109,14 @@ h4 {
     color: #000;
 }
 
-ka-pesquisa-item {
-    --list-item-title-color: #e87610;
-    --list-item-title-border-color: #ccc;
-    --list-item-title-div-color: #9d9d9d;
-    --list-item-title-div-span-color: #e87610;
-}
+app-pesquisa-item,
+app-ingredientes-selecionados {
+    --primary-color: #e87610;
+    --border-color: #ccc;
+    --destaque-color: #9d9d9d;
+    --contrast-color: #000;
 
-.list>.item.mini {
-    color: #000;
 }
-
-.list>.item.mini span {
-    color: #06a47a;
-}
-
 
 /* ALERTS */
 
