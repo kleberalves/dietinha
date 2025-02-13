@@ -1,9 +1,10 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
-import { store, STORE_ADDED_ITEM, STORE_CLEARED, STORE_REMOVED_ITEM } from "../service/store.service";
+import { store } from "../service/store.service";
 import { CARDAPIO_STORE, INGREDIENTES_STORE } from "../app";
 import { closeForm, openForm, getRadiosCheck } from "../lib/forms";
 import { uuidv4 } from "../lib/uuidv4";
+import { showWarning } from "../service/message.service";
 
 class IngredientesSelecionados extends Base {
 
@@ -17,20 +18,14 @@ class IngredientesSelecionados extends Base {
     constructor() {
         super();
 
-        window.addEventListener(STORE_ADDED_ITEM, (e: CustomEventInit) => {
 
-            if (e.detail.store !== INGREDIENTES_STORE) {
-                return;
-            }
+        store.onAddedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
+
             this.listaIngredientes = e.detail.items;
             this.render();
         });
 
-        window.addEventListener(STORE_REMOVED_ITEM, (e: CustomEventInit) => {
-
-            if (e.detail.store !== INGREDIENTES_STORE) {
-                return;
-            }
+        store.onRemovedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
 
             if (e.detail.items.length === 0) {
                 this.listaIngredientes = [];
@@ -41,11 +36,7 @@ class IngredientesSelecionados extends Base {
             }
         });
 
-        window.addEventListener(STORE_CLEARED, (e: CustomEventInit) => {
-
-            if (e.detail.store !== INGREDIENTES_STORE) {
-                return;
-            }
+        store.onCleared(INGREDIENTES_STORE, (e: CustomEventInit) => {
 
             this.listaIngredientes = [];
             render(this, html``);
@@ -58,7 +49,7 @@ class IngredientesSelecionados extends Base {
         var totalProteinas = 0;
         var totalPeso = 0;
 
-        let item: Hole = html``;
+        let items: Hole[] = [];
 
         for (var i = 0; i < this.listaIngredientes.length; i++) {
             var itemCalculo = this.listaIngredientes[i];
@@ -67,9 +58,9 @@ class IngredientesSelecionados extends Base {
             var unidade = this.listaIngredientes[i].unidade === undefined ? "g" : this.listaIngredientes[i].unidade;
             let itemClass = "item delay" + i;
 
-            item = html`${item} <div class=${itemClass}> <b> ${itemCalculo.nome} </b> ${itemCalculo.calorias} calorias e ${itemCalculo.proteinas} proteínas em ${itemCalculo.peso} ${unidade}
+            items.push(html`<div class=${itemClass}> <b> ${itemCalculo.nome} </b> ${itemCalculo.calorias} calorias e ${itemCalculo.proteinas} proteínas em ${itemCalculo.peso} ${unidade}
                 <button class='btn-remove' onclick=${() => this.removerCalculo(itemCalculo.id)}> x </button>
-                </div>`;
+                </div>`);
 
             totalCalorias += itemCalculo.calorias;
             totalProteinas += itemCalculo.proteinas;
@@ -78,7 +69,7 @@ class IngredientesSelecionados extends Base {
 
         render(this, html`<div class='list selecionados'>
             <div class='title'>Ingredientes selecionados</div>
-                    ${item}
+                    ${items.map(item => item)}
             <div class='cols total'>
                 <div>Calorias <span class='text'> ${totalCalorias} </span></div>
                 <div>Proteínas <span class='text'>${totalProteinas} </span></div>
@@ -149,7 +140,7 @@ class IngredientesSelecionados extends Base {
                 openForm("tabHomeCardapio");
             }
         } catch (e) {
-            //showWarning(e.message);
+            showWarning(e.message);
         }
     }
 

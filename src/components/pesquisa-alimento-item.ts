@@ -32,18 +32,19 @@ class PesquisaItem extends Base {
             calorias: this.p("calorias")
         }
 
-
         var className = `listItem filtro delay${this.props.idx}`;
         var idItemResultadoCalorias = `itemResultadoCalorias${this.props.idx}`
         var idItemResultadoProteinas = `itemResultadoProteinas${this.props.idx}`
         var idItemResultadoPeso = `itemResultadoPeso${this.props.idx}`;
+
+        var unidade: string = this.props.unidade ? this.props.unidade : "g";
 
         render(this, html`
             <link rel="stylesheet" href="css/animations.delay.css" crossorigin="" />
             <!-- <link rel="stylesheet" href="css/components/pesquisa-item.css" crossorigin="" />   -->
 
         <div class=${className}>
-            <div class='title'> ${this.props.nome} <div><span>${this.props.calorias}</span> cal por <span> ${this.props.peso} ${this.props.unidade}</span></div></div> 
+            <div class='title'> ${this.props.nome} <div><span>${this.props.calorias}</span> cal por <span> 100 ${unidade}</span></div></div> 
             <div class='actions'>
                 <input type='number' id=${idItemResultadoPeso} style='width: 85px;height: 40px;' placeholder='peso' oninput=${(e) => calcularAlimento(e.currentTarget.value, this.props.idx, this.props.id)} />
                 <div class='action'><b>Calorias</b><div id=${idItemResultadoCalorias}>-</div></div>
@@ -63,7 +64,7 @@ class PesquisaItem extends Base {
             }
 
             .listItem .title div span {
-                color: var(--primary-color);
+                color: var(--secondary-color);
             }
 
             .listItem {
@@ -104,4 +105,4 @@ class PesquisaItem extends Base {
     }
 }
 
-window.customElements.define("app-pesquisa-item", PesquisaItem);
+window.customElements.define("app-pesquisa-alimento-item", PesquisaItem);

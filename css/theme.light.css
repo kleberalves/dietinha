@@ -39,12 +39,6 @@ input[type="text"] {
     border: 1px solid #000; 
 }
 
-/* TEXTS */
-
-h4 {
-    color: #000000;
-}
-
 /* BUTTONS */
 
 .btn-remove {
@@ -109,11 +103,11 @@ h4 {
     color: #000;
 }
 
-app-pesquisa-item,
-app-ingredientes-selecionados {
+* {
     --primary-color: #e87610;
+    --secondary-color: #38a297;
     --border-color: #ccc;
-    --destaque-color: #9d9d9d;
+    --destaque-color: #d6d6d6;
     --contrast-color: #000;
 
 }

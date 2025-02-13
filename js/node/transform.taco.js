@@ -14,7 +14,7 @@ function transform() {
         if (tabela[i].id === 457) {
             listaAlimentos.push(
                 {
-                    "nome": tabela[i].description,
+                    "nome": tabela[i].description.split(",").join(""),
                     "categoria": tabela[i].category,
                     "calorias": 33,
                     "unidade": "ml",
@@ -25,7 +25,7 @@ function transform() {
         } else {
             listaAlimentos.push({
                 "id": tabela[i].id,
-                "nome": tabela[i].description,
+                "nome": tabela[i].description.split(",").join(""),
                 "categoria": tabela[i].category,
                 "calorias": Math.round(tabela[i].energy_kcal),
                 "proteina": Math.round(tabela[i].protein_g),
@@ -45,6 +45,40 @@ function transform() {
             "proteina": 0,
             "gordura": 0,
             "unidade": "ml"
+        }
+    );
+
+    listaAlimentos.push(
+        {
+            "id": 599,
+            "nome": "Farinha de aveia",
+            "categoria": "Cereais",
+            "calorias": 380,
+            "proteina": 14.5,
+            "gordura": 0
+        }
+    );
+
+
+    listaAlimentos.push(
+        {
+            "id": 600,
+            "nome": "Farinha de amendoim",
+            "categoria": "Cereais",
+            "calorias": 585,
+            "proteina": 26,
+            "gordura": 0
+        }
+    );
+
+    listaAlimentos.push(
+        {
+            "id": 601,
+            "nome": "Extrato de soja",
+            "categoria": "Cereais",
+            "calorias": 400,
+            "proteina": 35.7,
+            "gordura": 0
         }
     );
 

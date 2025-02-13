@@ -8,6 +8,7 @@ export const store = (() => {
     let state = {};
 
     return {
+        /** Adiciona/Ccnfigura uma store */
         addStore: (storeName: string) => {
 
             if (state[storeName] === undefined) {
@@ -42,6 +43,7 @@ export const store = (() => {
                 }
             }
         },
+        /** Limpa todos os dados da store incluindo no local storage */
         clear: (storeName: string) => {
 
             let store = state[storeName];
@@ -61,7 +63,7 @@ export const store = (() => {
                 throw new Error("Store não existe.")
             }
         },
-        /** @saveLocal se desejar armazenar no Local Storage */
+        /** Adiciona um item na store. A propriedade "Id" será criada no formato uuid (guid) */
         addItem: (storeName: string, item: any) => {
 
             let store = state[storeName];
@@ -86,6 +88,7 @@ export const store = (() => {
                 throw new Error("Store não existe.")
             }
         },
+        /** Remove um item pelo "Id" */
         removeItemById: (storeName: string, itemId: string) => {
 
             let store = state[storeName];
@@ -97,7 +100,9 @@ export const store = (() => {
                     item = store.items[i];
 
                     if (item.id === itemId) {
-                        store.items = store.items.splice(i, i);
+                        store.items.splice(i, 1);
+
+                        saveDataLocal(store, storeName);
 
                         window.dispatchEvent(
                             new CustomEvent(STORE_REMOVED_ITEM, {
@@ -122,7 +127,26 @@ export const store = (() => {
                 if (e.detail.store !== storeName) {
                     return;
                 }
+                func(e);
 
+            });
+        },
+        onRemovedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
+            window.addEventListener(STORE_REMOVED_ITEM, (e: CustomEventInit) => {
+
+                if (e.detail.store !== storeName) {
+                    return;
+                }
+                func(e);
+
+            });
+        },
+        onCleared: (storeName: string, func: (e: CustomEventInit) => void) => {
+            window.addEventListener(STORE_CLEARED, (e: CustomEventInit) => {
+
+                if (e.detail.store !== storeName) {
+                    return;
+                }
                 func(e);
 
             });

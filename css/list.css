@@ -1,8 +1,9 @@
 .list>.item.mini {
-    color:  var(--contrast-color);
+    color: var(--contrast-color);
 }
 
-.list>.item.mini span {
+.list>.item.mini span,
+.listItem .title div span {
     color: var(--primary-color);
 }
 
@@ -45,8 +46,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 0px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 0px;
 }
 
 .list>.item.mini {
@@ -174,8 +174,17 @@
 }
 
 .listItem.cardapio {
-    padding-bottom: 0px;
+    padding-bottom: 15px;
+    padding-right: 30px;
     margin-bottom: 20px;
+}
+
+.listItem.cardapio .total {
+    margin: 15px;
+    margin-bottom: 5px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 100;
 }
 
 .listItem.filtro {
@@ -188,16 +197,18 @@
     font-size: 20px;
     margin-bottom: 5px;
     font-weight: 100;
-    justify-content: space-between;
-    border-bottom: 1px solid #373737;
+    flex-direction: column;
+    border-bottom: 1px solid var(--destaque-color);
+    ;
     padding-bottom: 9px;
 
 }
 
 .listItem .title div {
     font-size: 15px;
-    margin-top: 5px;
+    margin-top: 15px;
     font-weight: 500;
+
 }
 
 .listItem .title div span {
@@ -212,6 +223,7 @@
 }
 
 @media (max-width: 399px) {
+
     .listItem .actions {
         justify-content: space-around;
         align-items: center;

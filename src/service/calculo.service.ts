@@ -1,4 +1,5 @@
 import { INGREDIENTES_STORE } from "../app";
+import { showWarning } from "./message.service";
 import { store } from "./store.service";
 
 declare var listaAlimentos: Alimento[];
@@ -87,6 +88,6 @@ export const adicionarCalculo = (idxResultado: number, idProduto: number) => {
 
     }
     catch (e) {
-        //showWarning(e.message);
+        showWarning(e.message);
     }
 }

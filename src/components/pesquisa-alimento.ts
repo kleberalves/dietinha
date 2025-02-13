@@ -1,7 +1,7 @@
 import { html, render } from "uhtml";
 import { Base } from "./Base";
 import { removeCarecEspec } from "../lib/treatments";
-import { STORE_ADDED_ITEM } from "../service/store.service";
+import { store } from "../service/store.service";
 import { INGREDIENTES_STORE } from "../app";
 
 declare var listaAlimentos: Alimento[];
@@ -18,13 +18,9 @@ class PesquisaAlimento extends Base {
     constructor() {
         super();
 
-        window.addEventListener(STORE_ADDED_ITEM, (e: CustomEventInit) => {
+        store.onAddedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
             //Quando um novo item for adicionado na lista de ingredientes, 
             //deve reiniciar a lista de pesquisa 
-
-            if (e.detail.store !== INGREDIENTES_STORE) {
-                return;
-            }
 
             var ele: HTMLInputElement = this.querySelector("#txtPesquisa") as HTMLInputElement;
             ele.value = "";
@@ -40,13 +36,25 @@ class PesquisaAlimento extends Base {
         this.resultList = [];
         this.render();
 
+        let values: string[] = target.value.toLowerCase().split(" ");
+
+
         for (var i = 0; i < listaAlimentos.length; i++) {
 
-            var nome = listaAlimentos[i].nome;
-            nome = removeCarecEspec(nome);
+            if (this.resultList.length < 20) {
+                var nome = listaAlimentos[i].nome;
+                nome = removeCarecEspec(nome);
 
-            if (nome.indexOf(target.value.toLowerCase()) > -1 && this.resultList.length < 20) {
-                this.resultList.push(listaAlimentos[i]);
+                let cont = 0;
+                for (var s = 0; s < values.length; s++) {
+                    if (nome.indexOf(values[s]) > -1) {
+                        cont++;
+                    }
+                }
+
+                if (cont === values.length) {
+                    this.resultList.push(listaAlimentos[i]);
+                }
             }
         }
 
@@ -75,10 +83,11 @@ class PesquisaAlimento extends Base {
                 </style>
                 <label>Digite o nome do alimento</label>
                 <input type="text" class="textForm" id="txtPesquisa" oninput=${(e) => this.txtPequisaAlterado(e.currentTarget)} />  
-                ${this.resultList.map((item, idx) => html`<app-pesquisa-item 
+                ${this.resultList.map((item, idx) => html`<app-pesquisa-alimento-item 
                                 nome=${item.nome}
                                 id=${item.id}
                                 idx=${idx}
+                                calorias=${item.calorias}
                                 unidade=${item.unidade} />`)}
            `);
 

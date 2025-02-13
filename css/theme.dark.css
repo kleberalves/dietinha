@@ -34,11 +34,6 @@ input[type="text"] {
     font-weight: bold;
 }
 
-/* TEXTS */
-
-h4 {
-    color: #fff;
-}
 
 /* BUTTONS */
 .btn-mini {
@@ -112,13 +107,14 @@ h4 {
     color: #5db1ea;
 }
 
-app-pesquisa-item,
-app-ingredientes-selecionados {
+* {
 
     --primary-color: #5db1ea;
+    --secondary-color: #72f4d1;
     --border-color: #232323;
-    --destaque-color: #9d9d9d;
+    --destaque-color: #595959;
     --contrast-color: #fff;
+
 
 }
 
