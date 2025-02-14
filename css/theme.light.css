@@ -49,10 +49,6 @@ input[type="text"] {
     background-color: #4CAF50;
 }
 
-.btn-cancelar {
-    background-color: #000000;
-}
-
 /* TABS */
 
 .btn-tab-switch>.btn {
@@ -87,10 +83,6 @@ input[type="text"] {
     color: #000;
 }
 
-.list>.cols>.options>label {
-    background-color: #f3f3f3;
-}
-
 .listItem.cardapio {
     background-color: #f5f5f5;
 }
@@ -104,11 +96,11 @@ input[type="text"] {
 }
 
 * {
-    --primary-color: #e87610;
-    --secondary-color: #38a297;
+    --primary-color: #57bfd4;
+    --secondary-color: #0a95b0;
     --theme-color: #e8e8e8;
     --destaque-color: #d6d6d6;
-    --contrast-color: #000;
+    --contrast-color: #134049;
 
 }
 

@@ -19,12 +19,13 @@ function transform() {
                     "calorias": 33,
                     "unidade": "ml",
                     "proteina": 3.5,
-                    "gordura": 0
+                    "gordura": 0,
+                    "id": tabela[i].id.toString()
                 }
             )
         } else {
             listaAlimentos.push({
-                "id": tabela[i].id,
+                "id": tabela[i].id.toString(),
                 "nome": tabela[i].description.split(",").join(""),
                 "categoria": tabela[i].category,
                 "calorias": Math.round(tabela[i].energy_kcal),
@@ -38,7 +39,7 @@ function transform() {
     //Adicionando água para compor receitas
     listaAlimentos.push(
         {
-            "id": 598,
+            "id": "598",
             "nome": "Água filtrada",
             "categoria": "Minerais",
             "calorias": 0,
@@ -50,7 +51,7 @@ function transform() {
 
     listaAlimentos.push(
         {
-            "id": 599,
+            "id": "599",
             "nome": "Farinha de aveia",
             "categoria": "Cereais",
             "calorias": 380,
@@ -62,7 +63,7 @@ function transform() {
 
     listaAlimentos.push(
         {
-            "id": 600,
+            "id": "600",
             "nome": "Farinha de amendoim",
             "categoria": "Cereais",
             "calorias": 585,
@@ -73,7 +74,7 @@ function transform() {
 
     listaAlimentos.push(
         {
-            "id": 601,
+            "id": "601",
             "nome": "Extrato de soja",
             "categoria": "Cereais",
             "calorias": 400,

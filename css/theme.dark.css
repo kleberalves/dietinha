@@ -50,10 +50,6 @@ input[type="text"] {
     background-color: #5db1ea;
 }
 
-.btn-cancelar {
-    background-color: #555555;
-}
-
 /* TABS */
 
 .btn-tab-switch>.btn {
@@ -86,10 +82,6 @@ input[type="text"] {
     color: #fff;
 }
 
-.list>.cols>.options>label {
-    background-color: #a4d8ff;
-    color: #000000;
-}
 
 .list>.cols>.options>label input:checked ~ label {
     background-color: #da7d00;
@@ -109,11 +101,11 @@ input[type="text"] {
 
 * {
 
-    --primary-color: #5db1ea;
-    --secondary-color: #72f4d1;
+    --primary-color: #57bfd4;
+    --secondary-color: #a7e9f6;
     --theme-color: #232323;
     --destaque-color: #595959;
-    --contrast-color: #fff;
+    --contrast-color: #c7c7c7;
 
 
 }

@@ -90,6 +90,27 @@ export const store = (() => {
                 throw new Error("Store não existe.")
             }
         },
+        /** Retorna um item pelo "Id" */
+        getItemById: <T>(storeName: string, itemId: string) => {
+
+            let store = state[storeName];
+            let item: any;
+
+            if (store !== undefined) {
+
+                for (let i = 0; i < store.items.length; i++) {
+                    item = store.items[i];
+
+                    if (item.id === itemId) {
+                        return item as T;
+                    }
+                }
+
+
+            } else {
+                throw new Error("Store não existe.")
+            }
+        },
         /** Remove um item pelo "Id" */
         removeItemById: (storeName: string, itemId: string) => {
 

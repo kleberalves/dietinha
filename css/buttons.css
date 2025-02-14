@@ -2,7 +2,7 @@ button {
     padding: 10px 30px;
     border-radius: 15px;
     background-color: var(--primary-color);
-    color: var(--contrast-color);
+    color: var(--destaque-color);
     border: 0px;
 }
 
@@ -11,6 +11,13 @@ button:hover {
     cursor: pointer;
     color: var(--theme-color);
     background-color: var(--secondary-color);
+
+    box-shadow: 10px 10px 100px 2px var(--contrast-color);
+}
+
+.btn-cancelar {
+    background-color: var(--destaque-color);
+    color: var(--contrast-color);
 }
 
 .btn-close,

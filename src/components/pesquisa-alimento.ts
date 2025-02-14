@@ -36,7 +36,8 @@ class PesquisaAlimento extends Base {
         this.resultList = [];
         this.render();
 
-        let values: string[] = target.value.toLowerCase().split(" ");
+        let value = removeCarecEspec(target.value.toLowerCase());
+        let values: string[] = value.split(" ");
 
 
         for (var i = 0; i < listaAlimentos.length; i++) {

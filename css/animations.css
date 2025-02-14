@@ -5,24 +5,28 @@
 .btn-tab-switch>.btn::before,
 .btn-trash::before,
 .tab,
+.listItem,
+.anime,
+.alert,
 button,
-.listItem {
+input,
+app-cardapio-item,
+h3 {
     transition: all 0.3s ease-in-out;
-    animation-name: slide-in;
-    animation-timing-function: ease-in-out;
-    animation-duration: 0.5s;
+    animation: slide-in 0.3s normal cubic-bezier(0.45, 0.05, 0.15, 0.99) forwards;
 }
+
 
 @keyframes slide-in {
     from {
         translate: 0 10vw;
-        /* scale: 50% 1; */
-        opacity: 0; 
+        scale: 50% 1;
+        opacity: 0;
     }
 
     to {
         translate: 0 0;
-        /* scale: 100% 1; */
+        scale: 100% 1;
         opacity: 1;
     }
 }

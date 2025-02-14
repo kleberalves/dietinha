@@ -2,7 +2,6 @@ import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
 import { CARDAPIO_STORE } from "../app";
-import { showConfirm } from "../service/message.service";
 
 class Cardapio extends Base {
 
@@ -17,13 +16,11 @@ class Cardapio extends Base {
         super();
 
         store.onAddedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
-            console.log(e);
             this.list = e.detail.items;
             this.render();
         });
 
         store.onRemovedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
-            console.log(e);
             this.list = e.detail.items;
             this.render();
         });
@@ -40,17 +37,8 @@ class Cardapio extends Base {
             id: this.p("id")
         }
 
-
         this.list = store.getItems(CARDAPIO_STORE);
-
         this.render();
-    }
-
-    removerItemCardapio(id: string) {
-
-        showConfirm("Você tem certeza que deseja remover este item do seu cardário?", () => {
-            store.removeItemById(CARDAPIO_STORE, id);
-        })
     }
 
     render() {
@@ -62,24 +50,14 @@ class Cardapio extends Base {
 
         for (var i = 0; i < this.list.length; i++) {
 
-            let id = this.list[i].id;
-            let h = html`
-                <div class='listItem cardapio delay'>
-                   <div class='title'>${this.list[i].nome}</div>
-                        ${this.list[i].itens.map((item, idx) => {
-                            var peso = item.peso === undefined ? "100" : item.peso;
-                            var unidade = item.unidade === undefined ? "g" : item.unidade;
-                            return html`<div class='list mini'>
-                                            <div class='item mini'>
-                                                    - <span> ${peso}  ${unidade} </span> de ${item.nome}
-                                            </div>
-                                        </div>` })}
-                        
-                <div class='total'> Total de <span> ${this.list[i].peso} g</span>, <span>${this.list[i].calorias} calorias </span> e <span> ${this.list[i].proteinas}g de proteínas</span>.</div>
-                <div class='actions right'>
-                <div class="btn-trash" @click=${() => this.removerItemCardapio(id)}></div>
-                </div>
-                </div>`;
+            let h = html`<app-cardapio-item 
+                            id=${this.list[i].id}
+                            idx=${i}
+                            itens=${JSON.stringify(this.list[i].itens)}
+                            nome=${this.list[i].nome}
+                            peso=${this.list[i].peso}
+                            calorias=${this.list[i].calorias}
+                            proteinas=${this.list[i].proteinas} />`;
 
             switch (this.list[i].tipo) {
                 case "CA":

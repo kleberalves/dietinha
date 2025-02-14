@@ -11,11 +11,7 @@ export class Base extends HTMLElement {
 
         var value = this.getAttribute(prop);
         if (value !== null) {
-            if (isNaN(parseFloat(value))) {
-                return value;
-            } else {
-                return parseFloat(value);
-            }
+            return value;
         }
     }
 
