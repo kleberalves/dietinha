@@ -24,7 +24,7 @@ export const store = (() => {
             }
         },
         /** Obtém os items no Local Storage */
-        getItems: (storeName: string) => {
+        getItems: <T>(storeName: string) => {
 
             let storeLocal = loadLocalStorage(storeName);
             if (storeLocal !== null) {
@@ -33,11 +33,11 @@ export const store = (() => {
                     [storeName]: storeLocal
                 };
 
-                return storeLocal["items"];
+                return storeLocal["items"] as T;
             } else {
                 let store = state[storeName];
                 if (store !== undefined) {
-                    return store.items;
+                    return store.items as T;
                 } else {
                     throw new Error("Store não existe.")
                 }
@@ -68,27 +68,40 @@ export const store = (() => {
         /** Adiciona um item na store. A propriedade "Id" será criada no formato uuid (guid) */
         addItem: (storeName: string, item: any) => {
 
-            let store = state[storeName];
+            return new Promise((resolve, reject) => {
 
-            if (store !== undefined) {
-                item.id = uuidv4();
-                store.items.push(item);
+                try {
 
-                //Salva por padrão no localStorage
-                saveDataLocal(store, storeName);
+                    let store = state[storeName];
 
-                window.dispatchEvent(
-                    new CustomEvent(STORE_ADDED_ITEM, {
-                        detail: {
-                            store: storeName,
-                            item: item,
-                            items: store.items
-                        }
-                    })
-                )
-            } else {
-                throw new Error("Store não existe.")
-            }
+                    if (store !== undefined) {
+                        item.id = uuidv4();
+                        store.items.push(item);
+
+                        //Salva por padrão no localStorage
+                        saveDataLocal(store, storeName);
+
+                        resolve("ok");
+
+                        window.dispatchEvent(
+                            new CustomEvent(STORE_ADDED_ITEM, {
+                                detail: {
+                                    store: storeName,
+                                    item: item,
+                                    items: store.items
+                                }
+                            })
+                        );
+
+                    } else {
+                        throw new Error("Store não existe.")
+                    }
+                }
+                catch (e) {
+                    reject(e);
+                }
+            });
+
         },
         /** Retorna um item pelo "Id" */
         getItemById: <T>(storeName: string, itemId: string) => {

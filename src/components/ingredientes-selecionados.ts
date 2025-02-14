@@ -31,6 +31,10 @@ class IngredientesSelecionados extends Base {
                 this.listaIngredientes = [];
                 render(this, html``);
             } else {
+
+                this.listaIngredientes = [];
+                this.render();
+
                 this.listaIngredientes = e.detail.items;
                 this.render();
             }
@@ -68,13 +72,8 @@ class IngredientesSelecionados extends Base {
         for (var i = 0; i < this.listaIngredientes.length; i++) {
             var itemCalculo = this.listaIngredientes[i];
 
-            //Caso o item náo tenha a unidade preenchida
-            var unidade = this.listaIngredientes[i].unidade === undefined ? "g" : this.listaIngredientes[i].unidade;
-            let itemClass = "item delay" + i;
-
-            items.push(html`<div class=${itemClass}> <b> ${itemCalculo.nome} </b> ${itemCalculo.calorias} calorias e ${itemCalculo.proteinas} proteínas em ${itemCalculo.peso} ${unidade}
-                <button class='btn-remove' onclick=${() => this.removerCalculo(itemCalculo.id)}> x </button>
-                </div>`);
+            items.push(html`<app-ingredientes-selecionados-item 
+                                ingrediente=${JSON.stringify(this.listaIngredientes[i])} />`);
 
             totalCalorias += itemCalculo.calorias;
             totalProteinas += itemCalculo.proteinas;
@@ -89,15 +88,15 @@ class IngredientesSelecionados extends Base {
                 <div>Proteínas <span class='text'>${totalProteinas} </span></div>
                 <div>Peso <span class='text'>${totalPeso} </span></div>
             </div>
-                    <div class='cols bar-add-ingredientes'>
-                        <div class='options'>
-                            <label><input type="radio" name="inputTipoCardapio" value="CA" /> Café da manhã/tarde </label>
-                            <label><input type="radio" name="inputTipoCardapio" value="AJ" /> Almoço/Jantar </label>
-                            <label><input type="radio" name="inputTipoCardapio" value="LC" /> Lanches </label>
-                            <label><input type="radio" name="inputTipoCardapio" value="SM" /> Sobremesas </label>
-                        </div>
-                        <div><button class='btn-main' onclick=${() => this.adicionarItemCardapio()}> Adicionar ao cardápio </button></div>
+                <div class='cols bar-add-ingredientes'>
+                    <div class='options'>
+                        <label><input type="radio" name="inputTipoCardapio" value="CA" /> Café da manhã/tarde </label>
+                        <label><input type="radio" name="inputTipoCardapio" value="AJ" /> Almoço/Jantar </label>
+                        <label><input type="radio" name="inputTipoCardapio" value="LC" /> Lanches </label>
+                        <label><input type="radio" name="inputTipoCardapio" value="SM" /> Sobremesas </label>
                     </div>
+                    <div><button class='btn-main' onclick=${() => this.adicionarItemCardapio()}> Adicionar ao cardápio </button></div>
+                </div>
             </div>
       `);
 
@@ -133,7 +132,6 @@ class IngredientesSelecionados extends Base {
                     totalPeso += itemCalculo.peso;
                 }
 
-
                 var itemCardapio = {
                     "id": uuidv4(),
                     "nome": nomeItemCardapio,
@@ -145,7 +143,6 @@ class IngredientesSelecionados extends Base {
                     "created": new Date()
                 }
 
-
                 store.addItem(CARDAPIO_STORE, itemCardapio);
 
                 this.reiniciarListaIngredientes();
@@ -156,10 +153,6 @@ class IngredientesSelecionados extends Base {
         } catch (e) {
             showWarning(e.message);
         }
-    }
-
-    removerCalculo(id) {
-        store.removeItemById(INGREDIENTES_STORE, id);
     }
 
     reiniciarListaIngredientes() {

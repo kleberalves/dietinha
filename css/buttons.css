@@ -6,7 +6,8 @@ button {
     border: 0px;
 }
 
-button:hover {
+button:hover,
+.btn-trash:hover {
     opacity: 0.7;
     cursor: pointer;
     color: var(--theme-color);

@@ -53,7 +53,8 @@ class AppCardapioItem extends Base {
             peso: this.p("peso")
         }
 
-        this.pesoInicial = this.props.peso > 100 ? 100 : this.props.peso;
+        //Se for maior que 800gr, sugere 100g a porção.
+        this.pesoInicial = this.props.peso > 800 ? 100 : this.props.peso;
         this.calculaNutrientes(this.pesoInicial);
 
         this.render();
@@ -77,57 +78,12 @@ class AppCardapioItem extends Base {
         this.render();
     }
 
-    getTemplateSelecao() {
-        return html`     
-                  <style>
-                    .box-selecionar {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        width: 100%;
-                    }
-                    .box-selecionar .info {
-                        margin-bottom: 10px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                    }
-
-                    .box-selecionar .actions.center {
-                        margin-top: 10px;
-                        display: flex;
-                        justify-content: space-evenly;
-                        width: 100%;
-                    }
-                </style>
-        
-                <div class='box-selecionar'>
-                    <h3 class=''>Qual foi o peso?</h3>
-                        <div class='info'>
-                                <input type='number' id='intPesoAlimento' 
-                                        style='width: 100px;height: 40px;margin-bottom: 15px;'
-                                        class='' 
-                                        value=${this.pesoInicial}
-                                        placeholder='peso em gramas'
-                                        oninput=${(e) => this.calcularAlimento(e.currentTarget.value)}  />
-                                        <div class="anime">
-                                            <span>${this.calorias}</span> calorias e <span>${this.proteinas}g</span> proteínas.
-                                        </div>
-                        </div>
-                        <div class='actions center'>
-                            <button class='btn-selecionar' class="" onclick=${() => this.salvarAlimentacao()}>Salvar</button>
-                            <button class='btn-cancelar' class="" onclick=${() => this.cancelarAlimentacao()}>Cancelar</button>
-                        </div>
-                </div>`;
-    }
-
-    cancelarAlimentacao() {
+    reiniciarAlimentacao() {
         this.templateSelecao = null;
         this.render();
     }
 
-    salvarAlimentacao() {
+    registrarAlimentacao() {
 
         let ele: HTMLInputElement = this.querySelector("#intPesoAlimento") as HTMLInputElement;
         let peso: number = parseFloat(ele.value);
@@ -136,8 +92,8 @@ class AppCardapioItem extends Base {
 
         if (cardapioItem) {
 
-            let calorias: number = (peso * cardapioItem.calorias) / cardapioItem.peso;
-            let proteinas: number = (peso * cardapioItem.proteinas) / cardapioItem.peso;
+            let calorias: number = Math.round((peso * cardapioItem.calorias) / cardapioItem.peso);
+            let proteinas: number = Math.round((peso * cardapioItem.proteinas) / cardapioItem.peso);
 
             let itemAlimentacao = {
                 "id": uuidv4(),
@@ -150,7 +106,9 @@ class AppCardapioItem extends Base {
                 "created": new Date()
             }
 
-            store.addItem(ALIMENTACAO_STORE, itemAlimentacao);
+            store.addItem(ALIMENTACAO_STORE, itemAlimentacao).then((info) => {
+                this.reiniciarAlimentacao();
+            });
         }
     }
 
@@ -161,8 +119,52 @@ class AppCardapioItem extends Base {
         })
     }
 
-    render() {
+    getTemplateSelecao() {
+        return html`     
+                <style>
+                .box-selecionar {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                }
+                .box-selecionar .info {
+                    margin-bottom: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
 
+                .box-selecionar .actions.center {
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: space-evenly;
+                    width: 100%;
+                }
+            </style>
+    
+            <div class='box-selecionar'>
+                <h3 class=''>Qual foi o peso?</h3>
+                    <div class='info'>
+                            <input type='number' id='intPesoAlimento' 
+                                    style='width: 100px;height: 40px;margin-bottom: 15px;'
+                                    class='' 
+                                    value=${this.pesoInicial}
+                                    placeholder='peso em gramas'
+                                    oninput=${(e) => this.calcularAlimento(e.currentTarget.value)}  />
+                                    <div class="anime">
+                                        <span>${this.calorias}</span> calorias e <span>${this.proteinas}g</span> proteínas.
+                                    </div>
+                    </div>
+                    <div class='actions center'>
+                        <button class='btn-selecionar' class="" onclick=${() => this.registrarAlimentacao()}>Salvar</button>
+                        <button class='btn-cancelar' class="" onclick=${() => this.reiniciarAlimentacao()}>Cancelar</button>
+                    </div>
+            </div>`;
+    }
+
+    render() {
         render(this, html`
                 <div class='listItem cardapio delay'>
                    <div class='title'>${this.props.nome}</div>
@@ -184,8 +186,6 @@ class AppCardapioItem extends Base {
                     ${this.templateSelecao}
                 </div>
                 </div>`);
-
-
     }
 }
 

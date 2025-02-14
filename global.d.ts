@@ -3,6 +3,7 @@
 
 interface CardapioItem {
     id: string;
+    idCardapio?: string;
     nome: string;
     tipo: string;
     calorias: number;

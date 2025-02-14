@@ -1,7 +1,7 @@
 export { }
 declare global {
     interface Alimento {
-        id: number;
+        id: string;
         calorias: number;
         proteina: number;
         nome: string;

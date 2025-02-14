@@ -40,6 +40,10 @@
 
 .list.selecionados .item {
     padding-right: 30px;
+    position: relative;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
 }
 
 .list.selecionados .item b {
