@@ -9,10 +9,11 @@ export const calcularMetaDiaria = () => {
     let numPeso = getInputNumber("inputPeso");
     let opcaoAtividadeFisica = getInputInt('input[name=inputAtividadeFisica]:checked');
     let genero = getInputValue('input[name=inputGenero]:checked');
+    let objetivo = getInputValue('input[name=inputObjetivo]:checked');
     let altura = getInputInt("inputAltura");
     let idade = getInputInt("inputIdade");
 
-    if (numPeso && opcaoAtividadeFisica && altura && idade) {
+    if (numPeso && opcaoAtividadeFisica && altura && idade && objetivo) {
 
         if (!isNaN(numPeso) || !isNaN(opcaoAtividadeFisica)) {
 
@@ -103,6 +104,10 @@ export const calcularMetaDiaria = () => {
                     data.push({
                         key: "proteinas",
                         value: resultadoProteinas
+                    });
+                    data.push({
+                        key: "objetivo",
+                        value: objetivo
                     });
 
                     data.push({

@@ -156,8 +156,8 @@ class AppMain extends Base {
                     <h1>Último passo</h1>
                     <p>
                         Após o cadastro da sua refeição, basta informar
-                        quais consumiu utilização o botão "Consumi este alimento". 
-                        <br/>Faça isso diariamenteo para acompanhar e comparar com a sua meta 
+                        quais consumiu utilizando o botão "Consumi este alimento". 
+                        <br/>Faça diariamenteo para acompanhar e comparar com a sua meta 
                         diária de calorias e de proteínas.
                     </p>
                 </div>` : null}

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Rastreamento de calorias",
   "main": "index.js",
-  "types": "global.d.ts",
+  "types": "@types/global.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c ./rollup.config.js",

@@ -13,3 +13,19 @@ interface CardapioItem {
     itens: any[];
     created: Date;
 }
+
+interface MetaDiaria {
+    altura: number;
+    atividadeFisica: number;
+    ganharMassa: number;
+    genero: string;
+    id: string;
+    idade: number;
+    manterPeso: number;
+    objetivo: string;
+    perderPeso: number;
+    peso: number;
+    proteinas: number;
+    tmb: number
+    when: Date;
+}

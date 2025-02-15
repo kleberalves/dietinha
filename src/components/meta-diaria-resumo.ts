@@ -7,7 +7,9 @@ class AppMetaDiariaResumo extends Base {
         super();
     }
 
-    props: any;
+    props: {
+        resultado: MetaDiaria;
+    };
 
     //Para ativar o evento "attributeChangedCallback"
     static get observedAttributes() {
@@ -25,7 +27,7 @@ class AppMetaDiariaResumo extends Base {
 
     connectedCallback() {
         this.props = {
-            resultado: JSON.parse(this.p("resultado"))
+            resultado: JSON.parse(this.p("resultado")) as MetaDiaria
         }
         //Se for maior que 800gr, sugere 100g a porção.
         this.render();
@@ -49,7 +51,7 @@ class AppMetaDiariaResumo extends Base {
                                 flex-direction: row;
                                 margin-bottom: 5px;
                                 margin-top: 5px;
-                                width: 45%;
+                                width: 33%;
                             }
 
                             .resumo-calorias-diarias>.cols>div b {
@@ -58,11 +60,18 @@ class AppMetaDiariaResumo extends Base {
                             }
 
                             .resumo-calorias-diarias>.cols>div .title {
-                               font-weight: 300;
+                                font-weight: 300;
                                 width: 100%;
+                                font-size: 22px;
                                 color: var(--primary-color);
+                                margin-bottom: 10px;
                             }
-                 
+                            @media (max-width: 400px) {    
+                                .resumo-calorias-diarias>.cols>div .title
+                                {
+                                    font-size: 14px;
+                                }
+                            }
                             @media (max-width: 320px) {
                                 .resumo-calorias-diarias>.cols>div {
                                     width: 100%;
@@ -71,9 +80,10 @@ class AppMetaDiariaResumo extends Base {
                         </style>
                     <div class='list resumo-calorias-diarias' style='margin-bottom: 20px;'>
                             <div class='cols'>
+                            ${this.props.resultado.objetivo === "PP"
+                ? html`<div><div class='title'>Para emagrecer</div> <b>${this.props.resultado.perderPeso} cal </b> por dia </div>`
+                : html`<div><div class='title'>Para ganhar massa</div> <b>${this.props.resultado.ganharMassa} cal </b> por dia </div>`}
                             <div><div class='title'>Manter o peso</div> <b>${this.props.resultado.manterPeso} cal </b> por dia </div>
-                            <div><div class='title'>Para emagrecer</div> <b>${this.props.resultado.perderPeso} cal </b> por dia </div>
-                            <div><div class='title'>Para ganhar massa</div> <b>${this.props.resultado.ganharMassa} cal </b> por dia </div>
                             <div><div class='title'>Proteínas</div> <b>${this.props.resultado.proteinas}g </b> por dia </div>
                             </div>
                    </div>`

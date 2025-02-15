@@ -18,17 +18,17 @@ class AppMetaDiaria extends Base {
     connectedCallback() {
 
         store.onUpdatedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
-            this.showMetaDiaria(e.detail.item);
+            this.showMetaDiaria(e.detail.item as MetaDiaria);
         });
 
         store.onAddedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
-            this.showMetaDiaria(e.detail.item);
+            this.showMetaDiaria(e.detail.item as MetaDiaria);
 
             openTab("tabHomeCalculadora");
             closeTab("tabHomeCaloriaDiaria");
         });
 
-        let items: any[] = store.getItems(META_DIARIA_STORE);
+        let items: MetaDiaria[] = store.getItems<MetaDiaria[]>(META_DIARIA_STORE);
         if (items.length > 0) {
             this.showMetaDiaria(items[0]);
         } else {
@@ -36,7 +36,7 @@ class AppMetaDiaria extends Base {
         }
     }
 
-    showMetaDiaria(resultado: any) {
+    showMetaDiaria(resultado: MetaDiaria) {
 
         this.txtBtn = "Atualizar";
         this.boxResumo = html`<app-meta-diaria-resumo resultado=${JSON.stringify(resultado)} />`
@@ -48,6 +48,7 @@ class AppMetaDiaria extends Base {
         setNumberField("inputPeso", resultado.peso);
         setNumberField("inputAltura", resultado.altura);
         setNumberField("inputIdade", resultado.idade);
+        setRadiosCheck("inputObjetivo", resultado.objetivo);
     }
 
     render() {
@@ -126,7 +127,7 @@ class AppMetaDiaria extends Base {
                     <div class="descricao">Em centímetros.</div>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 <div>
                     <label>Gênero:</label>
                     <div class="radio">
@@ -146,6 +147,15 @@ class AppMetaDiaria extends Base {
                     </div>
                     <div class="radio">
                         <input type="radio" name="inputAtividadeFisica" value="3" /> <span>Muito ativo </span>
+                    </div>
+                </div>
+                <div>
+                    <label>Objetivo:</label>
+                    <div class="radio">
+                        <input type="radio" name="inputObjetivo" value="MM" /> <span>Ganhar massa magra</span>
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="inputObjetivo" value="PP" /> <span>Perder peso</span>
                     </div>
                 </div>
             </div>

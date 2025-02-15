@@ -1,5 +1,3 @@
-import { isNullOrEmpty } from "./treatments";
-
 export const getInputValue = (str) => {
 
     let element = document.getElementById(str) as HTMLInputElement;
