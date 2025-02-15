@@ -1,7 +1,7 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE, CARDAPIO_STORE } from "../app";
+import { ALIMENTACAO_STORE, CARDAPIO_STORE } from "../service/config.service";
 import { showConfirm } from "../service/message.service";
 import { uuidv4 } from "../lib/uuidv4";
 

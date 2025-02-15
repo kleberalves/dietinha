@@ -1,7 +1,7 @@
 import { html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
-import { INGREDIENTES_STORE } from "../app";
+import { INGREDIENTES_STORE } from "../service/config.service";
 
 class IngredientesSelecionadosItem extends Base {
 
@@ -17,6 +17,11 @@ class IngredientesSelecionadosItem extends Base {
         super();
     }
 
+      //Para ativar o evento "attributeChangedCallback"
+      static get observedAttributes() {
+        return ['ingrediente'];
+    }
+   
     connectedCallback() {
 
         this.props = {
@@ -27,7 +32,6 @@ class IngredientesSelecionadosItem extends Base {
 
         this.render();
     }
-
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "ingrediente") {
@@ -42,7 +46,26 @@ class IngredientesSelecionadosItem extends Base {
 
     render() {
         var unidade = this.props.ingrediente.unidade === undefined ? "g" : this.props.ingrediente.unidade;
-        render(this, html`<div class='item'> <b> ${this.props.ingrediente.nome} </b> ${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso} ${unidade}
+        render(this, html`
+        <style>
+      
+            .selecionados .item {
+                padding-right: 30px;
+                position: relative;
+                margin-bottom: 15px;
+                border-bottom: 1px solid #ccc;
+                padding-top: 7px;
+                padding-bottom: 20px;
+            }
+
+            .selecionados .item b {
+                font-weight: 300;
+                font-size: 20px;
+                color: var(--secondary-color);
+            }
+            </style>
+        
+        <div class='item'> <b> ${this.props.ingrediente.nome} </b> ${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso}${unidade}
             <button class='btn-remove' onclick=${() => this.removerCalculo(this.props.ingrediente.id)}> x </button>
             </div>` );
     }

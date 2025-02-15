@@ -6,7 +6,7 @@ class PesquisaItem extends Base {
 
     props: {
         idx: number;
-        id: number;
+        id: string;
         calorias?: number;
         peso?: number;
         nome?: string,
@@ -32,7 +32,7 @@ class PesquisaItem extends Base {
             calorias: this.p("calorias")
         }
 
-        var className = `listItem filtro delay${this.props.idx}`;
+        var className = `listItem pesquisa-alimento-item filtro delay${this.props.idx}`;
         var idItemResultadoCalorias = `itemResultadoCalorias${this.props.idx}`
         var idItemResultadoProteinas = `itemResultadoProteinas${this.props.idx}`
         var idItemResultadoPeso = `itemResultadoPeso${this.props.idx}`;
@@ -42,10 +42,13 @@ class PesquisaItem extends Base {
         render(this, html`
             <link rel="stylesheet" href="css/animations.delay.css" crossorigin="" />
             <!-- <link rel="stylesheet" href="css/components/pesquisa-item.css" crossorigin="" />   -->
+    <style>
+       
 
+    </style>
         <div class=${className}>
             <div class='title'> ${this.props.nome} <div><span>${this.props.calorias}</span> cal por <span> 100 ${unidade}</span></div></div> 
-            <div class='actions'>
+            <div class='actions pesquisa-alimento-item-actions'>
                 <input type='number' id=${idItemResultadoPeso} style='width: 85px;height: 40px;' placeholder='peso' oninput=${(e) => calcularAlimento(e.currentTarget.value, this.props.idx, this.props.id)} />
                 <div class='action'><b>Calorias</b><div id=${idItemResultadoCalorias}>-</div></div>
                 <div class='action'><b>Proteínas</b><div id=${idItemResultadoProteinas}>-</div></div>
@@ -54,6 +57,36 @@ class PesquisaItem extends Base {
         </div>
 
         <style>
+            .pesquisa-alimento-item-actions {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 10px;
+            }
+
+            @media (max-width: 399px) {
+                .pesquisa-alimento-item-actions {
+                    justify-content: space-around;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    margin-top: 15px;
+                }
+
+                .pesquisa-alimento-item-actions .btn-selecionar {
+                    margin-top: 15px;
+                }
+
+                .pesquisa-alimento-item-actions .action {
+                    width: 100%;
+                    margin-top: 10px;
+                }
+            }
+
+            .pesquisa-alimento-item-actions .action {
+                font-size: 15px;
+                text-align: center;
+            }
+            
             .listItem .title {
                 color: var(--primary-color);
                 border-bottom-color: var(--border-color);
@@ -97,7 +130,6 @@ class PesquisaItem extends Base {
                     opacity: 1;
                 }
             }
-
            
             </style>
         

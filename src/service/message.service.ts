@@ -46,6 +46,8 @@ export const showMessage = (msg, type) => {
     timedoutshowMessage = setTimeout(() => {
         removeWindow();
     }, msg.length * 150);
+
+    return msgWindow;
 }
 
 export const showConfirm = (msg, callback) => {
@@ -83,11 +85,17 @@ export const showConfirm = (msg, callback) => {
 
 
 
-export const showWarning = (msg) => {
-    showMessage(msg, "warning");
+export const showWarning = (msg: string) => {
+    let window = showMessage(msg, "warning");
+    window.onclick = () => {
+        removeWindow();
+    }
 }
 
 
-export const showError = (msg) => {
-    showMessage(msg, "error");
+export const showError = (msg:string) => {
+    let window = showMessage(msg, "error");
+    window.onclick = () => {
+        removeWindow();
+    }
 }

@@ -1,5 +1,37 @@
 import { isNullOrEmpty } from "./treatments";
 
+export const getInputValue = (str) => {
+
+    let element = document.getElementById(str) as HTMLInputElement;
+
+    if (element === null || element === undefined) {
+        element = document.querySelector(str) as HTMLInputElement;
+
+        if (element === null || element === undefined) {
+            return;
+        }
+    }
+
+    return element.value;
+}
+
+export const getInputNumber = (str) => {
+
+    let value = getInputValue(str);
+
+    if (value)
+        return parseFloat(value);
+}
+
+export const getInputInt = (str) => {
+
+    let value = getInputValue(str);
+
+    if (value)
+        return parseInt(value);
+}
+
+
 export const getRadiosCheck = (id: String) => {
     var field = document.querySelector('input[name=' + id + ']:checked') as HTMLInputElement;
 
@@ -29,56 +61,4 @@ export const setNumberField = (id, value) => {
     }
 }
 
-export function getTab(tabId:string) {
 
-    let tabs = document.getElementsByClassName('tab');
-
-    for (var i = 0; i < tabs.length; i++) {
-        if (tabs[i].id === tabId) {
-            return tabs[i];
-        }
-    }
-}
-
-export function closeForm(tabId:string) {
-
-    var tab = getTab(tabId) as HTMLDivElement;
-    if (isNullOrEmpty(tab)) {
-        return;
-    }
-
-    //Só fecha se estiver aberto
-    if (tab !== undefined && tab.classList.contains("open")) {
-
-        tab.classList.remove("open");
-
-        //Define temporariamente a altura em pixels pelo tamanho interno (form)
-        //substituindo o parâmento "auto"
-        tab.style.height = (tab.children[1].clientHeight + 60).toString();
-
-        setTimeout(() => {
-            tab.style.height = (42).toString();
-            tab.classList.add("close");
-        }, 150);
-    }
-
-}
-
-export function openForm(tabId:string) {
-
-    var tab = getTab(tabId) as HTMLDivElement;
-    if (isNullOrEmpty(tab)) {
-        return;
-    }
-
-    var newHeight = tab.children[1].clientHeight;
-
-    setTimeout(() => {
-        tab.style.height = newHeight.toString();
-        tab.classList.add("open");
-        tab.classList.remove("close");
-        setTimeout(() => {
-            tab.style.height = "auto";
-        }, 250);
-    }, 150);
-}

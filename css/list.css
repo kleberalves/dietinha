@@ -8,7 +8,7 @@
 }
 
 .list>.title {
-    color: var(--primary-color);
+    color: var(--destaque-color);
 }
 
 .list>.cols>div>.text {
@@ -21,8 +21,8 @@
 }
 
 .list>.title {
-    font-weight: 100;
-    font-size: 22px;
+    font-weight: 300;
+    font-size: 27px;
     margin-bottom: 16px;
 }
 
@@ -31,25 +31,6 @@
     padding: 8px;
     margin-bottom: 10px;
     position: relative;
-}
-
-.list.selecionados {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.list.selecionados .item {
-    padding-right: 30px;
-    position: relative;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-}
-
-.list.selecionados .item b {
-    font-weight: 100;
-    font-size: 20px;
-    color: var(--secondary-color);
 }
 
 .list.mini {
@@ -71,10 +52,6 @@
     justify-content: space-around;
 }
 
-.list>.cols>div {
-    display: flex;
-}
-
 .list>.cols.total>div {
     display: flex;
     flex-direction: column;
@@ -85,7 +62,7 @@
     margin-top: 25px;
     padding: 10px;
     border-radius: 16px;
-    font-weight: 100;
+    font-weight: 300;
     font-size: 17px;
 }
 
@@ -107,7 +84,7 @@
     flex-wrap: wrap;
 }
 
-.list>.cols>.options>label {
+.list>.cols>.options>labelX {
     width: 46%;
     margin: auto;
     border-radius: 16px;
@@ -129,33 +106,11 @@
     margin-right: 6px;
 }
 
-.list>.cols>div b {
-    color: #5495c2;
-}
-
-.list.resumo-calorias-diarias>.cols>div {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    margin-bottom: 5px;
-    margin-top: 5px;
-}
-
-.list.resumo-calorias-diarias>.cols>div .title {
-    font-weight: 100;
-}
-
 @media (max-width: 500px) {
-    .list.resumo-calorias-diarias>.cols>div {
-        width: 45%;
-    }
-
     .list>.cols {
         flex-wrap: wrap;
     }
 }
-
-
 
 .listItem {
     display: flex;
@@ -203,7 +158,7 @@
     margin-bottom: 5px;
     text-align: right;
     font-size: 18px;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 .listItem.filtro {
@@ -215,7 +170,7 @@
     display: flex;
     font-size: 20px;
     margin-bottom: 5px;
-    font-weight: 100;
+    font-weight: 300;
     flex-direction: column;
     border-bottom: 1px solid var(--destaque-color);
     ;
@@ -234,32 +189,3 @@
     font-size: 14px;
 }
 
-.listItem .actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-@media (max-width: 399px) {
-
-    .listItem .actions {
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        margin-top: 15px;
-    }
-
-    .listItem .actions .btn-selecionar {
-        margin-top: 15px;
-    }
-
-    .listItem .actions .action {
-        width: 33.33333%;
-    }
-}
-
-.listItem .actions .action {
-    font-size: 15px;
-    text-align: center;
-}

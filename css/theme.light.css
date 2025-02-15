@@ -60,21 +60,6 @@ input[type="text"] {
     color: #fff;
 }
 
-/* LISTAS */
-
-.list.resumo-calorias-diarias {
-    background-color: #f5f5f5;
-}
-
-
-/* .list>.title {
-    color: #e87610;
-}
-
-.list>.cols>div>.text {
-    color: #4CAF50;
-} */
-
 .list>.cols.total {
     background-color: #fafafa;
 }
@@ -101,6 +86,7 @@ input[type="text"] {
     --theme-color: #e8e8e8;
     --destaque-color: #d6d6d6;
     --contrast-color: #134049;
+    --contrast-high-color: #f6a7a7;    
 
 }
 

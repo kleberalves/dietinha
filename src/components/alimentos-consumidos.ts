@@ -1,7 +1,7 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE } from "../app";
+import { ALIMENTACAO_STORE } from "../service/config.service";
 
 class AlimentosConsumidos extends Base {
 
@@ -71,10 +71,10 @@ class AlimentosConsumidos extends Base {
 
             items.push(html`
                 <div class='listItem cardapio delay'>
-                   <div class='title'>${this.lista[i].nome}</div>
-                <div class='total'> Total de <span> ${this.lista[i].peso} g</span>, <span>${this.lista[i].calorias} calorias </span> e <span> ${this.lista[i].proteinas}g de proteínas</span>.</div>
+                    <div class='title'>${this.lista[i].nome}</div>
+                    <div class='total'> Total de <span> ${this.lista[i].peso} g</span>, <span>${this.lista[i].calorias} calorias </span> e <span> ${this.lista[i].proteinas}g de proteínas</span>.</div>
                 
-                <div>${new Date(this.lista[i].created).toLocaleString()}</div>
+                    <div>${new Date(this.lista[i].created).toLocaleTimeString()}</div>
                 </div>`);
 
             totalCalorias += itemCalculo.calorias;

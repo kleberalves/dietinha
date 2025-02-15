@@ -2,7 +2,7 @@ import { html, render } from "uhtml";
 import { Base } from "./Base";
 import { removeCarecEspec } from "../lib/treatments";
 import { store } from "../service/store.service";
-import { INGREDIENTES_STORE } from "../app";
+import { INGREDIENTES_STORE } from "../service/config.service";
 
 declare var listaAlimentos: Alimento[];
 

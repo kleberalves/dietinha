@@ -1,4 +1,4 @@
-import { INGREDIENTES_STORE } from "../app";
+import { INGREDIENTES_STORE } from "../service/config.service";
 import { showWarning } from "./message.service";
 import { store } from "./store.service";
 
@@ -6,7 +6,7 @@ declare var listaAlimentos: Alimento[];
 
 let produtoCalculo: Alimento | undefined;
 
-export const buscarProdutoPorId = (idProduto: number) => {
+export const buscarProdutoPorId = (idProduto: string) => {
 
     //Busca o produto na listaProdutos comparando a propriedade Id com o paramëtro "idProduto"
     for (var i = 0; i < listaAlimentos.length; i++) {
@@ -20,7 +20,7 @@ export const buscarProdutoPorId = (idProduto: number) => {
     return undefined;
 }
 
-export const calcularAlimento = (peso: string, idxResultado: number, idProduto: number): void => {
+export const calcularAlimento = (peso: string, idxResultado: number, idProduto: string): void => {
 
     if (produtoCalculo === undefined || produtoCalculo.id !== idProduto) {
         produtoCalculo = buscarProdutoPorId(idProduto);
@@ -53,7 +53,7 @@ export const calcularAlimento = (peso: string, idxResultado: number, idProduto: 
     }
 }
 
-export const adicionarCalculo = (idxResultado: number, idProduto: number) => {
+export const adicionarCalculo = (idxResultado: number, idProduto: string) => {
 
     try {
         var elementPeso: HTMLInputElement = document.getElementById("itemResultadoPeso" + idxResultado) as HTMLInputElement;

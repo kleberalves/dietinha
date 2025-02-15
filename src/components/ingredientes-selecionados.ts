@@ -1,10 +1,11 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
-import { CARDAPIO_STORE, INGREDIENTES_STORE } from "../app";
-import { closeForm, openForm, getRadiosCheck } from "../lib/forms";
+import { CARDAPIO_STORE, INGREDIENTES_STORE } from "../service/config.service";
+import { getRadiosCheck } from "../lib/forms";
 import { uuidv4 } from "../lib/uuidv4";
 import { showWarning } from "../service/message.service";
+import { closeTab, openTab } from "../lib/tabs";
 
 class IngredientesSelecionados extends Base {
 
@@ -31,10 +32,6 @@ class IngredientesSelecionados extends Base {
                 this.listaIngredientes = [];
                 render(this, html``);
             } else {
-
-                this.listaIngredientes = [];
-                this.render();
-
                 this.listaIngredientes = e.detail.items;
                 this.render();
             }
@@ -80,20 +77,27 @@ class IngredientesSelecionados extends Base {
             totalPeso += itemCalculo.peso;
         }
 
-        render(this, html`<div class='list selecionados'>
+        render(this, html`
+        <style>
+             .selecionados {
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+        </style>
+        <div class='list selecionados'>
             <div class='title'>Ingredientes selecionados</div>
                     ${items.map(item => item)}
             <div class='cols total'>
                 <div>Calorias <span class='text'> ${totalCalorias} </span></div>
                 <div>Proteínas <span class='text'>${totalProteinas} </span></div>
-                <div>Peso <span class='text'>${totalPeso} </span></div>
+                <div>Peso <span class='text'>${totalPeso}g</span></div>
             </div>
                 <div class='cols bar-add-ingredientes'>
-                    <div class='options'>
-                        <label><input type="radio" name="inputTipoCardapio" value="CA" /> Café da manhã/tarde </label>
-                        <label><input type="radio" name="inputTipoCardapio" value="AJ" /> Almoço/Jantar </label>
-                        <label><input type="radio" name="inputTipoCardapio" value="LC" /> Lanches </label>
-                        <label><input type="radio" name="inputTipoCardapio" value="SM" /> Sobremesas </label>
+                    <div class='radio-col-2'>
+                        <div class='radio'><input type="radio" name="inputTipoCardapio" value="CA" /> <span>Café da manhã/tarde</span> </div>
+                        <div class='radio'><input type="radio" name="inputTipoCardapio" value="AJ" /> <span>Almoço/Jantar</span> </div>
+                        <div class='radio'><input type="radio" name="inputTipoCardapio" value="LC" /> <span>Lanches</span> </div>
+                        <div class='radio'><input type="radio" name="inputTipoCardapio" value="SM" /> <span>Sobremesas</span> </div>
                     </div>
                     <div><button class='btn-main' onclick=${() => this.adicionarItemCardapio()}> Adicionar ao cardápio </button></div>
                 </div>
@@ -147,8 +151,8 @@ class IngredientesSelecionados extends Base {
 
                 this.reiniciarListaIngredientes();
 
-                closeForm("tabHomeCalculadora");
-                openForm("tabHomeCardapio");
+                closeTab("tabHomeCalculadora");
+                openTab("tabHomeCardapio");
             }
         } catch (e) {
             showWarning(e.message);

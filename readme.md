@@ -11,3 +11,5 @@ CSS
 https://javascript.info/shadow-dom-style
 
 https://medium.com/@spkamboj/web-components-binding-for-redux-251e8a5dff1e
+
+https://web.dev/learn/html/template

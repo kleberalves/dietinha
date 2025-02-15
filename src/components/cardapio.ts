@@ -1,7 +1,7 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
-import { CARDAPIO_STORE } from "../app";
+import { CARDAPIO_STORE } from "../service/config.service";
 
 class Cardapio extends Base {
 

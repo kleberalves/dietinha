@@ -5,7 +5,7 @@ export const saveDataLocal = (data, key) => {
     localStorage.setItem(key, data);
 }
 
-export const loadLocalStorage = (key: string): Object | null => {
+export const loadLocalStorage = (key: string): any | null => {
     var data = localStorage.getItem(key);
 
     if (data) {

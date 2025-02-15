@@ -1,5 +1,6 @@
-/// <reference path="src/definitions/alimento.d.ts" />
-/// <reference path="src/definitions/ingrediente.d.ts" />
+/// <reference path="../src/definitions/alimento.d.ts" />
+/// <reference path="../src/definitions/ingrediente.d.ts" />
+/// <reference path="../src/definitions/dictionary.ts" />
 
 interface CardapioItem {
     id: string;

@@ -5,7 +5,12 @@ export class Base extends HTMLElement {
 
     constructor() {
         super();
+        //Obtém o innerHTML da tag com os elementos provenientes
+        //do pai antes da própria renderização.
+        this.childrenHTML = this.innerHTML;
     }
+
+    childrenHTML: string;
 
     p(prop: string): any | undefined {
 
@@ -13,6 +18,14 @@ export class Base extends HTMLElement {
         if (value !== null) {
             return value;
         }
+    }
+
+    renderChildren() {
+        let children = this.querySelector("#children");
+        if (children &&
+            this.childrenHTML !== undefined &&
+            this.childrenHTML !== null)
+            children.innerHTML = this.childrenHTML;
     }
 
 }
