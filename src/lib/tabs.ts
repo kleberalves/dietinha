@@ -11,42 +11,52 @@ export function getTab(tabId: string) {
     }
 }
 
-export const swapTabs = (idx) => {
+export const swapTabs = (id: string) => {
 
     var tabs = document.getElementsByClassName('tab') as HTMLCollectionOf<HTMLDivElement>;
-    var state = tabs[idx].classList.contains("close");
 
-    //Se não tem o close é porque está aberto. Se está aberto, quer fechar.
-    if (!state) {
-        tabs[idx].classList.remove("open");
+    for (let t = 0; t < tabs.length; t++) {
+        let tab = tabs[t];
+        if (tab.id === id) {
 
-        //Define temporariamente a altura em pixels pelo tamanho interno (form)
-        //substituindo o value "auto"
-        //60 do margint-top do .form dentro da tab
-        tabs[idx].style.height = (tabs[idx].children[1].clientHeight + 60).toString();
+            var state = tab.classList.contains("close");
 
-        setTimeout(() => {
-            tabs[idx].classList.add("close");
-            tabs[idx].style.height = (42).toString();
-        }, 150);
-    } else {
+            //Se não tem o close é porque está aberto. Se está aberto, quer fechar.
+            if (!state) {
+                tab.classList.remove("open");
 
-        for (var i = 0; i < tabs.length; i++) {
-            if (tabs[i].id !== tabs[idx].id) {
-                closeTab(tabs[i].id);
+                //Define temporariamente a altura em pixels pelo tamanho interno (form)
+                //substituindo o value "auto"
+                //60 do margint-top do .form dentro da tab
+                tab.style.height = (tab.children[1].clientHeight + 60).toString();
+
+                setTimeout(() => {
+                    tab.classList.add("close");
+                    tab.style.height = (42).toString();
+                }, 150);
+            } else {
+
+                for (var i = 0; i < tabs.length; i++) {
+                    if (tabs[i].id !== tab.id) {
+                        closeTab(tabs[i].id);
+                    }
+                }
+
+                var newHeight = tab.children[1].clientHeight;
+
+                setTimeout(() => {
+                    tab.style.height = newHeight.toString();
+                    tab.classList.add("open");
+                    tab.classList.remove("close");
+                    setTimeout(() => {
+                        tab.style.height = "auto";
+                    }, 250);
+                }, 150);
             }
+
+        } else {
+            closeTab(tabs[t].id);
         }
-
-        var newHeight = tabs[idx].children[1].clientHeight;
-
-        setTimeout(() => {
-            tabs[idx].style.height = newHeight.toString();
-            tabs[idx].classList.add("open");
-            tabs[idx].classList.remove("close");
-            setTimeout(() => {
-                tabs[idx].style.height = "auto";
-            }, 250);
-        }, 150);
     }
 }
 

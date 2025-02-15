@@ -49,6 +49,7 @@ class AppMetaDiariaResumo extends Base {
                                 flex-direction: row;
                                 margin-bottom: 5px;
                                 margin-top: 5px;
+                                width: 45%;
                             }
 
                             .resumo-calorias-diarias>.cols>div b {
@@ -61,11 +62,7 @@ class AppMetaDiariaResumo extends Base {
                                 width: 100%;
                                 color: var(--primary-color);
                             }
-                            @media (max-width: 600px) {
-                                .resumo-calorias-diarias>.cols>div {
-                                    width: 45%;
-                                }
-                            }
+                 
                             @media (max-width: 320px) {
                                 .resumo-calorias-diarias>.cols>div {
                                     width: 100%;

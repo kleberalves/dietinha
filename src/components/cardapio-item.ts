@@ -154,7 +154,7 @@ class AppCardapioItem extends Base {
                                     placeholder='peso em gramas'
                                     oninput=${(e) => this.calcularAlimento(e.currentTarget.value)}  />
                                     <div class="anime">
-                                        <span>${this.calorias}</span> calorias e <span>${this.proteinas}g</span> proteínas.
+                                        <span>${this.calorias}</span> calorias e <span>${this.proteinas}g</span> de proteínas.
                                     </div>
                     </div>
                     <div class='actions center'>
@@ -182,7 +182,7 @@ class AppCardapioItem extends Base {
                     <div class="btn-trash" @click=${() => this.removerItemCardapio()}></div>
                 </div>
                 <div class='actions center'>
-                    ${this.templateSelecao === null ? html`<button class='btn-selecionar' onclick=${() => this.selecionarItem()}> Comi este alimento </button>` : html``}
+                    ${this.templateSelecao === null ? html`<button class='btn-selecionar' onclick=${() => this.selecionarItem()}> Consumi este alimento </button>` : html``}
                     ${this.templateSelecao}
                 </div>
                 </div>`);

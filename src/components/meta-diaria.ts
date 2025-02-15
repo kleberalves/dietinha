@@ -31,15 +31,14 @@ class AppMetaDiaria extends Base {
         let items: any[] = store.getItems(META_DIARIA_STORE);
         if (items.length > 0) {
             this.showMetaDiaria(items[0]);
+        } else {
+            this.render();
         }
     }
 
     showMetaDiaria(resultado: any) {
 
         this.txtBtn = "Atualizar";
-
-       
-
         this.boxResumo = html`<app-meta-diaria-resumo resultado=${JSON.stringify(resultado)} />`
 
         this.render();

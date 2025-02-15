@@ -2,6 +2,7 @@ import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE } from "../service/config.service";
+import { closeTab, openTab } from "../lib/tabs";
 
 class AlimentosConsumidos extends Base {
 
@@ -20,6 +21,10 @@ class AlimentosConsumidos extends Base {
 
             this.lista = e.detail.items;
             this.render();
+
+            openTab("tabHomeLog");
+            closeTab("tabHomeCardapio");
+
         });
 
         store.onRemovedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
@@ -29,6 +34,7 @@ class AlimentosConsumidos extends Base {
                 render(this, html``);
             } else {
 
+                //TODO: utilizar o observableAttributes
                 this.lista = [];
                 this.render();
 
@@ -53,10 +59,7 @@ class AlimentosConsumidos extends Base {
         }
 
         this.lista = store.getItems<CardapioItem[]>(ALIMENTACAO_STORE);
-
-        if (this.lista.length > 0) {
-            this.render();
-        }
+        this.render();
     }
 
     render() {
@@ -89,13 +92,16 @@ class AlimentosConsumidos extends Base {
             }
         </style>
         <div class='list selecionados'>
-            <div class='title'>Alimentos consumidos</div>
-                    ${items.map(item => item)}
-            <div class='cols total'>
-                <div>Calorias <span class='text'> ${totalCalorias} </span></div>
-                <div>Proteínas <span class='text'>${totalProteinas} </span></div>
-                <div>Peso <span class='text'>${totalPeso} </span></div>
-            </div>
+            <!-- <div class='title'>Alimentos consumidos</div> -->
+                    ${items.length === 0 ?
+                html`<b> Nada aqui ainda. Utilize o seu cardápio para selecionar as refeições que você consumiu no dia.</b>`
+                : html`${items.map(item => item)}
+                                 <div class='cols total'>
+                                    <div>Calorias <span class='text'> ${totalCalorias} </span></div>
+                                    <div>Proteínas <span class='text'>${totalProteinas} </span></div>
+                                    <div>Peso <span class='text'>${totalPeso} </span></div>
+                                </div>`}
+       
             </div>
       `);
 
