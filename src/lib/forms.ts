@@ -45,7 +45,7 @@ export const setRadiosCheck = (id, value) => {
     var radios = document.querySelectorAll<HTMLInputElement>('input[name="' + id + '"]');
 
     for (var i = 0; i < radios.length; i++) {
-        if (radios[i].value === value.toString()) {
+        if (value && value !== null && radios[i].value === value.toString()) {
             radios[i].checked = true;
         }
     }

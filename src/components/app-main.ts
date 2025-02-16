@@ -3,6 +3,7 @@ import { Base } from "./Base";
 import { closeTab, openTab, swapTabs } from "../lib/tabs";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";
+import { scrollBodyTop } from "../service/animation.service";
 
 class AppMain extends Base {
 
@@ -48,6 +49,8 @@ class AppMain extends Base {
             if (e.detail.items.length === 1) {
                 openTab("tabHomeCardapio");
                 closeTab("tabHomeCalculadora");
+
+               scrollBodyTop(0);
             }
         });
 
@@ -134,7 +137,8 @@ class AppMain extends Base {
                 ${this.showTabCalculadora
                 && this.showTabCalculadora
                 && !this.showTabCardapio
-                && ingredientesItems.length === 0
+                && ingredientesItems.length <= 1
+                && cardapioItems.length === 0
                 ? html` <div class="wizard-message">
                     <h1>Segundo passo</h1>
                     <p>
@@ -146,11 +150,7 @@ class AppMain extends Base {
                     </p>
                 </div>` : null}
 
-                ${this.showTabCalculadora
-                && this.showTabCalculadora
-                && this.showTabCardapio
-                && cardapioItems.length === 1
-                && ingredientesItems.length === 0
+                ${cardapioItems.length === 1
                 && alimentacaoItems.length === 0
                 ? html` <div class="wizard-message">
                     <h1>Último passo</h1>
