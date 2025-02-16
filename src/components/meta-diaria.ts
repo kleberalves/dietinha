@@ -91,6 +91,21 @@ class AppMetaDiaria extends Base {
                     margin-bottom: 20px;
                 }
 
+          
+
+                @media (max-width: 600px) {
+
+                    app-meta-diaria>.col-3>div,
+                    app-meta-diaria>.col-2>div {
+                        width: 48%;
+                    }
+
+                    app-meta-diaria > .col-3,
+                    app-meta-diaria > .col-2{    
+                        flex-wrap: wrap;
+                    }
+                }        
+
                 @media (max-width: 400px) {
 
                     app-meta-diaria > .col-3,

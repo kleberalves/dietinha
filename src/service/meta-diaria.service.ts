@@ -10,7 +10,7 @@ export const calcularMetaDiaria = () => {
     let opcaoAtividadeFisica = getInputInt('input[name=inputAtividadeFisica]:checked');
     let genero = getInputValue('input[name=inputGenero]:checked');
     let objetivo = getInputValue('input[name=inputObjetivo]:checked');
-    let altura = getInputInt("inputAltura");
+    let altura = getInputNumber("inputAltura");
     let idade = getInputInt("inputIdade");
 
     if (numPeso && opcaoAtividadeFisica && altura && idade && objetivo) {
@@ -18,6 +18,10 @@ export const calcularMetaDiaria = () => {
         if (!isNaN(numPeso) || !isNaN(opcaoAtividadeFisica)) {
 
             var numTMB = 0;
+
+            if(altura.toString().indexOf(".") > -1){
+                altura = altura * 100;
+            }
 
             //masculino
             if (genero === "M") {

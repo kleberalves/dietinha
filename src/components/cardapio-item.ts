@@ -16,8 +16,6 @@ class AppCardapioItem extends Base {
         nome: string;
         itens: any[];
     }
-
-    list: CardapioItem[] = [];
     templateSelecao: Hole = null;
     proteinas: number = 0;
     calorias: number = 0;
@@ -25,16 +23,6 @@ class AppCardapioItem extends Base {
 
     constructor() {
         super();
-
-        store.onAddedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
-            this.list = e.detail.items;
-            this.render();
-        });
-
-        store.onRemovedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
-            this.list = e.detail.items;
-            this.render();
-        });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

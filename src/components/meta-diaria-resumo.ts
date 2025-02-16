@@ -43,6 +43,8 @@ class AppMetaDiariaResumo extends Base {
                             }
                             .resumo-calorias-diarias>.cols {
                                 flex-wrap: wrap;
+                                justify-content: space-around;
+                                align-items: stretch;
                             }
             
                             .resumo-calorias-diarias>.cols>div {
@@ -51,7 +53,9 @@ class AppMetaDiariaResumo extends Base {
                                 flex-direction: row;
                                 margin-bottom: 5px;
                                 margin-top: 5px;
-                                width: 33%;
+                                margin-right: 15px;
+                                align-content: space-between;
+                                width: 25%;
                             }
 
                             .resumo-calorias-diarias>.cols>div b {
@@ -81,10 +85,10 @@ class AppMetaDiariaResumo extends Base {
                     <div class='list resumo-calorias-diarias' style='margin-bottom: 20px;'>
                             <div class='cols'>
                             ${this.props.resultado.objetivo === "PP"
-                ? html`<div><div class='title'>Para emagrecer</div> <b>${this.props.resultado.perderPeso} cal </b> por dia </div>`
-                : html`<div><div class='title'>Para ganhar massa</div> <b>${this.props.resultado.ganharMassa} cal </b> por dia </div>`}
-                            <div><div class='title'>Manter o peso</div> <b>${this.props.resultado.manterPeso} cal </b> por dia </div>
-                            <div><div class='title'>Proteínas</div> <b>${this.props.resultado.proteinas}g </b> por dia </div>
+                ? html`<div><div class='title'>Para emagrecer</div> <div><b>${this.props.resultado.perderPeso} cal </b> por dia </div></div>`
+                : html`<div><div class='title'>Para ganhar massa</div> <div><b>${this.props.resultado.ganharMassa} cal </b> por dia </div></div>`}
+                            <div><div class='title'>Manter o peso</div> <div><b>${this.props.resultado.manterPeso} cal </b> por dia </div></div>
+                            <div><div class='title'>Meta de proteínas</div> <div><b>${this.props.resultado.proteinas}g </b> por dia </div></div>
                             </div>
                    </div>`
         );
