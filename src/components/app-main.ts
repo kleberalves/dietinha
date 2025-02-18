@@ -211,7 +211,7 @@ class AppMain extends Base {
                     <div class=${(this.showTabCardapio || this.showTabCalculadora) ? "tab close" : "tab open"}
                         id="tabHomeCaloriaDiaria">
                     <div class="btn-tab-switch" onclick=${() => swapTabs("tabHomeCaloriaDiaria")}>
-                        <div class="title">Consumo diário de calorías</div>
+                        <div class="title">Meta diária</div>
                         <div class="btn"></div>
                     </div>
                     <div class="form">

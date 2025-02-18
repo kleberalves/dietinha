@@ -16,7 +16,7 @@ class AppCardapioItem extends Base {
         nome: string;
         itens: any[];
     }
-    templateSelecao: Hole = null;
+    templateSelecao: Hole | null = null;
     proteinas: number = 0;
     calorias: number = 0;
     pesoInicial: number = 0;

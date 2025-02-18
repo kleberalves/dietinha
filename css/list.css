@@ -43,7 +43,7 @@
 .list>.item.mini {
     font-size: 14px;
     border: 0px;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     padding-bottom: 0px;
 }
 
@@ -156,8 +156,7 @@
 .listItem.cardapio .total {
     margin: 15px;
     margin-bottom: 5px;
-    text-align: right;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 300;
 }
 

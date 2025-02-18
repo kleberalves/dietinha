@@ -3,6 +3,7 @@ import { Base } from "./Base";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE } from "../service/config.service";
 import { closeTab, openTab } from "../lib/tabs";
+import { showConfirm } from "../service/message.service";
 
 class AlimentosConsumidos extends Base {
 
@@ -12,6 +13,7 @@ class AlimentosConsumidos extends Base {
     }
 
     lista: CardapioItem[] = [];
+    itemsShow: Hole[] = [];
 
     constructor() {
         super();
@@ -62,22 +64,35 @@ class AlimentosConsumidos extends Base {
         this.render();
     }
 
+    removerItemCardapio(id: string) {
+
+        showConfirm("Você tem certeza que deseja remover este item do seu registro diário?", () => {
+            store.removeItemById(ALIMENTACAO_STORE, id);
+            this.render();
+        })
+    }
+
     render() {
         var totalCalorias = 0;
         var totalProteinas = 0;
         var totalPeso = 0;
 
-        let items: Hole[] = [];
+        this.itemsShow = [];
 
         for (var i = 0; i < this.lista.length; i++) {
             var itemCalculo = this.lista[i];
+            let itemIdCalculo = this.lista[i].id;
 
-            items.push(html`
+            this.itemsShow.push(html`
                 <div class='listItem cardapio delay'>
-                    <div class='title'>${this.lista[i].nome}</div>
-                    <div class='total'> Total de <span> ${this.lista[i].peso} g</span>, <span>${this.lista[i].calorias} calorias </span> e <span> ${this.lista[i].proteinas}g de proteínas</span>.</div>
+                    <div class='title'>${itemCalculo.nome}</div>
+                    <div class='total'> Total de <span> ${itemCalculo.peso} g</span>, <span>${itemCalculo.calorias} calorias </span> e <span> ${itemCalculo.proteinas}g de proteínas</span>.</div>
                 
-                    <div>${new Date(this.lista[i].created).toLocaleTimeString()}</div>
+                    <div>${new Date(itemCalculo.created).toLocaleTimeString()}</div>
+
+                    <div class='actions right'>
+                        <div class="btn-trash" @click=${() => this.removerItemCardapio(itemIdCalculo)}></div>
+                    </div>
                 </div>`);
 
             totalCalorias += itemCalculo.calorias;
@@ -93,9 +108,9 @@ class AlimentosConsumidos extends Base {
         </style>
         <div class='list selecionados'>
             <!-- <div class='title'>Alimentos consumidos</div> -->
-                    ${items.length === 0 ?
+                    ${this.itemsShow.length === 0 ?
                 html`<b> Nada aqui ainda. Utilize o seu cardápio para selecionar as refeições que você consumiu no dia.</b>`
-                : html`${items.map(item => item)}
+                : html`${this.itemsShow.map(item => item)}
                                  <div class='cols total'>
                                     <div>Calorias <span class='text'> ${totalCalorias} </span></div>
                                     <div>Proteínas <span class='text'>${totalProteinas} </span></div>

@@ -20,7 +20,44 @@ export const buscarProdutoPorId = (idProduto: string) => {
     return undefined;
 }
 
-export const calcularAlimento = (peso: string, idxResultado: number, idProduto: string): void => {
+export const calcularAlimentoColher = (unidade: string, idxResultado: number, idProduto: string): void => {
+
+    if (unidade !== "" &&
+        unidade !== null &&
+        !isNaN(parseFloat(unidade)) &&
+        parseFloat(unidade) > 0) {
+
+        let pesoNum = parseInt(unidade) * 30;
+
+        var inputPeso = document.getElementById("inputPeso" + idxResultado) as HTMLInputElement;
+        if (inputPeso) {
+            inputPeso.value = pesoNum.toString();
+        }
+
+        calcularAlimento(pesoNum, idxResultado, idProduto)
+    }
+}
+
+export const calcularAlimentoPeso = (peso: string, idxResultado: number, idProduto: string): void => {
+
+    if (peso !== "" &&
+        peso !== null &&
+        !isNaN(parseFloat(peso)) &&
+        parseFloat(peso) > 0) {
+
+        let pesoNum = parseInt(peso);
+
+        var inputQuantidade = document.getElementById("inputQuantidade" + idxResultado) as HTMLInputElement;
+
+        calcularAlimento(pesoNum, idxResultado, idProduto)
+
+        if (inputQuantidade) {
+            inputQuantidade.value = Math.round(pesoNum / 30).toString();
+        }
+    }
+}
+
+const calcularAlimento = (peso: number, idxResultado: number, idProduto: string): void => {
 
     if (produtoCalculo === undefined || produtoCalculo.id !== idProduto) {
         produtoCalculo = buscarProdutoPorId(idProduto);
@@ -29,17 +66,11 @@ export const calcularAlimento = (peso: string, idxResultado: number, idProduto: 
     var itemResultadoCalorias = document.getElementById("itemResultadoCalorias" + idxResultado);
     var itemResultadoProteinas = document.getElementById("itemResultadoProteinas" + idxResultado);
 
-    if (peso !== "" &&
-        peso !== null &&
-        !isNaN(parseFloat(peso)) &&
-        parseFloat(peso) > 0 &&
-        produtoCalculo !== undefined
-    ) {
-        var pesoNum = parseFloat(peso);
+    if (produtoCalculo !== undefined) {
 
         //100g é o fator base
-        var proteinas = Math.round((pesoNum * produtoCalculo.proteina) / 100);
-        var calorias = Math.round((pesoNum * produtoCalculo.calorias) / 100);
+        var proteinas = Math.round((peso * produtoCalculo.proteina) / 100);
+        var calorias = Math.round((peso * produtoCalculo.calorias) / 100);
 
         if (itemResultadoCalorias !== null && itemResultadoProteinas !== null) {
             itemResultadoCalorias.innerHTML = calorias.toString();

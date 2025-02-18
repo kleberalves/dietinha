@@ -97,12 +97,15 @@ class AppMetaDiaria extends Base {
 
                     app-meta-diaria>.col-3>div,
                     app-meta-diaria>.col-2>div {
-                        width: 48%;
+                        width: 45%;
+                        margin-left: 5px;
+                        margin-right: 5px;
                     }
 
                     app-meta-diaria > .col-3,
                     app-meta-diaria > .col-2{    
                         flex-wrap: wrap;
+                        justify-content: center;
                     }
                 }        
 
@@ -144,6 +147,15 @@ class AppMetaDiaria extends Base {
             </div>
             <div class="col-3">
                 <div>
+                    <label>Objetivo:</label>
+                    <div class="radio">
+                        <input type="radio" name="inputObjetivo" value="MM" /> <span>Ganhar massa magra</span>
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="inputObjetivo" value="PP" /> <span>Perder peso</span>
+                    </div>
+                </div>
+                <div>
                     <label>Gênero:</label>
                     <div class="radio">
                         <input type="radio" name="inputGenero" value="M" /> <span>Masculino</span>
@@ -164,15 +176,7 @@ class AppMetaDiaria extends Base {
                         <input type="radio" name="inputAtividadeFisica" value="3" /> <span>Muito ativo </span>
                     </div>
                 </div>
-                <div>
-                    <label>Objetivo:</label>
-                    <div class="radio">
-                        <input type="radio" name="inputObjetivo" value="MM" /> <span>Ganhar massa magra</span>
-                    </div>
-                    <div class="radio">
-                        <input type="radio" name="inputObjetivo" value="PP" /> <span>Perder peso</span>
-                    </div>
-                </div>
+               
             </div>
             <div class="action">
                 <button class="btn-main" onclick=${() => calcularMetaDiaria()}>${this.txtBtn}</button>

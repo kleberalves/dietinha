@@ -1,5 +1,5 @@
 import { html, render } from "uhtml";
-import { adicionarCalculo, calcularAlimento } from "../service/calculo.service";
+import { adicionarCalculo, calcularAlimentoColher as calcularAlimentoQuantidade, calcularAlimentoPeso } from "../service/calculo.service";
 import { Base } from "./Base";
 
 class PesquisaItem extends Base {
@@ -35,21 +35,25 @@ class PesquisaItem extends Base {
         var className = `listItem pesquisa-alimento-item filtro delay${this.props.idx}`;
         var idItemResultadoCalorias = `itemResultadoCalorias${this.props.idx}`
         var idItemResultadoProteinas = `itemResultadoProteinas${this.props.idx}`
-        var idItemResultadoPeso = `itemResultadoPeso${this.props.idx}`;
+        var inputPeso = `inputPeso${this.props.idx}`;
+        var inputQuantidade = `inputQuantidade${this.props.idx}`;
 
         var unidade: string = this.props.unidade ? this.props.unidade : "g";
 
         render(this, html`
             <link rel="stylesheet" href="css/animations.delay.css" crossorigin="" />
-            <!-- <link rel="stylesheet" href="css/components/pesquisa-item.css" crossorigin="" />   -->
-    <style>
-       
 
-    </style>
         <div class=${className}>
             <div class='title'> ${this.props.nome} <div><span>${this.props.calorias}</span> cal por <span> 100 ${unidade}</span></div></div> 
             <div class='actions pesquisa-alimento-item-actions'>
-                <input type='number' id=${idItemResultadoPeso} style='width: 85px;height: 40px;' placeholder='peso' oninput=${(e) => calcularAlimento(e.currentTarget.value, this.props.idx, this.props.id)} />
+                <div> <b>Colheres de sopa</b>
+                    <input type='number' id=${inputQuantidade} style='width: 85px;height: 40px;' placeholder='Colher de sopa' 
+                        oninput=${(e) => calcularAlimentoQuantidade(e.currentTarget.value, this.props.idx, this.props.id)} />    
+                </div>
+                <div> <b>Peso em gramas</b>
+                    <input type='number' id=${inputPeso} style='width: 85px;height: 40px;' placeholder='peso' 
+                        oninput=${(e) => calcularAlimentoPeso(e.currentTarget.value, this.props.idx, this.props.id)} />
+                </div>
                 <div class='action'><b>Calorias</b><div id=${idItemResultadoCalorias}>-</div></div>
                 <div class='action'><b>Proteínas</b><div id=${idItemResultadoProteinas}>-</div></div>
                 <button class='btn-selecionar' onclick=${() => adicionarCalculo(this.props.idx, this.props.id)}> Selecionar </button>
@@ -64,21 +68,31 @@ class PesquisaItem extends Base {
                 margin-top: 10px;
             }
 
-            @media (max-width: 399px) {
+            .pesquisa-alimento-item-actions > div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            @media (max-width: 599px) {
                 .pesquisa-alimento-item-actions {
-                    justify-content: space-around;
                     align-items: center;
                     flex-wrap: wrap;
                     margin-top: 15px;
                 }
-
+                .pesquisa-alimento-item-actions > div {
+                    margin-top: 10px;
+                    width: 47%;
+                }
+            }
+            @media (max-width: 399px) {
                 .pesquisa-alimento-item-actions .btn-selecionar {
                     margin-top: 15px;
                 }
 
-                .pesquisa-alimento-item-actions .action {
-                    width: 100%;
+                .pesquisa-alimento-item-actions > div {
                     margin-top: 10px;
+                    width: 100%;
                 }
             }
 
