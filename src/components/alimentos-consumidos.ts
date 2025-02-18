@@ -88,7 +88,7 @@ class AlimentosConsumidos extends Base {
                     <div class='title'>${itemCalculo.nome}</div>
                     <div class='total'> Total de <span> ${itemCalculo.peso} g</span>, <span>${itemCalculo.calorias} calorias </span> e <span> ${itemCalculo.proteinas}g de proteínas</span>.</div>
                 
-                    <div>${new Date(itemCalculo.created).toLocaleTimeString()}</div>
+                    <div class="data">${new Date(itemCalculo.created).toLocaleTimeString()}</div>
 
                     <div class='actions right'>
                         <div class="btn-trash" @click=${() => this.removerItemCardapio(itemIdCalculo)}></div>
@@ -104,6 +104,11 @@ class AlimentosConsumidos extends Base {
         <style>
             app-alimentos-consumidos {
                 width:100%;
+            }
+
+            app-alimentos-consumidos .cardapio .data {
+                text-align: right;
+                color: var(--destaque-color);
             }
         </style>
         <div class='list selecionados'>

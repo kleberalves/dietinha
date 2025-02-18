@@ -65,6 +65,7 @@ class PesquisaItem extends Base {
                 display: flex;
                 align-items: center;
                 flex-wrap: wrap;
+                justify-content: center;
                 margin-top: 15px;
             }
 
@@ -72,6 +73,7 @@ class PesquisaItem extends Base {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                flex-direction: column;
             }
 
             @media (max-width: 599px) {
@@ -95,6 +97,11 @@ class PesquisaItem extends Base {
             .pesquisa-alimento-item-actions .action {
                 font-size: 15px;
                 text-align: center;
+            }
+
+            .pesquisa-alimento-item-actions .action > div {
+               font-size: 20px;
+               color: var(--primary-color);
             }
             
             .listItem .title {
