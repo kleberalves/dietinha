@@ -87,7 +87,7 @@ const calcularAlimento = (peso: number, idxResultado: number, idProduto: string)
 export const adicionarCalculo = (idxResultado: number, idProduto: string) => {
 
     try {
-        var elementPeso: HTMLInputElement = document.getElementById("itemResultadoPeso" + idxResultado) as HTMLInputElement;
+        var elementPeso: HTMLInputElement = document.getElementById("inputPeso" + idxResultado) as HTMLInputElement;
         var pesoValue = parseFloat(elementPeso === null ? "" : elementPeso.value);
 
         if (isNaN(pesoValue)) {

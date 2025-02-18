@@ -12,6 +12,10 @@ export const calcularMetaDiaria = () => {
     let genero = getInputValue('input[name=inputGenero]:checked');
     let objetivo = getInputValue('input[name=inputObjetivo]:checked');
     let altura = getInputNumber("inputAltura");
+
+    let element = document.getElementById("inputAltura") as HTMLInputElement;
+    alert(element + " " + element.value);
+
     let idade = getInputInt("inputIdade");
     try {
         if (numPeso && opcaoAtividadeFisica && altura && idade && objetivo) {
