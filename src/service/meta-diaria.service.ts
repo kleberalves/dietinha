@@ -143,6 +143,8 @@ export const calcularMetaDiaria = () => {
             } else {
                 showWarning("Digite opções numéricas.");
             }
+        } else {
+            alert(altura);
         }
     } catch (e: any) {
         showError(e.message + " " + altura);
