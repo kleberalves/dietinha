@@ -78,7 +78,7 @@ class AlimentosConsumidos extends Base {
             <!-- <div class='title'>Alimentos consumidos</div> -->
                     ${this.itemsShow.length === 0 ?
                 html`<b> Nada aqui ainda. Utilize o seu cardápio para selecionar as refeições que você consumiu no dia.</b>`
-                : html` <app-mini-slide total-slides=${this.itemsShow.length}>
+                : html` <app-mini-slide total-slides=${this.itemsShow.length} reverso="true">
                             ${this.itemsShow.map(item => html`<app-alimentos-consumidos-item class="mini-slide-item" refeicao-dia=${JSON.stringify(item)} />`)}
                     </app-mini-slide>`}
        

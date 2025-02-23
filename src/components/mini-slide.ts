@@ -1,7 +1,14 @@
+import { parseBool } from "../lib/treatments";
 import { Base } from "./Base";
 import { html, render } from "uhtml";
 
-
+interface TouchMove {
+    startPosX: number;
+    startPosY: number;
+    endPosX: number;
+    endPosY: number;
+    direction: string;
+}
 class AppMiniSlide extends Base {
 
     constructor() {
@@ -12,23 +19,27 @@ class AppMiniSlide extends Base {
 
     props: {
         totalSlides: number;
+        reverso: boolean;
     };
 
     currentIndex: number = 0;
-    touchMove = {
-        startPosition: 0,
-        lastPosition: 0,
+    touchMove: TouchMove = {
+        startPosX: 0,
+        startPosY: 0,
+        endPosX: 0,
+        endPosY: 0,
         direction: "next"
     };
 
     currentHeight = 0;
 
-    dotsList:number[] =[];
+    dotsList: number[] = [];
 
     connectedCallback() {
 
         this.props = {
-            totalSlides: parseInt(this.p("total-slides"))
+            totalSlides: parseInt(this.p("total-slides")),
+            reverso: parseBool(this.p("reverso"))
         }
 
         this.render();
@@ -39,7 +50,8 @@ class AppMiniSlide extends Base {
 
         let newIndexElement = this.container.children[newIndex] as HTMLElement;
 
-        this.container.style.height = newIndexElement.clientHeight.toString();
+       //A altura do container deve representar 60% da altura da tela 
+        this.container.style.height = ((window.innerHeight * 60) / 100).toString();
 
         newIndexElement.classList.remove("close");
         newIndexElement.classList.remove("close-left");
@@ -132,12 +144,10 @@ class AppMiniSlide extends Base {
 
         if (e.touches && e.touches.length > 0) {
 
-            let startPosition = e.touches[0].screenX;
-
             this.touchMove = {
-                startPosition: startPosition,
-                lastPosition: 0,
-                direction: ""
+                ...this.touchMove,
+                startPosX: e.touches[0].screenX,
+                startPosY: e.touches[0].screenY,
             };
         }
     }
@@ -146,11 +156,10 @@ class AppMiniSlide extends Base {
 
         if (e.touches && e.touches.length > 0) {
 
-            let touchMove = e.touches[0].screenX;
-
             this.touchMove = {
                 ...this.touchMove,
-                lastPosition: touchMove
+                endPosX: e.touches[0].screenX,
+                endPosY: e.touches[0].screenY,
             };
         }
     }
@@ -158,11 +167,27 @@ class AppMiniSlide extends Base {
 
     onTouchEnd = (e: TouchEvent) => {
 
-        if (this.touchMove.lastPosition > 0) {
-            if (this.touchMove.lastPosition < this.touchMove.startPosition) {
-                this.prev();
-            } else if (this.touchMove.lastPosition > this.touchMove.startPosition) {
-                this.next();
+        var diferencaX = this.touchMove.startPosX - this.touchMove.endPosX;
+        var diferencaY = this.touchMove.startPosY - this.touchMove.endPosY;
+
+        //Se negativos, equaliza para positivo
+        if (diferencaX < 0) {
+            diferencaX = diferencaX * -1;
+        }
+
+        if (diferencaY < 0) {
+            diferencaY = diferencaY * -1;
+        }
+
+        //O espaçamento do X deve ser maior que a do Y
+        //para caracterizar um movimento horizontal
+        if (diferencaX > diferencaY) {
+            if (this.touchMove.endPosX > 0) {
+                if (this.touchMove.endPosX < this.touchMove.startPosX) {
+                    this.prev();
+                } else if (this.touchMove.endPosX > this.touchMove.startPosX) {
+                    this.next();
+                }
             }
         }
     }
@@ -194,13 +219,15 @@ class AppMiniSlide extends Base {
 
         this.dotsList = [];
 
-        for(let d=0;d<this.props.totalSlides;d++){
+        for (let d = 0; d < this.props.totalSlides; d++) {
             this.dotsList.push(d);
         }
 
-        this.dotsList = this.dotsList.sort((a,b)=>{
-            return b-a;
-        });
+        if (this.props.reverso) {
+            this.dotsList = this.dotsList.sort((a, b) => {
+                return b - a;
+            });
+        }
 
         render(this, html`
         
@@ -272,7 +299,7 @@ class AppMiniSlideDots extends Base {
     setDotIndex(e: any) {
 
         if (e.currentTarget !== null) {
-  
+
             this.dispatchEvent(new CustomEvent("updateclick", {
                 detail: {
                     idx: this.props.idx

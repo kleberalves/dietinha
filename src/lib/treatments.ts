@@ -57,3 +57,11 @@ export const localISOString = () => {
     var tzoffset = (new Date()).getTimezoneOffset() * 60000;
     return (new Date(Date.now() - tzoffset)).toISOString()
 }
+
+export const parseBool = (v:string) => {
+    if (v === "true" || v === "1"){
+        return true;
+    } else {
+        return false;
+    }
+}

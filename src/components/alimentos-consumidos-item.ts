@@ -71,6 +71,7 @@ class AppAlimentosConsumidosItem extends Base {
                     <style>
                         app-alimentos-consumidos-item {
                             padding-top: 25px;
+                            padding-bottom: 0px;
                         }
                         .data {
                             text-align: center;
@@ -86,15 +87,27 @@ class AppAlimentosConsumidosItem extends Base {
                             font-size: 16px;
                             font-weight: 200;
                         }
+                        app-alimentos-consumidos-item > .total {
+                            /* position: absolute;
+                            bottom: 0px;
+                            left: 0px;
+                            width: 100%; */
+                            background-color: var(--theme-color);
+                            margin-bottom: 30px;
+                        }
                     </style>
           <div class="data">${formatDate(this.refeicaoDia.dia, "dd/mm")}</div> ${itemsShow.length === 0 ?
             html`<b style="margin-top: 30px"> Você ainda não registrou nenhuma refeição hoje.</b>`
-            : html`${itemsShow.map(item => item)}
-                             <div class='cols total'>
-                                <div>Calorias<span class='text'>${totalCalorias} de </span></div>
-                                <div>Proteínas<span class='text'>${totalProteinas} de </span></div>
-                                <div>Volume (peso em gramas) <span class='text'>${totalPeso} </span></div>
-                            </div> `}
+            : html`
+            
+                <div class='cols total'>
+                                    <div>Total de calorias<span class='text'>${totalCalorias}</span></div>
+                                    <div>Proteínas<span class='text'>${totalProteinas}</span></div>
+                                    <div>Volume <span class='text'>${totalPeso}g </span></div>
+                                </div>
+                            
+                            ${itemsShow.map(item => item)}
+                             `}
                    `);
 
     }

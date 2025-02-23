@@ -205,8 +205,6 @@ class AppMain extends Base {
                     </div>
                 </div>` : null}
 
-                
-
                 ${this.showTabCaloriaDiaria ? html`
                     <div class=${(this.showTabCardapio || this.showTabCalculadora) ? "tab close" : "tab open"}
                         id="tabHomeCaloriaDiaria">

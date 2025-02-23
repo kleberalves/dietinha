@@ -1,7 +1,7 @@
 
 app-mini-slide #container {
     position: relative;
-
+    overflow: hidden;
 }
 .points-bar {
     position: absolute;
@@ -27,11 +27,13 @@ app-mini-slide #container {
 }
 
 .ico-arrow{
-    transform: rotate(90deg);
+    transform: rotate(0deg);
+
     width: 10px;
     height: 10px;
-    background-color: var(--secondary-color);
-    border-radius: 10px;
+
+    border-top: 2px solid #ccc;
+    border-right: 2px solid #ccc;
 }
 .btn-slide-nav {
     position: absolute;
@@ -40,6 +42,7 @@ app-mini-slide #container {
     height: 100%;
     display: flex;
     align-items: center;
+    width: 15px;
 
     > div {
         opacity: 1;
@@ -52,9 +55,10 @@ app-mini-slide #container {
 
 .btn-slide-nav.left {
     left: 0px;
+    padding-left: 5px;
 
     .ico-arrow {
-        transform: rotate(90deg);
+        transform: rotate(-135deg);
     }
 }
 
@@ -62,11 +66,11 @@ app-mini-slide #container {
     right: 0px;
 
     .ico-arrow {
-        transform: rotate(-90deg);
+        transform: rotate(45deg);
     }
 }
 
-@media (max-width: 760px) {
+/* @media (max-width: 760px) {
     .btn-slide-nav.left {
         left: -10px;
     }
@@ -74,7 +78,7 @@ app-mini-slide #container {
     .btn-slide-nav.right {
         right: -10px;
     }
-}
+} */
 
 
 .mini-slide-item {
@@ -85,13 +89,19 @@ app-mini-slide #container {
     left: 50px;
     width: 100%;
     animation-delay: 0.3s;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 94%;
 }
 .mini-slide-item.show {
     animation: mini-slide-item-show 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
+    z-index: 1000000;
 }
 
 .mini-slide-item.show-right {
     animation: mini-slide-item-show-right 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
+    z-index: 1000000;
 }
 
 .mini-slide-item.close {
