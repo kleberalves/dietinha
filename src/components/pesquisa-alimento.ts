@@ -89,7 +89,8 @@ class PesquisaAlimento extends Base {
                                 id=${item.id}
                                 idx=${idx}
                                 calorias=${item.calorias}
-                                unidade=${item.unidade} />`)}
+                                unidade=${item.unidade}
+                                categoria=${item.categoria} />`)}
            `);
 
 

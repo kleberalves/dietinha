@@ -20,14 +20,14 @@ export const buscarProdutoPorId = (idProduto: string) => {
     return undefined;
 }
 
-export const calcularAlimentoColher = (unidade: string, idxResultado: number, idProduto: string): void => {
+export const calcularAlimentoColher = (unidade: string, idxResultado: number, idProduto: string, rating: number): void => {
 
     if (unidade !== "" &&
         unidade !== null &&
         !isNaN(parseFloat(unidade)) &&
         parseFloat(unidade) > 0) {
 
-        let pesoNum = parseInt(unidade) * 30;
+        let pesoNum = parseInt(unidade) * rating;
 
         var inputPeso = document.getElementById("inputPeso" + idxResultado) as HTMLInputElement;
         if (inputPeso) {
@@ -38,7 +38,7 @@ export const calcularAlimentoColher = (unidade: string, idxResultado: number, id
     }
 }
 
-export const calcularAlimentoPeso = (peso: string, idxResultado: number, idProduto: string): void => {
+export const calcularAlimentoPeso = (peso: string, idxResultado: number, idProduto: string, rating: number): void => {
 
     if (peso !== "" &&
         peso !== null &&
@@ -52,7 +52,7 @@ export const calcularAlimentoPeso = (peso: string, idxResultado: number, idProdu
         calcularAlimento(pesoNum, idxResultado, idProduto)
 
         if (inputQuantidade) {
-            inputQuantidade.value = Math.round(pesoNum / 30).toString();
+            inputQuantidade.value = Math.round(pesoNum / rating).toString();
         }
     }
 }
