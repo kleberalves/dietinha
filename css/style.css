@@ -1,6 +1,13 @@
-* {
-    font-family: Roboto;
+@font-face {
+    font-family: 'Roboto';
+    src: url("../assets/roboto.woff2") format('woff2');
 }
+
+
+* {
+    font-family: 'Roboto';
+}
+
 
 body {
     display: flex;

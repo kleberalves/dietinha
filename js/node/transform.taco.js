@@ -83,6 +83,17 @@ function transform() {
         }
     );
 
+    listaAlimentos.push(
+        {
+            "id": "602",
+            "nome": "Macarrão cozido",
+            "categoria": "Cereais",
+            "calorias": 158,
+            "proteina": 6,
+            "gordura": 0
+        }
+    );
+
     fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.js"), "var listaAlimentos = " + JSON.stringify(listaAlimentos) + "; ");
 
 }

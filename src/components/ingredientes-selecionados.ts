@@ -6,6 +6,7 @@ import { getRadiosCheck } from "../lib/forms";
 import { uuidv4 } from "../lib/uuidv4";
 import { showWarning } from "../service/message.service";
 import { closeTab, openTab } from "../lib/tabs";
+import { localISOString } from "../lib/treatments";
 
 class IngredientesSelecionados extends Base {
 
@@ -136,7 +137,7 @@ class IngredientesSelecionados extends Base {
                     totalPeso += itemCalculo.peso;
                 }
 
-                var itemCardapio = {
+                var itemCardapio:CardapioItem = {
                     "id": uuidv4(),
                     "nome": nomeItemCardapio,
                     "tipo": tipoItemCardapio,
@@ -144,10 +145,10 @@ class IngredientesSelecionados extends Base {
                     "proteinas": totalProteinas,
                     "peso": totalPeso,
                     "itens": this.listaIngredientes,
-                    "created": new Date()
+                    "created": localISOString()
                 }
 
-                store.addItem(CARDAPIO_STORE, itemCardapio);
+                store.addItem<CardapioItem>(CARDAPIO_STORE, itemCardapio);
 
                 this.reiniciarListaIngredientes();
 

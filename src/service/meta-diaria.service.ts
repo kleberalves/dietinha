@@ -1,6 +1,7 @@
 import { getInputInt, getInputNumber, getInputValue } from "../lib/forms";
+import { localISOString } from "../lib/treatments";
 import { META_DIARIA_STORE } from "./config.service";
-import { showError, showWarning } from "./message.service";
+import { showError, showOk, showWarning } from "./message.service";
 import { store } from "./store.service";
 
 
@@ -12,9 +13,6 @@ export const calcularMetaDiaria = () => {
     let genero = getInputValue('input[name=inputGenero]:checked');
     let objetivo = getInputValue('input[name=inputObjetivo]:checked');
     let altura = getInputNumber("inputAltura");
-
-    let element = document.getElementById("inputAltura") as HTMLInputElement;
-    alert(element + " " + element.value);
 
     let idade = getInputInt("inputIdade");
     try {
@@ -118,12 +116,6 @@ export const calcularMetaDiaria = () => {
                             key: "objetivo",
                             value: objetivo
                         });
-
-                        data.push({
-                            key: "when",
-                            value: new Date().toISOString()
-                        });
-                        //toISOString() = '2025-02-14T23:31:45.689Z'
                     }
 
                     //Essa store deve registrar apenas um item
@@ -139,6 +131,8 @@ export const calcularMetaDiaria = () => {
                     }
 
                     store.updateItemsByFields(META_DIARIA_STORE, conditions, data);
+
+                    showOk("Meta Diária cadastrada com sucesso.");
 
                 } else {
                     showWarning("Digite de 1 a 3");

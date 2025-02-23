@@ -4,12 +4,18 @@ let timedoutshowMessage: any = 0;
 const removeWindow = () => {
     let msgWindow = document.getElementById("msgWindow");
     if (msgWindow) {
-        msgWindow.remove();
+        msgWindow.classList.remove("show-left");
+        msgWindow.classList.add("close-right");
+
+        timedoutshowMessage = setTimeout(() => {
+            msgWindow.remove();
+            let main = document.getElementById("main");
+            if (main) {
+                main.classList.remove("blur");
+            }
+        }, 400);
     }
-    let main = document.getElementById("main");
-    if (main) {
-        main.classList.remove("blur");
-    }
+
 }
 
 const createWindow = (type) => {
@@ -23,16 +29,19 @@ const createWindow = (type) => {
     var msgWindow = document.createElement("div");
     msgWindow.id = "msgWindow";
     msgWindow.classList.add("alert");
+    msgWindow.classList.add("show-left");
     msgWindow.classList.add(type);
 
     var body = document.getElementsByTagName("body");
     body[0].appendChild(msgWindow);
 
-    var element = document.getElementById("main");
-    if (element) {
-        element.classList.add("blur");
+    if (type !== "success") {
+        var element = document.getElementById("main");
+        if (element) {
+            element.classList.add("blur");
+        }
     }
-
+    
     return msgWindow;
 }
 
@@ -85,6 +94,13 @@ export const showConfirm = (msg, callback) => {
 
 
 
+export const showOk = (msg: string) => {
+    let window = showMessage(msg, "success");
+    window.onclick = () => {
+        removeWindow();
+    }
+}
+
 export const showWarning = (msg: string) => {
     let window = showMessage(msg, "warning");
     window.onclick = () => {
@@ -93,7 +109,7 @@ export const showWarning = (msg: string) => {
 }
 
 
-export const showError = (msg:string) => {
+export const showError = (msg: string) => {
     let window = showMessage(msg, "error");
     window.onclick = () => {
         removeWindow();

@@ -7,8 +7,6 @@ export const scrollBodyTop = (to:number) => {
             to,
             (value) => {
                 body.scrollTop = value;
-            }, () => {
-                console.log("animatio finished");
             });
     }
 }

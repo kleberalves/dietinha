@@ -1,12 +1,13 @@
 //export { };
 
 import { loadLocalStorage, saveDataLocal } from "../lib/local-storage";
+import { localISOString } from "../lib/treatments";
 import { uuidv4 } from "../lib/uuidv4";
 
 
 export const store = (() => {
 
-      const getItemByField = <T>(storeName: string, query: Dictionary) => {
+    const getItemByField = <T>(storeName: string, query: Dictionary) => {
 
         let store = loadLocalStorage(storeName);
         let item: T;
@@ -24,7 +25,7 @@ export const store = (() => {
 
     }
 
-    const addItem = <T>(storeName: string, item: any) => {
+    const addItem = <T>(storeName: string, item: T) => {
 
         return new Promise((resolve, reject) => {
 
@@ -39,7 +40,9 @@ export const store = (() => {
                     }
                 }
 
-                item.id = uuidv4();
+                item["id"] = uuidv4();
+                item["created"] = localISOString();
+
                 store.items.push(item);
 
                 //Salva por padrão no localStorage
@@ -68,7 +71,7 @@ export const store = (() => {
     const updateItemsByFields = <T>(storeName: string, conditions: Dictionary[], values: Dictionary[]) => {
 
         let store = loadLocalStorage(storeName);
-        let item: T;
+        let item: T = {} as T;
 
         if (store === null) {
             store = {
@@ -79,8 +82,6 @@ export const store = (() => {
 
         //Se a lista estiver vazia, adiciona na lista
         if (store.items.length === 0) {
-
-            let item: T = {} as T;
 
             for (let q = 0; q < conditions.length; q++) {
                 item[conditions[q].key] = conditions[q].value;
@@ -105,9 +106,12 @@ export const store = (() => {
                 }
 
                 if (cont === conditions.length) {
+                    //TODO: Mudar para ITEM ao invés de uma lista de values  
                     for (let v = 0; v < values.length; v++) {
                         item[values[v].key] = values[v].value;
                     }
+
+                    item["updated"] = localISOString();
 
                     //Salva por padrão no localStorage
                     saveDataLocal(store, storeName);
@@ -121,12 +125,30 @@ export const store = (() => {
                             }
                         })
                     );
-
-                    return item;
-
                 }
             }
         }
+
+        saveHistorico<T>(storeName, item);
+
+        return item;
+
+    }
+
+    const saveHistorico = <T>(storeName: string, item: T) => {
+
+        let storeNameHistorico = `${storeName}_HISTORICO`;
+        let storeHistorico = loadLocalStorage(storeNameHistorico);
+
+        if (storeHistorico === null) {
+            storeHistorico = {
+                name: storeNameHistorico,
+                items: []
+            }
+        }
+
+        storeHistorico.items.push(item);
+        saveDataLocal(storeHistorico, storeNameHistorico);
     }
 
     return {

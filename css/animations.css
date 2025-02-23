@@ -8,7 +8,6 @@
 .tab,
 .listItem,
 .anime,
-.alert,
 .radio,
 .radio span,
 .resumo-calorias-diarias,
@@ -21,6 +20,69 @@ h3 {
     animation: slide-in 0.3s normal cubic-bezier(0.45, 0.05, 0.15, 0.99) forwards;
 }
 
+
+.close-left {
+    animation: item-close-left 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
+}
+
+.close-right {
+    animation: item-close-right 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
+}
+
+.show-left {
+    animation: item-show-left 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
+}
+.show-right {
+    animation: item-show-right 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
+}
+
+@keyframes item-show-left {
+    0% {
+        opacity: 0;
+        translate: -80px 0px 0px;
+    }
+
+    100% {
+        translate: 0px 0px 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes item-show-right {
+    0% {
+        opacity: 0;
+        translate: 80px 0px 0px;
+    }
+
+    100% {
+        translate: 0px 0px 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes item-close-right {
+    0% {
+        opacity: 1;
+        translate: 0px 0px 0px;
+    }
+
+    100% {
+        translate: 80px 0px -100px;
+        opacity: 0;
+    }
+}
+
+@keyframes item-close-left {
+    0% {
+        opacity: 1;
+        translate: 0px 0px 0px;
+    }
+
+    100% {
+        translate: -80px 0px -100px;
+        opacity: 0;
+    }
+}
 
 @keyframes slide-in {
     from {

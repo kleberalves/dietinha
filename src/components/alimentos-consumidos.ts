@@ -1,9 +1,9 @@
-import { Hole, html, render } from "uhtml";
+import { html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE } from "../service/config.service";
+import { ALIMENTACAO_STORE, META_DIARIA_STORE } from "../service/config.service";
 import { closeTab, openTab } from "../lib/tabs";
-import { showConfirm } from "../service/message.service";
+import { agrupaDias } from "../service/registro-refeicoes.service";
 
 class AlimentosConsumidos extends Base {
 
@@ -12,17 +12,17 @@ class AlimentosConsumidos extends Base {
         id: number;
     }
 
-    lista: CardapioItem[] = [];
-    itemsShow: Hole[] = [];
+    itemsShow: RefeicaoDia[] = [];
 
     constructor() {
         super();
 
-
         store.onAddedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
 
-            this.lista = e.detail.items;
-            this.render();
+            this.itemsShow = [];
+            render(this, html``);
+            
+            this.render(e.detail.items);
 
             openTab("tabHomeLog");
             closeTab("tabHomeCardapio");
@@ -31,23 +31,15 @@ class AlimentosConsumidos extends Base {
 
         store.onRemovedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
 
-            if (e.detail.items.length === 0) {
-                this.lista = [];
-                render(this, html``);
-            } else {
+            this.itemsShow = [];
+            render(this, html``);
 
-                //TODO: utilizar o observableAttributes
-                this.lista = [];
-                this.render();
+            this.render(e.detail.items);
 
-                this.lista = e.detail.items;
-                this.render();
-            }
         });
 
         store.onCleared(ALIMENTACAO_STORE, (e: CustomEventInit) => {
-
-            this.lista = [];
+            this.itemsShow = [];
             render(this, html``);
         });
 
@@ -60,45 +52,16 @@ class AlimentosConsumidos extends Base {
             id: this.p("id"),
         }
 
-        this.lista = store.getItems<CardapioItem[]>(ALIMENTACAO_STORE);
         this.render();
     }
 
-    removerItemCardapio(id: string) {
+    render(items?: CardapioItem[]) {
 
-        showConfirm("Você tem certeza que deseja remover este item do seu registro diário?", () => {
-            store.removeItemById(ALIMENTACAO_STORE, id);
-            this.render();
-        })
-    }
-
-    render() {
-        var totalCalorias = 0;
-        var totalProteinas = 0;
-        var totalPeso = 0;
-
-        this.itemsShow = [];
-
-        for (var i = 0; i < this.lista.length; i++) {
-            var itemCalculo = this.lista[i];
-            let itemIdCalculo = this.lista[i].id;
-
-            this.itemsShow.push(html`
-                <div class='listItem cardapio delay'>
-                    <div class='title'>${itemCalculo.nome}</div>
-                    <div class='total'> Total de <span> ${itemCalculo.peso} g</span>, <span>${itemCalculo.calorias} calorias </span> e <span> ${itemCalculo.proteinas}g de proteínas</span>.</div>
-                
-                    <div class="data">${new Date(itemCalculo.created).toLocaleTimeString()}</div>
-
-                    <div class='actions right'>
-                        <div class="btn-trash" @click=${() => this.removerItemCardapio(itemIdCalculo)}></div>
-                    </div>
-                </div>`);
-
-            totalCalorias += itemCalculo.calorias;
-            totalProteinas += itemCalculo.proteinas;
-            totalPeso += itemCalculo.peso;
+        if (items === undefined) {
+            items = store.getItems<CardapioItem[]>(ALIMENTACAO_STORE);
         }
+
+        this.itemsShow = agrupaDias(items);
 
         render(this, html`
         <style>
@@ -115,12 +78,9 @@ class AlimentosConsumidos extends Base {
             <!-- <div class='title'>Alimentos consumidos</div> -->
                     ${this.itemsShow.length === 0 ?
                 html`<b> Nada aqui ainda. Utilize o seu cardápio para selecionar as refeições que você consumiu no dia.</b>`
-                : html`${this.itemsShow.map(item => item)}
-                                 <div class='cols total'>
-                                    <div>Calorias <span class='text'> ${totalCalorias} </span></div>
-                                    <div>Proteínas <span class='text'>${totalProteinas} </span></div>
-                                    <div>Peso <span class='text'>${totalPeso} </span></div>
-                                </div>`}
+                : html` <app-mini-slide total-slides=${this.itemsShow.length}>
+                            ${this.itemsShow.map(item => html`<app-alimentos-consumidos-item class="mini-slide-item" refeicao-dia=${JSON.stringify(item)} />`)}
+                    </app-mini-slide>`}
        
             </div>
       `);

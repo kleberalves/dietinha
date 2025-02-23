@@ -10,23 +10,39 @@ export const getInputValue = (str) => {
         }
     }
 
-    return element.value;
+    if (element.value) {
+        return element.value;
+    }
+
+    if (element.valueAsNumber) {
+        return element.valueAsNumber;
+    }
 }
 
 export const getInputNumber = (str) => {
 
     let value = getInputValue(str);
 
-    if (value)
-        return parseFloat(value);
+    if (value) {
+        if (typeof value === "string") {
+            return parseFloat(value);
+        } else if (typeof value === "number") {
+            return value;
+        }
+    }
 }
 
 export const getInputInt = (str) => {
 
     let value = getInputValue(str);
 
-    if (value)
-        return parseInt(value);
+    if (value) {
+        if (typeof value === "string") {
+            return parseInt(value);
+        } else if (typeof value === "number") {
+            return value;
+        }
+    }
 }
 
 

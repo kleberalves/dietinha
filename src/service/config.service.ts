@@ -5,6 +5,7 @@ export const CARDAPIO_STORE = "CARDAPIO_STORE";
 export const ALIMENTACAO_STORE = "ALIMENTACAO_STORE";
 export const CONFIG_STORE = "CONFIG_STORE";
 export const META_DIARIA_STORE = "META_DIARIA_STORE";
+export const META_DIARIA_STORE_HISTORICO = "META_DIARIA_STORE_HISTORICO";
 
 export const swapTheme = () => {
     var link = document.getElementById("styTheme");

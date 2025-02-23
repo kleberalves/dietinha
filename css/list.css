@@ -52,18 +52,21 @@
     justify-content: space-around;
 }
 
-.list>.cols.total>div {
+.cols.total>div {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.list>.cols.total {
+.cols.total {
     margin-top: 25px;
     padding: 10px;
     border-radius: 16px;
     font-weight: 300;
     font-size: 17px;
+
+    display: flex;
+    justify-content: space-around;
 }
 
 .list>.cols>div>.text {

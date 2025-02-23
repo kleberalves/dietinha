@@ -1,9 +1,10 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE, CARDAPIO_STORE } from "../service/config.service";
+import { ALIMENTACAO_STORE, CARDAPIO_STORE, META_DIARIA_STORE } from "../service/config.service";
 import { showConfirm } from "../service/message.service";
 import { uuidv4 } from "../lib/uuidv4";
+import { localISOString } from "../lib/treatments";
 
 class AppCardapioItem extends Base {
 
@@ -78,12 +79,14 @@ class AppCardapioItem extends Base {
 
         var cardapioItem: CardapioItem | undefined = store.getItemById<CardapioItem>(CARDAPIO_STORE, this.props.id);
 
+        let metaDiaria = store.getItems<MetaDiaria[]>(META_DIARIA_STORE);
+
         if (cardapioItem) {
 
             let calorias: number = Math.round((peso * cardapioItem.calorias) / cardapioItem.peso);
             let proteinas: number = Math.round((peso * cardapioItem.proteinas) / cardapioItem.peso);
 
-            let itemAlimentacao = {
+            let itemAlimentacao:RegistroRefeicao = {
                 "id": uuidv4(),
                 "idCardapio": cardapioItem.id,
                 "nome": cardapioItem.nome,
@@ -91,7 +94,7 @@ class AppCardapioItem extends Base {
                 "calorias": calorias,
                 "proteinas": proteinas,
                 "peso": peso,
-                "created": new Date()
+                "created": localISOString()
             }
 
             store.addItem(ALIMENTACAO_STORE, itemAlimentacao).then((info) => {

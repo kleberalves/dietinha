@@ -74,15 +74,10 @@ class PesquisaItem extends Base {
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
+                margin-top: 10px;
+                width: 47%;
             }
 
-            @media (max-width: 599px) {
-
-                .pesquisa-alimento-item-actions > div {
-                    margin-top: 10px;
-                    width: 47%;
-                }
-            }
             @media (max-width: 399px) {
                 .pesquisa-alimento-item-actions .btn-selecionar {
                     margin-top: 15px;
