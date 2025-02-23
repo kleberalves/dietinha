@@ -92,7 +92,8 @@ app-mini-slide #container {
 
     overflow-y: auto;
     overflow-x: hidden;
-    height: 94%;
+    height: 100%;
+    padding-right: 8px;
 }
 .mini-slide-item.show {
     animation: mini-slide-item-show 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;

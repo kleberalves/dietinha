@@ -70,7 +70,10 @@ class AppAlimentosConsumidosItem extends Base {
         render(this, html`   
                     <style>
                         app-alimentos-consumidos-item {
-                            padding-top: 25px;
+                            padding-top: 15px;
+                            padding-bottom: 0px;
+                        }
+                        app-alimentos-consumidos .selecionados{
                             padding-bottom: 0px;
                         }
                         .data {
