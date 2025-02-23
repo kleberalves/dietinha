@@ -182,7 +182,7 @@ class AppMain extends Base {
                         <div class="btn"></div>
                     </div>
                     <div class="form">
-                        <app-alimentos-consumidos></app-alimentos-consumidos>
+                        <app-registro-alimentos></app-registro-alimentos>
                     </div>
                 </div>
                 `: null}

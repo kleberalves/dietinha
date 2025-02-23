@@ -1,11 +1,11 @@
-import { html, render } from "uhtml";
+import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { showConfirm } from "../service/message.service";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
 
-class AppAlimentosConsumidosItem extends Base {
+class RegistroAlimentosItem extends Base {
 
     constructor() {
         super();
@@ -43,7 +43,7 @@ class AppAlimentosConsumidosItem extends Base {
         var totalProteinas = 0;
         var totalPeso = 0;
 
-        let itemsShow: CardapioItem[] = [];
+        let itemsShow: Hole[] = [];
 
         for (var i = 0; i < this.refeicaoDia.registros.length; i++) {
             var itemCalculo = this.refeicaoDia.registros[i];
@@ -67,43 +67,9 @@ class AppAlimentosConsumidosItem extends Base {
             
         }
 
-        render(this, html`   
-                    <style>
-                        app-alimentos-consumidos-item {
-                            padding-top: 15px;
-                            padding-bottom: 0px;
-                        }
-                        app-alimentos-consumidos .selecionados{
-                            padding-bottom: 0px;
-                        }
-                        .data {
-                            text-align: center;
-                            width: 100%;
-                            font-size: 22px;
-                            margin-bottom: 12px;
-                            font-weight: 200;
-                        }
-
-                        .hora {
-                            text-align: right;
-                            width: 100%;
-                            font-size: 16px;
-                            font-weight: 200;
-                        }
-                        app-alimentos-consumidos-item > .total {
-                            /* position: absolute;
-                            bottom: 0px;
-                            left: 0px;
-                            width: 100%; */
-                            background-color: var(--theme-color);
-                            margin-bottom: 30px;
-                        }
-                    </style>
-          <div class="data">${formatDate(this.refeicaoDia.dia, "dd/mm")}</div> ${itemsShow.length === 0 ?
+        render(this, html`<div class="data">${formatDate(this.refeicaoDia.dia, "dd/mm")}</div> ${itemsShow.length === 0 ?
             html`<b style="margin-top: 30px"> Você ainda não registrou nenhuma refeição hoje.</b>`
-            : html`
-            
-                <div class='cols total'>
+            : html` <div class='cols total'>
                                     <div>Total de calorias<span class='text'>${totalCalorias}</span></div>
                                     <div>Proteínas<span class='text'>${totalProteinas}</span></div>
                                     <div>Volume <span class='text'>${totalPeso}g </span></div>
@@ -116,4 +82,4 @@ class AppAlimentosConsumidosItem extends Base {
     }
 }
 
-window.customElements.define("app-alimentos-consumidos-item", AppAlimentosConsumidosItem);
+window.customElements.define("app-registro-alimentos-item", RegistroAlimentosItem);

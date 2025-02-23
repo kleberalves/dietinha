@@ -16,7 +16,7 @@ export const removeCarecEspec = (str) => {
 
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
-
+/** Converte uma string Date no formato ISO e retorna em uma das opções: dd/mm/yyyy, dd/mm e hh:MM */
 export const formatDate = (date: Date | string, format: string): string => {
 
     if (date === undefined || date === null) {
@@ -48,16 +48,17 @@ export const formatDate = (date: Date | string, format: string): string => {
         return `${hour}:${minutes}`;
     }
 
-
     return `${year}-${month}-${day}`;
-
 }
-
+/** Retorna o DateTime.Now no formato ISO com o TimeZone local aplicado */
 export const localISOString = () => {
     var tzoffset = (new Date()).getTimezoneOffset() * 60000;
     return (new Date(Date.now() - tzoffset)).toISOString()
 }
 
+/** Converte strings "true" e "1" para true.
+ * Qualquer outra info é false.
+ */
 export const parseBool = (v:string) => {
     if (v === "true" || v === "1"){
         return true;

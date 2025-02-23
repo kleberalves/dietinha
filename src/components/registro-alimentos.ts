@@ -5,7 +5,7 @@ import { ALIMENTACAO_STORE, META_DIARIA_STORE } from "../service/config.service"
 import { closeTab, openTab } from "../lib/tabs";
 import { agrupaDias } from "../service/registro-refeicoes.service";
 
-class AlimentosConsumidos extends Base {
+class RegistroAlimentos extends Base {
 
     props: {
         idx: number;
@@ -65,21 +65,14 @@ class AlimentosConsumidos extends Base {
 
         render(this, html`
         <style>
-            app-alimentos-consumidos {
-                width:100%;
-            }
-
-            app-alimentos-consumidos .cardapio .data {
-                text-align: right;
-                color: var(--destaque-color);
-            }
+         
         </style>
         <div class='list selecionados'>
             <!-- <div class='title'>Alimentos consumidos</div> -->
                     ${this.itemsShow.length === 0 ?
                 html`<b> Nada aqui ainda. Utilize o seu cardápio para selecionar as refeições que você consumiu no dia.</b>`
                 : html` <app-mini-slide total-slides=${this.itemsShow.length} reverso="true">
-                            ${this.itemsShow.map(item => html`<app-alimentos-consumidos-item class="mini-slide-item" refeicao-dia=${JSON.stringify(item)} />`)}
+                            ${this.itemsShow.map(item => html`<app-registro-alimentos-item class="mini-slide-item" refeicao-dia=${JSON.stringify(item)} />`)}
                     </app-mini-slide>`}
        
             </div>
@@ -88,4 +81,4 @@ class AlimentosConsumidos extends Base {
     }
 }
 
-window.customElements.define("app-alimentos-consumidos", AlimentosConsumidos);
+window.customElements.define("app-registro-alimentos", RegistroAlimentos);
