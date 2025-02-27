@@ -2,36 +2,38 @@ import { html, render } from "uhtml";
 import { adicionarCalculo, calcularAlimentoColher as calcularAlimentoUnidade, calcularAlimentoPeso } from "../service/calculo.service";
 import { Base } from "./Base";
 
+declare var listaAlimentosUnidades: AlimentoUnidade[];
+
 class PesquisaItem extends Base {
 
-    props: any;
+    props: {
+        idx: number;
+        item: Alimento;
+    }
 
     constructor() {
         super();
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        console.log(`Attribute ${name} has changed.`);
+    static get observedAttributes() {
+        return ['item', 'idx'];
     }
 
-    checkName(value: string) {
-        if (this.props.nome.toLowerCase().indexOf(value) > -1) {
-            return true;
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue !== null) {
+            this.render();
         }
-
-        return false;
     }
 
     connectedCallback() {
+        this.render();
+    }
+
+    render() {
 
         this.props = {
             idx: this.p("idx"),
-            id: this.p("id"),
-            nome: this.p("nome"),
-            unidade: this.p("unidade"),
-            peso: this.p("peso"),
-            calorias: this.p("calorias"),
-            categoria: this.p("categoria")
+            item: JSON.parse(this.p("item")),
         }
 
         var className = `listItem pesquisa-alimento-item filtro delay${this.props.idx}`;
@@ -39,42 +41,41 @@ class PesquisaItem extends Base {
         var idItemResultadoProteinas = `itemResultadoProteinas${this.props.idx}`
         var inputPeso = `inputPeso${this.props.idx}`;
         var inputQuantidade = `inputQuantidade${this.props.idx}`;
-        var unidade: string = this.props.unidade ? this.props.unidade : "g";
+        var unidade: string = this.props.item.unidade ? this.props.item.unidade : "g";
 
-        let rating:number = 30;
-        let label:string = "Colher de sopa";
+        let rating: number = 0;
+        let label: string = "";
 
-        if(this.checkName("ovo") && this.checkName("galinha")){
-            rating = 45;
-            label = "Ovo unidade";
-        } else   if(this.checkName("pão") && this.checkName("forma")){
-            rating = 25;
-            label = "Fatia";
-        } else  if(this.checkName("ovo") && this.checkName("codorna")){
-            rating = 10;
-            label = "Unidade";
+        for (let i = 0; i < listaAlimentosUnidades.length; i++) {
+
+            if (this.props.item.id === listaAlimentosUnidades[i].idAlimento) {
+                rating = listaAlimentosUnidades[i].rating;
+                label = listaAlimentosUnidades[i].label;
+                break;
+            }
+
         }
 
         render(this, html`
             <link rel="stylesheet" href="css/animations.delay.css" crossorigin="" />
 
         <div class=${className}>
-            <div class='title'> ${this.props.nome} <div><span>${this.props.calorias}</span> cal por <span> 100 ${unidade}</span></div></div> 
+            <div class='title'> ${this.props.item.nome} <div><span>${this.props.item.calorias}</span> cal por <span> 100 ${unidade}</span></div></div> 
             <div class='actions pesquisa-alimento-item-actions'>
                 
-                <div> <b>Peso em gramas</b>
-                    <input type='number' id=${inputPeso} style='width: 85px;height: 40px;' placeholder='peso' 
-                        oninput=${(e) => calcularAlimentoPeso(e.currentTarget.value, this.props.idx, this.props.id, rating)} />
+                <div> <b>${(this.props.item.unidade && this.props.item.unidade === "ml") ? html`Quantidade ml` : html`Peso em gramas`}</b>
+                    <input type='number' id=${inputPeso} style='width: 85px;height: 40px;' placeholder='Qtd' 
+                        oninput=${(e) => calcularAlimentoPeso(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />
                 </div>
 
-                <div> <b>${label}</b>
+                ${(rating > 0) ? html`<div> <b>${label}</b>
                     <input type='number' id=${inputQuantidade} style='width: 85px;height: 40px;' placeholder=${label} 
-                        oninput=${(e) => calcularAlimentoUnidade(e.currentTarget.value, this.props.idx, this.props.id, rating)} />    
-                </div>
+                        oninput=${(e) => calcularAlimentoUnidade(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />    
+                </div>` : null}
 
                 <div class='action'><b>Calorias</b><div id=${idItemResultadoCalorias}>-</div></div>
                 <div class='action'><b>Proteínas</b><div id=${idItemResultadoProteinas}>-</div></div>
-                <button class='btn-selecionar' onclick=${() => adicionarCalculo(this.props.idx, this.props.id)}> Selecionar </button>
+                <button class='btn-selecionar' onclick=${() => adicionarCalculo(this.props.idx, this.props.item.id)}> Selecionar </button>
             </div>
         </div>
         

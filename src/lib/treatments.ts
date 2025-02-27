@@ -10,11 +10,9 @@ export const isNullOrEmpty = (obj) => {
 /** Remove os caracteres especiais e ainda retorna como lower case. */
 export const removeCarecEspec = (str) => {
 
-    if (isNullOrEmpty(str)) {
-        throw new Error("Parâmetro vazio ao remover os caracteres especiais.");
+    if (!isNullOrEmpty(str)) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     }
-
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 /** Converte uma string Date no formato ISO e retorna em uma das opções: dd/mm/yyyy, dd/mm e hh:MM */
 export const formatDate = (date: Date | string, format: string): string => {
@@ -25,7 +23,7 @@ export const formatDate = (date: Date | string, format: string): string => {
 
     if (typeof date === "string") {
         //Remove o timezone da String
-        date = new Date(date.substring(0,19));
+        date = new Date(date.substring(0, 19));
     }
 
     let day: string = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate().toString();
@@ -59,8 +57,8 @@ export const localISOString = () => {
 /** Converte strings "true" e "1" para true.
  * Qualquer outra info é false.
  */
-export const parseBool = (v:string) => {
-    if (v === "true" || v === "1"){
+export const parseBool = (v: string) => {
+    if (v === "true" || v === "1") {
         return true;
     } else {
         return false;

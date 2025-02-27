@@ -2,7 +2,7 @@ import { localISOString } from "../lib/treatments";
 import { META_DIARIA_STORE_HISTORICO } from "./config.service";
 import { store } from "./store.service";
 
-export const agrupaDias = (items: CardapioItem[]) => {
+export const agrupaDias = (items: RegistroRefeicao[]) => {
 
     let ordenado: RegistroRefeicao[] = items.sort((a: RegistroRefeicao, b: RegistroRefeicao) => {
         return new Date(b.created).getTime() - new Date(a.created).getTime();

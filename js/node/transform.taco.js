@@ -1,6 +1,12 @@
-//transforma uma array de objetos adicionando a propriedade id no formato uuid
-
 var path = require('path');
+
+const checkName = (nome, value) => {
+    if (nome.toLowerCase().indexOf(value) > -1) {
+        return true;
+    }
+
+    return false;
+}
 
 function transform() {
 
@@ -8,23 +14,19 @@ function transform() {
     var tabela = JSON.parse(fs.readFileSync(path.join(__dirname, '..', "data", "TACO.json"), 'utf8'));
 
     var listaAlimentos = [];
+    var listaAlimentosUnidades = [];
+    var listaAlimentosSemCalorias = [];
+
     for (var i = 0; i < tabela.length; i++) {
 
-        //Inserindo infos do leite desnatado
-        if (tabela[i].id === 457) {
-            listaAlimentos.push(
-                {
-                    "nome": tabela[i].description.split(",").join(""),
-                    "categoria": tabela[i].category,
-                    "calorias": 33,
-                    "unidade": "ml",
-                    "proteina": 3.5,
-                    "gordura": 0,
-                    "id": tabela[i].id.toString()
-                }
-            )
+        if (typeof tabela[i].energy_kcal === "string" && tabela[i].energy_kcal === "*") {
+            listaAlimentosSemCalorias.push({
+                "id": tabela[i].id.toString(),
+                "nome": tabela[i].description.split(",").join("")
+            });
         } else {
-            listaAlimentos.push({
+
+            var alimento = {
                 "id": tabela[i].id.toString(),
                 "nome": tabela[i].description.split(",").join(""),
                 "categoria": tabela[i].category,
@@ -32,9 +34,44 @@ function transform() {
                 "proteina": Math.round(tabela[i].protein_g),
                 "gordura": Math.round(tabela[i].lipid_g),
                 "carboidrato": Math.round(tabela[i].carbohydrate_g)
-            })
+            };
+
+            switch (tabela[i].id) {
+                case "463":
+                    //Troca o nome de mozarela para mussarela
+                    alimento["nome"] = "Queijo mussarela";
+                    break;
+            }
+
+            listaAlimentos.push(alimento);
         }
     }
+
+    //Inserindo infos do leite desnatado
+    listaAlimentos.push(
+        {
+            "id": "457",
+            "nome": "Leite de vaca desnatado",
+            "categoria": "Leite e derivados",
+            "calorias": 33,
+            "proteina": 3.5,
+            "gordura": 0,
+            "unidade": "ml"
+        }
+    );
+
+    //Inserindo infos do leite desnatado
+    listaAlimentos.push(
+        {
+            "id": "458",
+            "nome": "Leite de vaca integral",
+            "categoria": "Leite e derivados",
+            "calorias": 61,
+            "proteina": 3.15,
+            "gordura": 3.25,
+            "unidade": "ml"
+        }
+    );
 
     //Adicionando água para compor receitas
     listaAlimentos.push(
@@ -59,7 +96,6 @@ function transform() {
             "gordura": 0
         }
     );
-
 
     listaAlimentos.push(
         {
@@ -95,6 +131,76 @@ function transform() {
     );
 
     fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.js"), "var listaAlimentos = " + JSON.stringify(listaAlimentos) + "; ");
+    fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.ausentes.js"), "var listaAlimentosAusentes = " + JSON.stringify(listaAlimentosSemCalorias) + "; ");
+
+    //Cria a lista de unidades
+    for (var i = 0; i < listaAlimentos.length; i++) {
+
+        var alimentoUnidade = {};
+        var alimento = listaAlimentos[i];
+
+        if (checkName(alimento.nome, "ovo") &&
+            checkName(alimento.nome, "galinha")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Unidade",
+                "rating": 30
+            }
+
+        } else if (checkName(alimento.nome, "pão") &&
+            checkName(alimento.nome, "francês")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Unidade",
+                "rating": 35
+            }
+
+        } else if (checkName(alimento.nome, "arroz") ||
+            checkName(alimento.nome, "feijão") ||
+            checkName(alimento.nome, "leite") ||
+            checkName(alimento.nome, "farinha")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Colher de sopa",
+                "rating": 30
+            }
+
+        } else if (checkName(alimento.nome, "pão") &&
+            checkName(alimento.nome, "forma")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Fatia pão de forma",
+                "rating": 25
+            }
+
+        } else if (checkName(alimento.nome, "mortadela") ||
+            checkName(alimento.nome, "mussarela")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Fatia",
+                "rating": 25
+            }
+
+        } else if (checkName(alimento.nome, "ovo") &&
+            checkName(alimento.nome, "codorna")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Unidade",
+                "rating": 10
+            }
+        } else if (checkName(alimento.nome, "banana")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Unidade",
+                "rating": 70
+            }
+        }
+
+        listaAlimentosUnidades.push(alimentoUnidade);
+    }
+
+
+    fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.unidades.js"), "var listaAlimentosUnidades = " + JSON.stringify(listaAlimentosUnidades) + "; ");
 
 }
 

@@ -8,4 +8,10 @@ declare global {
         categoria: string;
         unidade: string;
     }
+
+    interface AlimentoUnidade {
+        idAlimento: string;
+        label: string;
+        rating: number;
+    }
 }

@@ -68,7 +68,7 @@ class RegistroAlimentosItem extends Base {
         }
 
         render(this, html`<div class="data">${formatDate(this.refeicaoDia.dia, "dd/mm")}</div> ${itemsShow.length === 0 ?
-            html`<b style="margin-top: 30px"> Você ainda não registrou nenhuma refeição hoje.</b>`
+            html`<b style="margin-top: 30px;display: block;text-align: center;"> Você ainda não registrou nenhuma refeição hoje.</b>`
             : html` <div class='cols total'>
                                     <div>Total de calorias<span class='text'>${totalCalorias}</span></div>
                                     <div>Proteínas<span class='text'>${totalProteinas}</span></div>

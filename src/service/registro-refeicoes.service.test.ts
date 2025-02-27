@@ -3,7 +3,7 @@ import { agrupaDias } from './registro-refeicoes.service';
 
 describe('Agrupador de dias', async () => {
 
-  let items: Refeicao[]; 
+  let items: RegistroRefeicao[]; 
 
   beforeEach(()=>{
     items = [{

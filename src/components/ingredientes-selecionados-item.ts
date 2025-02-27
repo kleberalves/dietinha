@@ -17,11 +17,11 @@ class IngredientesSelecionadosItem extends Base {
         super();
     }
 
-      //Para ativar o evento "attributeChangedCallback"
-      static get observedAttributes() {
+    //Para ativar o evento "attributeChangedCallback"
+    static get observedAttributes() {
         return ['ingrediente'];
     }
-   
+
     connectedCallback() {
 
         this.props = {

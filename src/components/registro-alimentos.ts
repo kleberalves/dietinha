@@ -31,9 +31,6 @@ class RegistroAlimentos extends Base {
 
         store.onRemovedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
 
-            this.itemsShow = [];
-            render(this, html``);
-
             this.render(e.detail.items);
 
         });

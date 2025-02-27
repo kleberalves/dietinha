@@ -3,8 +3,8 @@ import { Base } from "./Base";
 import { removeCarecEspec } from "../lib/treatments";
 import { store } from "../service/store.service";
 import { INGREDIENTES_STORE } from "../service/config.service";
+import { consultaAlimento } from "../service/pesquisa-alimento.service";
 
-declare var listaAlimentos: Alimento[];
 
 class PesquisaAlimento extends Base {
 
@@ -31,34 +31,11 @@ class PesquisaAlimento extends Base {
     }
 
 
-    txtPequisaAlterado(target: HTMLInputElement) {
+    onTxtPesquisaInput(target: HTMLInputElement) {
+        // this.resultList = [];
+        // this.render();
 
-        this.resultList = [];
-        this.render();
-
-        let value = removeCarecEspec(target.value.toLowerCase());
-        let values: string[] = value.split(" ");
-
-
-        for (var i = 0; i < listaAlimentos.length; i++) {
-
-            if (this.resultList.length < 20) {
-                var nome = listaAlimentos[i].nome;
-                nome = removeCarecEspec(nome);
-
-                let cont = 0;
-                for (var s = 0; s < values.length; s++) {
-                    if (nome.indexOf(values[s]) > -1) {
-                        cont++;
-                    }
-                }
-
-                if (cont === values.length) {
-                    this.resultList.push(listaAlimentos[i]);
-                }
-            }
-        }
-
+        this.resultList = consultaAlimento(target.value.toLowerCase());
         this.render();
     }
 
@@ -83,14 +60,10 @@ class PesquisaAlimento extends Base {
             <style>
                 </style>
                 <label>Digite o nome do alimento</label>
-                <input type="text" class="textForm" id="txtPesquisa" oninput=${(e) => this.txtPequisaAlterado(e.currentTarget)} />  
+                <input type="text" class="textForm" id="txtPesquisa" oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />  
                 ${this.resultList.map((item, idx) => html`<app-pesquisa-alimento-item 
-                                nome=${item.nome}
-                                id=${item.id}
-                                idx=${idx}
-                                calorias=${item.calorias}
-                                unidade=${item.unidade}
-                                categoria=${item.categoria} />`)}
+                                item=${JSON.stringify(item)}
+                                idx=${idx} />`)}
            `);
 
 

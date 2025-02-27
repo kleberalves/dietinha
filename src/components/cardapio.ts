@@ -51,13 +51,8 @@ class Cardapio extends Base {
         for (var i = 0; i < this.list.length; i++) {
 
             let h = html`<app-cardapio-item 
-                            id=${this.list[i].id}
                             idx=${i}
-                            itens=${JSON.stringify(this.list[i].itens)}
-                            nome=${this.list[i].nome}
-                            peso=${this.list[i].peso}
-                            calorias=${this.list[i].calorias}
-                            proteinas=${this.list[i].proteinas} />`;
+                            item=${JSON.stringify(this.list[i])} />`;
 
             switch (this.list[i].tipo) {
                 case "CA":
