@@ -11,7 +11,8 @@
     "test:ui": "vitest --ui",
     "build": "rollup -c ./rollup.config.js",
     "serve": "serve",
-    "start": "npm run build && npm run serve"
+    "start": "npm run build && npm run serve",
+    "watch": "npx watch 'npm run build' ./src"
   },
   "repository": {
     "type": "git",
@@ -38,14 +39,15 @@
     "core-js": "3.6.5",
     "playwright": "^1.50.1",
     "rollup": "2.26.3",
-    "serve": "11.3.2",
+    "serve": "^11.3.2",
     "standard": "14.3.4",
     "typescript": "3.9.7",
-    "uhtml": "^2.8.1"
+    "uhtml": "^2.8.1",
+    "watch": "^1.0.2"
   },
   "devDependencies": {
-    "@vitest/browser": "^3.0.6",
     "@types/dietinha": "file:./@types",
+    "@vitest/browser": "^3.0.6",
     "vitest": "^3.0.6"
   }
 }

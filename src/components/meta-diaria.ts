@@ -128,7 +128,7 @@ class AppMetaDiaria extends Base {
                     justify-content: center;
                 }
                 </style>
-
+                
             <div class="col-3">
                 <div>
                     <label>Digite a idade:</label>
@@ -141,7 +141,7 @@ class AppMetaDiaria extends Base {
                 </div>
                 <div>
                     <label>Digite a altura:</label>
-                    <input type="number" id="inputAltura" />
+                    <input type="text" pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]" id="inputAltura" />
                     <div class="descricao">Em centímetros.</div>
                 </div>
             </div>

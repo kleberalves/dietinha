@@ -1,5 +1,4 @@
 import { getInputInt, getInputNumber, getInputValue } from "../lib/forms";
-import { localISOString } from "../lib/treatments";
 import { META_DIARIA_STORE } from "./config.service";
 import { showError, showOk, showWarning } from "./message.service";
 import { store } from "./store.service";

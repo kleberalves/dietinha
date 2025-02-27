@@ -133,7 +133,6 @@ class AppMain extends Base {
                     </p>
                 </div>` : null}
 
-
                 ${this.showTabCalculadora
                 && this.showTabCalculadora
                 && !this.showTabCardapio
@@ -143,9 +142,10 @@ class AppMain extends Base {
                     <h1>Segundo passo</h1>
                     <p>
                         Faça consultas no campo abaixo para descobrir alimentos e compor 
-                        receitas e refeições que você mais consome separando em 4 categorias:<br/>
+                        refeições que você mais consome. 
+                        <br/> Você pode separar em 4 categorias:<br/>
                         <b>Café da manhã/tarde</b> -  <b>Almoço/jantar</b> -  <b>Lanches</b> -  <b>Sobremesas</b>. <br/>                        
-                        Depois do seu Cardápio pronto, você poderá informar diariamente quais
+                        Depois do seu Cardápio pronto, basta registrar diariamente quais
                         itens você consumiu.
                     </p>
                 </div>` : null}

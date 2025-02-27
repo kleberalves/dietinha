@@ -25,6 +25,10 @@ export const getInputNumber = (str) => {
 
     if (value) {
         if (typeof value === "string") {
+
+           //Substitui vírgula por ponto se houver 
+            value = value.split(",").join(".");
+
             return parseFloat(value);
         } else if (typeof value === "number") {
             return value;

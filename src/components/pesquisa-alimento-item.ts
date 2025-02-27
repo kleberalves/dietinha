@@ -29,6 +29,13 @@ class PesquisaItem extends Base {
         this.render();
     }
 
+    showFormCalculo: Boolean = false;
+
+    showCalculo() {
+        this.showFormCalculo = !this.showFormCalculo;
+        this.render();
+    }
+
     render() {
 
         this.props = {
@@ -61,22 +68,32 @@ class PesquisaItem extends Base {
 
         <div class=${className}>
             <div class='title'> ${this.props.item.nome} <div><span>${this.props.item.calorias}</span> cal por <span> 100 ${unidade}</span></div></div> 
-            <div class='actions pesquisa-alimento-item-actions'>
-                
-                <div> <b>${(this.props.item.unidade && this.props.item.unidade === "ml") ? html`Quantidade ml` : html`Peso em gramas`}</b>
+            
+            ${this.showFormCalculo === false ? html`<div class='action-bar'>
+                <button class='btn-selecionar' onclick=${() => this.showCalculo()}> Calcular </button>
+
+            </div>` : null}
+            
+            ${this.showFormCalculo ? html`<div class='actions pesquisa-alimento-item-actions'>   
+                <div class='action'> 
+                    <b>${(this.props.item.unidade && this.props.item.unidade === "ml") ? html`Quantidade ml` : html`Peso em gramas`}</b>
                     <input type='number' id=${inputPeso} style='width: 85px;height: 40px;' placeholder='Qtd' 
                         oninput=${(e) => calcularAlimentoPeso(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />
                 </div>
 
-                ${(rating > 0) ? html`<div> <b>${label}</b>
+                ${(rating > 0) ? html`<div class='action'> <b>${label}</b>
                     <input type='number' id=${inputQuantidade} style='width: 85px;height: 40px;' placeholder=${label} 
                         oninput=${(e) => calcularAlimentoUnidade(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />    
                 </div>` : null}
 
                 <div class='action'><b>Calorias</b><div id=${idItemResultadoCalorias}>-</div></div>
                 <div class='action'><b>Proteínas</b><div id=${idItemResultadoProteinas}>-</div></div>
+               <div class='action-bar'>
                 <button class='btn-selecionar' onclick=${() => adicionarCalculo(this.props.idx, this.props.item.id)}> Selecionar </button>
+                <button class='btn-cancelar' class="" onclick=${() => this.showCalculo()}>Cancelar</button>
             </div>
+            </div>` : null}
+
         </div>
         
         `);
