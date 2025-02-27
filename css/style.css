@@ -8,6 +8,10 @@
     font-family: 'Roboto';
 }
 
+html, body {
+    overflow: hidden;
+}
+
 
 body {
     display: flex;
@@ -71,3 +75,19 @@ input[type="text"] {
 }
 
 
+
+*::-webkit-scrollbar, 
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+*::-webkit-scrollbar-corner, *::-webkit-scrollbar-corner {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 1px;
+}
+*::-webkit-scrollbar-track, *::-webkit-scrollbar-track {
+    background-color: var(--theme-color);
+}

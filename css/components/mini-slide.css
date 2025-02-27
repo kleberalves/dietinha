@@ -95,6 +95,7 @@ app-mini-slide #container {
     height: 100%;
     padding-right: 8px;
 }
+
 .mini-slide-item.show {
     animation: mini-slide-item-show 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
     z-index: 1000000;
@@ -152,6 +153,3 @@ app-mini-slide #container {
         opacity: 0;
     }
 }
-
-
-

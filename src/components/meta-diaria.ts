@@ -55,81 +55,8 @@ class AppMetaDiaria extends Base {
         render(this, html` 
 
             ${this.boxResumo}
-
-            <style>
-                app-meta-diaria {
-                    position: relative;
-                    display: flex;
-                    flex-direction: column;
-                    width: 100%;
-                }
-
-                app-meta-diaria > .col-3,
-                app-meta-diaria > .col-2{
-                    display: flex;
-                    justify-content: space-between;
-                }
-
-                app-meta-diaria > .col-3 > div,
-                app-meta-diaria > .col-2 > div{
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
-                app-meta-diaria > .col-3 > div {
-                    width: 30%;
-                }
-
-                app-meta-diaria > .col-2 > div {
-                    width: 47%;
-                }
-
-                app-meta-diaria >.title {
-                    font-size: 20px;
-                    width: 100%;
-                    font-weight: bold;
-                    margin-top: 0px;
-                    margin-bottom: 20px;
-                }
-
-          
-
-                @media (max-width: 600px) {
-
-                    app-meta-diaria>.col-3>div,
-                    app-meta-diaria>.col-2>div {
-                        width: 45%;
-                        margin-left: 5px;
-                        margin-right: 5px;
-                    }
-
-                    app-meta-diaria > .col-3,
-                    app-meta-diaria > .col-2{    
-                        flex-wrap: wrap;
-                        justify-content: center;
-                    }
-                }        
-
-                @media (max-width: 400px) {
-
-                    app-meta-diaria > .col-3,
-                    app-meta-diaria > .col-2{
-                        flex-direction: column;
-                    }
-
-                    app-meta-diaria>.col-3>div,
-                    app-meta-diaria>.col-2>div {
-                        width: 99%;
-                    }
-                }
-
-                app-meta-diaria>.action {
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                }
-                </style>
                 
-            <div class="col-3">
+            <div class="col-2">
                 <div>
                     <label>Digite a idade:</label>
                     <input type="number" class="textForm" id="inputIdade" />
@@ -145,7 +72,7 @@ class AppMetaDiaria extends Base {
                     <div class="descricao">Em centímetros.</div>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <div>
                     <label>Objetivo:</label>
                     <div class="radio">

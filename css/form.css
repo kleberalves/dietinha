@@ -6,8 +6,7 @@
     justify-content: space-between;
     max-width: 550px;
 
-    overflow: hidden;
-    padding: 13px;
+    width: 95%;
     padding-top: 10px;
     z-index: 0;
 

@@ -51,7 +51,7 @@ class AppMiniSlide extends Base {
         let newIndexElement = this.container.children[newIndex] as HTMLElement;
 
        //A altura do container deve representar 60% da altura da tela 
-        this.container.style.height = ((window.innerHeight * 60) / 100).toString();
+        this.container.style.height = (window.innerHeight - 150).toString();
 
         newIndexElement.classList.remove("close");
         newIndexElement.classList.remove("close-left");

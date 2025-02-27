@@ -1,15 +1,7 @@
+import { getDivByClassId } from "./dom";
 import { isNullOrEmpty } from "./treatments";
 
-export function getTab(tabId: string) {
 
-    let tabs = document.getElementsByClassName('tab');
-
-    for (var i = 0; i < tabs.length; i++) {
-        if (tabs[i].id === tabId) {
-            return tabs[i];
-        }
-    }
-}
 
 export const swapTabs = (id: string) => {
 
@@ -60,9 +52,11 @@ export const swapTabs = (id: string) => {
     }
 }
 
+
+
 export function closeTab(tabId: string) {
 
-    var tab = getTab(tabId) as HTMLDivElement;
+    var tab = getDivByClassId("tab", tabId) as HTMLDivElement;
     if (isNullOrEmpty(tab)) {
         return;
     }
@@ -86,7 +80,7 @@ export function closeTab(tabId: string) {
 
 export function openTab(tabId: string) {
 
-    var tab = getTab(tabId) as HTMLDivElement;
+    var tab = getDivByClassId("tab",tabId) as HTMLDivElement;
     if (isNullOrEmpty(tab)) {
         return;
     }

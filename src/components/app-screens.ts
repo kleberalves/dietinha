@@ -1,11 +1,11 @@
 import { html, render } from "uhtml";
 import { Base } from "./Base";
-import { closeTab, openTab, swapTabs } from "../lib/tabs";
+import { closeScreen, openScreen, swapScreen } from "../lib/screens";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
 
-class AppMain extends Base {
+class AppScreens extends Base {
 
     constructor() {
         super();
@@ -23,8 +23,8 @@ class AppMain extends Base {
 
             this.render();
 
-            openTab("tabHomeCalculadora");
-            closeTab("tabHomeCaloriaDiaria");
+            openScreen("screenHomeCalculadora");
+            closeScreen("screenHomeCaloriaDiaria");
         });
 
         //Added significa que a meta foi cadastrada pela primeira vez
@@ -47,10 +47,10 @@ class AppMain extends Base {
             //Executa esse evento apenas na primeira vez em que um item for
             //adicionado no cardápio
             if (e.detail.items.length === 1) {
-                openTab("tabHomeCardapio");
-                closeTab("tabHomeCalculadora");
+                openScreen("screenHomeCardapio");
+                closeScreen("screenHomeCalculadora");
 
-               scrollBodyTop(0);
+                scrollBodyTop(0);
             }
         });
 
@@ -65,14 +65,14 @@ class AppMain extends Base {
 
         if (metaDiariaItems.length === 0) {
             this.showTabCaloriaDiaria = true;
-            //openTab("tabHomeCaloriaDiaria");
+            //openTab("screenHomeCaloriaDiaria");
         } else if (cardapioItems.length === 0) {
             this.showTabCalculadora = true;
         } else {
             this.showTabCardapio = true;
             this.showTabCaloriaDiaria = true;
             this.showTabCalculadora = true;
-            //openTab("tabHomeCardapio");
+            //openTab("screenHomeCardapio");
         }
 
         render(this, html`
@@ -93,33 +93,6 @@ class AppMain extends Base {
 
                 <div id="main">
 
-                <style>
-                    .wizard-message {
-                        background-color: var(--contrast-high-color);
-                        border-radius: 25px;
-                        margin-bottom: 10px;
-                        padding: 20px;
-                        padding-bottom: 5px;
-                    }
-                    .wizard-message h1 {
-                        margin: 0px;
-                        margin-bottom: 5px;
-                        font-size: 25px;
-                        font-weight: 200;
-                        color: var(--theme-color);
-                    }
-
-                    .wizard-message h1,
-                    .wizard-message p,
-                    .wizard-message b {
-                        color: #fff;
-                        font-weight: 300;
-                        line-height: 25px;
-                    }
-                    .wizard-message b {
-                        font-weight:bold;
-                    }
-                </style>
 
                ${this.showTabCaloriaDiaria
                 && !this.showTabCalculadora
@@ -164,23 +137,19 @@ class AppMain extends Base {
                 
                 ${this.showTabCardapio ? html`
                     <div 
-                    class=${(this.showTabCaloriaDiaria || this.showTabCalculadora) && cardapioItems.length === 0 ? "tab close" : "tab open"} 
-                    id="tabHomeCardapio">
-                    <div class="btn-tab-switch" onclick=${() => swapTabs("tabHomeCardapio")}>
+                    class=${(this.showTabCaloriaDiaria || this.showTabCalculadora) && cardapioItems.length === 0 ? "screen close" : "screen open"} 
+                    id="screenHomeCardapio">
                         <div class="title">Meu cardápio</div>
-                        <div class="btn"></div>
-                    </div>
+
+          
                     <div class="form">
                         <div class="full">
                             <app-cardapio></app-cardapio>
                         </div>
                     </div>
                 </div>
-                <div class="tab close" id="tabHomeLog">
-                    <div class="btn-tab-switch" onclick=${() => swapTabs("tabHomeLog")}>
-                        <div class="title">Minhas refeições</div>
-                        <div class="btn"></div>
-                    </div>
+                <div class="screen close" id="screenHomeLog">
+                     <div class="title">Minhas refeições</div>
                     <div class="form">
                         <app-registro-alimentos></app-registro-alimentos>
                     </div>
@@ -189,12 +158,11 @@ class AppMain extends Base {
 
                 ${this.showTabCalculadora ? html`
                     <div 
-                        class=${(this.showTabCaloriaDiaria || this.showTabCardapio) ? "tab close" : "tab open"}
-                        id="tabHomeCalculadora">
-                    <div class="btn-tab-switch" onclick=${(e) => swapTabs("tabHomeCalculadora")}>
-                        <div class="title">Calculadora de alimentos</div>
-                        <div class="btn"></div>
-                    </div>
+                        class=${(this.showTabCaloriaDiaria || this.showTabCardapio) ? "screen close" : "screen open"}
+                        id="screenHomeCalculadora">
+                         <div class="title">Calculadora de alimentos</div>
+
+              
                     <div class="form">
                         <div class="full">
                             <app-pesquisa-alimento></app-pesquisa-alimento>
@@ -206,28 +174,50 @@ class AppMain extends Base {
                 </div>` : null}
 
                 ${this.showTabCaloriaDiaria ? html`
-                    <div class=${(this.showTabCardapio || this.showTabCalculadora) ? "tab close" : "tab open"}
-                        id="tabHomeCaloriaDiaria">
-                    <div class="btn-tab-switch" onclick=${() => swapTabs("tabHomeCaloriaDiaria")}>
+                    <div class=${(this.showTabCardapio || this.showTabCalculadora) ? "screen close" : "screen open"}
+                        id="screenHomeCaloriaDiaria">
                         <div class="title">Meta diária</div>
-                        <div class="btn"></div>
-                    </div>
-                    <div class="form">
-                        <app-meta-diaria></app-meta-diaria>
-                    </div>
+                    
+                        <div class="form">
+                            <app-meta-diaria></app-meta-diaria>
+
+                             <app-container>
+                                <app-container-item text="Trocar tema" />
+                            </app-container> 
+
+                        </div>
                 </div>` : null} 
+            </div>
+
+
+            <div class="screens-nav">
+            <div>
+                <div class="btn-screen-switch" onclick=${() => swapScreen("screenHomeCardapio")}>
+                        <div class="btn">Cardápio</div>
+                </div>
+
+                <div class="btn-screen-switch" onclick=${() => swapScreen("screenHomeLog")}>                       
+                        <div class="btn">Registro</div>
+                </div>
+
+                <div class="btn-screen-switch" onclick=${(e) => swapScreen("screenHomeCalculadora")}>
+                        <div class="btn">Calculadora</div>
+                </div>
+
+                <div class="btn-screen-switch" onclick=${() => swapScreen("screenHomeCaloriaDiaria")}>     
+                     <div class="btn">Meta</div>
+                </div>
+                </div>
             </div>
 
 
         <!-- Solução para passagem de filhos sem utilizar o
              Slot que é exclusivo do ShadowAPI
            -->
-            <app-container>
-                <app-container-item text="Trocar tema" />
-            </app-container> 
+           
 
         `);
     }
 }
 
-window.customElements.define("app-main", AppMain);
+window.customElements.define("app-screens", AppScreens);
