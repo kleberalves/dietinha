@@ -74,8 +74,9 @@ class RegistroAlimentosItem extends Base {
                                     <div>Proteínas<span class='text'>${totalProteinas}</span></div>
                                     <div>Volume <span class='text'>${totalPeso}g </span></div>
                                 </div>
-                            
-                            ${itemsShow.map(item => item)}
+                                <div class="list-space-around">
+                                   ${itemsShow.map(item => item)}
+                                </div>
                              `}
                    `);
 

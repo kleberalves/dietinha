@@ -1,9 +1,8 @@
 import { html, render } from "uhtml";
 import { Base } from "./Base";
-import { closeTab, openTab, swapTabs } from "../lib/tabs";
+import { swapTabs } from "../lib/tabs";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";
-import { scrollBodyTop } from "../service/animation.service";
 
 class AppMain extends Base {
 
@@ -17,43 +16,6 @@ class AppMain extends Base {
 
     connectedCallback() {
         this.render();
-
-        //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
-
-            this.render();
-
-            openTab("tabHomeCalculadora");
-            closeTab("tabHomeCaloriaDiaria");
-        });
-
-        //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
-            this.render();
-        });
-
-        //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
-            if (e.detail.items.length === 1) {
-                this.render();
-            }
-        });
-
-        //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
-
-            this.render();
-
-            //Executa esse evento apenas na primeira vez em que um item for
-            //adicionado no cardápio
-            if (e.detail.items.length === 1) {
-                openTab("tabHomeCardapio");
-                closeTab("tabHomeCalculadora");
-
-               scrollBodyTop(0);
-            }
-        });
-
     }
 
     render() {
@@ -191,10 +153,6 @@ class AppMain extends Base {
                 </div>` : null} 
             </div>
 
-
-        <!-- Solução para passagem de filhos sem utilizar o
-             Slot que é exclusivo do ShadowAPI
-           -->
             <app-container>
                 <app-container-item text="Trocar tema" />
             </app-container> 

@@ -97,30 +97,7 @@ class AppCardapioItem extends Base {
 
     getTemplateSelecao() {
         return html`     
-                <style>
-                .box-selecionar {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    width: 100%;
-                }
-                .box-selecionar .info {
-                    margin-bottom: 10px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .box-selecionar .actions.center {
-                    margin-top: 10px;
-                    display: flex;
-                    justify-content: space-evenly;
-                    width: 100%;
-                }
-            </style>
-    
-            <div class='box-selecionar'>
+                         <div class='box-selecionar'>
                 <h3 class=''>Qual foi o peso?</h3>
                     <div class='info'>
                             <input type='number' id='intPesoAlimento' 

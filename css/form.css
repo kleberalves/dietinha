@@ -12,85 +12,34 @@
 
 }
 
+
 @media (min-width: 600px) {
     .form {
         min-width: 570px;
     }
 }
 
+@media (min-width: 1000px) {
+    .form {
+        min-width: 900px;
+    }
+}
 
+.form-bar-bottom{
+    margin-bottom: 10px;
+}
+.action-bar-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 15px;
+    position: sticky;
+    left: 0px;
+    bottom: 0px;
+}
 
 .form .full {
     width: 100%;
     margin: 0px;
 }
 
-input[type=radio] {
-    appearance: none;
-    margin: 0;
-    box-shadow: none;
-    width: 100%;
-    height: 40px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.radio-col-2 {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    flex-wrap: wrap;
-}
-
-.radio-col-2 .radio {
-    width: 48%;
-    margin: 2px;
-}
-
-.radio {
-    position: relative;
-    margin-bottom: 10px;
-    border-radius: 30px;
-}
-
-.radio:hover {
-    box-shadow: 10px 10px 40px 2px var(--destaque-color);
-}
-
-.radio span {
-
-    border-radius: 30px;
-
-    font-weight: 300;
-
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    color: var(--contrast-color);
-    width: 100%;
-    height: 40px;
-
-    text-align: center;
-
-    z-index: -1;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: 1px solid;
-}
-
-.radio:hover span {
-    background-color: var(--destaque-color);
-}
-
-input[type=radio]:valid~span {
-    border-color: var(--contrast-color);
-}
-
-input[type=radio]:checked~span {
-    border-color: var(--destaque-color);
-    background-color: var(--secondary-color);
-    color: var(--theme-color);
-}

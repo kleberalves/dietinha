@@ -1,0 +1,16 @@
+app-cardapio-item{
+    display: flex;
+}
+
+.listItem.cardapio {
+    padding-bottom: 15px;
+    padding-right: 30px;
+    margin-top: 20px;
+}
+
+.listItem.cardapio .total {
+    margin: 15px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: 300;
+}

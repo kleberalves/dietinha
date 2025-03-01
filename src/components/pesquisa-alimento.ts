@@ -61,9 +61,11 @@ class PesquisaAlimento extends Base {
                 </style>
                 <label>Digite o nome do alimento</label>
                 <input type="text" class="textForm" id="txtPesquisa" oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />  
+                <div class="list-space-around">
                 ${this.resultList.map((item, idx) => html`<app-pesquisa-alimento-item 
                                 item=${JSON.stringify(item)}
                                 idx=${idx} />`)}
+                </div>
            `);
 
 

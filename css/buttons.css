@@ -3,7 +3,7 @@ button {
     border-radius: 15px;
     background-color: var(--primary-color);
     color: #fff;
-    font-size: 1em;
+    font-size: 0.8em;
     border: 0px;
 }
 
@@ -44,11 +44,13 @@ button:hover,
 
 .btn-main {
     width: 200px;
-    height: 47px;
+    height: 38px;
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 16px;
+    font-size: 15px;
     margin-top: 15px;
+    font-weight: 400;
+    box-shadow: 0 0 13px 10px var(--glow-color);
 }
 
 .btn-remove {

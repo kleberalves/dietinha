@@ -1,9 +1,9 @@
 import { html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE, META_DIARIA_STORE } from "../service/config.service";
-import { closeTab, openTab } from "../lib/tabs";
+import { ALIMENTACAO_STORE } from "../service/config.service";
 import { agrupaDias } from "../service/registro-refeicoes.service";
+import { swapScreen } from "../lib/screens.lib";
 
 class RegistroAlimentos extends Base {
 
@@ -24,8 +24,7 @@ class RegistroAlimentos extends Base {
             
             this.render(e.detail.items);
 
-            openTab("tabHomeLog");
-            closeTab("tabHomeCardapio");
+            swapScreen("screenHomeRegistroAlimentos");
 
         });
 

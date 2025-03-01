@@ -31,14 +31,6 @@ button {
     color: #fff;
 }
 
-
-input[type="number"],
-input[type="text"] {
-    box-shadow: 2px 3px 11px #e0dede inset;
- 
-    border: 1px solid #000; 
-}
-
 /* BUTTONS */
 
 .btn-remove {
@@ -86,8 +78,8 @@ input[type="text"] {
     --theme-color: #e8e8e8;
     --destaque-color: #d6d6d6;
     --contrast-color: #134049;
-    --contrast-high-color: #a86987;    
-
+    --contrast-high-color: #d8a4ff;    
+    --glow-color:  rgba(186, 186, 186, 0.9);
 }
 
 /* ALERTS */

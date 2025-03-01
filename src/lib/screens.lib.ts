@@ -1,3 +1,4 @@
+import { scrollElementTo } from "../service/animation.service";
 import { getDivByClassId } from "./dom";
 import { isNullOrEmpty } from "./treatments";
 
@@ -9,15 +10,17 @@ export const swapScreen = (id: string) => {
         let screen = screens[t];
         if (screen.id === id) {
 
-            var state = screen.classList.contains("close");
 
-            if (!state) {
-                screen.classList.remove("open");
+            if (screen.classList.contains("close")) {
 
-                setTimeout(() => {
-                    screen.classList.add("close");
-                }, 150);
-            } else {
+                let navBtns = document.querySelectorAll(".btn-screen-switch");
+                for (let i = 0; i < navBtns.length; i++) {
+                    if (navBtns[i].id === `${id}Nav`) {
+                        navBtns[i].classList.add("open");
+                    } else {
+                        navBtns[i].classList.remove("open");
+                    }
+                }
 
                 for (var i = 0; i < screens.length; i++) {
                     if (screens[i].id !== screen.id) {
@@ -25,11 +28,7 @@ export const swapScreen = (id: string) => {
                     }
                 }
 
-                setTimeout(() => {
-                    screen.classList.add("open");
-                    screen.classList.remove("close");
-
-                }, 150);
+                execOpen(screen as HTMLElement);
             }
 
         } else {
@@ -38,20 +37,26 @@ export const swapScreen = (id: string) => {
     }
 }
 
-export function openScreen(screenId: string) {
+const openScreen = (screenId: string) => {
 
     var screen = getDivByClassId("screen", screenId) as HTMLDivElement;
     if (isNullOrEmpty(screen)) {
         return;
     }
 
+    execOpen(screen as HTMLElement);
+}
+
+const execOpen = (element: HTMLElement) => {
     setTimeout(() => {
-        screen.classList.add("open");
-        screen.classList.remove("close");
+        element.classList.add("open");
+        element.classList.remove("close");
+        element.style.height = (window.innerHeight - 85).toString();
+        scrollElementTo(element, 0);
     }, 150);
 }
 
-export function closeScreen(screenId: string) {
+const closeScreen = (screenId: string) => {
 
     var screen = getDivByClassId("screen", screenId) as HTMLDivElement;
     if (isNullOrEmpty(screen)) {
@@ -63,7 +68,7 @@ export function closeScreen(screenId: string) {
 
         screen.classList.remove("open");
 
-         setTimeout(() => {
+        setTimeout(() => {
             screen.classList.add("close");
         }, 150);
     }

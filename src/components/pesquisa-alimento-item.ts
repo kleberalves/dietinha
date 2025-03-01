@@ -64,8 +64,6 @@ class PesquisaItem extends Base {
         }
 
         render(this, html`
-            <link rel="stylesheet" href="css/animations.delay.css" crossorigin="" />
-
         <div class=${className}>
             <div class='title'> ${this.props.item.nome} <div><span>${this.props.item.calorias}</span> cal por <span> 100 ${unidade}</span></div></div> 
             

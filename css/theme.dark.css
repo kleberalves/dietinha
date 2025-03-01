@@ -21,13 +21,6 @@ label {
 }
 
 
-input[type="number"],
-input[type="text"] {
-    box-shadow: 2px 3px 11px #59595982 inset;
-    background-color: #111111;
-    border: 1px solid #fff;
-}
-
 .txtSuccess {
     color: #007767;
     font-size: 16px;
@@ -105,7 +98,8 @@ input[type="text"] {
     --theme-color: #232323;
     --destaque-color: #595959;
     --contrast-color: #e4e4e4;
-    --contrast-high-color: #a86987;
+    --contrast-high-color: #512b6f;
+    --glow-color:  rgba(128, 128, 128, 0.9);
 }
 
 

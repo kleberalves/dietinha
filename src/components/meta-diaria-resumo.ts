@@ -36,52 +36,6 @@ class AppMetaDiariaResumo extends Base {
     render() {
 
         render(this, html`
-                        <style>
-                            .resumo-calorias-diarias {
-                                margin-bottom: 20px;
-                                background-color: var(--theme-color);
-                            }
-                            .resumo-calorias-diarias>.cols {
-                                flex-wrap: wrap;
-                                justify-content: space-around;
-                                align-items: stretch;
-                            }
-            
-                            .resumo-calorias-diarias>.cols>div {
-                                display: flex;
-                                flex-wrap: wrap;
-                                flex-direction: row;
-                                margin-bottom: 5px;
-                                margin-top: 5px;
-                                margin-right: 15px;
-                                align-content: space-between;
-                                width: 25%;
-                            }
-
-                            .resumo-calorias-diarias>.cols>div b {
-                                color: var(--secondary-color);
-                                margin-right: 5px;
-                            }
-
-                            .resumo-calorias-diarias>.cols>div .title {
-                                font-weight: 300;
-                                width: 100%;
-                                font-size: 22px;
-                                color: var(--primary-color);
-                                margin-bottom: 10px;
-                            }
-                            @media (max-width: 400px) {    
-                                .resumo-calorias-diarias>.cols>div .title
-                                {
-                                    font-size: 14px;
-                                }
-                            }
-                            @media (max-width: 320px) {
-                                .resumo-calorias-diarias>.cols>div {
-                                    width: 100%;
-                                }
-                            }
-                        </style>
                     <div class='list resumo-calorias-diarias' style='margin-bottom: 20px;'>
                             <div class='cols'>
                             ${this.props.resultado.objetivo === "PP"

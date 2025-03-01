@@ -5,12 +5,11 @@ app-mini-slide #container {
 }
 .points-bar {
     position: absolute;
-    bottom: 0px;
+    bottom: -10px;
     left: 0px;
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-bottom: 10px;
 }
 
 .point {
@@ -39,7 +38,6 @@ app-mini-slide #container {
     position: absolute;
     cursor: pointer;
     top: 0px;
-    height: 100%;
     display: flex;
     align-items: center;
     width: 15px;

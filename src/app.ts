@@ -1,6 +1,4 @@
-import { openTab } from "./lib/tabs";
-import { CARDAPIO_STORE, loadTheme, META_DIARIA_STORE } from "./service/config.service";
-import { store } from "./service/store.service"
+import { loadTheme } from "./service/config.service";
 
 
 (() => {

@@ -1,3 +1,16 @@
+.list-space-around {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+@media (min-width: 1000px) {
+    .list-space-around>* {
+        width: 44%;
+    }
+}
+
 .list>.item.mini {
     color: var(--contrast-color);
 }
@@ -122,7 +135,6 @@
 .listItem {
     display: flex;
     position: relative;
-    justify-content: flex-start;
     align-items: stretch;
     flex-direction: column;
     padding-bottom: 8px;
@@ -151,20 +163,7 @@
 .listItem .actions.center {
     margin-top: 10px;
     display: flex;
-    justify-content: center;
-}
-
-.listItem.cardapio {
-    padding-bottom: 15px;
-    padding-right: 30px;
-    margin-top: 20px;
-}
-
-.listItem.cardapio .total {
-    margin: 15px;
-    margin-bottom: 5px;
-    font-size: 15px;
-    font-weight: 300;
+    justify-content: space-around;
 }
 
 .listItem.filtro {

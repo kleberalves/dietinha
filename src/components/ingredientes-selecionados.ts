@@ -5,8 +5,8 @@ import { CARDAPIO_STORE, INGREDIENTES_STORE } from "../service/config.service";
 import { getRadiosCheck } from "../lib/forms";
 import { uuidv4 } from "../lib/uuidv4";
 import { showWarning } from "../service/message.service";
-import { closeTab, openTab } from "../lib/tabs";
 import { localISOString } from "../lib/treatments";
+import { swapScreen } from "../lib/screens.lib";
 
 class IngredientesSelecionados extends Base {
 
@@ -100,9 +100,8 @@ class IngredientesSelecionados extends Base {
                         <div class='radio'><input type="radio" name="inputTipoCardapio" value="LC" /> <span>Lanches</span> </div>
                         <div class='radio'><input type="radio" name="inputTipoCardapio" value="SM" /> <span>Sobremesas</span> </div>
                     </div>
-                    <div><button class='btn-main' onclick=${() => this.adicionarItemCardapio()}> Adicionar ao cardápio </button></div>
                 </div>
-            </div>
+        </div>
       `);
 
     }
@@ -152,8 +151,7 @@ class IngredientesSelecionados extends Base {
 
                 this.reiniciarListaIngredientes();
 
-                closeTab("tabHomeCalculadora");
-                openTab("tabHomeCardapio");
+                swapScreen("screenHomeCardapio");
             }
         } catch (e) {
             showWarning(e.message);
