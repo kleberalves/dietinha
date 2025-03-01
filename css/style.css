@@ -35,7 +35,11 @@ h4 {
     color: var(--primary-color);
 }
 
-
+.debug-console{
+    color: #fff;
+    background-color: red;
+    padding: 10px;
+}
 input[type="number"],
 input[type="text"] {
     font-size: 15px;
@@ -74,6 +78,7 @@ input[type="text"] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
 }
 
 

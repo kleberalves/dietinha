@@ -44,13 +44,17 @@ class AppMiniSlide extends Base {
 
         this.render();
         this.renderContainer();
+
+        if (window.location.href.toString().indexOf("192.168") > 0) {
+            this.debug = true;
+        }
     }
 
     setCurrentIndex(newIndex: number) {
 
         let newIndexElement = this.container.children[newIndex] as HTMLElement;
 
-       //A altura do container deve representar 60% da altura da tela 
+        //A altura do container deve representar 60% da altura da tela 
         this.container.style.height = (window.innerHeight - 175).toString();
 
         newIndexElement.classList.remove("close");
@@ -150,6 +154,7 @@ class AppMiniSlide extends Base {
                 startPosY: e.touches[0].screenY,
             };
         }
+
     }
 
     onTouchMove = (e: TouchEvent) => {
@@ -161,34 +166,46 @@ class AppMiniSlide extends Base {
                 endPosX: e.touches[0].screenX,
                 endPosY: e.touches[0].screenY,
             };
+
         }
     }
 
+    diferencaX: number;
 
     onTouchEnd = (e: TouchEvent) => {
 
-        var diferencaX = this.touchMove.startPosX - this.touchMove.endPosX;
-        var diferencaY = this.touchMove.startPosY - this.touchMove.endPosY;
+        //Só calcula se o fim do movimento for maior que zero
+        if (this.touchMove.endPosX > 0) {
+            this.diferencaX = this.touchMove.startPosX - this.touchMove.endPosX;
+            var diferencaY = this.touchMove.startPosY - this.touchMove.endPosY;
 
-        //Se negativos, equaliza para positivo
-        if (diferencaX < 0) {
-            diferencaX = diferencaX * -1;
-        }
+            //Se negativos, equaliza para positivo
+            if (this.diferencaX < 0) {
+                this.diferencaX = this.diferencaX * -1;
+            }
 
-        if (diferencaY < 0) {
-            diferencaY = diferencaY * -1;
-        }
+            if (diferencaY < 0) {
+                diferencaY = diferencaY * -1;
+            }
 
-        //O espaçamento do X deve ser maior que a do Y
-        //para caracterizar um movimento horizontal
-        if (diferencaX > diferencaY) {
-            if (this.touchMove.endPosX > 0) {
-                if (this.touchMove.endPosX < this.touchMove.startPosX) {
-                    this.prev();
-                } else if (this.touchMove.endPosX > this.touchMove.startPosX) {
-                    this.next();
+            //O espaçamento do X deve ser maior que a do Y
+            //para caracterizar um movimento horizontal
+            if (this.diferencaX > diferencaY) {
+                if (this.diferencaX > 110) {
+                    if (this.touchMove.endPosX < this.touchMove.startPosX) {
+                        this.prev();
+                    } else if (this.touchMove.endPosX > this.touchMove.startPosX) {
+                        this.next();
+                    }
                 }
             }
+
+            //Zera o movimento para preparar para o próximo gesto
+            this.touchMove = {
+                ...this.touchMove,
+                endPosX: 0,
+                endPosY: 0,
+            };
         }
     }
 
@@ -212,7 +229,6 @@ class AppMiniSlide extends Base {
         this.setIndex(e.detail.idx);
     }
 
-
     render() {
 
         this.childrenHTML = this.innerHTML;
@@ -228,6 +244,8 @@ class AppMiniSlide extends Base {
                 return b - a;
             });
         }
+
+        // ${this.debug ? html`<div class="debug-console">${this.diferencaX + " " + this.touchMove.startPosX + " " + this.touchMove.endPosX}</div>` : null}
 
         render(this, html`
         

@@ -9,7 +9,7 @@ export class Base extends HTMLElement {
         //do pai antes da própria renderização.
         this.childrenHTML = this.innerHTML;
     }
-
+    debug:boolean = false;
     childrenHTML: string;
 
     p(prop: string): any | undefined {
