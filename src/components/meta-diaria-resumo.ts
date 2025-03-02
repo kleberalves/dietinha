@@ -35,14 +35,23 @@ class AppMetaDiariaResumo extends Base {
 
     render() {
 
+        let calorias:number = 0;
+        let objetivo: string = "";
+
+        if(this.props.resultado.objetivo === "PP"){
+            objetivo = "Emagrecimento";
+            calorias = this.props.resultado.perderPeso;
+        } else {
+            objetivo = "Ganhanho de massa";
+            calorias = this.props.resultado.ganharMassa;
+        }
+
         render(this, html`
                     <div class='list resumo-calorias-diarias' style='margin-bottom: 20px;'>
                             <div class='cols'>
-                            ${this.props.resultado.objetivo === "PP"
-                ? html`<div><div class='title'>Para emagrecer</div> <div><b>${this.props.resultado.perderPeso} cal </b> por dia </div></div>`
-                : html`<div><div class='title'>Para ganhar massa</div> <div><b>${this.props.resultado.ganharMassa} cal </b> por dia </div></div>`}
-                            <div><div class='title'>Manter o peso</div> <div><b>${this.props.resultado.manterPeso} cal </b> por dia </div></div>
-                            <div><div class='title'>Meta de proteínas</div> <div><b>${this.props.resultado.proteinas}g </b> por dia </div></div>
+                            <div class='title-objetivo'>${objetivo}</div>
+                            <div><div class='title'>Calorias</div> <div><b>${calorias} cal </b> por dia </div></div>
+                            <div><div class='title'>Proteínas</div> <div><b>${this.props.resultado.proteinas}g </b> por dia </div></div>
                             </div>
                    </div>`
         );

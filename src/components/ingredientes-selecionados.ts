@@ -4,7 +4,7 @@ import { store } from "../service/store.service";
 import { CARDAPIO_STORE, INGREDIENTES_STORE } from "../service/config.service";
 import { getRadiosCheck } from "../lib/forms";
 import { uuidv4 } from "../lib/uuidv4";
-import { showWarning } from "../service/message.service";
+import { showWarning } from "../lib/message.lib";
 import { localISOString } from "../lib/treatments";
 import { swapScreen } from "../lib/screens.lib";
 
@@ -16,6 +16,7 @@ class IngredientesSelecionados extends Base {
     }
 
     listaIngredientes: Ingrediente[] = [];
+    listaCardapio: CardapioItem[] = [];
 
     constructor() {
         super();
@@ -54,6 +55,7 @@ class IngredientesSelecionados extends Base {
         }
 
         this.listaIngredientes = store.getItems(INGREDIENTES_STORE);
+        this.listaCardapio = store.getItems(CARDAPIO_STORE);
 
         if (this.listaIngredientes.length > 0) {
             this.render();
@@ -87,12 +89,32 @@ class IngredientesSelecionados extends Base {
         </style>
         <div class='list selecionados'>
             <div class='title'>Ingredientes selecionados</div>
+                           ${(this.listaCardapio.length === 0 && this.listaIngredientes.length === 1) ? html`<div class="wizard-message">
+                                  <h1>Dica</h1>
+                                <p>
+                                    Faça uma outra consulta e adicione novos ingredientes para compor a sua refeição. <br/>
+                                     Exemplo: Arroz cozido, Feijão preto cozido, Ovo de galinha inteiro cozido e Batata inglesa cozida.
+                                </p>
+
+                            </div>` : null}
+                <div class="list-space-around">
                     ${items.map(item => item)}
+                </div>
             <div class='cols total'>
                 <div>Calorias <span class='text'> ${totalCalorias} </span></div>
                 <div>Proteínas <span class='text'>${totalProteinas} </span></div>
                 <div>Peso <span class='text'>${totalPeso}g</span></div>
             </div>
+
+            ${(this.listaCardapio.length === 0 && this.listaIngredientes.length > 1) ? html`<div class="wizard-message">
+                                  <h1>Dica</h1>
+                                <p>
+                                    Após selecionar os ingredientes da refeição, selecione a categoria adequada e clique em <b>"Adicionar ao cardápio"</b>.
+                                </p>
+                                
+                            </div>` : null}
+
+                            
                 <div class='cols bar-add-ingredientes'>
                     <div class='radio-col-2'>
                         <div class='radio'><input type="radio" name="inputTipoCardapio" value="CA" /> <span>Café da manhã/tarde</span> </div>
@@ -136,7 +158,7 @@ class IngredientesSelecionados extends Base {
                     totalPeso += itemCalculo.peso;
                 }
 
-                var itemCardapio:CardapioItem = {
+                var itemCardapio: CardapioItem = {
                     "id": uuidv4(),
                     "nome": nomeItemCardapio,
                     "tipo": tipoItemCardapio,

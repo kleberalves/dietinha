@@ -1,5 +1,5 @@
 import { INGREDIENTES_STORE } from "../service/config.service";
-import { showWarning } from "./message.service";
+import { showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 
 declare var listaAlimentos: Alimento[];

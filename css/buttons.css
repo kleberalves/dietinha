@@ -7,6 +7,10 @@ button {
     border: 0px;
 }
 
+.btn-ok {
+    background-color: var(--sucess-color);
+}
+
 .btn-selecionar {
     padding-left: 40px;
     padding-right: 40px;

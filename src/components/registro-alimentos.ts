@@ -23,15 +23,16 @@ class RegistroAlimentos extends Base {
             render(this, html``);
             
             this.render(e.detail.items);
-
             swapScreen("registro");
 
         });
 
         store.onRemovedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
 
+            this.itemsShow = [];
+            render(this, html``);
+            
             this.render(e.detail.items);
-
         });
 
         store.onCleared(ALIMENTACAO_STORE, (e: CustomEventInit) => {

@@ -30,6 +30,10 @@ class AppScreens extends Base {
         store.onRemovedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
             this.render();
         });
+        store.onCleared(INGREDIENTES_STORE, (e: CustomEventInit) => {
+            this.render();
+        });
+
 
         //Added significa que a meta foi cadastrada pela primeira vez
         store.onAddedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
@@ -136,10 +140,8 @@ class AppScreens extends Base {
                         class=${(this.showTabCaloriaDiaria || this.showTabCardapio) ? "screen close" : "screen open"}
                         id="calculadora">
 
-                          ${this.showTabCalculadora
-                    && this.showTabCalculadora
-                    && !this.showTabCardapio
-                    && ingredientesItems.length <= 1
+                          ${metaDiariaItems.length > 0
+                    && ingredientesItems.length === 0
                     && cardapioItems.length === 0
                     ? html` <div class="wizard-message">
                                     <h1>Segundo passo</h1>
@@ -168,7 +170,7 @@ class AppScreens extends Base {
                     ${ingredientesItems.length > 0 ? html`<div class="action-bar-bottom"><button class='btn-main' onclick=${e => this.btnAdicionarIngredientesCardapio()}> Adicionar ao cardápio </button></div>` : null}
                 </div>` : null}
 
-                ${this.showTabCaloriaDiaria ? html`
+                ${metaDiariaItems.length >= 0 ? html`
                     <div class=${(this.showTabCardapio || this.showTabCalculadora) ? "screen close" : "screen open"}
                         id="perfil">
 

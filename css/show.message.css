@@ -12,8 +12,17 @@
     cursor: pointer;
 
     z-index: 10000;
+
+    color: var(--contrast-color);
+    background-color: var(--theme-color);
+    box-shadow: 3px 3px 30px var(--glow-color);
 }
 
+.alert .title{
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--primary-color);
+}
 .alert.success{
     top: 80px;
 }

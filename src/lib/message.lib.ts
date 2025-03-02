@@ -1,11 +1,12 @@
 //global 
 let timedoutshowMessage: any = 0;
+import { Hole, render } from "uhtml";
 
 const removeWindow = () => {
     let msgWindow = document.getElementById("msgWindow");
     if (msgWindow) {
-        msgWindow.classList.remove("show-left");
-        msgWindow.classList.add("close-right");
+        msgWindow.classList.remove("show-top");
+        msgWindow.classList.add("close-bottom");
 
         timedoutshowMessage = setTimeout(() => {
             msgWindow.remove();
@@ -29,7 +30,7 @@ const createWindow = (type) => {
     var msgWindow = document.createElement("div");
     msgWindow.id = "msgWindow";
     msgWindow.classList.add("alert");
-    msgWindow.classList.add("show-left");
+    msgWindow.classList.add("show-top");
     msgWindow.classList.add(type);
 
     var body = document.getElementsByTagName("body");
@@ -41,35 +42,15 @@ const createWindow = (type) => {
             element.classList.add("blur");
         }
     }
-    
-    return msgWindow;
-}
-
-export const showMessage = (msg, type) => {
-
-    var msgWindow = createWindow(type);
-
-    var msgNode = document.createTextNode(msg);
-    msgWindow.appendChild(msgNode);
-
-    timedoutshowMessage = setTimeout(() => {
-        removeWindow();
-    }, msg.length * 150);
 
     return msgWindow;
 }
 
-export const showConfirm = (msg, callback) => {
-
-    var msgWindow = createWindow("warning");
-
-    var msgNode = document.createTextNode(msg);
-    msgWindow.appendChild(msgNode);
+const configActions = (msgWindow:HTMLDivElement, callback:() => void) => {
 
     var barActions = document.createElement("div");
     barActions.classList.add("bar-actions");
     msgWindow.appendChild(barActions);
-
 
     var btnConfirm = document.createElement("button");
     btnConfirm.innerText = "Ok";
@@ -92,7 +73,38 @@ export const showConfirm = (msg, callback) => {
     barActions.appendChild(btnCancelar);
 }
 
+export const showPopup = (html: Hole, callback: () => void) => {
 
+    var msgWindow = createWindow("default");    
+    render(msgWindow, html);
+    configActions(msgWindow, callback);
+
+    return msgWindow;
+}
+
+export const showMessage = (msg, type) => {
+
+    var msgWindow = createWindow(type);
+
+    var msgNode = document.createTextNode(msg);
+    msgWindow.appendChild(msgNode);
+
+    timedoutshowMessage = setTimeout(() => {
+        removeWindow();
+    }, msg.length * 150);
+
+    return msgWindow;
+}
+
+export const showConfirm = (msg, callback:() => void) => {
+
+    var msgWindow = createWindow("warning");
+
+    var msgNode = document.createTextNode(msg);
+    msgWindow.appendChild(msgNode);
+
+    configActions(msgWindow, callback);
+}
 
 export const showOk = (msg: string) => {
     let window = showMessage(msg, "success");
@@ -107,7 +119,6 @@ export const showWarning = (msg: string) => {
         removeWindow();
     }
 }
-
 
 export const showError = (msg: string) => {
     let window = showMessage(msg, "error");

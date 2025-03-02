@@ -2,9 +2,9 @@ import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE } from "../service/config.service";
-import { showConfirm } from "../service/message.service";
 import { uuidv4 } from "../lib/uuidv4";
 import { localISOString } from "../lib/treatments";
+import { showConfirm, showPopup } from "../lib/message.lib";
 
 class AppCardapioItem extends Base {
 
@@ -12,7 +12,7 @@ class AppCardapioItem extends Base {
         idx: number;
         item: CardapioItem;
     }
-    templateSelecao: Hole | null = null;
+
     proteinas: number = 0;
     calorias: number = 0;
     pesoInicial: number = 0;
@@ -43,49 +43,65 @@ class AppCardapioItem extends Base {
 
     calcularAlimento(value: string) {
         this.calculaNutrientes(parseFloat(value));
-        this.templateSelecao = this.getTemplateSelecao();
-
         this.render();
     }
 
     selecionarItem() {
-        this.templateSelecao = this.getTemplateSelecao();
+
+        showPopup(html`<div class=''>
+                        <div class='title'>${this.props.item.nome}</div>
+                        <h3 class=''>Qual foi o peso?</h3>
+                            <div class='info'>
+                                <input type='number' id='intPesoAlimento' 
+                                        style='width: 100px;height: 40px;margin-bottom: 15px;'
+                                        class='' 
+                                        value=${this.pesoInicial}
+                                        placeholder='peso em gramas'
+                                        oninput=${(e) => this.calcularAlimento(e.currentTarget.value)}  />
+                                        <div class="anime">
+                                            <span>${this.calorias}</span> calorias e <span>${this.proteinas}g</span> de proteínas.
+                                        </div>
+                            </div>
+                    </div>`,
+            () => {
+
+                let ele: HTMLInputElement = document.querySelector("#intPesoAlimento") as HTMLInputElement;
+                let peso: number = parseFloat(ele.value);
+
+                var cardapioItem: CardapioItem | undefined = store.getItemById<CardapioItem>(CARDAPIO_STORE, this.props.item.id);
+
+                if (cardapioItem) {
+
+                    let calorias: number = Math.round((peso * cardapioItem.calorias) / cardapioItem.peso);
+                    let proteinas: number = Math.round((peso * cardapioItem.proteinas) / cardapioItem.peso);
+
+                    let itemAlimentacao: RegistroRefeicao = {
+                        "id": uuidv4(),
+                        "idCardapio": cardapioItem.id,
+                        "nome": cardapioItem.nome,
+                        "tipo": cardapioItem.tipo,
+                        "calorias": calorias,
+                        "proteinas": proteinas,
+                        "peso": peso,
+                        "created": localISOString()
+                    }
+
+                    store.addItem(ALIMENTACAO_STORE, itemAlimentacao).then((info) => {
+                        this.reiniciarAlimentacao();
+                    });
+                }
+            })
 
         this.render();
     }
 
     reiniciarAlimentacao() {
-        this.templateSelecao = null;
         this.render();
     }
 
     registrarAlimentacao() {
 
-        let ele: HTMLInputElement = this.querySelector("#intPesoAlimento") as HTMLInputElement;
-        let peso: number = parseFloat(ele.value);
 
-        var cardapioItem: CardapioItem | undefined = store.getItemById<CardapioItem>(CARDAPIO_STORE, this.props.item.id);
-
-        if (cardapioItem) {
-
-            let calorias: number = Math.round((peso * cardapioItem.calorias) / cardapioItem.peso);
-            let proteinas: number = Math.round((peso * cardapioItem.proteinas) / cardapioItem.peso);
-
-            let itemAlimentacao: RegistroRefeicao = {
-                "id": uuidv4(),
-                "idCardapio": cardapioItem.id,
-                "nome": cardapioItem.nome,
-                "tipo": cardapioItem.tipo,
-                "calorias": calorias,
-                "proteinas": proteinas,
-                "peso": peso,
-                "created": localISOString()
-            }
-
-            store.addItem(ALIMENTACAO_STORE, itemAlimentacao).then((info) => {
-                this.reiniciarAlimentacao();
-            });
-        }
     }
 
     removerItemCardapio() {
@@ -93,28 +109,6 @@ class AppCardapioItem extends Base {
         showConfirm("Você tem certeza que deseja remover este item do seu cardário?", () => {
             store.removeItemById(CARDAPIO_STORE, this.props.item.id);
         })
-    }
-
-    getTemplateSelecao() {
-        return html`     
-                         <div class='box-selecionar'>
-                <h3 class=''>Qual foi o peso?</h3>
-                    <div class='info'>
-                            <input type='number' id='intPesoAlimento' 
-                                    style='width: 100px;height: 40px;margin-bottom: 15px;'
-                                    class='' 
-                                    value=${this.pesoInicial}
-                                    placeholder='peso em gramas'
-                                    oninput=${(e) => this.calcularAlimento(e.currentTarget.value)}  />
-                                    <div class="anime">
-                                        <span>${this.calorias}</span> calorias e <span>${this.proteinas}g</span> de proteínas.
-                                    </div>
-                    </div>
-                    <div class='actions center'>
-                        <button class='btn-selecionar' class="" onclick=${() => this.registrarAlimentacao()}>Salvar</button>
-                        <button class='btn-cancelar' class="" onclick=${() => this.reiniciarAlimentacao()}>Cancelar</button>
-                    </div>
-            </div>`;
     }
 
     render() {
@@ -139,13 +133,12 @@ class AppCardapioItem extends Base {
                         </div>
                     </div>` })}
                         
-                <div class='total'> Total de <span> ${this.props.item.peso} g</span>, <span>${this.props.item.calorias} calorias </span> e <span> ${this.props.item.proteinas}g de proteínas</span>.</div>
+                <div class='total'> Total de <span> ${this.props.item.peso}g</span>, <span>${this.props.item.calorias} calorias </span> e <span> ${this.props.item.proteinas}g de proteínas</span>.</div>
                 <div class='actions right'>
                     <div class="btn-trash" @click=${() => this.removerItemCardapio()}></div>
                 </div>
                 <div class='actions center'>
-                    ${this.templateSelecao === null ? html`<button class='btn-selecionar' onclick=${() => this.selecionarItem()}> Consumi este alimento </button>` : html``}
-                    ${this.templateSelecao}
+                    <button class='btn-selecionar' onclick=${() => this.selecionarItem()}> Consumi este alimento </button>
                 </div>
                 </div>`);
     }

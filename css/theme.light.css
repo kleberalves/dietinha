@@ -37,9 +37,7 @@ button {
     background-color: #f03272;
 }
 
-.btn-ok {
-    background-color: #4CAF50;
-}
+
 
 /* TABS */
 
@@ -73,27 +71,23 @@ button {
 * {
     --primary-color: #57bfd4;
     --secondary-color: #0a95b0;
-    --theme-color: #e8e8e8;
+    --theme-color: #fafafa;
     --destaque-color: #d6d6d6;
     --contrast-color: #134049;
     --contrast-high-color: #d8a4ff;    
     --glow-color:  rgba(186, 186, 186, 0.9);
+    --sucess-color: #3bac99;
 }
 
 /* ALERTS */
 
-.alert {
-    color: #fff;
-    background-color: #ccc;
-    box-shadow: 3px 3px 100px #000;
-}
 
 .alert.error {
     background-color: brown;
 }
 
 .alert.success {
-    background-color: #4CAF50;
+    background-color: #3bac99;
 }
 
 .alert.warning {

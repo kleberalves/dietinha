@@ -1,6 +1,6 @@
 import { getInputInt, getInputNumber, getInputValue } from "../lib/forms";
 import { META_DIARIA_STORE } from "./config.service";
-import { showError, showOk, showWarning } from "./message.service";
+import { showError, showOk, showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 
 

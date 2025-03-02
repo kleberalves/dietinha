@@ -39,9 +39,6 @@ label {
     color: #fff;
 }
 
-.btn-ok {
-    background-color: #5db1ea;
-}
 
 /* TABS */
 
@@ -96,17 +93,14 @@ label {
     --contrast-color: #e4e4e4;
     --contrast-high-color: #512b6f;
     --glow-color:  rgba(128, 128, 128, 0.9);
+    --sucess-color: #1c695c;
 }
 
 
 
 /* ALERTS */
 
-.alert {
-    color: #fff;
-    background-color: #ccc;
-    box-shadow: 3px 3px 30px #000000;
-}
+
 
 .alert.error {
     background-color: brown;
