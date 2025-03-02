@@ -29,7 +29,7 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
         store.onAddedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
             this.showMetaDiaria(e.detail.item as MetaDiaria);
 
-            swapScreen("screenHomeCalculadora");
+            swapScreen("calculadora");
         });
 
         let items: MetaDiaria[] = store.getItems<MetaDiaria[]>(META_DIARIA_STORE);

@@ -151,7 +151,7 @@ class IngredientesSelecionados extends Base {
 
                 this.reiniciarListaIngredientes();
 
-                swapScreen("screenHomeCardapio");
+                swapScreen("cardapio");
             }
         } catch (e) {
             showWarning(e.message);

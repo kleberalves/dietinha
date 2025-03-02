@@ -1,11 +1,18 @@
-app-cardapio-item{
+app-cardapio-item {
     display: flex;
+}
+
+app-cardapio-item {
+    .listItem.cardapio {
+        width: 100%;
+    }    
 }
 
 .listItem.cardapio {
     padding-bottom: 15px;
     padding-right: 30px;
     margin-top: 20px;
+    background-color: var(--theme-color);
 }
 
 .listItem.cardapio .total {

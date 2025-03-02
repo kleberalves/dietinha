@@ -28,6 +28,10 @@ export const swapScreen = (id: string) => {
                     }
                 }
 
+                //window.history.replaceState({}, "", "#/"+id);
+                window.history.pushState({}, "", "#/"+id);
+                //https://adityaprabhat.hashnode.dev/routing-in-single-page-application
+
                 execOpen(screen as HTMLElement);
             }
 

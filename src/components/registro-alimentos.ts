@@ -24,7 +24,7 @@ class RegistroAlimentos extends Base {
             
             this.render(e.detail.items);
 
-            swapScreen("screenHomeRegistroAlimentos");
+            swapScreen("registro");
 
         });
 

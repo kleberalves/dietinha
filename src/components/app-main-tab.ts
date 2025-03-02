@@ -45,11 +45,6 @@ class AppMain extends Base {
                     align-items: center;
                     flex-direction: column;
                 }
-                @media (min-width: 600px) {
-                    #main{
-                        width: 616px;
-                    }
-                }
                 
             </style>
 
