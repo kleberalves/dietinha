@@ -48,6 +48,8 @@ class AppMiniSlide extends Base {
         if (window.location.href.toString().indexOf("192.168") > 0) {
             this.debug = true;
         }
+
+        this.container.style.height = (window.innerHeight - 175).toString();
     }
 
     setCurrentIndex(newIndex: number) {

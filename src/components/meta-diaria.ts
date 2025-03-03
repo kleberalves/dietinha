@@ -74,6 +74,15 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
                         <input type="text" pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]" id="inputAltura" />
                         <div class="descricao">Em centímetros.</div>
                     </div>
+                    <div>
+                        <label>Gênero:</label>
+                        <div class="radio">
+                            <input type="radio" name="inputGenero" value="M" /> <span>Masculino</span>
+                        </div>
+                        <div class="radio">
+                            <input type="radio" name="inputGenero" value="F" /> <span>Feminino</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-2">
                     <div>
@@ -85,15 +94,7 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
                             <input type="radio" name="inputObjetivo" value="PP" /> <span>Perder peso</span>
                         </div>
                     </div>
-                    <div>
-                        <label>Gênero:</label>
-                        <div class="radio">
-                            <input type="radio" name="inputGenero" value="M" /> <span>Masculino</span>
-                        </div>
-                        <div class="radio">
-                            <input type="radio" name="inputGenero" value="F" /> <span>Feminino</span>
-                        </div>
-                    </div>
+                  
                     <div>
                         <label>Nível de atividade física:</label>
                         <div class="radio">

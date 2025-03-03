@@ -1,6 +1,4 @@
 import { scrollElementTo } from "../service/animation.service";
-import { getDivByClassId } from "./dom";
-import { isNullOrEmpty } from "./treatments";
 
 export const swapScreen = (id: string) => {
 
@@ -9,9 +7,7 @@ export const swapScreen = (id: string) => {
     for (let t = 0; t < screens.length; t++) {
         let screen = screens[t];
         if (screen.id === id) {
-
-
-            if (screen.classList.contains("close")) {
+            if (!screen.classList.contains("open")) {
 
                 let navBtns = document.querySelectorAll(".btn-screen-switch");
                 for (let i = 0; i < navBtns.length; i++) {
@@ -22,11 +18,11 @@ export const swapScreen = (id: string) => {
                     }
                 }
 
-                for (var i = 0; i < screens.length; i++) {
-                    if (screens[i].id !== screen.id) {
-                        closeScreen(screens[i].id);
-                    }
-                }
+                // for (var i = 0; i < screens.length; i++) {
+                //     if (screens[i].id !== screen.id) {
+                //         closeScreen(screens[i].id);
+                //     }
+                // }
 
                 //window.history.replaceState({}, "", "#/"+id);
                 window.history.pushState({}, "", "#/"+id);
@@ -36,19 +32,9 @@ export const swapScreen = (id: string) => {
             }
 
         } else {
-            closeScreen(screens[t].id);
+            closeScreen(screens[t]);
         }
     }
-}
-
-const openScreen = (screenId: string) => {
-
-    var screen = getDivByClassId("screen", screenId) as HTMLDivElement;
-    if (isNullOrEmpty(screen)) {
-        return;
-    }
-
-    execOpen(screen as HTMLElement);
 }
 
 const execOpen = (element: HTMLElement) => {
@@ -60,13 +46,7 @@ const execOpen = (element: HTMLElement) => {
     }, 150);
 }
 
-const closeScreen = (screenId: string) => {
-
-    var screen = getDivByClassId("screen", screenId) as HTMLDivElement;
-    if (isNullOrEmpty(screen)) {
-        return;
-    }
-
+const closeScreen = (screen: HTMLElement) => {
     //Só fecha se estiver aberto
     if (screen !== undefined && screen.classList.contains("open")) {
 
