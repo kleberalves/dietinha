@@ -1,6 +1,6 @@
 import { html, render } from "uhtml";
 import { Base } from "./Base";
-import { swapScreen } from "../lib/screens.lib";
+import { resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
@@ -17,6 +17,10 @@ class AppScreens extends Base {
 
     connectedCallback() {
         this.render();
+
+        window.addEventListener("resize", () => {
+            resizeScreens();
+        });
 
         //Added significa que a meta foi cadastrada pela primeira vez
         store.onAddedItem(META_DIARIA_STORE, (e: CustomEventInit) => {

@@ -58,10 +58,10 @@ app-meta-diaria>.form>.title {
 
 @media (max-width: 400px) {
 
-    app-meta-diaria>.form>.col-3,
+    /* app-meta-diaria>.form>.col-3,
     app-meta-diaria>.form>.col-2 {
         flex-direction: column;
-    }
+    } */
 
     app-meta-diaria>.form>.col-3>div,
     app-meta-diaria>.form>.col-2>div {

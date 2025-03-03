@@ -1,5 +1,13 @@
 import { scrollElementTo } from "../service/animation.service";
 
+export const resizeScreens = () => {
+    var screens = document.getElementsByClassName('screen') as HTMLCollectionOf<HTMLDivElement>;
+
+    for (let t = 0; t < screens.length; t++) {
+        screens[t].style.height = (window.innerHeight - 85).toString();
+    }
+}
+
 export const swapScreen = (id: string) => {
 
     var screens = document.getElementsByClassName('screen') as HTMLCollectionOf<HTMLDivElement>;
@@ -25,7 +33,7 @@ export const swapScreen = (id: string) => {
                 // }
 
                 //window.history.replaceState({}, "", "#/"+id);
-                window.history.pushState({}, "", "#/"+id);
+                window.history.pushState({}, "", "#/" + id);
                 //https://adityaprabhat.hashnode.dev/routing-in-single-page-application
 
                 execOpen(screen as HTMLElement);
