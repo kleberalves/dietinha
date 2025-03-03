@@ -61,21 +61,21 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
                 ${this.boxResumo}
                 <div class="col-2">
                     <div>
-                        <label>Digite a idade:</label>
+                        <label>Digite a sua idade:</label>
                         <input type="number" class="textForm" id="inputIdade" />
                     </div>
                     <div>
-                        <label>Digite o peso:</label>
+                        <label>Digite o seu peso:</label>
                         <input type="number" class="textForm" id="inputPeso" />
                         <div class="descricao">Em quilogramas.</div>
                     </div>
                     <div>
-                        <label>Digite a altura:</label>
+                        <label>Digite a sua altura:</label>
                         <input type="text" pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]" id="inputAltura" />
                         <div class="descricao">Em centímetros.</div>
                     </div>
                     <div>
-                        <label>Gênero:</label>
+                        <label>Seu gênero:</label>
                         <div class="radio">
                             <input type="radio" name="inputGenero" value="M" /> <span>Masculino</span>
                         </div>
@@ -86,7 +86,7 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
                 </div>
                 <div class="col-2">
                     <div>
-                        <label>Objetivo:</label>
+                        <label>Seu objetivo:</label>
                         <div class="radio">
                             <input type="radio" name="inputObjetivo" value="MM" /> <span>Ganhar massa magra</span>
                         </div>

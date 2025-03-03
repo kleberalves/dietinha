@@ -185,7 +185,7 @@ class AppScreens extends Base {
                         </div>` : null}
 
                         
-                        <div class="title">Meta diária</div>
+                        <div class="title">Perfil</div>
                         <app-meta-diaria id="meta" class="form-bar-bottom"></app-meta-diaria>
                         <div class="action-bar-bottom">
                             <button class="btn-main" onclick=${() => this.btnMetaDiariaSaveClick()}>Salvar</button>
