@@ -10,7 +10,7 @@ button {
 .btn-ok {
     background-color: var(--sucess-color);
 }
-.btn-search{
+.btn-icon{
     width: 30px;
     cursor: pointer;
 }
@@ -57,7 +57,7 @@ button:hover,
     font-size: 15px;
     margin-top: 15px;
     font-weight: 400;
-    box-shadow: 0 0 13px 10px var(--glow-color);
+    background-color: var(--contrast-high-color);
 }
 
 .btn-remove {

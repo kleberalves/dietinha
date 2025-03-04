@@ -14,7 +14,6 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
     }
 
     boxResumo: any = null;
-    txtBtn: string = "Calcular";
 
     save(): void {
         calcularMetaDiaria();
@@ -42,7 +41,6 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
 
     showMetaDiaria(resultado: MetaDiaria) {
 
-        this.txtBtn = "Atualizar";
         this.boxResumo = html`<app-meta-diaria-resumo resultado=${JSON.stringify(resultado)} />`
 
         this.render();
@@ -58,30 +56,31 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
     render() {
         render(this, html` 
             <div class="form form-bar-bottom">
+              
                 ${this.boxResumo}
                 <div class="col-2">
                     <div>
                         <label>Digite a sua idade:</label>
-                        <input type="number" class="textForm" id="inputIdade" />
+                        <input type="number" class="textForm delay1" id="inputIdade" />
                     </div>
                     <div>
                         <label>Digite o seu peso:</label>
-                        <input type="number" class="textForm" id="inputPeso" />
+                        <input type="number" class="textForm delay2" id="inputPeso" />
                         <div class="descricao">Em quilogramas.</div>
                     </div>
                     <div>
                         <label>Digite a sua altura:</label>
-                        <input type="text" pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]" id="inputAltura" />
+                        <input type="text" class="delay3" pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]" id="inputAltura" />
                         <div class="descricao">Em centímetros.</div>
                     </div>
                     <div>
                         <label>Seu gênero:</label>
                         <div class="radio-group">
                             <div class="radio">
-                                <input type="radio" name="inputGenero" value="M" /> <span>Masculino</span>
+                                <input type="radio" name="inputGenero" value="M" /> <span class="delay4">Masculino</span>
                             </div>
                             <div class="radio">
-                                <input type="radio" name="inputGenero" value="F" /> <span>Feminino</span>
+                                <input type="radio" name="inputGenero" value="F" /> <span class="delay5">Feminino</span>
                             </div>
                          </div>
                     </div>
@@ -91,10 +90,10 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
                         <label>Seu objetivo:</label>
                         <div class="radio-group">
                             <div class="radio">
-                                <input type="radio" name="inputObjetivo" value="MM" /> <span>Ganhar massa magra</span>
+                                <input type="radio" name="inputObjetivo" value="MM" /> <span class="delay6">Ganhar massa magra</span>
                             </div>
                             <div class="radio">
-                                <input type="radio" name="inputObjetivo" value="PP" /> <span>Perder peso</span>
+                                <input type="radio" name="inputObjetivo" value="PP" /> <span class="delay7">Perder peso</span>
                             </div>
                         </div>
                     </div>
@@ -103,22 +102,18 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
                         <label>Nível de atividade física:</label>
                         <div class="radio-group">
                             <div class="radio">
-                                <input type="radio" name="inputAtividadeFisica" value="1" /> <span>Sedentário</span>
+                                <input type="radio" name="inputAtividadeFisica" value="1" /> <span class="delay8">Sedentário</span>
                             </div>
                             <div class="radio">
-                                <input type="radio" name="inputAtividadeFisica" value="2" /> <span>Ativo </span>
+                                <input type="radio" name="inputAtividadeFisica" value="2" /> <span class="delay9">Ativo </span>
                             </div>
                             <div class="radio">
-                                <input type="radio" name="inputAtividadeFisica" value="3" /> <span>Muito ativo </span>
+                                <input type="radio" name="inputAtividadeFisica" value="3" /> <span class="delay10">Muito ativo </span>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <app-container>
-                    <app-container-item text="Trocar tema" />
-                </app-container> 
-
+        
             </div>
            `);
     }

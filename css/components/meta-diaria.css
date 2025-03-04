@@ -106,7 +106,7 @@ app-meta-diaria>.form>.action {
 }
 
 .resumo-calorias-diarias>.cols>div b {
-    color: var(--secondary-color);
+    color: var(--contrast-color);
     margin-right: 5px;
 }
 
@@ -131,6 +131,7 @@ app-meta-diaria>.form>.action {
     @media (max-width: 600px) {
         & {
             width: 100% !important;
+            margin-bottom: 15px !important;
         }
     }
 }

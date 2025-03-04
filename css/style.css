@@ -33,7 +33,7 @@ h4 {
     margin-bottom: 10px;
     margin-top: 10px;
 
-    color: var(--primary-color);
+    color: var(--contrast-color);
 }
 
 .debug-console{

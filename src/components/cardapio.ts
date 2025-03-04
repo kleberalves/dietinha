@@ -6,11 +6,6 @@ import { searchList } from "../lib/search.lib";
 
 class Cardapio extends Base {
 
-    props: {
-        idx: number;
-        id: number;
-    }
-
     listFull: CardapioItem[] = [];
     list: CardapioItem[] = [];
     showSearch: boolean = false;
@@ -19,14 +14,18 @@ class Cardapio extends Base {
         super();
 
         store.onAddedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
-            this.list = e.detail.items;
-            this.render();
+            this.defineList(e.detail.items);
         });
 
         store.onRemovedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
-            this.list = e.detail.items;
-            this.render();
+            this.defineList(e.detail.items);
         });
+    }
+
+    defineList(items:CardapioItem[]):void{
+        this.listFull = items;
+        this.list = this.listFull;
+        this.render();
     }
 
     swapSearch(): void {
@@ -36,14 +35,7 @@ class Cardapio extends Base {
 
     connectedCallback() {
 
-        this.props = {
-            idx: this.p("idx"),
-            id: this.p("id")
-        }
-
-        this.listFull = store.getItems(CARDAPIO_STORE);
-        this.list = this.listFull;
-        this.render();
+        this.defineList(store.getItems<CardapioItem[]>(CARDAPIO_STORE));
     }
 
     onTxtPesquisaInput(target: HTMLInputElement) {
@@ -98,16 +90,16 @@ class Cardapio extends Base {
                 ${this.showSearch ? html`<input type="text" class="textForm" id="txtPesquisa" placeholder="Pesquise no seu cardápio." oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />` : null}
 
             <h4>Café da manhã/tarde</h4>
-            ${listCA.length === 0 ? html`<span class='text-intro'> Nenhum item adicionado nesta categoria. </span>` : html`<div class="list-space-around">${listCA.map((item, idx) => item)}</div>`}
+            ${listCA.length === 0 ? html`<span class='text-intro'> Nenhum item encontrado nesta categoria. </span>` : html`<div class="list-space-around">${listCA.map((item, idx) => item)}</div>`}
 
             <h4>Almoço/jantar</h4>
-            ${listAJ.length === 0 ? html`<span class='text-intro'> Nenhum item adicionado nesta categoria. </span>` : html`<div class="list-space-around">${listAJ.map((item, idx) => item)}</div>`}
+            ${listAJ.length === 0 ? html`<span class='text-intro'> Nenhum item encontrado nesta categoria. </span>` : html`<div class="list-space-around">${listAJ.map((item, idx) => item)}</div>`}
 
             <h4>Lanches</h4>
-            ${listLC.length === 0 ? html`<span class='text-intro'> Nenhum item adicionado nesta categoria. </span>` : html`<div class="list-space-around">${listLC.map((item, idx) => item)}</div>`}
+            ${listLC.length === 0 ? html`<span class='text-intro'> Nenhum item encontrado nesta categoria. </span>` : html`<div class="list-space-around">${listLC.map((item, idx) => item)}</div>`}
 
             <h4>Sobremesas</h4>
-            ${listSM.length === 0 ? html`<span class='text-intro'> Nenhum item adicionado nesta categoria. </span>` : html`<div class="list-space-around">${listSM.map((item, idx) => item)}</div>`}
+            ${listSM.length === 0 ? html`<span class='text-intro'> Nenhum item encontrado nesta categoria. </span>` : html`<div class="list-space-around">${listSM.map((item, idx) => item)}</div>`}
 
             `);
     }

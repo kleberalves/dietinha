@@ -14,6 +14,7 @@ class AppScreens extends Base {
     showTabCaloriaDiaria: boolean = false;
     showTabCalculadora: boolean = false;
     showTabCardapio: boolean = false;
+    showView: string = "perfil";
 
     connectedCallback() {
         this.render();
@@ -75,11 +76,21 @@ class AppScreens extends Base {
         }
     }
     btnMetaDiariaSaveClick() {
-        let element = this.querySelector<IAppMetaDiaria>("#meta");
+        let element = this.querySelector<IAppMetaDiaria>("#appMetaDiaria");
         if (element) {
             element.save();
         }
     }
+    btnShowConfig() {
+        if (this.showView === "config") {
+            this.showView = "perfil"
+        } else {
+            this.showView = "config";
+        }
+
+        this.render();
+    }
+
     render() {
 
         var metaDiariaItems: any[] = store.getItems(META_DIARIA_STORE);
@@ -120,7 +131,7 @@ class AppScreens extends Base {
                             <div></div>
                             <div class="title">Meu cardápio</div>
                             <div> 
-                                <img src="img/busca.svg" class="btn-search" @click=${e => this.btnShowSearchCardapio()}/>
+                                <img src="img/busca.svg" class="btn-icon" @click=${e => this.btnShowSearchCardapio()}/>
                             </div>
                         </div>
 
@@ -137,7 +148,6 @@ class AppScreens extends Base {
                             </div>` : null}
                             
                        
-          
                     <div class="form">
                         <div class="full">
                             <app-cardapio id="appCardapio"></app-cardapio>
@@ -176,7 +186,6 @@ class AppScreens extends Base {
                                 </div>` : null}
        
 
-              
                     <div class="form">
                         <div class="full">
                             <app-pesquisa-alimento></app-pesquisa-alimento>
@@ -193,13 +202,20 @@ class AppScreens extends Base {
                 ${metaDiariaItems.length >= 0 ? html`
                     <div class="screen close" id="perfil">
 
-                <div class="title">Perfil</div>
+                    <div class="screen-header">
+                            <div></div>
+                            <div class="title">Perfil</div>
+                            <div> 
+                                <img src="img/configuracoes.svg" class="btn-icon" @click=${e => this.btnShowConfig()}/>
+                            </div>
+                        </div>
 
                 
-                         ${this.showTabCaloriaDiaria
-                    && !this.showTabCalculadora
-                    && !this.showTabCardapio
-                    ? html` <div class="wizard-message">
+                    ${this.showView === "perfil" ? html`
+                        ${this.showTabCaloriaDiaria
+                        && !this.showTabCalculadora
+                        && !this.showTabCardapio
+                        ? html` <div class="wizard-message">
                             <h1>Primeiro passo</h1>
                             <p>
                                 Vamos descobrir a sua meta de consumo de calorias por dia. 
@@ -208,12 +224,15 @@ class AppScreens extends Base {
                             </p>
                         </div>` : null}
 
-                        
-                       
-                        <app-meta-diaria id="meta" class="form-bar-bottom"></app-meta-diaria>
+                        <app-meta-diaria id="appMetaDiaria" class="form-bar-bottom"></app-meta-diaria>
                         <div class="action-bar-bottom">
-                            <button class="btn-main" onclick=${() => this.btnMetaDiariaSaveClick()}>Salvar</button>
+                            <button class="btn-main delay11" onclick=${() => this.btnMetaDiariaSaveClick()}>Salvar</button>
                         </div>
+                    `: null}
+
+                    ${this.showView === "config" ? html`
+                            <app-config />
+                    `: null}
                  
                 </div>` : null} 
             </div>
@@ -242,12 +261,6 @@ class AppScreens extends Base {
                 </div>
                 </div>
             </div>
-
-
-        <!-- Solução para passagem de filhos sem utilizar o
-             Slot que é exclusivo do ShadowAPI
-           -->
-           
 
         `);
 
