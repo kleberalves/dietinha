@@ -76,35 +76,41 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
                     </div>
                     <div>
                         <label>Seu gênero:</label>
-                        <div class="radio">
-                            <input type="radio" name="inputGenero" value="M" /> <span>Masculino</span>
-                        </div>
-                        <div class="radio">
-                            <input type="radio" name="inputGenero" value="F" /> <span>Feminino</span>
-                        </div>
+                        <div class="radio-group">
+                            <div class="radio">
+                                <input type="radio" name="inputGenero" value="M" /> <span>Masculino</span>
+                            </div>
+                            <div class="radio">
+                                <input type="radio" name="inputGenero" value="F" /> <span>Feminino</span>
+                            </div>
+                         </div>
                     </div>
                 </div>
                 <div class="col-2">
                     <div>
                         <label>Seu objetivo:</label>
-                        <div class="radio">
-                            <input type="radio" name="inputObjetivo" value="MM" /> <span>Ganhar massa magra</span>
-                        </div>
-                        <div class="radio">
-                            <input type="radio" name="inputObjetivo" value="PP" /> <span>Perder peso</span>
+                        <div class="radio-group">
+                            <div class="radio">
+                                <input type="radio" name="inputObjetivo" value="MM" /> <span>Ganhar massa magra</span>
+                            </div>
+                            <div class="radio">
+                                <input type="radio" name="inputObjetivo" value="PP" /> <span>Perder peso</span>
+                            </div>
                         </div>
                     </div>
                   
                     <div>
                         <label>Nível de atividade física:</label>
-                        <div class="radio">
-                            <input type="radio" name="inputAtividadeFisica" value="1" /> <span>Sedentário</span>
-                        </div>
-                        <div class="radio">
-                            <input type="radio" name="inputAtividadeFisica" value="2" /> <span>Ativo </span>
-                        </div>
-                        <div class="radio">
-                            <input type="radio" name="inputAtividadeFisica" value="3" /> <span>Muito ativo </span>
+                        <div class="radio-group">
+                            <div class="radio">
+                                <input type="radio" name="inputAtividadeFisica" value="1" /> <span>Sedentário</span>
+                            </div>
+                            <div class="radio">
+                                <input type="radio" name="inputAtividadeFisica" value="2" /> <span>Ativo </span>
+                            </div>
+                            <div class="radio">
+                                <input type="radio" name="inputAtividadeFisica" value="3" /> <span>Muito ativo </span>
+                            </div>
                         </div>
                     </div>
                 </div>

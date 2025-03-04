@@ -2,6 +2,7 @@ import { Hole, html, render } from "uhtml";
 import { Base } from "./Base";
 import { store } from "../service/store.service";
 import { CARDAPIO_STORE } from "../service/config.service";
+import { searchList } from "../lib/search.lib";
 
 class Cardapio extends Base {
 
@@ -10,7 +11,9 @@ class Cardapio extends Base {
         id: number;
     }
 
+    listFull: CardapioItem[] = [];
     list: CardapioItem[] = [];
+    showSearch: boolean = false;
 
     constructor() {
         super();
@@ -26,8 +29,9 @@ class Cardapio extends Base {
         });
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        console.log(`Attribute ${name} has changed.`);
+    swapSearch(): void {
+        this.showSearch = !this.showSearch;
+        this.render();
     }
 
     connectedCallback() {
@@ -37,9 +41,22 @@ class Cardapio extends Base {
             id: this.p("id")
         }
 
-        this.list = store.getItems(CARDAPIO_STORE);
+        this.listFull = store.getItems(CARDAPIO_STORE);
+        this.list = this.listFull;
         this.render();
     }
+
+    onTxtPesquisaInput(target: HTMLInputElement) {
+
+        if (target.value === "") {
+            this.list = this.listFull;
+        } else {
+            this.list = searchList<CardapioItem>(this.listFull, target.value, "nome");
+        }
+
+        this.render();
+    }
+
 
     render() {
 
@@ -73,18 +90,13 @@ class Cardapio extends Base {
                     break;
             }
 
-            //contDelay++;
         }
 
+
+
         render(this, html`
-            <style>
-                .text-intro {
-                    color: var(--destaque-color);
-                }
-                .total span{
-                    color: var(--secondary-color);
-                }
-                </style>
+                ${this.showSearch ? html`<input type="text" class="textForm" id="txtPesquisa" placeholder="Pesquise no seu cardápio." oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />` : null}
+
             <h4>Café da manhã/tarde</h4>
             ${listCA.length === 0 ? html`<span class='text-intro'> Nenhum item adicionado nesta categoria. </span>` : html`<div class="list-space-around">${listCA.map((item, idx) => item)}</div>`}
 

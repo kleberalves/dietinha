@@ -13,7 +13,7 @@
 
     z-index: 10000;
 
-    color: var(--contrast-color);
+    color: #fff;
     background-color: var(--theme-color);
     box-shadow: 3px 3px 30px var(--glow-color);
 }

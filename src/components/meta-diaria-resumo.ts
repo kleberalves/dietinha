@@ -50,8 +50,8 @@ class AppMetaDiariaResumo extends Base {
                     <div class='list resumo-calorias-diarias' style='margin-bottom: 20px;'>
                             <div class='cols'>
                             <div class='title-objetivo'>${objetivo}</div>
-                            <div><div class='title'>Calorias</div> <div><b>${calorias} cal </b> por dia </div></div>
-                            <div><div class='title'>Proteínas</div> <div><b>${this.props.resultado.proteinas}g </b> por dia </div></div>
+                            <div><div class='title'>Calorias por dia</div> <div><b>${calorias} cal </b> </div></div>
+                            <div><div class='title'>Proteínas por dia</div> <div><b>${this.props.resultado.proteinas}g </b> </div></div>
                             </div>
                    </div>`
         );

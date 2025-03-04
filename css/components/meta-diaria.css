@@ -96,6 +96,7 @@ app-meta-diaria>.form>.action {
     margin-right: 15px;
     align-content: center;
     width: 25%;
+    justify-content: center;
 
     @media (max-width: 600px) {
         & {
@@ -115,6 +116,7 @@ app-meta-diaria>.form>.action {
     font-size: 18px;
     color: var(--primary-color);
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .resumo-calorias-diarias .title-objetivo {

@@ -24,6 +24,7 @@ label {
     margin-bottom: 10px;
     display: block;
     font-size: 17px;
+    color: var(--primary-color);
 }
 h4 {
     padding-bottom: 6px;
@@ -50,8 +51,7 @@ input[type="text"] {
     height: 50px;
     width: 100%;
     background-color: var(--theme-color);
-    box-shadow: 5px 4px 11px 0px var(--glow-color) inset;
-    border: 0px;
+    border: 1px solid var(--secondary-color);
 }
 
 

@@ -10,7 +10,10 @@ button {
 .btn-ok {
     background-color: var(--sucess-color);
 }
-
+.btn-search{
+    width: 30px;
+    cursor: pointer;
+}
 .btn-selecionar {
     padding-left: 40px;
     padding-right: 40px;
@@ -28,7 +31,7 @@ button:hover,
 
 .btn-cancelar {
     background-color: var(--destaque-color);
-    color: var(--contrast-color);
+    color: #fff;
     padding-left: 15px;
     padding-right: 15px;
 }

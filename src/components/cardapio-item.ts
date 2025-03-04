@@ -129,7 +129,7 @@ class AppCardapioItem extends Base {
             var unidade = item.unidade === undefined ? "g" : item.unidade;
             return html`<div class='list mini'>
                         <div class='item mini'>
-                                - <span> ${peso}  ${unidade} </span> de ${item.nome}
+                                <span> ${peso}${unidade} </span> de ${item.nome}
                         </div>
                     </div>` })}
                         

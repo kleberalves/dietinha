@@ -12,14 +12,9 @@ body {
     color: #fff;
 }
 
-label {
-    color: #5db1ea;
-}
-
 .tab {
     box-shadow: 10px 10px 100px 2px #3a3a3a;
 }
-
 
 .txtSuccess {
     color: #007767;
@@ -27,8 +22,16 @@ label {
     font-weight: bold;
 }
 
-
 /* BUTTONS */
+
+.btn-screen-switch {
+
+    img {
+        filter: brightness(100);
+    }
+
+}
+
 .btn-mini {
     background-color: #515151;
     color: #ffffff;
@@ -73,7 +76,7 @@ label {
 }
 
 
-.list>.cols>.options>label input:checked ~ label {
+.list>.cols>.options>label input:checked~label {
     background-color: #da7d00;
 }
 
@@ -85,14 +88,14 @@ label {
     color: #5db1ea;
 }
 
-*{
+* {
     --primary-color: #57bfd4;
-    --secondary-color: #a7e9f6;
+    --secondary-color: #0a95b0;
     --theme-color: #232323;
     --destaque-color: #595959;
     --contrast-color: #e4e4e4;
     --contrast-high-color: #512b6f;
-    --glow-color:  rgba(128, 128, 128, 0.9);
+    --glow-color: rgba(128, 128, 128, 0.9);
     --sucess-color: #1c695c;
 }
 

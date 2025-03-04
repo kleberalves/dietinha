@@ -11,6 +11,7 @@ app-registro-alimentos {
 app-registro-alimentos .cardapio .data {
     text-align: right;
     color: var(--destaque-color);
+    position: sticky;
 
 }
 
@@ -47,6 +48,7 @@ app-registro-alimentos-item>.total {
     width: 100%; */
     background-color: var(--theme-color);
     margin-bottom: 30px;
+    position: sticky;
 }
 
 app-registro-alimentos-item::-webkit-scrollbar,

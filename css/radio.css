@@ -34,6 +34,9 @@ input[type="radio"] {
     position: relative;
     margin-bottom: 3px;
     border-radius: 15px;
+    margin: 1px;
+
+    width: 100%;
 }
 
 .radio:hover {
@@ -71,10 +74,22 @@ input[type="radio"] {
 input[type="radio"]:valid~span {
     border: 0px;
     background-color: var(--destaque-color);
+    color: #fff;
 }
 
 input[type="radio"]:checked~span {
     border-color: var(--destaque-color);
-    background-color: var(--contrast-high-color);
-    color: var(--contrast-color);
+    background-color: var(--primary-color);
+    color: #fff
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    @media (min-width:1000px) {
+        .radio{
+            width: 48%;
+        }
+    }
 }
