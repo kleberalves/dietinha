@@ -16,8 +16,10 @@ class AppConfig extends Base {
 
         render(this, html`
          <div class="form">
-            <h4> Tema do app </h4>
-             <button class="btn-mini" onclick=${() => swapTheme()}>Trocar tema</button>
+            <div class="row">
+                <h4> Tema do app </h4>
+                <button class="btn-mini" onclick=${() => swapTheme()}>Trocar tema</button>
+            </div>
         </div>
         `);
 

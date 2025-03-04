@@ -30,7 +30,7 @@
 }
 
 .action-bar-bottom {
-    width: 100%;
+    width: 90%;
     border-radius: 20px;
     background-color: var(--theme-color);
     display: flex;

@@ -6,8 +6,8 @@ import { searchList } from "../lib/search.lib";
 
 class Cardapio extends Base {
 
-    listFull: CardapioItem[] = [];
-    list: CardapioItem[] = [];
+    items: CardapioItem[] = [];
+    itemsView: CardapioItem[] = [];
     showSearch: boolean = false;
 
     constructor() {
@@ -23,13 +23,14 @@ class Cardapio extends Base {
     }
 
     defineList(items:CardapioItem[]):void{
-        this.listFull = items;
-        this.list = this.listFull;
+        this.items = items;
+        this.itemsView = this.items;
         this.render();
     }
 
     swapSearch(): void {
         this.showSearch = !this.showSearch;
+        this.itemsView = this.items;
         this.render();
     }
 
@@ -41,9 +42,9 @@ class Cardapio extends Base {
     onTxtPesquisaInput(target: HTMLInputElement) {
 
         if (target.value === "") {
-            this.list = this.listFull;
+            this.itemsView = this.items;
         } else {
-            this.list = searchList<CardapioItem>(this.listFull, target.value, "nome");
+            this.itemsView = searchList<CardapioItem>(this.items, target.value, "nome");
         }
 
         this.render();
@@ -57,13 +58,13 @@ class Cardapio extends Base {
         let listLC: Hole[] = [];
         let listSM: Hole[] = [];
 
-        for (var i = 0; i < this.list.length; i++) {
+        for (var i = 0; i < this.itemsView.length; i++) {
 
             let h = html`<app-cardapio-item 
                             idx=${i}
-                            item=${JSON.stringify(this.list[i])} />`;
+                            item=${JSON.stringify(this.itemsView[i])} />`;
 
-            switch (this.list[i].tipo) {
+            switch (this.itemsView[i].tipo) {
                 case "CA":
                     listCA.push(h)
                     break;

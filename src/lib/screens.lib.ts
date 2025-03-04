@@ -1,10 +1,12 @@
 import { scrollElementTo } from "../service/animation.service";
 
+let SCREEN_HEIGHT:number = 80;
+
 export const resizeScreens = () => {
     var screens = document.getElementsByClassName('screen') as HTMLCollectionOf<HTMLDivElement>;
 
     for (let t = 0; t < screens.length; t++) {
-        screens[t].style.height = (window.innerHeight - 85).toString();
+        screens[t].style.height = (window.innerHeight - SCREEN_HEIGHT).toString();
     }
 }
 
@@ -49,7 +51,7 @@ const execOpen = (element: HTMLElement) => {
     setTimeout(() => {
         element.classList.add("open");
         element.classList.remove("close");
-        element.style.height = (window.innerHeight - 85).toString();
+        element.style.height = (window.innerHeight - SCREEN_HEIGHT).toString();
         scrollElementTo(element, 0);
     }, 150);
 }

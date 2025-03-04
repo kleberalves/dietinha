@@ -120,7 +120,6 @@ class AppScreens extends Base {
             </style>
 
                 <div id="main">
-
                 
                 ${(metaDiariaItems.length > 0
                 && cardapioItems.length >= 1) ? html`
@@ -150,14 +149,14 @@ class AppScreens extends Base {
                        
                     <div class="form">
                         <div class="full">
-                            <app-cardapio id="appCardapio"></app-cardapio>
+                            <app-cardapio id="appCardapio" />
                         </div>
                     </div>
                 </div>
                 <div class="screen close" id="registro">
                      <div class="title">Minhas refeições</div>
                     <div class="form">
-                        <app-registro-alimentos></app-registro-alimentos>
+                        <app-registro-alimentos />
                     </div>
                 </div>
                 `: null}
@@ -188,10 +187,10 @@ class AppScreens extends Base {
 
                     <div class="form">
                         <div class="full">
-                            <app-pesquisa-alimento></app-pesquisa-alimento>
+                            <app-pesquisa-alimento />
                         </div>
                         <div class="full">
-                            <app-ingredientes-selecionados id="ingredientes"></app-ingredientes-selecionados>
+                            <app-ingredientes-selecionados id="ingredientes" />
                         </div>
                     </div>
 
@@ -218,13 +217,14 @@ class AppScreens extends Base {
                         ? html` <div class="wizard-message">
                             <h1>Primeiro passo</h1>
                             <p>
-                                Vamos descobrir a sua meta de consumo de calorias por dia. 
+                                Vamos descobrir a sua meta de consumo de calorias e proteínas por dia. 
                                 Insira as informações no formulário abaixo e pressione "<b>Calcular</b>". <br/>
                                 Não se preocupe... você poderá atualizar depois.
                             </p>
                         </div>` : null}
 
-                        <app-meta-diaria id="appMetaDiaria" class="form-bar-bottom"></app-meta-diaria>
+                        <app-meta-diaria id="appMetaDiaria" class="form-bar-bottom" />
+
                         <div class="action-bar-bottom">
                             <button class="btn-main delay11" onclick=${() => this.btnMetaDiariaSaveClick()}>Salvar</button>
                         </div>

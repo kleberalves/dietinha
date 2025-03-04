@@ -9,27 +9,37 @@ app-screens {
     height: 100%;
 }
 
+app-config {
+    width: 100%;
+
+    .form .row {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
 .screen-header {
     display: flex;
     width: 100%;
     justify-content: space-between;
 
 
-    >div{
+    >div {
         width: 70%;
         display: flex;
         justify-content: center;
     }
 
     /*Left*/
-    >div:nth-child(1){
+    >div:nth-child(1) {
         width: 15%;
         justify-content: flex-start;
         padding-left: 15px;
     }
 
     /*Right*/
-    >div:nth-child(3){
+    >div:nth-child(3) {
         width: 15%;
         justify-content: flex-end;
         padding-top: 10px;
@@ -137,9 +147,6 @@ app-screens {
     animation: screen-close 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
     z-index: 109;
 }
-
-
-
 
 @keyframes screen-open {
     0% {
