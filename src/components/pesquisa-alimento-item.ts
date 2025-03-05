@@ -86,7 +86,7 @@ class PesquisaItem extends Base {
         var unidade: string = this.props.item.unidade ? this.props.item.unidade : "g";
 
         render(this, html`<div class= ${className}>
-                                <div class='title'> ${this.props.item.nome} <div> <span>${this.props.item.calorias} </span> cal por <span> 100 ${unidade}</span > </div></div>
+                                <div class='title'> ${this.props.item.nome} <div> <span>${this.props.item.calorias} </span> cal por <span> 100${unidade}</span > </div></div>
                                 <button class='btn-selecionar' onclick=${() => this.showCalculo()}> Calcular </button>
                             </div>`);
     }

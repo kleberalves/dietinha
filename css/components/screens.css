@@ -47,6 +47,13 @@ app-config {
         padding-top: 10px;
         padding-right: 15px;
     }
+
+    @media (min-width: 1000px) {
+        & {
+            width: 900px;
+        }
+    }
+    
 }
 
 .screens-nav {
@@ -140,7 +147,7 @@ app-config {
     transition: all 0.3s ease-in-out;
 
     /*Estado inicial - closed*/
-    translate: 0px -80px;
+    translate: 0px -30px;
     opacity: 0;
 }
 
@@ -151,7 +158,7 @@ app-config {
 }
 
 .screen.close {
-    translate: 0px -80px;
+    translate: 0px -30px;
     opacity: 0;
     z-index: 109;
 }

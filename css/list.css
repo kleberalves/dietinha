@@ -135,7 +135,7 @@
 .listItem {
     display: flex;
     position: relative;
-    align-items: stretch;
+    align-items: center;
     flex-direction: column;
     padding-bottom: 8px;
 
@@ -169,6 +169,7 @@
 .listItem.filtro {
     margin-top: 5px;
     margin-bottom: 10px;
+    height: 100%;
 }
 
 .listItem {
@@ -181,6 +182,7 @@
         padding-bottom: 9px;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
     }
 }
 

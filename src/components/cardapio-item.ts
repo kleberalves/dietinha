@@ -50,6 +50,8 @@ class AppCardapioItem extends Base {
 
     selecionarItem() {
 
+        this.pesoInicial = this.props.item.peso > 800 ? 100 : this.props.item.peso;
+
         showPopup(html`<div class=''>
                         <div class='title'>${this.props.item.nome}</div>
                         <h3 class=''>Qual foi o peso?</h3>
@@ -92,10 +94,12 @@ class AppCardapioItem extends Base {
                         this.reiniciarAlimentacao();
                     });
                 }
+            },
+            () => {
+                this.calcularAlimento(this.pesoInicial.toString());
             });
 
-        this.pesoInicial = this.props.item.peso > 800 ? 100 : this.props.item.peso;
-        this.calcularAlimento(this.pesoInicial.toString());
+     
     }
 
     reiniciarAlimentacao() {

@@ -32,7 +32,7 @@
 .action-bar-bottom {
     width: 90%;
     border-radius: 20px;
-    background-color: var(--destaque-color);
+    background-color: var(--theme-color);
     display: flex;
     justify-content: center;
     padding-bottom: 15px;

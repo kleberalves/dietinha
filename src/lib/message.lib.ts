@@ -73,11 +73,15 @@ const configActions = (msgWindow:HTMLDivElement, callback:() => void) => {
     barActions.appendChild(btnCancelar);
 }
 
-export const showPopup = (html: Hole, callback: () => void) => {
+export const showPopup = (html: Hole, onConfirm: () => void, onRender?:() => void) => {
 
     var msgWindow = createWindow("default");    
     render(msgWindow, html);
-    configActions(msgWindow, callback);
+    configActions(msgWindow, onConfirm);
+
+    if(onRender){
+        onRender();
+    }
 
     return msgWindow;
 }

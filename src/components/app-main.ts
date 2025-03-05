@@ -5,7 +5,7 @@ import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
 
-class AppScreens extends Base {
+class AppMain extends Base {
 
     constructor() {
         super();
@@ -139,7 +139,7 @@ class AppScreens extends Base {
                                 <p>
                                     Após o cadastro da sua refeição, basta informar
                                     quais consumiu utilizando o botão "Consumi este alimento". 
-                                    <br/>Faça diariamenteo para acompanhar e comparar com a sua meta 
+                                    <br/>Faça diariamente para acompanhar e comparar com a sua meta 
                                     diária de calorias e de proteínas.
                                 </p>
                             </div>` : null}
@@ -165,7 +165,6 @@ class AppScreens extends Base {
                         id="calculadora">
 
                          <div class="title">Calculadora de alimentos</div>
-
 
                           ${metaDiariaItems.length > 0
                     && ingredientesItems.length === 0
@@ -206,7 +205,6 @@ class AppScreens extends Base {
                                 <img src="img/configuracoes.svg" class="btn-icon" @click=${e => this.btnShowConfig()}/>
                             </div>
                         </div>
-
                 
                     ${this.showView === "perfil" ? html`
                         ${this.showTabCaloriaDiaria
@@ -229,7 +227,7 @@ class AppScreens extends Base {
                     `: null}
 
                     ${this.showView === "config" ? html`
-                            <app-config />
+                        <app-config />
                     `: null}
                  
                 </div>` : null} 
@@ -244,7 +242,7 @@ class AppScreens extends Base {
             </div>
 <!--  https://www.svgrepo.com/collection/solar-outline-icons/10 -->
 
-            <div class="screens-nav">
+        <div class="screens-nav">
             <div>
                 ${(metaDiariaItems.length > 0 && cardapioItems.length >= 1) ? html`<div class="btn-screen-switch open" id="cardapioNav" onclick=${e => swapScreen("cardapio")}>
                     <img src="img/cardapio.svg" /> 
@@ -265,9 +263,8 @@ class AppScreens extends Base {
                     <img src="img/perfil.svg" /> 
                     <div class="btn">Perfil</div>
                 </div>
-                </div>
             </div>
-
+        </div>
         `);
 
         //app starts
@@ -287,4 +284,4 @@ class AppScreens extends Base {
     }
 }
 
-window.customElements.define("app-screens", AppScreens);
+window.customElements.define("app-main", AppMain);
