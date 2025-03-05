@@ -36,14 +36,16 @@ class AppCardapioItem extends Base {
         this.render();
     }
 
-    calculaNutrientes(peso: number) {
-        this.calorias = Math.round(peso * this.props.item.calorias / this.props.item.peso);
-        this.proteinas = Math.round(peso * this.props.item.proteinas / this.props.item.peso);
-    }
-
     calcularAlimento(value: string) {
-        this.calculaNutrientes(parseFloat(value));
-        this.render();
+        let pesoCalorias = document.querySelector<HTMLSpanElement>("#pesoCalorias");
+        if (pesoCalorias) {
+            pesoCalorias.innerText = Math.round(parseFloat(value) * this.props.item.calorias / this.props.item.peso).toString();
+        }
+
+        let pesoProteinas = document.querySelector<HTMLSpanElement>("#pesoProteinas");
+        if (pesoProteinas) {
+            pesoProteinas.innerText = Math.round(parseFloat(value) * this.props.item.proteinas / this.props.item.peso).toString();
+        }
     }
 
     selecionarItem() {
@@ -59,7 +61,7 @@ class AppCardapioItem extends Base {
                                         placeholder='peso em gramas'
                                         oninput=${(e) => this.calcularAlimento(e.currentTarget.value)}  />
                                         <div class="anime">
-                                            <span>${this.calorias}</span> calorias e <span>${this.proteinas}g</span> de proteínas.
+                                            <span id="pesoCalorias"></span> calorias e <span id="pesoProteinas"></span>g de proteínas.
                                         </div>
                             </div>
                     </div>`,
@@ -90,18 +92,14 @@ class AppCardapioItem extends Base {
                         this.reiniciarAlimentacao();
                     });
                 }
-            })
+            });
 
-        this.render();
+        this.pesoInicial = this.props.item.peso > 800 ? 100 : this.props.item.peso;
+        this.calcularAlimento(this.pesoInicial.toString());
     }
 
     reiniciarAlimentacao() {
         this.render();
-    }
-
-    registrarAlimentacao() {
-
-
     }
 
     removerItemCardapio() {
@@ -117,9 +115,6 @@ class AppCardapioItem extends Base {
             idx: JSON.parse(this.p("idx")),
             item: JSON.parse(this.p("item"))
         }
-
-        this.pesoInicial = this.props.item.peso > 800 ? 100 : this.props.item.peso;
-        this.calculaNutrientes(this.pesoInicial);
 
         render(this, html`
                 <div class='listItem cardapio delay'>

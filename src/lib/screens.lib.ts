@@ -1,12 +1,28 @@
 import { scrollElementTo } from "../service/animation.service";
 
-let SCREEN_HEIGHT:number = 80;
+let SCREEN_HEIGHT: number = 80;
 
 export const resizeScreens = () => {
     var screens = document.getElementsByClassName('screen') as HTMLCollectionOf<HTMLDivElement>;
 
     for (let t = 0; t < screens.length; t++) {
         screens[t].style.height = (window.innerHeight - SCREEN_HEIGHT).toString();
+    }
+}
+
+export const detectPathScreen = () => {
+   
+    const hashPaths = window.location.hash.split("/");
+    if (hashPaths.length === 2) {
+        var screens = document.getElementsByClassName('screen') as HTMLCollectionOf<HTMLDivElement>;
+        for (let t = 0; t < screens.length; t++) {
+            if(screens[t].id === hashPaths[1]){
+                swapScreen(hashPaths[1]);
+                return;
+            }
+        }
+
+        swapScreen("notfound");
     }
 }
 
@@ -28,14 +44,7 @@ export const swapScreen = (id: string) => {
                     }
                 }
 
-                // for (var i = 0; i < screens.length; i++) {
-                //     if (screens[i].id !== screen.id) {
-                //         closeScreen(screens[i].id);
-                //     }
-                // }
-
-                //window.history.replaceState({}, "", "#/"+id);
-                window.history.pushState({}, "", "#/" + id);
+                window.history.pushState(null, "", "#/" + id);
                 //https://adityaprabhat.hashnode.dev/routing-in-single-page-application
 
                 execOpen(screen as HTMLElement);

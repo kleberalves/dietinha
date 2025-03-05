@@ -10,10 +10,12 @@ button {
 .btn-ok {
     background-color: var(--sucess-color);
 }
-.btn-icon{
+
+.btn-icon {
     width: 30px;
     cursor: pointer;
 }
+
 .btn-selecionar {
     padding-left: 40px;
     padding-right: 40px;
@@ -25,7 +27,11 @@ button:hover,
     cursor: pointer;
     color: #fff;
     background-color: var(--secondary-color);
-
+}
+/** GLOW HOVER */
+button:hover,
+.btn-icon:hover,
+.btn-trash:hover {
     box-shadow: 10px 10px 100px 2px var(--contrast-color);
 }
 

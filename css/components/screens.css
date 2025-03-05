@@ -11,6 +11,8 @@ app-screens {
 
 app-config {
     width: 100%;
+    display: flex;
+    justify-content: center;
 
     .form .row {
         display: flex;
@@ -126,7 +128,6 @@ app-config {
 .screen {
 
     overflow: auto;
-
     z-index: 50;
     position: absolute;
     top: 0px;
@@ -136,38 +137,21 @@ app-config {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.3s ease-in-out;
+
+    /*Estado inicial - closed*/
+    translate: 0px -80px;
+    opacity: 0;
 }
 
 .screen.open {
-    animation: screen-open 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
+    translate: 0px 0px;
+    opacity: 1;
     z-index: 110;
 }
 
 .screen.close {
-    animation: screen-close 0.5s normal cubic-bezier(0.37, 0.08, 0, 0.99) forwards;
+    translate: 0px -80px;
+    opacity: 0;
     z-index: 109;
-}
-
-@keyframes screen-open {
-    0% {
-        translate: 0px 80px;
-        opacity: 0;
-    }
-
-    100% {
-        translate: 0px 0px;
-        opacity: 1;
-    }
-}
-
-@keyframes screen-close {
-    0% {
-        opacity: 1;
-        translate: 0px 0px;
-    }
-
-    100% {
-        translate: 0px -80px;
-        opacity: 0;
-    }
 }

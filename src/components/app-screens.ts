@@ -1,6 +1,6 @@
 import { html, render } from "uhtml";
 import { Base } from "./Base";
-import { resizeScreens, swapScreen } from "../lib/screens.lib";
+import { detectPathScreen, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
@@ -47,9 +47,7 @@ class AppScreens extends Base {
             }
         });
 
-        //Added significa que a meta foi cadastrada pela primeira vez
         store.onAddedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
-
             this.render();
 
             //Executa esse evento apenas na primeira vez em que um item for
@@ -70,7 +68,7 @@ class AppScreens extends Base {
         }
     }
     btnAdicionarIngredientesCardapio() {
-        let element = this.querySelector<IIngredientesSelecionados>("#ingredientes");
+        let element = this.querySelector<IIngredientesSelecionados>("#appIngredientesSelecionados");
         if (element) {
             element.adicionarItemCardapio();
         }
@@ -124,7 +122,7 @@ class AppScreens extends Base {
                 ${(metaDiariaItems.length > 0
                 && cardapioItems.length >= 1) ? html`
                     <div 
-                    class=${(this.showTabCaloriaDiaria || this.showTabCalculadora) && cardapioItems.length === 0 ? "screen close" : "screen open"} 
+                    class="screen close" 
                     id="cardapio">
                         <div class="screen-header">
                             <div></div>
@@ -190,7 +188,7 @@ class AppScreens extends Base {
                             <app-pesquisa-alimento />
                         </div>
                         <div class="full">
-                            <app-ingredientes-selecionados id="ingredientes" />
+                            <app-ingredientes-selecionados id="appIngredientesSelecionados" />
                         </div>
                     </div>
 
@@ -235,6 +233,14 @@ class AppScreens extends Base {
                     `: null}
                  
                 </div>` : null} 
+
+                <div class="screen close" id="notfound">
+                    <div class="form">
+                        <div class="row">
+                            <h4> 404 Seção não encontrada. </h4>
+                        </div>
+                    </div>
+                </div>
             </div>
 <!--  https://www.svgrepo.com/collection/solar-outline-icons/10 -->
 
@@ -264,9 +270,20 @@ class AppScreens extends Base {
 
         `);
 
+        //app starts
         if (metaDiariaItems.length === 0) {
             swapScreen("perfil");
+        } else if (window.location.hash === "" &&
+            (this.showTabCaloriaDiaria || this.showTabCalculadora) &&
+            cardapioItems.length > 0) {
+            swapScreen("cardapio");
+        } else {
+            detectPathScreen();
         }
+
+        window.addEventListener("popstate", e => {
+            detectPathScreen();
+        });
     }
 }
 
