@@ -1,6 +1,4 @@
 import { localISOString } from "../lib/treatments";
-import { META_DIARIA_STORE_HISTORICO } from "./config.service";
-import { store } from "./store.service";
 
 export const agrupaDias = (items: RegistroRefeicao[]) => {
 
@@ -17,8 +15,6 @@ export const agrupaDias = (items: RegistroRefeicao[]) => {
 
     diasGroup.push(diasGroupItem);
     let dia: string = diasGroupItem.dia.substring(0, 10);
-
-    let metaHistorico = store.getItems<MetaDiaria[]>(META_DIARIA_STORE_HISTORICO);
 
     for (var i = 0; i < ordenado.length; i++) {
 
