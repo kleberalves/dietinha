@@ -1,5 +1,5 @@
 import { parseBool } from "../lib/treatments";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { html, render } from "uhtml";
 
 interface TouchMove {

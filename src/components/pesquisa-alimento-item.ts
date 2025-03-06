@@ -1,6 +1,6 @@
 import { html, render } from "uhtml";
 import { adicionarCalculo, calcularAlimentoColher as calcularAlimentoUnidade, calcularAlimentoPeso } from "../service/calculo.service";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { showPopup } from "../lib/message.lib";
 
 declare var listaAlimentosUnidades: AlimentoUnidade[];

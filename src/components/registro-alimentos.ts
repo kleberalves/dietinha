@@ -1,5 +1,5 @@
 import { html, render } from "uhtml";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE } from "../service/config.service";
 import { agrupaDias } from "../service/registro-refeicoes.service";

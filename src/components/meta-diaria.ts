@@ -1,5 +1,5 @@
 import { html, render } from "uhtml";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { META_DIARIA_STORE } from "../service/config.service";
 import { setNumberField, setRadiosCheck } from "../lib/forms";
 import { store } from "../service/store.service";

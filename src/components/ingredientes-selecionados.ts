@@ -1,5 +1,5 @@
 import { Hole, html, render } from "uhtml";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { store } from "../service/store.service";
 import { CARDAPIO_STORE, INGREDIENTES_STORE } from "../service/config.service";
 import { getRadiosCheck } from "../lib/forms";

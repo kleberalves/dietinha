@@ -1,5 +1,5 @@
 import { html, render } from "uhtml";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { detectPathScreen, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";

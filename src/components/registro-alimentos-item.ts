@@ -1,5 +1,5 @@
 import { Hole, html, render } from "uhtml";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { showConfirm } from "../lib/message.lib";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE } from "../service/config.service";

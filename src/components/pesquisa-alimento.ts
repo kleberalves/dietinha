@@ -1,5 +1,5 @@
 import { html, render } from "uhtml";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { removeCarecEspec } from "../lib/treatments";
 import { store } from "../service/store.service";
 import { INGREDIENTES_STORE } from "../service/config.service";

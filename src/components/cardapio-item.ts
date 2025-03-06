@@ -1,5 +1,5 @@
 import { Hole, html, render } from "uhtml";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE } from "../service/config.service";
 import { uuidv4 } from "../lib/uuidv4";

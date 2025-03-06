@@ -1,5 +1,5 @@
 import { html, render } from "uhtml";
-import { Base } from "./Base";
+import { Base } from "./base";
 import { swapTheme } from "../service/config.service";
 
 class AppConfig extends Base {

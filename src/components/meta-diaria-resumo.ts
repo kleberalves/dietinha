@@ -1,4 +1,4 @@
-import { Base } from "./Base";
+import { Base } from "./base";
 import { html, render } from "uhtml";
 
 class AppMetaDiariaResumo extends Base {
