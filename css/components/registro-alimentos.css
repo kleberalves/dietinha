@@ -27,6 +27,7 @@ app-registro-alimentos .selecionados {
 
 app-registro-alimentos {
     width: 100%;
+    
 }
 
 app-registro-alimentos .cardapio .data {
@@ -39,6 +40,12 @@ app-registro-alimentos .cardapio .data {
 app-registro-alimentos-item {
     padding-top: 0px;
     padding-bottom: 0px;
+
+    .info-none{
+        margin-top: 30px;
+        display: block;
+        text-align: center;
+    }
 
     @media (min-width: 1000px) {
         .list-space-around>* {

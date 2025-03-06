@@ -57,7 +57,6 @@ class AppCardapioItem extends Base {
                         <h3 class=''>Qual foi o peso?</h3>
                             <div class='info'>
                                 <input type='number' id='intPesoAlimento' 
-                                        style='width: 100px;height: 40px;margin-bottom: 15px;'
                                         class='' 
                                         value=${this.pesoInicial}
                                         placeholder='peso em gramas'

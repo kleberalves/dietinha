@@ -25,7 +25,6 @@ class AppMain extends Base {
 
         //Added significa que a meta foi cadastrada pela primeira vez
         store.onAddedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
-            this.render();
             swapScreen("calculadora");
         });
 

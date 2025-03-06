@@ -47,7 +47,7 @@ class AppMetaDiariaResumo extends Base {
         }
 
         render(this, html`
-                    <div class='list resumo-calorias-diarias' style='margin-bottom: 20px;'>
+                    <div class='list resumo-calorias-diarias'>
                             <div class='cols'>
                             <div class='title-objetivo'>${objetivo}</div>
                             <div><div class='title'>Calorias por dia</div> <div><b>${calorias} cal </b> </div></div>

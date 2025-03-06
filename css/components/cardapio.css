@@ -5,7 +5,15 @@ app-cardapio-item {
 app-cardapio-item {
     .listItem.cardapio {
         width: 100%;
-    }    
+    }
+
+    .info {
+        input {
+            width: 100px;
+            height: 40px;
+            margin-bottom: 15px;
+        }
+    }
 }
 
 .listItem.cardapio {
@@ -25,6 +33,7 @@ app-cardapio-item {
 .text-intro {
     color: var(--destaque-color);
 }
-.total span{
+
+.total span {
     color: var(--secondary-color);
 }

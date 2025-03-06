@@ -55,12 +55,12 @@ class PesquisaItem extends Base {
             <div class='actions pesquisa-alimento-item-actions'>   
                 <div class='action'> 
                     <b>${(this.props.item.unidade && this.props.item.unidade === "ml") ? html`Quantidade ml` : html`Peso em gramas`}</b>
-                    <input type='number' id=${inputPeso} style='width: 85px;height: 40px;' placeholder='Qtd' 
+                    <input type='number' id=${inputPeso} placeholder='Qtd' 
                         oninput=${(e) => calcularAlimentoPeso(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />
                 </div>
 
                 ${(rating > 0) ? html`<div class='action'> <b>${label}</b>
-                    <input type='number' id=${inputQuantidade} style='width: 85px;height: 40px;' placeholder=${label} 
+                    <input type='number' id=${inputQuantidade} placeholder=${label} 
                         oninput=${(e) => calcularAlimentoUnidade(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />    
                 </div>` : null}
 
