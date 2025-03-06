@@ -2,9 +2,14 @@ input[type="radio"] {
     appearance: none;
     margin: 0;
     box-shadow: none;
-    height: 43px;
+    height: 41px;
     width: 100%;
     cursor: pointer;
+
+    border-width: 1px;
+    border-radius: 15px;
+    border-style: solid;
+
 }
 
 .radio-col-2 {
@@ -18,17 +23,16 @@ input[type="radio"] {
 .radio-col-2 .radio {
     width: 48%;
     margin: 2px;
-    @media (min-width: 900px){
-        &{
+
+    @media (min-width: 900px) {
+        & {
             width: 22%;
         }
     }
 }
 
 .radio {
-    transition: 0.3s ease-in-out;
-    transition-property: box-shadow;
-    transition-property: background-color;
+    transition: all 0.3s ease-in-out;
 
     position: relative;
     margin-bottom: 3px;
@@ -39,14 +43,14 @@ input[type="radio"] {
 }
 
 .radio:hover {
-    box-shadow: 0 0 70px 2px var(--contrast-color);
+    box-shadow: 0 0 70px 2px var(--glow-color);
 }
 
 .radio span {
 
     border-radius: 15px;
 
-    font-weight: 300;
+    font-weight: 400;
 
     position: absolute;
     top: 0px;
@@ -63,23 +67,29 @@ input[type="radio"] {
     justify-content: center;
     align-items: center;
 
-    border: 2px solid;
+    border: 0px;
 }
 
 .radio:hover span {
     background-color: var(--destaque-color);
 }
 
+
+input[type="radio"]:valid {
+    border-color: var(--glow-color) !important;
+}
+
+
+input[type="radio"]:checked {
+    border-color: var(--primary-color) !important;
+}
+
 input[type="radio"]:valid~span {
-    border-color: var(--theme-color);
     background-color: var(--theme-color);
-    color: var(--contrast-color);
-    border-width: 2px;
+    color: var(--blackwhite-color);
 }
 
 input[type="radio"]:checked~span {
-    border-color: var(--primary-color);
-    border-width: 2px;
     background-color: var(--theme-color);
     color: var(--primary-color);
     font-weight: bold;
@@ -90,7 +100,7 @@ input[type="radio"]:checked~span {
     flex-wrap: wrap;
 
     @media (min-width:1000px) {
-        .radio{
+        .radio {
             width: 48%;
         }
     }

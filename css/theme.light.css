@@ -82,6 +82,8 @@ button {
     --contrast-high-color: #512b6f;
     --glow-color:  rgba(186, 186, 186, 0.9);
     --sucess-color: #3bac99;
+    --blackwhite-color: #000;
+
 }
 
 /* ALERTS */

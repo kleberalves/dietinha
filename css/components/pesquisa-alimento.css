@@ -3,12 +3,6 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    .action {
-        input {
-            width: 85px;
-            height: 40px;
-        }
-    }
 }
 
 app-pesquisa-alimento-item {
@@ -36,7 +30,7 @@ app-pesquisa-alimento-item {
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
 
     width: 40%;

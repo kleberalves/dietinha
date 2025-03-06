@@ -134,7 +134,7 @@ app-config {
 
 .screen>.title,
 .screen-header>.title {
-    font-weight: 200;
+    font-weight: 400;
     font-size: 25px;
     margin-top: 15px;
 }

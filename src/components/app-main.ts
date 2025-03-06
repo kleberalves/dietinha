@@ -26,6 +26,7 @@ class AppMain extends Base {
         //Added significa que a meta foi cadastrada pela primeira vez
         store.onAddedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
             swapScreen("calculadora");
+            this.render();
         });
 
         store.onAddedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
@@ -150,7 +151,7 @@ class AppMain extends Base {
                 </div>
                 `: null}
 
-                ${this.showTabCalculadora ? html`
+           
                     <div 
                         class=${(this.showTabCaloriaDiaria || this.showTabCardapio) ? "screen close" : "screen open"}
                         id="calculadora">
@@ -183,7 +184,7 @@ class AppMain extends Base {
                     </div>
 
                     ${ingredientesItems.length > 0 ? html`<div class="action-bar-bottom"><button class='btn-main' onclick=${e => this.btnAdicionarIngredientesCardapio()}> Adicionar ao cardápio </button></div>` : null}
-                </div>` : null}
+                </div>
 
                 
                 ${metaDiariaItems.length >= 0 ? html`
