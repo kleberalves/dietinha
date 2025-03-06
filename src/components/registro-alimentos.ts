@@ -61,9 +61,7 @@ class RegistroAlimentos extends Base {
         this.itemsShow = agrupaDias(items);
 
         render(this, html`
-        <style>
-         
-        </style>
+
         <div class='list selecionados'>
             <!-- <div class='title'>Alimentos consumidos</div> -->
                     ${this.itemsShow.length === 0 ?

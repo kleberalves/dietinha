@@ -81,12 +81,6 @@ class IngredientesSelecionados extends Base {
         }
 
         render(this, html`
-        <style>
-             .selecionados {
-                padding-left: 0px;
-                padding-right: 0px;
-            }
-        </style>
         <div class='list selecionados'>
             <div class='title'>Ingredientes selecionados</div>
                            ${(this.listaCardapio.length === 0 && this.listaIngredientes.length === 1) ? html`<div class="wizard-message">

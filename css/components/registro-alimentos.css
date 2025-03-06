@@ -4,6 +4,27 @@ app-registro-alimentos .selecionados {
     margin-bottom: 15px;
 }
 
+.selecionados {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.selecionados .item {
+    padding-right: 30px;
+    position: relative;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-top: 7px;
+    padding-bottom: 20px;
+}
+
+.selecionados .item b {
+    font-weight: 300;
+    font-size: 20px;
+    color: var(--secondary-color);
+}
+
+
 app-registro-alimentos {
     width: 100%;
 }

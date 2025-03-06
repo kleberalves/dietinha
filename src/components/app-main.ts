@@ -108,15 +108,7 @@ class AppMain extends Base {
         }
 
         render(this, html`
-            <style>
-                app-main{
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    flex-direction: column;
-                }
-            </style>
-
+   
                 <div id="main">
                 
                 ${(metaDiariaItems.length > 0

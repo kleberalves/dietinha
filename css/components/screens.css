@@ -9,6 +9,13 @@ app-screens {
     height: 100%;
 }
 
+app-main{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 app-config {
     width: 100%;
     display: flex;
