@@ -9,7 +9,7 @@ app-screens {
     height: 100%;
 }
 
-app-main{
+app-main {
     width: 100%;
     display: flex;
     align-items: center;
@@ -60,7 +60,7 @@ app-config {
             width: 900px;
         }
     }
-    
+
 }
 
 .screens-nav {
@@ -168,4 +168,25 @@ app-config {
     translate: 0px -30px;
     opacity: 0;
     z-index: 109;
+}
+
+@media (min-width: 1000px) {
+    .screen {
+        top: 80px;
+    }
+
+    .screens-nav {
+        top: 0px;
+        bottom: auto;
+        box-shadow: -6px -13px 50px 2px var(--contrast-color);
+    }
+
+    .btn-screen-switch {
+        border-top-width: 0xp;
+
+        &.open {
+            border-bottom: 2px solid var(--primary-color);
+        }
+    }
+
 }
