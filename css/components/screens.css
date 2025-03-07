@@ -84,13 +84,6 @@ app-config {
         flex-wrap: nowrap;
         justify-content: space-around;
 
-
-        @media (min-width: 1000px) {
-            & {
-                justify-content: space-between;
-            }
-        }
-
         .btn-screen-switch {
 
             color: var(--blackwhite-color);

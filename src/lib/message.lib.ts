@@ -86,13 +86,26 @@ export const showPopup = (html: Hole, onConfirm: () => void, onRender?:() => voi
     return msgWindow;
 }
 
-export const showMessage = (msg, type) => {
+const showMessage = (msg, type) => {
 
     var msgWindow = createWindow(type);
 
     var msgNode = document.createElement("div");
     msgWindow.appendChild(msgNode);
     msgNode.innerHTML = msg;
+
+    var barActions = document.createElement("div");
+    barActions.classList.add("bar-actions");
+    msgWindow.appendChild(barActions);
+
+    var btnConfirm = document.createElement("button");
+    btnConfirm.innerText = "Ok";
+    btnConfirm.classList.add("btn-ok");
+    btnConfirm.onclick = () => {
+        removeWindow();
+    }
+
+    barActions.appendChild(btnConfirm);
 
     timedoutshowMessage = setTimeout(() => {
         removeWindow();
