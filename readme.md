@@ -21,3 +21,7 @@ https://web.dev/learn/html/template
 ### lit-html - visualizador de tags HTML em strings JS/TS
 
 (https://marketplace.visualstudio.com/items?itemName=bierner.lit-html)
+
+## Gerador de ícones
+
+### https://pwa-icon-generator.vercel.app/
