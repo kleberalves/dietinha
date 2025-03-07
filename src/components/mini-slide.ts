@@ -35,6 +35,8 @@ class AppMiniSlide extends Base {
 
     dotsList: number[] = [];
 
+    REDUCE_HEIGHT: number = 205;
+
     connectedCallback() {
 
         this.props = {
@@ -49,7 +51,7 @@ class AppMiniSlide extends Base {
             this.debug = true;
         }
 
-        this.container.style.height = (window.innerHeight - 175).toString();
+        this.container.style.height = (window.innerHeight - this.REDUCE_HEIGHT).toString();
     }
 
     setCurrentIndex(newIndex: number) {
@@ -57,7 +59,7 @@ class AppMiniSlide extends Base {
         let newIndexElement = this.container.children[newIndex] as HTMLElement;
 
         //A altura do container deve representar 60% da altura da tela 
-        this.container.style.height = (window.innerHeight - 175).toString();
+        this.container.style.height = (window.innerHeight - this.REDUCE_HEIGHT).toString();
 
         newIndexElement.classList.remove("close");
         newIndexElement.classList.remove("close-left");

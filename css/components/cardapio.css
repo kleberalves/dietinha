@@ -1,6 +1,5 @@
 app-cardapio{
     padding: 10px;
-    background-color: var(--destaque-color);
     display: block;
     border-radius: 15px;
 }

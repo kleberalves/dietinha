@@ -12,6 +12,9 @@ html, body {
     overflow: hidden;
 }
 
+div {
+    color: var(--blackwhite-color);
+}
 
 body {
     display: flex;

@@ -42,7 +42,7 @@ jobs:
       # Target directory
       TARGET: ~/apps/app-dietinha # optional, default is 
       # paths to exclude separated by `,`, ie: `/dist/, /node_modules/`
-      EXCLUDE: '/src/, /js/node/, /node_modules/'  
+      EXCLUDE: '/src/, /js/node/, /node_modules/, /.vscode/, /.github/, /@types/'  
       # Script to run on host machine before rsync
       #SCRIPT_BEFORE: # optional, default is 
       # If not an empty string, the action will fail if the before script fails. Note: The string 'false' will be treated as true
