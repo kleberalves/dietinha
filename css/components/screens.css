@@ -84,6 +84,13 @@ app-config {
         flex-wrap: nowrap;
         justify-content: space-around;
 
+
+        @media (min-width: 1000px) {
+            & {
+                justify-content: space-between;
+            }
+        }
+
         .btn-screen-switch {
 
             color: var(--blackwhite-color);
@@ -99,6 +106,19 @@ app-config {
             .btn {
                 font-weight: 400;
                 font-size: 11px;
+            }
+
+            @media (min-width: 1000px) {
+                & {
+                    width: 20%;
+                    flex-direction: row;
+                    justify-content: center;
+
+                    .btn {
+                        font-size: 15px;
+                        margin-left: 10px;
+                    }
+                }
             }
 
         }
