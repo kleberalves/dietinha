@@ -1,4 +1,6 @@
-export const getInputValue = (str) => {
+import { showError } from "./message.lib";
+
+const getInputValue = (str) => {
 
     let element = document.getElementById(str) as HTMLInputElement;
 
@@ -18,34 +20,98 @@ export const getInputValue = (str) => {
         return element.valueAsNumber;
     }
 }
+export const validateFields = (fields: (FieldNumber | FieldValue)[]): boolean => {
 
-export const getInputNumber = (str) => {
+    let errors: string = "Verifique e tente novamente: <br/><br/>";
+    let valid: boolean = true;
 
-    let value = getInputValue(str);
+    if (fields && fields.length > 0) {
+        for (let i = 0; i < fields.length; i++) {
+            if (fields[i].msg) {
+                errors += `- ${fields[i].msg} <br/>`;
+
+                valid = false;
+            }
+        }
+
+        if (!valid) {
+            showError(errors);
+        }
+    }
+
+    return valid;
+}
+export const getInputString = (id: string, msg: string): FieldValue => {
+
+    let value = getInputValue(id);
+
+    if(value){
+        return {
+            value: value.toString()
+        }
+    }
+
+    return {
+        msg: msg
+    }
+
+}
+export const getInputNumber = (id: string, msg: string): FieldNumber => {
+
+    let value = getInputValue(id);
 
     if (value) {
         if (typeof value === "string") {
 
-           //Substitui vírgula por ponto se houver 
+            //Substitui vírgula por ponto se houver 
             value = value.split(",").join(".");
 
-            return parseFloat(value);
+            if (isNaN(parseFloat(value))) {
+                return {
+                    msg: msg
+                }
+            }
+
+            return {
+                value: parseFloat(value)
+            }
         } else if (typeof value === "number") {
-            return value;
+            return {
+                value: value
+            }
         }
+    }
+
+    return {
+        msg: msg
     }
 }
 
-export const getInputInt = (str) => {
+export const getInputInt = (id: string, msg: string): FieldNumber => {
 
-    let value = getInputValue(str);
+    let value = getInputValue(id);
 
     if (value) {
         if (typeof value === "string") {
-            return parseInt(value);
+
+            if (isNaN(parseInt(value))) {
+                return {
+                    msg: msg
+                }
+            }
+
+            return {
+                value: parseInt(value)
+            }
         } else if (typeof value === "number") {
-            return value;
+            return {
+                value: value
+            }
         }
+    }
+
+    return {
+        msg: msg
     }
 }
 

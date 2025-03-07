@@ -16,6 +16,7 @@ app-registro-alimentos .selecionados {
     border-bottom: 1px solid #ccc;
     padding-top: 7px;
     padding-bottom: 20px;
+    color: var(--blackwhite-color);
 }
 
 .selecionados .item b {

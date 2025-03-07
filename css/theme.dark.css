@@ -2,9 +2,6 @@ body {
     background-color: #000;
 }
 
-* {
-    color: #fff;
-}
 
 /* FORMS */
 
@@ -71,10 +68,6 @@ body {
     background-color: #232323;
 }
 
-.list>.cols.total>div {
-    color: #fff;
-}
-
 
 .list>.cols>.options>label input:checked~label {
     background-color: #da7d00;
@@ -106,9 +99,7 @@ body {
 
 
 
-.alert.error {
-    background-color: brown;
-}
+
 
 .alert.success {
     background-color: #4CAF50;

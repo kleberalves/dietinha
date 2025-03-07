@@ -1,3 +1,9 @@
+app-cardapio{
+    padding: 10px;
+    background-color: var(--destaque-color);
+    display: block;
+    border-radius: 15px;
+}
 app-cardapio-item {
     display: flex;
 }
@@ -27,11 +33,12 @@ app-cardapio-item {
     margin: 15px;
     margin-bottom: 5px;
     font-size: 15px;
+    color: var(--blackwhite-color);
     font-weight: 300;
 }
 
 .text-intro {
-    color: var(--destaque-color);
+    color: var(--glow-color);
 }
 
 .total span {

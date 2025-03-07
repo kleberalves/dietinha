@@ -4,6 +4,7 @@
 /// <reference path="definitions/components/cardapio.d.ts" />
 /// <reference path="definitions/components/meta-diaria.d.ts" />
 /// <reference path="definitions/components/ingredientes-selecionados.d.ts" />
+/// <reference path="definitions/lib/forms.ts" />
 
 interface CardapioItem {
     id: string;

@@ -64,8 +64,10 @@ class PesquisaItem extends Base {
                         oninput=${(e) => calcularAlimentoUnidade(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />    
                 </div>` : null}
 
-                <div class='action'><b>Calorias</b><div id=${idItemResultadoCalorias}>-</div></div>
-                <div class='action'><b>Proteínas</b><div id=${idItemResultadoProteinas}>-</div></div>
+                <div class="bar">
+                    <div class='action'><b>Calorias</b><div id=${idItemResultadoCalorias}>-</div></div>
+                    <div class='action'><b>Proteínas</b><div id=${idItemResultadoProteinas}>-</div></div>
+                </div>
               </div>`,
             () => {
                 adicionarCalculo(this.props.idx, this.props.item.id);

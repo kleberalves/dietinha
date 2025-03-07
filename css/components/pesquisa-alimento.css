@@ -3,6 +3,12 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-evenly;
+
+    .bar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 app-pesquisa-alimento-item {
@@ -30,10 +36,14 @@ app-pesquisa-alimento-item {
 
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
 
     width: 40%;
+}
+
+.pesquisa-alimento-item-actions .action>b {
+    color: var(--blackwhite-color);
 }
 
 .pesquisa-alimento-item-actions .action>div {

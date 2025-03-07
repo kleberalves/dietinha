@@ -90,8 +90,9 @@ export const showMessage = (msg, type) => {
 
     var msgWindow = createWindow(type);
 
-    var msgNode = document.createTextNode(msg);
+    var msgNode = document.createElement("div");
     msgWindow.appendChild(msgNode);
+    msgNode.innerHTML = msg;
 
     timedoutshowMessage = setTimeout(() => {
         removeWindow();

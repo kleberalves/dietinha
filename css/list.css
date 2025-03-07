@@ -66,6 +66,7 @@
 }
 
 .cols.total>div {
+    color: var(--blackwhite-color);
     margin-left: 10px;
     display: flex;
     flex-direction: column;

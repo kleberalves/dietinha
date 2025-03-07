@@ -42,9 +42,7 @@ input[type="radio"] {
     width: 100%;
 }
 
-.radio:hover {
-    box-shadow: 0 0 70px 2px var(--glow-color);
-}
+
 
 .radio span {
 
@@ -70,9 +68,6 @@ input[type="radio"] {
     border: 0px;
 }
 
-.radio:hover span {
-    background-color: var(--destaque-color);
-}
 
 
 input[type="radio"]:valid {
@@ -104,4 +99,14 @@ input[type="radio"]:checked~span {
             width: 48%;
         }
     }
+}
+
+.radio:hover span {
+    background-color: var(--destaque-color);
+    color: var(--primary-color) !important;
+}
+
+
+.radio:hover {
+    box-shadow: 0 0 70px 2px var(--glow-color);
 }

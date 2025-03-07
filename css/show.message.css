@@ -13,7 +13,7 @@
 
     z-index: 10000;
 
-    color: #fff;
+    color: #fff !important;
     background-color: var(--theme-color);
     box-shadow: 3px 3px 30px var(--glow-color);
 }
@@ -25,6 +25,10 @@
 }
 .alert.success{
     top: 80px;
+}
+
+.alert.error {
+    background-color: #771c44;
 }
 
 .alert .bar-actions {

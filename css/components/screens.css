@@ -86,6 +86,8 @@ app-config {
 
         .btn-screen-switch {
 
+            color: var(--blackwhite-color);
+
             border-top: 2px solid transparent;
             width: 23%;
             cursor: pointer;
@@ -136,7 +138,9 @@ app-config {
 .screen-header>.title {
     font-weight: 400;
     font-size: 25px;
-    margin-top: 15px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    color: var(--blackwhite-color);
 }
 
 .screen {
@@ -178,7 +182,7 @@ app-config {
     .screens-nav {
         top: 0px;
         bottom: auto;
-        box-shadow: -6px -13px 50px 2px var(--contrast-color);
+        box-shadow: 0px -20px 50px 2px var(--contrast-color);
     }
 
     .btn-screen-switch {

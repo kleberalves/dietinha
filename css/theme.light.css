@@ -2,10 +2,6 @@ body {
     background-color: #fff;
 }
 
-* {
-    color: #000;
-}
-
 /* FORMS */
 
 .form>.title {
@@ -59,11 +55,6 @@ button {
     background-color: #fafafa;
 }
 
-.list>.cols.total>div {
-    color: #000;
-}
-
-
 
 .listItem.filtro {
     background-color: #f1f1f1;
@@ -87,11 +78,6 @@ button {
 }
 
 /* ALERTS */
-
-
-.alert.error {
-    background-color: brown;
-}
 
 .alert.success {
     background-color: #3bac99;

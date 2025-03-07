@@ -153,7 +153,7 @@ class AppMain extends Base {
 
            
                     <div 
-                        class=${(this.showTabCaloriaDiaria || this.showTabCardapio) ? "screen close" : "screen open"}
+                        class="screen close"
                         id="calculadora">
 
                          <div class="title">Calculadora de alimentos</div>
