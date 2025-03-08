@@ -53,7 +53,9 @@ input[type="text"] {
     background-color: var(--theme-color);
     border: 1px solid var(--secondary-color);
 }
-
+.text{
+    color: var(--blackwhite-color);
+}
 
 #txtPesquisa {
     margin-bottom: 15px;

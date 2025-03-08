@@ -54,14 +54,14 @@ class AppCardapioItem extends Base {
 
         showPopup(html`<div class=''>
                         <div class='title'>${this.props.item.nome}</div>
-                        <h3 class=''>Qual foi o peso?</h3>
+                        <h3 class='text'>Qual foi o peso?</h3>
                             <div class='info'>
                                 <input type='number' id='intPesoAlimento' 
                                         class='input-number' 
                                         value=${this.pesoInicial}
                                         placeholder='peso em gramas'
                                         oninput=${(e) => this.calcularAlimento(e.currentTarget.value)}  />
-                                        <div class="anime">
+                                        <div class="text">
                                             <span id="pesoCalorias"></span> calorias e <span id="pesoProteinas"></span>g de proteínas.
                                         </div>
                             </div>

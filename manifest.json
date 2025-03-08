@@ -1,5 +1,5 @@
 {
-  "name": "Dietinha",
+  "name": "Dietinha - Controle o que você come.",
   "short_name": "Dietinha",
   "icons": [
     {
@@ -53,7 +53,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/dietinha",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000"

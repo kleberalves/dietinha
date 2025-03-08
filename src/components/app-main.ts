@@ -143,6 +143,9 @@ class AppMain extends Base {
                         </div>
                     </div>
                 </div>
+                `: null}
+
+                 ${(alimentacaoItems.length > 0) ? html`
                 <div class="screen close" id="registro">
                      <div class="title">Minhas refeições</div>
                     <div class="form">
@@ -159,9 +162,9 @@ class AppMain extends Base {
                          <div class="title">Calculadora de alimentos</div>
 
                           ${metaDiariaItems.length > 0
-                    && ingredientesItems.length === 0
-                    && cardapioItems.length === 0
-                    ? html` <div class="wizard-message">
+                && ingredientesItems.length === 0
+                && cardapioItems.length === 0
+                ? html` <div class="wizard-message">
                                     <h1>Segundo passo</h1>
                                     <p>
                                         Faça consultas no campo abaixo para descobrir alimentos e compor 
