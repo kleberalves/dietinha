@@ -92,19 +92,3 @@ body {
     --sucess-color: #1c695c;
     --blackwhite-color: #fff;
 }
-
-
-
-/* ALERTS */
-
-
-
-
-
-.alert.success {
-    background-color: #4CAF50;
-}
-
-.alert.warning {
-    background-color: #c87200;
-}

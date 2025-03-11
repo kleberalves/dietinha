@@ -1,4 +1,5 @@
-button {
+button,
+input[type="submit"] {
     padding: 10px 30px;
     border-radius: 15px;
     background-color: var(--primary-color);
@@ -22,21 +23,19 @@ button {
 }
 
 button:hover,
-.btn-trash:hover {
+.btn-trash:hover,
+input[type="submit"]:hover {
     opacity: 0.7;
     cursor: pointer;
     color: #fff;
+    box-shadow: 10px 10px 100px 2px var(--contrast-color);
     background-color: var(--secondary-color);
 }
 
 button:disabled{
     background-color: var(--destaque-color);
 }
-/** GLOW HOVER */
-button:hover,
-.btn-trash:hover {
-    box-shadow: 10px 10px 100px 2px var(--contrast-color);
-}
+
 
 .btn-icon:hover{
     opacity: 0.5;

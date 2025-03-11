@@ -1,4 +1,5 @@
-.form {
+.form, 
+form {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -42,13 +43,15 @@
 
 
 @media (min-width: 600px) {
-    .form {
+    .form,
+    form {
         min-width: 570px;
     }
 }
 
 @media (min-width: 1000px) {
-    .form {
+    .form,
+    form {
         min-width: 900px;
     }
 }
@@ -75,7 +78,8 @@
     }
 }
 
-.form .full {
+.form .full,
+form .full {
     width: 100%;
     margin: 0px;
 }

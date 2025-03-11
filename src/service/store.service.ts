@@ -68,6 +68,23 @@ export const store = (() => {
 
     }
 
+    const updateSingle = <T>(storeName: string, values: Dictionary[]) => {
+
+        let items: any[] = store.getItems(storeName);
+
+        let conditions: Dictionary[] = [];
+
+        if (items.length > 0) {
+            conditions.push({
+                key: "id",
+                value: items[0].id
+            })
+        }
+
+        updateItemsByFields<T>(storeName, conditions, values);
+
+    }
+
     const updateItemsByFields = <T>(storeName: string, conditions: Dictionary[], values: Dictionary[]) => {
 
         let store = loadLocalStorage(storeName);
@@ -151,6 +168,16 @@ export const store = (() => {
         saveDataLocal(storeHistorico, storeNameHistorico);
     }
 
+    const getItems = <T>(storeName: string) => {
+
+        let store = loadLocalStorage(storeName);
+        if (store !== null) {
+            return store["items"] as T;
+        } else {
+            return [] as T;
+        }
+    }
+
     return {
         /** Adiciona um item na store. A propriedade "Id" será criada no formato uuid (guid) */
         addItem: addItem,
@@ -159,15 +186,17 @@ export const store = (() => {
         getItemByField: getItemByField,
         /** Atualiza ou insere um conjunto de itens com um conjunto de valores */
         updateItemsByFields: updateItemsByFields,
+        /** Atualiza ou insere um conjunto de itens com um conjunto de valores */
+        updateSingle: updateSingle,
         /** Obtém os items no Local Storage */
-        getItems: <T>(storeName: string) => {
-
-            let store = loadLocalStorage(storeName);
-            if (store !== null) {
-                return store["items"] as T;
-            } else {
-                return [] as T;
+        getItems: getItems,
+        /** Obtém os items no Local Storage */
+        getSingle: <T>(storeName: string) => {
+            let items: T[] = getItems<T[]>(storeName);
+            if (items.length === 0) {
+                return null;
             }
+            return items[0];
         },
         /** Limpa todos os dados da store incluindo no local storage */
         clear: (storeName: string) => {

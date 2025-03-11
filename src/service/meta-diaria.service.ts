@@ -121,19 +121,7 @@ export const calcularMetaDiaria = () => {
                     });
                 }
 
-                //Essa store deve registrar apenas um item
-                //por usuário do app.
-                let items: any[] = store.getItems(META_DIARIA_STORE);
-                let conditions: Dictionary[] = [];
-
-                if (items.length > 0) {
-                    conditions.push({
-                        key: "id",
-                        value: items[0].id
-                    })
-                }
-
-                store.updateItemsByFields(META_DIARIA_STORE, conditions, data);
+                store.updateSingle(META_DIARIA_STORE, data);
 
                 showOk("Meta Diária cadastrada com sucesso.");
 

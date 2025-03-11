@@ -76,13 +76,3 @@ button {
     --blackwhite-color: #000;
 
 }
-
-/* ALERTS */
-
-.alert.success {
-    background-color: #3bac99;
-}
-
-.alert.warning {
-    background-color: #c87200;
-}

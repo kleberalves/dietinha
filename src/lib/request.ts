@@ -1,5 +1,6 @@
 import { API_BASE_URL_SERVER, getenv, LOGIN_STORE } from "../service/config.service";
 import { store } from "../service/store.service";
+import { removeWindow, showLoading } from "./message.lib";
 
 export const useRequest = (error?: any, logout?: () => void) => {
 
@@ -123,6 +124,8 @@ export const useRequest = (error?: any, logout?: () => void) => {
                 config["body"] = body;
             }
 
+            showLoading();
+
             //Preferência para API_BASE_URL_SERVER caso esteja sendo executado no servidor
             //internamente redirecionará para BASE_URL se estiver no cliente
             fetch(`${getenv(API_BASE_URL_SERVER)}${url}`, config)
@@ -136,6 +139,9 @@ export const useRequest = (error?: any, logout?: () => void) => {
                     //     window.location.reload();
                     // } else
                     //
+
+                    removeWindow();
+                    
                     if (response.status >= 400
                         && response.status != 412
                         && response.status != 451

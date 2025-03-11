@@ -46,6 +46,10 @@ export const formatDate = (date: Date | string, format: string): string => {
         return `${hour}:${minutes}`;
     }
 
+    if (format === "dd/mm hh:MM") {
+        return `${day}/${month} ${hour}:${minutes}`;
+    }
+    
     return `${year}-${month}-${day}`;
 }
 /** Retorna o DateTime.Now no formato ISO com o TimeZone local aplicado */

@@ -10,10 +10,7 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
 
     let promise = new Promise<string>((resolve, reject) => {
 
-        let items: any[] = store.getItems(LOGIN_STORE);
-
         let data: Dictionary[] = [];
-        let conditions: Dictionary[] = [];
 
         const { post } = useRequest();
 
@@ -22,14 +19,13 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
             "password": senha
         }).then(async (resp) => {
 
-            console.log("resp", resp);
-
             if (resp) {
 
                 if (resp.error) {
-                    console.log("resp Err", resp);
+                    reject();
                 } else {
-                    console.log("resp OK", resp);
+        
+                    const responseBody = await resp.json();
 
                     data.push({
                         key: "email",
@@ -37,31 +33,29 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
                     });
 
                     data.push({
-                        key: "senha",
-                        value: senha
+                        key: "name",
+                        value: responseBody.name
+                    });
+                    
+                    data.push({
+                        key: "token",
+                        value: responseBody.token
                     });
 
                     data.push({
-                        key: "token",
-                        value: resp.token
+                        key: "profiles",
+                        value: responseBody.profiles
                     });
 
-
-                    if (items.length > 0) {
-                        conditions.push({
-                            key: "id",
-                            value: items[0].id
-                        })
-                    }
-
-                    store.updateItemsByFields(LOGIN_STORE, conditions, data);
+                    store.updateSingle(LOGIN_STORE, data);
 
                     resolve("ok");
                 }
+            } else {
+                reject();
             }
 
         }).catch((e) => {
-            console.log(e);
             showWarning(e.error.message);
             reject("error");
         });
