@@ -5,6 +5,31 @@
     if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     return e;
   }
+  function asyncGeneratorStep(n, t, e, r, o, a, c) {
+    try {
+      var i = n[a](c),
+        u = i.value;
+    } catch (n) {
+      return void e(n);
+    }
+    i.done ? t(u) : Promise.resolve(u).then(r, o);
+  }
+  function _asyncToGenerator(n) {
+    return function () {
+      var t = this,
+        e = arguments;
+      return new Promise(function (r, o) {
+        var a = n.apply(t, e);
+        function _next(n) {
+          asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
+        }
+        function _throw(n) {
+          asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
+        }
+        _next(void 0);
+      });
+    };
+  }
   function _classCallCheck(a, n) {
     if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
   }
@@ -104,6 +129,307 @@
     if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
     return _assertThisInitialized(t);
   }
+  function _regeneratorRuntime() {
+    _regeneratorRuntime = function () {
+      return e;
+    };
+    var t,
+      e = {},
+      r = Object.prototype,
+      n = r.hasOwnProperty,
+      o = Object.defineProperty || function (t, e, r) {
+        t[e] = r.value;
+      },
+      i = "function" == typeof Symbol ? Symbol : {},
+      a = i.iterator || "@@iterator",
+      c = i.asyncIterator || "@@asyncIterator",
+      u = i.toStringTag || "@@toStringTag";
+    function define(t, e, r) {
+      return Object.defineProperty(t, e, {
+        value: r,
+        enumerable: !0,
+        configurable: !0,
+        writable: !0
+      }), t[e];
+    }
+    try {
+      define({}, "");
+    } catch (t) {
+      define = function (t, e, r) {
+        return t[e] = r;
+      };
+    }
+    function wrap(t, e, r, n) {
+      var i = e && e.prototype instanceof Generator ? e : Generator,
+        a = Object.create(i.prototype),
+        c = new Context(n || []);
+      return o(a, "_invoke", {
+        value: makeInvokeMethod(t, r, c)
+      }), a;
+    }
+    function tryCatch(t, e, r) {
+      try {
+        return {
+          type: "normal",
+          arg: t.call(e, r)
+        };
+      } catch (t) {
+        return {
+          type: "throw",
+          arg: t
+        };
+      }
+    }
+    e.wrap = wrap;
+    var h = "suspendedStart",
+      l = "suspendedYield",
+      f = "executing",
+      s = "completed",
+      y = {};
+    function Generator() {}
+    function GeneratorFunction() {}
+    function GeneratorFunctionPrototype() {}
+    var p = {};
+    define(p, a, function () {
+      return this;
+    });
+    var d = Object.getPrototypeOf,
+      v = d && d(d(values([])));
+    v && v !== r && n.call(v, a) && (p = v);
+    var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
+    function defineIteratorMethods(t) {
+      ["next", "throw", "return"].forEach(function (e) {
+        define(t, e, function (t) {
+          return this._invoke(e, t);
+        });
+      });
+    }
+    function AsyncIterator(t, e) {
+      function invoke(r, o, i, a) {
+        var c = tryCatch(t[r], t, o);
+        if ("throw" !== c.type) {
+          var u = c.arg,
+            h = u.value;
+          return h && "object" == typeof h && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
+            invoke("next", t, i, a);
+          }, function (t) {
+            invoke("throw", t, i, a);
+          }) : e.resolve(h).then(function (t) {
+            u.value = t, i(u);
+          }, function (t) {
+            return invoke("throw", t, i, a);
+          });
+        }
+        a(c.arg);
+      }
+      var r;
+      o(this, "_invoke", {
+        value: function (t, n) {
+          function callInvokeWithMethodAndArg() {
+            return new e(function (e, r) {
+              invoke(t, n, e, r);
+            });
+          }
+          return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+        }
+      });
+    }
+    function makeInvokeMethod(e, r, n) {
+      var o = h;
+      return function (i, a) {
+        if (o === f) throw Error("Generator is already running");
+        if (o === s) {
+          if ("throw" === i) throw a;
+          return {
+            value: t,
+            done: !0
+          };
+        }
+        for (n.method = i, n.arg = a;;) {
+          var c = n.delegate;
+          if (c) {
+            var u = maybeInvokeDelegate(c, n);
+            if (u) {
+              if (u === y) continue;
+              return u;
+            }
+          }
+          if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+            if (o === h) throw o = s, n.arg;
+            n.dispatchException(n.arg);
+          } else "return" === n.method && n.abrupt("return", n.arg);
+          o = f;
+          var p = tryCatch(e, r, n);
+          if ("normal" === p.type) {
+            if (o = n.done ? s : l, p.arg === y) continue;
+            return {
+              value: p.arg,
+              done: n.done
+            };
+          }
+          "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
+        }
+      };
+    }
+    function maybeInvokeDelegate(e, r) {
+      var n = r.method,
+        o = e.iterator[n];
+      if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
+      var i = tryCatch(o, e.iterator, r.arg);
+      if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
+      var a = i.arg;
+      return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
+    }
+    function pushTryEntry(t) {
+      var e = {
+        tryLoc: t[0]
+      };
+      1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
+    }
+    function resetTryEntry(t) {
+      var e = t.completion || {};
+      e.type = "normal", delete e.arg, t.completion = e;
+    }
+    function Context(t) {
+      this.tryEntries = [{
+        tryLoc: "root"
+      }], t.forEach(pushTryEntry, this), this.reset(!0);
+    }
+    function values(e) {
+      if (e || "" === e) {
+        var r = e[a];
+        if (r) return r.call(e);
+        if ("function" == typeof e.next) return e;
+        if (!isNaN(e.length)) {
+          var o = -1,
+            i = function next() {
+              for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
+              return next.value = t, next.done = !0, next;
+            };
+          return i.next = i;
+        }
+      }
+      throw new TypeError(typeof e + " is not iterable");
+    }
+    return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
+      value: GeneratorFunctionPrototype,
+      configurable: !0
+    }), o(GeneratorFunctionPrototype, "constructor", {
+      value: GeneratorFunction,
+      configurable: !0
+    }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
+      var e = "function" == typeof t && t.constructor;
+      return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
+    }, e.mark = function (t) {
+      return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
+    }, e.awrap = function (t) {
+      return {
+        __await: t
+      };
+    }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
+      return this;
+    }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
+      void 0 === i && (i = Promise);
+      var a = new AsyncIterator(wrap(t, r, n, o), i);
+      return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
+        return t.done ? t.value : a.next();
+      });
+    }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
+      return this;
+    }), define(g, "toString", function () {
+      return "[object Generator]";
+    }), e.keys = function (t) {
+      var e = Object(t),
+        r = [];
+      for (var n in e) r.push(n);
+      return r.reverse(), function next() {
+        for (; r.length;) {
+          var t = r.pop();
+          if (t in e) return next.value = t, next.done = !1, next;
+        }
+        return next.done = !0, next;
+      };
+    }, e.values = values, Context.prototype = {
+      constructor: Context,
+      reset: function (e) {
+        if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
+      },
+      stop: function () {
+        this.done = !0;
+        var t = this.tryEntries[0].completion;
+        if ("throw" === t.type) throw t.arg;
+        return this.rval;
+      },
+      dispatchException: function (e) {
+        if (this.done) throw e;
+        var r = this;
+        function handle(n, o) {
+          return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
+        }
+        for (var o = this.tryEntries.length - 1; o >= 0; --o) {
+          var i = this.tryEntries[o],
+            a = i.completion;
+          if ("root" === i.tryLoc) return handle("end");
+          if (i.tryLoc <= this.prev) {
+            var c = n.call(i, "catchLoc"),
+              u = n.call(i, "finallyLoc");
+            if (c && u) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            } else if (c) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+            } else {
+              if (!u) throw Error("try statement without catch or finally");
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            }
+          }
+        }
+      },
+      abrupt: function (t, e) {
+        for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+          var o = this.tryEntries[r];
+          if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
+            var i = o;
+            break;
+          }
+        }
+        i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
+        var a = i ? i.completion : {};
+        return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
+      },
+      complete: function (t, e) {
+        if ("throw" === t.type) throw t.arg;
+        return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
+      },
+      finish: function (t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
+        }
+      },
+      catch: function (t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.tryLoc === t) {
+            var n = r.completion;
+            if ("throw" === n.type) {
+              var o = n.arg;
+              resetTryEntry(r);
+            }
+            return o;
+          }
+        }
+        throw Error("illegal catch attempt");
+      },
+      delegateYield: function (e, r, n) {
+        return this.delegate = {
+          iterator: values(e),
+          resultName: r,
+          nextLoc: n
+        }, "next" === this.method && (this.arg = t), y;
+      }
+    }, e;
+  }
   function _setPrototypeOf(t, e) {
     return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
       return t.__proto__ = e, t;
@@ -185,7 +511,7 @@
 
   var store=function(){var getItemByField=function getItemByField(storeName,query){var store=loadLocalStorage(storeName);var item;if(store===null)return undefined;for(var i=0;i<store.items.length;i++){item=store.items[i];if(item[query.key]===query.value){return item}}};var addItem=function addItem(storeName,item){return new Promise(function(resolve,reject){try{var _store=loadLocalStorage(storeName);if(_store===null){_store={name:storeName,items:[]};}item["id"]=uuidv4();item["created"]=localISOString();_store.items.push(item);saveDataLocal(_store,storeName);window.dispatchEvent(new CustomEvent(STORE_ADDED_ITEM,{detail:{store:storeName,item:item,items:_store.items}}));resolve(item);}catch(e){reject(e);}})};var updateItemsByFields=function updateItemsByFields(storeName,conditions,values){var store=loadLocalStorage(storeName);var item={};if(store===null){store={name:storeName,items:[]};}if(store.items.length===0){for(var q=0;q<conditions.length;q++){item[conditions[q].key]=conditions[q].value;}for(var v=0;v<values.length;v++){item[values[v].key]=values[v].value;}addItem(storeName,item);}else {for(var i=0;i<store.items.length;i++){item=store.items[i];var cont=0;for(var _q=0;_q<conditions.length;_q++){if(item[conditions[_q].key]===conditions[_q].value){cont++;}}if(cont===conditions.length){for(var _v=0;_v<values.length;_v++){item[values[_v].key]=values[_v].value;}item["updated"]=localISOString();saveDataLocal(store,storeName);window.dispatchEvent(new CustomEvent(STORE_UPDATED_ITEM,{detail:{store:storeName,item:item,items:store.items}}));}}}saveHistorico(storeName,item);return item};var saveHistorico=function saveHistorico(storeName,item){var storeNameHistorico="".concat(storeName,"_HISTORICO");var storeHistorico=loadLocalStorage(storeNameHistorico);if(storeHistorico===null){storeHistorico={name:storeNameHistorico,items:[]};}storeHistorico.items.push(item);saveDataLocal(storeHistorico,storeNameHistorico);};return {addItem:addItem,getItemByField:getItemByField,updateItemsByFields:updateItemsByFields,getItems:function getItems(storeName){var store=loadLocalStorage(storeName);if(store!==null){return store["items"]}else {return []}},clear:function clear(storeName){var store=loadLocalStorage(storeName);if(store!==null){store.items=[];saveDataLocal(store,storeName);window.dispatchEvent(new CustomEvent(STORE_CLEARED,{detail:{store:storeName}}));}else {throw new Error("Store n\xE3o existe.")}},getItemById:function getItemById(storeName,itemId){return getItemByField(storeName,{key:"id",value:itemId})},getItemsByFields:function getItemsByFields(storeName,query){var store=loadLocalStorage(storeName);var item;var result=[];if(store!==null){for(var i=0;i<store.items.length;i++){item=store.items[i];var cont=0;for(var q=0;q<query.length;q++){if(item[query[q].key]===query[q].value){cont++;}}if(cont===query.length){result.push(item);}}return result}else {return []}},removeItemById:function removeItemById(storeName,itemId){var store=loadLocalStorage(storeName);var item;if(store!==null){for(var i=0;i<store.items.length;i++){item=store.items[i];if(item.id===itemId){store.items.splice(i,1);saveDataLocal(store,storeName);window.dispatchEvent(new CustomEvent(STORE_REMOVED_ITEM,{detail:{store:storeName,item:item,items:store.items}}));}}}else {throw new Error("Store n\xE3o existe.")}},onAddedItem:function onAddedItem(storeName,func){window.addEventListener(STORE_ADDED_ITEM,function(e){if(e.detail.store!==storeName){return}func(e);});},onRemovedItem:function onRemovedItem(storeName,func){window.addEventListener(STORE_REMOVED_ITEM,function(e){if(e.detail.store!==storeName){return}func(e);});},onCleared:function onCleared(storeName,func){window.addEventListener(STORE_CLEARED,function(e){if(e.detail.store!==storeName){return}func(e);});},onUpdatedItem:function onUpdatedItem(storeName,func){window.addEventListener(STORE_UPDATED_ITEM,function(e){if(e.detail.store!==storeName){return}func(e);});}}}();var STORE_ADDED_ITEM="STORE_ADDED_ITEM";var STORE_REMOVED_ITEM="STORE_REMOVED_ITEM";var STORE_CLEARED="STORE_CLEARED";var STORE_UPDATED_ITEM="STORE_UPDATED_ITEM";
 
-  var INGREDIENTES_STORE="INGREDIENTES_STORE";var CARDAPIO_STORE="CARDAPIO_STORE";var ALIMENTACAO_STORE="ALIMENTACAO_STORE";var CONFIG_STORE="CONFIG_STORE";var META_DIARIA_STORE="META_DIARIA_STORE";var swapTheme=function swapTheme(){var link=document.getElementById("styTheme");if(link){var current=link.getAttribute("href");if(current&&current.indexOf("light")>-1){setTheme("dark");}else {setTheme("light");}}};var setTheme=function setTheme(theme){var link=document.getElementById("styTheme");if(link)link.setAttribute("href","css/theme."+theme+".css");store.updateItemsByFields(CONFIG_STORE,[{key:"key",value:"theme"}],[{key:"value",value:theme}]);};var loadTheme=function loadTheme(){var theme=store.getItemByField(CONFIG_STORE,{key:"key",value:"theme"});if(theme===undefined||theme.value===undefined){setTheme("light");}else {if(typeof theme.value==="string")setTheme(theme.value);}};
+  var INGREDIENTES_STORE="INGREDIENTES_STORE";var CARDAPIO_STORE="CARDAPIO_STORE";var ALIMENTACAO_STORE="ALIMENTACAO_STORE";var CONFIG_STORE="CONFIG_STORE";var META_DIARIA_STORE="META_DIARIA_STORE";var LOGIN_STORE="LOGIN_STORE";var API_BASE_URL_SERVER="API_BASE_URL_SERVER";var swapTheme=function swapTheme(){var link=document.getElementById("styTheme");if(link){var current=link.getAttribute("href");if(current&&current.indexOf("light")>-1){setTheme("dark");}else {setTheme("light");}}};var getenv=function getenv(key){if(key===API_BASE_URL_SERVER){if(window.location.host.toLowerCase().indexOf("192.168")>-1){return "http://localhost:3005"}else {return "https://".concat(window.location.host,"/api")}}};var setTheme=function setTheme(theme){var link=document.getElementById("styTheme");if(link)link.setAttribute("href","css/theme."+theme+".css");store.updateItemsByFields(CONFIG_STORE,[{key:"key",value:"theme"}],[{key:"value",value:theme}]);};var loadTheme=function loadTheme(){var theme=store.getItemByField(CONFIG_STORE,{key:"key",value:"theme"});if(theme===undefined||theme.value===undefined){setTheme("light");}else {if(typeof theme.value==="string")setTheme(theme.value);}};
 
   var timedoutshowMessage=0;var removeWindow=function removeWindow(){var msgWindow=document.getElementById("msgWindow");if(msgWindow){msgWindow.classList.remove("show-top");msgWindow.classList.add("close-bottom");timedoutshowMessage=setTimeout(function(){msgWindow.remove();var main=document.getElementById("main");if(main){main.classList.remove("blur");}},400);}};var createWindow=function createWindow(type){var win=document.getElementById("msgWindow");if(win!==null){win.remove();clearTimeout(timedoutshowMessage);}var msgWindow=document.createElement("div");msgWindow.id="msgWindow";msgWindow.classList.add("alert");msgWindow.classList.add("show-top");msgWindow.classList.add(type);var body=document.getElementsByTagName("body");body[0].appendChild(msgWindow);if(type!=="success"){var element=document.getElementById("main");if(element){element.classList.add("blur");}}return msgWindow};var configActions=function configActions(msgWindow,callback){var barActions=document.createElement("div");barActions.classList.add("bar-actions");msgWindow.appendChild(barActions);var btnConfirm=document.createElement("button");btnConfirm.innerText="Ok";btnConfirm.classList.add("btn-ok");btnConfirm.onclick=function(){removeWindow();callback();};barActions.appendChild(btnConfirm);var btnCancelar=document.createElement("button");btnCancelar.innerText="Cancelar";btnCancelar.classList.add("btn-cancelar");btnCancelar.classList.add("delay1");btnCancelar.onclick=function(){removeWindow();};barActions.appendChild(btnCancelar);};var showPopup=function showPopup(html,onConfirm,onRender){var msgWindow=createWindow("default");render(msgWindow,html);configActions(msgWindow,onConfirm);if(onRender){onRender();}return msgWindow};var showMessage=function showMessage(msg,type){var msgWindow=createWindow(type);var msgNode=document.createElement("div");msgWindow.appendChild(msgNode);msgNode.innerHTML=msg;var barActions=document.createElement("div");barActions.classList.add("bar-actions");msgWindow.appendChild(barActions);var btnConfirm=document.createElement("button");btnConfirm.innerText="Ok";btnConfirm.classList.add("btn-ok");btnConfirm.onclick=function(){removeWindow();};barActions.appendChild(btnConfirm);timedoutshowMessage=setTimeout(function(){removeWindow();},msg.length*150);return msgWindow};var showConfirm=function showConfirm(msg,callback){var msgWindow=createWindow("warning");var msgNode=document.createTextNode(msg);msgWindow.appendChild(msgNode);configActions(msgWindow,callback);};var showOk=function showOk(msg){var window=showMessage(msg,"success");window.onclick=function(){removeWindow();};};var showWarning=function showWarning(msg){var window=showMessage(msg,"warning");window.onclick=function(){removeWindow();};};var showError=function showError(msg){var window=showMessage(msg,"error");window.onclick=function(){removeWindow();};};
 
@@ -231,7 +557,13 @@
 
   var _templateObject$b;var AppConfig=function(_Base){_inherits(AppConfig,_Base);var _super=_createSuper(AppConfig);function AppConfig(){_classCallCheck(this,AppConfig);return _super.call(this)}_createClass(AppConfig,[{key:"connectedCallback",value:function connectedCallback(){this.render();}},{key:"render",value:function render$1(){render(this,html(_templateObject$b||(_templateObject$b=_taggedTemplateLiteral(["\n         <div class=\"form\">\n            <div class=\"row\">\n                <h4> Tema do app </h4>\n                <button class=\"btn-mini\" onclick=",">Trocar tema</button>\n            </div>\n        </div>\n        "])),function(){return swapTheme()}));}}]);return AppConfig}(Base);window.customElements.define("app-config",AppConfig);
 
-  var _templateObject$c,_templateObject2$9,_templateObject3$7,_templateObject4$5,_templateObject5$4,_templateObject6$3,_templateObject7$2,_templateObject8$1,_templateObject9$1,_templateObject10$1,_templateObject11$1,_templateObject12,_templateObject13;var AppMain=function(_Base){_inherits(AppMain,_Base);var _super=_createSuper(AppMain);function AppMain(){var _this;_classCallCheck(this,AppMain);_this=_super.call(this);_defineProperty(_assertThisInitialized(_this),"showTabCaloriaDiaria",false);_defineProperty(_assertThisInitialized(_this),"showTabCalculadora",false);_defineProperty(_assertThisInitialized(_this),"showTabCardapio",false);_defineProperty(_assertThisInitialized(_this),"showView","perfil");return _this}_createClass(AppMain,[{key:"connectedCallback",value:function connectedCallback(){var _this2=this;this.render();window.addEventListener("resize",function(){resizeScreens();});store.onAddedItem(META_DIARIA_STORE,function(e){swapScreen("calculadora");_this2.render();});store.onAddedItem(INGREDIENTES_STORE,function(e){_this2.render();});store.onRemovedItem(INGREDIENTES_STORE,function(e){_this2.render();});store.onCleared(INGREDIENTES_STORE,function(e){_this2.render();});store.onAddedItem(ALIMENTACAO_STORE,function(e){if(e.detail.items.length===1){_this2.render();}});store.onAddedItem(CARDAPIO_STORE,function(e){_this2.render();if(e.detail.items.length===1){swapScreen("cardapio");scrollBodyTop(0);}});}},{key:"btnShowSearchCardapio",value:function btnShowSearchCardapio(){var element=this.querySelector("#appCardapio");if(element){element.swapSearch();}}},{key:"btnAdicionarIngredientesCardapio",value:function btnAdicionarIngredientesCardapio(){var element=this.querySelector("#appIngredientesSelecionados");if(element){element.adicionarItemCardapio();}}},{key:"btnMetaDiariaSaveClick",value:function btnMetaDiariaSaveClick(){var element=this.querySelector("#appMetaDiaria");if(element){element.save();}}},{key:"btnShowConfig",value:function btnShowConfig(){if(this.showView==="config"){this.showView="perfil";}else {this.showView="config";}this.render();}},{key:"render",value:function render$1(){var _this3=this;var metaDiariaItems=store.getItems(META_DIARIA_STORE);var cardapioItems=store.getItems(CARDAPIO_STORE);var alimentacaoItems=store.getItems(ALIMENTACAO_STORE);var ingredientesItems=store.getItems(INGREDIENTES_STORE);if(metaDiariaItems.length===0){this.showTabCaloriaDiaria=true;swapScreen("perfil");}else if(cardapioItems.length===0){this.showTabCalculadora=true;}else {this.showTabCardapio=true;this.showTabCaloriaDiaria=true;this.showTabCalculadora=true;}render(this,html(_templateObject$c||(_templateObject$c=_taggedTemplateLiteral(["\n   \n                <div id=\"main\">\n                \n                ","\n\n                 ","\n\n           \n                    <div \n                        class=\"screen close\"\n                        id=\"calculadora\">\n\n                         <div class=\"title\">Calculadora de alimentos</div>\n\n                          ","\n       \n\n                    <div class=\"form\">\n                        <div class=\"full\">\n                            <app-pesquisa-alimento />\n                        </div>\n                        <div class=\"full\">\n                            <app-ingredientes-selecionados id=\"appIngredientesSelecionados\" />\n                        </div>\n                    </div>\n\n                    ","\n                </div>\n\n                \n                "," \n\n                <div class=\"screen close\" id=\"notfound\">\n                    <div class=\"form\">\n                        <div class=\"row\">\n                            <h4> 404 Se\xE7\xE3o n\xE3o encontrada. </h4>\n                        </div>\n                    </div>\n                </div>\n            </div>\n<!--  https://www.svgrepo.com/collection/solar-outline-icons/10 -->\n\n        <div class=\"screens-nav\">\n            <div>\n                ","\n\n                 ","\n\n                 ","\n\n                <div class=\"btn-screen-switch\" id=\"perfilNav\" onclick=",">     \n                    <img src=\"img/perfil.svg\" /> \n                    <div class=\"btn\">Perfil</div>\n                </div>\n            </div>\n        </div>\n        "])),metaDiariaItems.length>0&&cardapioItems.length>=1?html(_templateObject2$9||(_templateObject2$9=_taggedTemplateLiteral(["\n                    <div \n                    class=\"screen close\" \n                    id=\"cardapio\">\n                        <div class=\"screen-header\">\n                            <div></div>\n                            <div class=\"title\">Meu card\xE1pio</div>\n                            <div> \n                                <img src=\"img/busca.svg\" class=\"btn-icon\" @click=","/>\n                            </div>\n                        </div>\n\n                            ","\n                            \n                       \n                    <div class=\"form\">\n                        <div class=\"full\">\n                            <app-cardapio id=\"appCardapio\" />\n                        </div>\n                    </div>\n                </div>\n                "])),function(e){return _this3.btnShowSearchCardapio()},cardapioItems.length===1&&alimentacaoItems.length===0?html(_templateObject3$7||(_templateObject3$7=_taggedTemplateLiteral([" <div class=\"wizard-message\">\n                                <h1>\xDAltimo passo</h1>\n                                <p>\n                                    Ap\xF3s o cadastro da sua refei\xE7\xE3o, basta informar\n                                    quais consumiu utilizando o bot\xE3o \"Consumi este alimento\". \n                                    <br/>Fa\xE7a diariamente para acompanhar e comparar com a sua meta \n                                    di\xE1ria de calorias e de prote\xEDnas.\n                                </p>\n                            </div>"]))):null):null,alimentacaoItems.length>0?html(_templateObject4$5||(_templateObject4$5=_taggedTemplateLiteral(["\n                <div class=\"screen close\" id=\"registro\">\n                     <div class=\"title\">Minhas refei\xE7\xF5es</div>\n                    <div class=\"form\">\n                        <app-registro-alimentos />\n                    </div>\n                </div>\n                "]))):null,metaDiariaItems.length>0&&ingredientesItems.length===0&&cardapioItems.length===0?html(_templateObject5$4||(_templateObject5$4=_taggedTemplateLiteral([" <div class=\"wizard-message\">\n                                    <h1>Segundo passo</h1>\n                                    <p>\n                                        Fa\xE7a consultas no campo abaixo para descobrir alimentos e compor \n                                        refei\xE7\xF5es que voc\xEA mais consome. \n                                        <br/> Voc\xEA pode separar em 4 categorias:<br/>\n                                        <b>Caf\xE9 da manh\xE3/tarde</b> -  <b>Almo\xE7o/jantar</b> -  <b>Lanches</b> -  <b>Sobremesas</b>. <br/>                        \n                                        Depois do seu Card\xE1pio pronto, basta registrar diariamente quais\n                                        itens voc\xEA consumiu.\n                                    </p>\n                                </div>"]))):null,ingredientesItems.length>0?html(_templateObject6$3||(_templateObject6$3=_taggedTemplateLiteral(["<div class=\"action-bar-bottom\"><button class='btn-main' onclick=","> Adicionar ao card\xE1pio </button></div>"])),function(e){return _this3.btnAdicionarIngredientesCardapio()}):null,metaDiariaItems.length>=0?html(_templateObject7$2||(_templateObject7$2=_taggedTemplateLiteral(["\n                    <div class=\"screen close\" id=\"perfil\">\n\n                    <div class=\"screen-header\">\n                            <div></div>\n                            <div class=\"title\">Perfil</div>\n                            <div> \n                                <img src=\"img/configuracoes.svg\" class=\"btn-icon\" @click=","/>\n                            </div>\n                        </div>\n                \n                    ","\n\n                    ","\n                 \n                </div>"])),function(e){return _this3.btnShowConfig()},this.showView==="perfil"?html(_templateObject8$1||(_templateObject8$1=_taggedTemplateLiteral(["\n                        ","\n\n                        <app-meta-diaria id=\"appMetaDiaria\" class=\"form-bar-bottom\" />\n\n                        <div class=\"action-bar-bottom\">\n                            <button class=\"btn-main delay11\" onclick=",">Salvar</button>\n                        </div>\n                    "])),this.showTabCaloriaDiaria&&!this.showTabCalculadora&&!this.showTabCardapio?html(_templateObject9$1||(_templateObject9$1=_taggedTemplateLiteral([" <div class=\"wizard-message\">\n                            <h1>Primeiro passo</h1>\n                            <p>\n                                Vamos descobrir a sua meta de consumo de calorias e prote\xEDnas por dia. \n                                Insira as informa\xE7\xF5es no formul\xE1rio abaixo e pressione \"<b>Calcular</b>\". <br/>\n                                N\xE3o se preocupe... voc\xEA poder\xE1 atualizar depois.\n                            </p>\n                        </div>"]))):null,function(){return _this3.btnMetaDiariaSaveClick()}):null,this.showView==="config"?html(_templateObject10$1||(_templateObject10$1=_taggedTemplateLiteral(["\n                        <app-config />\n                    "]))):null):null,metaDiariaItems.length>0&&cardapioItems.length>=1?html(_templateObject11$1||(_templateObject11$1=_taggedTemplateLiteral(["<div class=\"btn-screen-switch open\" id=\"cardapioNav\" onclick=",">\n                    <img src=\"img/cardapio.svg\" /> \n                    <div class=\"btn\">Card\xE1pio</div>\n                </div>"])),function(e){return swapScreen("cardapio")}):null,alimentacaoItems.length>0?html(_templateObject12||(_templateObject12=_taggedTemplateLiteral(["<div class=\"btn-screen-switch\" id=\"registroNav\" onclick=",">\n                    <img src=\"img/registro.svg\" /> \n                    <div class=\"btn\">Registro</div>\n                </div>"])),function(e){return swapScreen("registro")}):null,metaDiariaItems.length>0?html(_templateObject13||(_templateObject13=_taggedTemplateLiteral(["<div class=\"btn-screen-switch\" id=\"calculadoraNav\" onclick=",">\n                    <img src=\"img/calculadora.svg\" /> \n                    <div class=\"btn\">Calculadora</div>\n                </div>"])),function(e){return swapScreen("calculadora")}):null,function(e){return swapScreen("perfil")}));if(metaDiariaItems.length===0){swapScreen("perfil");}else if(window.location.hash===""&&(this.showTabCaloriaDiaria||this.showTabCalculadora)&&cardapioItems.length>0){swapScreen("cardapio");}else {detectPathScreen();}window.addEventListener("popstate",function(e){detectPathScreen();});}}]);return AppMain}(Base);window.customElements.define("app-main",AppMain);
+  var _templateObject$c,_templateObject2$9,_templateObject3$7,_templateObject4$5,_templateObject5$4,_templateObject6$3,_templateObject7$2,_templateObject8$1,_templateObject9$1,_templateObject10$1,_templateObject11$1,_templateObject12,_templateObject13;var AppMain=function(_Base){_inherits(AppMain,_Base);var _super=_createSuper(AppMain);function AppMain(){var _this;_classCallCheck(this,AppMain);_this=_super.call(this);_defineProperty(_assertThisInitialized(_this),"showTabCaloriaDiaria",false);_defineProperty(_assertThisInitialized(_this),"showTabCalculadora",false);_defineProperty(_assertThisInitialized(_this),"showTabCardapio",false);_defineProperty(_assertThisInitialized(_this),"showView","perfil");return _this}_createClass(AppMain,[{key:"connectedCallback",value:function connectedCallback(){var _this2=this;this.render();window.addEventListener("resize",function(){resizeScreens();});store.onAddedItem(META_DIARIA_STORE,function(e){swapScreen("calculadora");_this2.render();});store.onAddedItem(INGREDIENTES_STORE,function(e){_this2.render();});store.onRemovedItem(INGREDIENTES_STORE,function(e){_this2.render();});store.onCleared(INGREDIENTES_STORE,function(e){_this2.render();});store.onAddedItem(ALIMENTACAO_STORE,function(e){if(e.detail.items.length===1){_this2.render();}});store.onAddedItem(CARDAPIO_STORE,function(e){_this2.render();if(e.detail.items.length===1){swapScreen("cardapio");scrollBodyTop(0);}});}},{key:"btnShowSearchCardapio",value:function btnShowSearchCardapio(){var element=this.querySelector("#appCardapio");if(element){element.swapSearch();}}},{key:"btnAdicionarIngredientesCardapio",value:function btnAdicionarIngredientesCardapio(){var element=this.querySelector("#appIngredientesSelecionados");if(element){element.adicionarItemCardapio();}}},{key:"btnMetaDiariaSaveClick",value:function btnMetaDiariaSaveClick(){var element=this.querySelector("#appMetaDiaria");if(element){element.save();}}},{key:"btnSwitchView",value:function btnSwitchView(param){if(this.showView===param){this.showView="perfil";}else {this.showView=param;}this.render();}},{key:"render",value:function render$1(){var _this3=this;var metaDiariaItems=store.getItems(META_DIARIA_STORE);var cardapioItems=store.getItems(CARDAPIO_STORE);var alimentacaoItems=store.getItems(ALIMENTACAO_STORE);var ingredientesItems=store.getItems(INGREDIENTES_STORE);if(metaDiariaItems.length===0){this.showTabCaloriaDiaria=true;swapScreen("perfil");}else if(cardapioItems.length===0){this.showTabCalculadora=true;}else {this.showTabCardapio=true;this.showTabCaloriaDiaria=true;this.showTabCalculadora=true;}render(this,html(_templateObject$c||(_templateObject$c=_taggedTemplateLiteral(["\n   \n                <div id=\"main\">\n                \n                ","\n\n                 ","\n\n           \n                    <div \n                        class=\"screen close\"\n                        id=\"calculadora\">\n\n                         <div class=\"title\">Calculadora de alimentos</div>\n\n                          ","\n       \n\n                    <div class=\"form\">\n                        <div class=\"full\">\n                            <app-pesquisa-alimento />\n                        </div>\n                        <div class=\"full\">\n                            <app-ingredientes-selecionados id=\"appIngredientesSelecionados\" />\n                        </div>\n                    </div>\n\n                    ","\n                </div>\n                <div class=\"screen close\" id=\"perfil\">\n                    <div class=\"screen-header\">\n                            <div> \n                                <img src=\"img/login.svg\" class=\"btn-icon\" @click=","/>\n                            </div>\n                            <div class=\"title\">Perfil</div>\n                            <div> \n                                <img src=\"img/configuracoes.svg\" class=\"btn-icon\" @click=","/>\n                            </div>\n                        </div>\n                \n                    ","\n\n                    ","\n\n                      ","\n                 \n                </div>\n\n                <div class=\"screen close\" id=\"notfound\">\n                    <div class=\"form\">\n                        <div class=\"row\">\n                            <h4> 404 Se\xE7\xE3o n\xE3o encontrada. </h4>\n                        </div>\n                    </div>\n                </div>\n            </div>\n<!--  https://www.svgrepo.com/collection/solar-outline-icons/10 -->\n\n        <div class=\"screens-nav\">\n            <div>\n                ","\n\n                 ","\n\n                 ","\n\n                <div class=\"btn-screen-switch\" id=\"perfilNav\" onclick=",">     \n                    <img src=\"img/perfil.svg\" /> \n                    <div class=\"btn\">Perfil</div>\n                </div>\n            </div>\n        </div>\n        "])),metaDiariaItems.length>0&&cardapioItems.length>=1?html(_templateObject2$9||(_templateObject2$9=_taggedTemplateLiteral(["\n                    <div \n                    class=\"screen close\" \n                    id=\"cardapio\">\n                        <div class=\"screen-header\">\n                            <div></div>\n                            <div class=\"title\">Meu card\xE1pio</div>\n                            <div> \n                                <img src=\"img/busca.svg\" class=\"btn-icon\" @click=","/>\n                            </div>\n                        </div>\n\n                            ","\n                            \n                       \n                    <div class=\"form\">\n                        <div class=\"full\">\n                            <app-cardapio id=\"appCardapio\" />\n                        </div>\n                    </div>\n                </div>\n                "])),function(e){return _this3.btnShowSearchCardapio()},cardapioItems.length===1&&alimentacaoItems.length===0?html(_templateObject3$7||(_templateObject3$7=_taggedTemplateLiteral([" <div class=\"wizard-message\">\n                                <h1>\xDAltimo passo</h1>\n                                <p>\n                                    Ap\xF3s o cadastro da sua refei\xE7\xE3o, basta informar\n                                    quais consumiu utilizando o bot\xE3o \"Consumi este alimento\". \n                                    <br/>Fa\xE7a diariamente para acompanhar e comparar com a sua meta \n                                    di\xE1ria de calorias e de prote\xEDnas.\n                                </p>\n                            </div>"]))):null):null,alimentacaoItems.length>0?html(_templateObject4$5||(_templateObject4$5=_taggedTemplateLiteral(["\n                <div class=\"screen close\" id=\"registro\">\n                     <div class=\"title\">Minhas refei\xE7\xF5es</div>\n                    <div class=\"form\">\n                        <app-registro-alimentos />\n                    </div>\n                </div>\n                "]))):null,metaDiariaItems.length>0&&ingredientesItems.length===0&&cardapioItems.length===0?html(_templateObject5$4||(_templateObject5$4=_taggedTemplateLiteral([" <div class=\"wizard-message\">\n                                    <h1>Segundo passo</h1>\n                                    <p>\n                                        Fa\xE7a consultas no campo abaixo para descobrir alimentos e compor \n                                        refei\xE7\xF5es que voc\xEA mais consome. \n                                        <br/> Voc\xEA pode separar em 4 categorias:<br/>\n                                        <b>Caf\xE9 da manh\xE3/tarde</b> -  <b>Almo\xE7o/jantar</b> -  <b>Lanches</b> -  <b>Sobremesas</b>. <br/>                        \n                                        Depois do seu Card\xE1pio pronto, basta registrar diariamente quais\n                                        itens voc\xEA consumiu.\n                                    </p>\n                                </div>"]))):null,ingredientesItems.length>0?html(_templateObject6$3||(_templateObject6$3=_taggedTemplateLiteral(["<div class=\"action-bar-bottom\"><button class='btn-main' onclick=","> Adicionar ao card\xE1pio </button></div>"])),function(e){return _this3.btnAdicionarIngredientesCardapio()}):null,function(e){return _this3.btnSwitchView("login")},function(e){return _this3.btnSwitchView("config")},this.showView==="perfil"?html(_templateObject7$2||(_templateObject7$2=_taggedTemplateLiteral(["\n                        ","\n\n                        <app-meta-diaria id=\"appMetaDiaria\" class=\"form-bar-bottom\" />\n\n                        <div class=\"action-bar-bottom\">\n                            <button class=\"btn-main delay11\" onclick=",">Salvar</button>\n                        </div>\n                    "])),this.showTabCaloriaDiaria&&!this.showTabCalculadora&&!this.showTabCardapio?html(_templateObject8$1||(_templateObject8$1=_taggedTemplateLiteral([" <div class=\"wizard-message\">\n                            <h1>Primeiro passo</h1>\n                            <p>\n                                Vamos descobrir a sua meta de consumo de calorias e prote\xEDnas por dia. \n                                Insira as informa\xE7\xF5es no formul\xE1rio abaixo e pressione \"<b>Calcular</b>\". <br/>\n                                N\xE3o se preocupe... voc\xEA poder\xE1 atualizar depois.\n                            </p>\n                        </div>"]))):null,function(){return _this3.btnMetaDiariaSaveClick()}):null,this.showView==="config"?html(_templateObject9$1||(_templateObject9$1=_taggedTemplateLiteral(["\n                        <app-config />\n                    "]))):null,this.showView==="login"?html(_templateObject10$1||(_templateObject10$1=_taggedTemplateLiteral(["\n                        <app-login />\n                    "]))):null,metaDiariaItems.length>0&&cardapioItems.length>=1?html(_templateObject11$1||(_templateObject11$1=_taggedTemplateLiteral(["<div class=\"btn-screen-switch open\" id=\"cardapioNav\" onclick=",">\n                    <img src=\"img/cardapio.svg\" /> \n                    <div class=\"btn\">Card\xE1pio</div>\n                </div>"])),function(e){return swapScreen("cardapio")}):null,alimentacaoItems.length>0?html(_templateObject12||(_templateObject12=_taggedTemplateLiteral(["<div class=\"btn-screen-switch\" id=\"registroNav\" onclick=",">\n                    <img src=\"img/registro.svg\" /> \n                    <div class=\"btn\">Registro</div>\n                </div>"])),function(e){return swapScreen("registro")}):null,metaDiariaItems.length>0?html(_templateObject13||(_templateObject13=_taggedTemplateLiteral(["<div class=\"btn-screen-switch\" id=\"calculadoraNav\" onclick=",">\n                    <img src=\"img/calculadora.svg\" /> \n                    <div class=\"btn\">Calculadora</div>\n                </div>"])),function(e){return swapScreen("calculadora")}):null,function(e){return swapScreen("perfil")}));if(metaDiariaItems.length===0){swapScreen("perfil");}else if(window.location.hash===""&&(this.showTabCaloriaDiaria||this.showTabCalculadora)&&cardapioItems.length>0){swapScreen("cardapio");}else {detectPathScreen();}window.addEventListener("popstate",function(e){detectPathScreen();});}}]);return AppMain}(Base);window.customElements.define("app-main",AppMain);
+
+  var useRequest=function useRequest(error,logout){var post=function post(url,body){return request(url,"POST",JSON.stringify(body))};var get=function(){var _ref=_asyncToGenerator(_regeneratorRuntime().mark(function _callee(url){return _regeneratorRuntime().wrap(function _callee$(_context){while(1)switch(_context.prev=_context.next){case 0:_context.prev=0;_context.next=3;return request(url,"GET",null);case 3:return _context.abrupt("return",_context.sent);case 6:_context.prev=6;_context.t0=_context["catch"](0);showError(_context.t0);case 9:case"end":return _context.stop()}},_callee,null,[[0,6]])}));return function get(_x){return _ref.apply(this,arguments)}}();var del=function(){var _ref2=_asyncToGenerator(_regeneratorRuntime().mark(function _callee2(url){return _regeneratorRuntime().wrap(function _callee2$(_context2){while(1)switch(_context2.prev=_context2.next){case 0:_context2.prev=0;_context2.next=3;return request(url,"DELETE",null);case 3:return _context2.abrupt("return",_context2.sent);case 6:_context2.prev=6;_context2.t0=_context2["catch"](0);showError(_context2.t0);case 9:case"end":return _context2.stop()}},_callee2,null,[[0,6]])}));return function del(_x2){return _ref2.apply(this,arguments)}}();var upload=function(){var _ref3=_asyncToGenerator(_regeneratorRuntime().mark(function _callee3(url,file){var formData;return _regeneratorRuntime().wrap(function _callee3$(_context3){while(1)switch(_context3.prev=_context3.next){case 0:_context3.prev=0;formData=new FormData;_context3.next=4;return formData.append("image",file);case 4:_context3.next=6;return request(url,"POST",formData,"");case 6:return _context3.abrupt("return",_context3.sent);case 9:_context3.prev=9;_context3.t0=_context3["catch"](0);showError(_context3.t0);case 12:case"end":return _context3.stop()}},_callee3,null,[[0,9]])}));return function upload(_x3,_x4){return _ref3.apply(this,arguments)}}();var put=function(){var _ref4=_asyncToGenerator(_regeneratorRuntime().mark(function _callee4(url,body){return _regeneratorRuntime().wrap(function _callee4$(_context4){while(1)switch(_context4.prev=_context4.next){case 0:_context4.prev=0;_context4.next=3;return request(url,"PUT",JSON.stringify(body));case 3:return _context4.abrupt("return",_context4.sent);case 6:_context4.prev=6;_context4.t0=_context4["catch"](0);showError(_context4.t0);case 9:case"end":return _context4.stop()}},_callee4,null,[[0,6]])}));return function put(_x5,_x6){return _ref4.apply(this,arguments)}}();var patch=function(){var _ref5=_asyncToGenerator(_regeneratorRuntime().mark(function _callee5(url,body){return _regeneratorRuntime().wrap(function _callee5$(_context5){while(1)switch(_context5.prev=_context5.next){case 0:_context5.prev=0;_context5.next=3;return request(url,"PATCH",JSON.stringify(body));case 3:return _context5.abrupt("return",_context5.sent);case 6:_context5.prev=6;_context5.t0=_context5["catch"](0);showError(_context5.t0);case 9:case"end":return _context5.stop()}},_callee5,null,[[0,6]])}));return function patch(_x7,_x8){return _ref5.apply(this,arguments)}}();var showError=function showError(obj){try{if(obj){if(error){var msg="";if(obj.error){msg=obj.error.message;}else {msg=obj;}error(msg);if(obj.error&&logout){if(obj.error.statusCode==401||obj.error.statusCode==403){logout();}}}}}catch(er){console.log("er",er);}};var request=function(){var _ref6=_asyncToGenerator(_regeneratorRuntime().mark(function _callee7(url,method){var body,contentType,_args7=arguments;return _regeneratorRuntime().wrap(function _callee7$(_context7){while(1)switch(_context7.prev=_context7.next){case 0:body=_args7.length>2&&_args7[2]!==undefined?_args7[2]:null;contentType=_args7.length>3&&_args7[3]!==undefined?_args7[3]:"application/json";return _context7.abrupt("return",new Promise(function(){var _ref7=_asyncToGenerator(_regeneratorRuntime().mark(function _callee6(resolve,reject){var items,token,config;return _regeneratorRuntime().wrap(function _callee6$(_context6){while(1)switch(_context6.prev=_context6.next){case 0:items=store.getItems(LOGIN_STORE);token=undefined;if(items&&items.length>0){token=items[0].token;}if(token){if(url.indexOf("?")>0){url="".concat(url,"&");}else {url="".concat(url,"?");}url="".concat(url,"access_token=").concat(token);}config={method:method,headers:{}};if(contentType!==""){config.headers={"Content-Type":contentType};}if(method!=="GET"){config["body"]=body;}fetch("".concat(getenv(API_BASE_URL_SERVER)).concat(url),config).then(function(response){if(response.status>=400&&response.status!=412&&response.status!=451&&response.status!=404){return response.json()}else {resolve(response);}}).then(function(object){reject(object);});case 8:case"end":return _context6.stop()}},_callee6)}));return function(_x11,_x12){return _ref7.apply(this,arguments)}}()));case 3:case"end":return _context7.stop()}},_callee7)}));return function request(_x9,_x10){return _ref6.apply(this,arguments)}}();return {del:del,post:post,get:get,put:put,patch:patch,upload:upload,showError:showError}};
+
+  var sendCreate=function sendCreate(email,senha,token){var promise=new Promise(function(resolve,reject){var items=store.getItems(LOGIN_STORE);var data=[];var conditions=[];var _useRequest=useRequest(),post=_useRequest.post;post("/login/create-user/".concat(token),{"email":email,"password":senha}).then(function(){var _ref=_asyncToGenerator(_regeneratorRuntime().mark(function _callee(resp){return _regeneratorRuntime().wrap(function _callee$(_context){while(1)switch(_context.prev=_context.next){case 0:console.log("resp",resp);if(resp){if(resp.error){console.log("resp Err",resp);}else {console.log("resp OK",resp);data.push({key:"email",value:email});data.push({key:"senha",value:senha});data.push({key:"token",value:resp.token});if(items.length>0){conditions.push({key:"id",value:items[0].id});}store.updateItemsByFields(LOGIN_STORE,conditions,data);resolve("ok");}}case 2:case"end":return _context.stop()}},_callee)}));return function(_x){return _ref.apply(this,arguments)}}())["catch"](function(e){console.log(e);showWarning(e.error.message);reject("error");});});return promise};var login=function login(){var promise=new Promise(function(resolve,reject){var email=getInputString("#inputEmail","Insira o seu email");var senha=getInputString("#inputSenha","Insira a sua senha");try{if(validateFields([email,senha])){grecaptcha.ready(function(){grecaptcha.execute("6LcxsKoUAAAAANcv1ELzcW54Yh9SWoLuPMdSdStN",{action:"submit"}).then(function(token){if(email.value&&senha.value){sendCreate(email.value,senha.value,token).then(function(ok){resolve(ok);})["catch"](function(err){reject(err);});}},function(err){showError(err.message);console.log(err);});});}}catch(e){showError(e.message);}});return promise};
+
+  var _templateObject$d;var AppLogin=function(_Base){_inherits(AppLogin,_Base);var _super=_createSuper(AppLogin);function AppLogin(){var _this;_classCallCheck(this,AppLogin);_this=_super.call(this);_defineProperty(_assertThisInitialized(_this),"items",[]);_defineProperty(_assertThisInitialized(_this),"itemsView",[]);_defineProperty(_assertThisInitialized(_this),"showSearch",false);_defineProperty(_assertThisInitialized(_this),"loading",false);return _this}_createClass(AppLogin,[{key:"connectedCallback",value:function connectedCallback(){console.log("fired");this.render();}},{key:"btnLogin",value:function btnLogin(element){element.disabled=true;login().then(function(){element.disabled=false;})["catch"](function(err){element.disabled=false;});}},{key:"render",value:function render$1(){var _this2=this;var disabled=this.loading?"disabled":"";render(this,html(_templateObject$d||(_templateObject$d=_taggedTemplateLiteral(["\n\n           \n              <div class=\"form\">\n              <div class=\"col-1\">\n                  <div>\n                      <label>Seu email:</label>\n                      <input type=\"email\" class=\"textForm delay1\" id=\"inputEmail\" />\n                  </div>\n                  <div>\n                      <label>Senha:</label>\n                      <input type=\"password\" class=\"textForm delay2\" id=\"inputSenha\" />\n                  </div>\n              </div>    \n\n              <div class=\"col-1\">\n                <div class=\"text-mini\">\n                        Este site est\xE1 protegido pelo reCAPTCHA e pela <a href=\"https://policies.google.com/privacy?hl=pt-BR\" target=\"_blank\" rel=\"noreferrer\">Pol\xEDtica de Privacidade</a> e a aplica\xE7\xE3o dos <a href=\"https://policies.google.com/terms\" target=\"_blank\" rel=\"noreferrer\"> Termos de Servi\xE7o</a> do Google.\n                    </div>\n              </div>\n              \n\n              <div class=\"col-1\">\n                <button class=\"btn-main delay4\" @click=",">Salvar</button>\n            </div>\n\n            \n          </div>\n            "])),function(e){return _this2.btnLogin(e)}));}}]);return AppLogin}(Base);window.customElements.define("app-login",AppLogin);
 
   (function(){loadTheme();})();
 

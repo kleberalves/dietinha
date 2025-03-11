@@ -28,6 +28,10 @@ button:hover,
     color: #fff;
     background-color: var(--secondary-color);
 }
+
+button:disabled{
+    background-color: var(--destaque-color);
+}
 /** GLOW HOVER */
 button:hover,
 .btn-trash:hover {

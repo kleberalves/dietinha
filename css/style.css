@@ -3,12 +3,17 @@
     src: url("../assets/roboto.woff2") format('woff2');
 }
 
+app-login {
+    display: flex;
+    justify-content: center;
+}
 
 * {
     font-family: 'Roboto';
 }
 
-html, body {
+html,
+body {
     overflow: hidden;
 }
 
@@ -25,6 +30,7 @@ label {
     font-size: 17px;
     color: var(--primary-color);
 }
+
 h4 {
     padding-bottom: 6px;
     font-size: 25px;
@@ -35,13 +41,20 @@ h4 {
     color: var(--contrast-color);
 }
 
-.debug-console{
+.grecaptcha-badge {
+    display: none;
+}
+
+.debug-console {
     color: #fff;
     background-color: red;
     padding: 10px;
 }
+
 input[type="number"],
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     color: var(--blackwhite-color);
     font-size: 15px;
     font-weight: 400;
@@ -53,8 +66,14 @@ input[type="text"] {
     background-color: var(--theme-color);
     border: 1px solid var(--secondary-color);
 }
-.text{
+
+.text {
     color: var(--blackwhite-color);
+}
+
+.text-mini{
+    color: var(--destaque-color);
+    font-size: 12px;
 }
 
 #txtPesquisa {
@@ -87,18 +106,24 @@ input[type="text"] {
 
 
 
-*::-webkit-scrollbar, 
+*::-webkit-scrollbar,
 *::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
-*::-webkit-scrollbar-corner, *::-webkit-scrollbar-corner {
+
+*::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
     background: transparent;
 }
-*::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
+
+*::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
     background-color: var(--secondary-color);
     border-radius: 1px;
 }
-*::-webkit-scrollbar-track, *::-webkit-scrollbar-track {
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
     background-color: var(--theme-color);
 }
