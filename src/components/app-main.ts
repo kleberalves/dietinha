@@ -79,11 +79,11 @@ class AppMain extends Base {
             element.save();
         }
     }
-    btnShowConfig() {
-        if (this.showView === "config") {
+    btnSwitchView(param: string) {
+        if (this.showView === param) {
             this.showView = "perfil"
         } else {
-            this.showView = "config";
+            this.showView = param;
         }
 
         this.render();
@@ -188,24 +188,22 @@ class AppMain extends Base {
 
                     ${ingredientesItems.length > 0 ? html`<div class="action-bar-bottom"><button class='btn-main' onclick=${e => this.btnAdicionarIngredientesCardapio()}> Adicionar ao cardápio </button></div>` : null}
                 </div>
-
-                
-                ${metaDiariaItems.length >= 0 ? html`
-                    <div class="screen close" id="perfil">
-
+                <div class="screen close" id="perfil">
                     <div class="screen-header">
-                            <div></div>
+                            <div> 
+                                <img src="img/login.svg" class="btn-icon" @click=${e => this.btnSwitchView("login")}/>
+                            </div>
                             <div class="title">Perfil</div>
                             <div> 
-                                <img src="img/configuracoes.svg" class="btn-icon" @click=${e => this.btnShowConfig()}/>
+                                <img src="img/configuracoes.svg" class="btn-icon" @click=${e => this.btnSwitchView("config")}/>
                             </div>
                         </div>
                 
                     ${this.showView === "perfil" ? html`
                         ${this.showTabCaloriaDiaria
-                        && !this.showTabCalculadora
-                        && !this.showTabCardapio
-                        ? html` <div class="wizard-message">
+                    && !this.showTabCalculadora
+                    && !this.showTabCardapio
+                    ? html` <div class="wizard-message">
                             <h1>Primeiro passo</h1>
                             <p>
                                 Vamos descobrir a sua meta de consumo de calorias e proteínas por dia. 
@@ -224,8 +222,12 @@ class AppMain extends Base {
                     ${this.showView === "config" ? html`
                         <app-config />
                     `: null}
+
+                      ${this.showView === "login" ? html`
+                        <app-login />
+                    `: null}
                  
-                </div>` : null} 
+                </div>
 
                 <div class="screen close" id="notfound">
                     <div class="form">
