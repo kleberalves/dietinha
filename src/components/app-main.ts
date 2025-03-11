@@ -14,7 +14,6 @@ class AppMain extends Base {
     showTabCaloriaDiaria: boolean = false;
     showTabCalculadora: boolean = false;
     showTabCardapio: boolean = false;
-    showView: string = "perfil";
 
     connectedCallback() {
         this.render();
@@ -78,15 +77,6 @@ class AppMain extends Base {
         if (element) {
             element.save();
         }
-    }
-    btnSwitchView(param: string) {
-        if (this.showView === param) {
-            this.showView = "perfil"
-        } else {
-            this.showView = param;
-        }
-
-        this.render();
     }
 
     render() {
@@ -188,22 +178,22 @@ class AppMain extends Base {
 
                     ${ingredientesItems.length > 0 ? html`<div class="action-bar-bottom"><button class='btn-main' onclick=${e => this.btnAdicionarIngredientesCardapio()}> Adicionar ao cardápio </button></div>` : null}
                 </div>
+
                 <div class="screen close" id="perfil">
-                    <div class="screen-header">
-                            <div> 
-                                <img src="img/login.svg" class="btn-icon" @click=${e => this.btnSwitchView("login")}/>
+                        <div class="screen-header">
+                                <div> 
+                                    <img src="img/login.svg" class="btn-icon" @click=${e => swapScreen("login")}/>
+                                </div>
+                                <div class="title">Perfil</div>
+                                <div> 
+                                    <img src="img/configuracoes.svg" class="btn-icon" @click=${e => swapScreen("config")}/>
+                                </div>
                             </div>
-                            <div class="title">Perfil</div>
-                            <div> 
-                                <img src="img/configuracoes.svg" class="btn-icon" @click=${e => this.btnSwitchView("config")}/>
-                            </div>
-                        </div>
-                
-                    ${this.showView === "perfil" ? html`
+
                         ${this.showTabCaloriaDiaria
-                    && !this.showTabCalculadora
-                    && !this.showTabCardapio
-                    ? html` <div class="wizard-message">
+                        && !this.showTabCalculadora
+                        && !this.showTabCardapio
+                        ? html` <div class="wizard-message">
                             <h1>Primeiro passo</h1>
                             <p>
                                 Vamos descobrir a sua meta de consumo de calorias e proteínas por dia. 
@@ -217,16 +207,34 @@ class AppMain extends Base {
                         <div class="action-bar-bottom">
                             <button class="btn-main delay11" onclick=${() => this.btnMetaDiariaSaveClick()}>Salvar</button>
                         </div>
-                    `: null}
+                </div>
 
-                    ${this.showView === "config" ? html`
-                        <app-config />
-                    `: null}
+                <div class="screen close" id="config">
+                    <div class="screen-header">
+                            <div> 
+                                <img src="img/login.svg" class="btn-icon" @click=${e => swapScreen("login")}/>
+                            </div>
+                            <div class="title">Configurações</div>
+                            <div> 
+                                <img src="img/perfil.svg" class="btn-icon" @click=${e => swapScreen("perfil")}/>
+                            </div>
+                        </div>
 
-                      ${this.showView === "login" ? html`
-                        <app-login />
-                    `: null}
-                 
+                    <app-config />
+                </div>
+
+                <div class="screen close" id="login">
+
+                    <div class="screen-header">
+                            <div> 
+                                <img src="img/perfil.svg" class="btn-icon" @click=${e => swapScreen("perfil")}/>
+                            </div>
+                            <div class="title">Login</div>
+                            <div> 
+                                <img src="img/configuracoes.svg" class="btn-icon" @click=${e => swapScreen("config")}/>
+                            </div>
+                        </div>
+                    <app-login />
                 </div>
 
                 <div class="screen close" id="notfound">

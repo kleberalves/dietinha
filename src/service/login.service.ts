@@ -1,5 +1,5 @@
 import { getInputInt, getInputNumber, getInputString, validateFields } from "../lib/forms";
-import { LOGIN_STORE } from "./config.service";
+import { API_RECAPTCHA, LOGIN_STORE } from "./config.service";
 import { showError, showOk, showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 import { useRequest } from "../lib/request";
@@ -19,13 +19,18 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
             "password": senha
         }).then(async (resp) => {
 
-            if (resp) {
+            if (typeof resp === "string") {
+                showWarning(resp);
+                
+            } else if (resp) {
 
-                if (resp.error) {
-                    reject();
+                const responseBody = await resp.json();
+
+                if (responseBody.error) {
+                    showWarning(responseBody.error.message);
+                    resolve("ok");
+
                 } else {
-        
-                    const responseBody = await resp.json();
 
                     data.push({
                         key: "email",
@@ -36,7 +41,7 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
                         key: "name",
                         value: responseBody.name
                     });
-                    
+
                     data.push({
                         key: "token",
                         value: responseBody.token
@@ -52,7 +57,7 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
                     resolve("ok");
                 }
             } else {
-                reject();
+                resolve("ok");
             }
 
         }).catch((e) => {
@@ -76,12 +81,12 @@ export const login = (): Promise<string> => {
             if (validateFields([email, senha])) {
 
                 grecaptcha.ready(() => {
-                    grecaptcha.execute('6LcxsKoUAAAAANcv1ELzcW54Yh9SWoLuPMdSdStN', { action: 'submit' }).then((token) => {
+                    grecaptcha.execute(API_RECAPTCHA, { action: 'submit' }).then((token) => {
                         if (email.value && senha.value) {
                             sendCreate(email.value, senha.value, token).then((ok) => {
                                 resolve(ok);
-                            }).catch((err) => {
-                                reject(err);
+                            }).catch((error) => {
+                                reject(error);
                             });
                         }
                         // Add your logic to submit to your backend server here.

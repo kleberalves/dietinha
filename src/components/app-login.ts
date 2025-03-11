@@ -43,11 +43,10 @@ class AppLogin extends Base {
         this.render();
     }
 
-    btnLogin(element: HTMLButtonElement) {
-     
+    btnLogin(e: SubmitEvent) {
+        e.preventDefault();
+
         login().then(() => {
-            this.loadInfoLogin();
-        }).catch((err) => {
             this.loadInfoLogin();
         });
     }

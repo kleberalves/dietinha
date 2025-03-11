@@ -4,8 +4,8 @@ import { removeWindow, showLoading } from "./message.lib";
 
 export const useRequest = (error?: any, logout?: () => void) => {
 
-    const post = (url: string, body: any): Promise<any> => {
-        return request(url, "POST", JSON.stringify(body));
+    const post = async (url: string, body: any): Promise<any> => {
+        return await request(url, "POST", JSON.stringify(body));
     }
 
     const get = async (url: string): Promise<Response | undefined> => {
@@ -141,21 +141,30 @@ export const useRequest = (error?: any, logout?: () => void) => {
                     //
 
                     removeWindow();
-                    
-                    if (response.status >= 400
-                        && response.status != 412
-                        && response.status != 451
-                        && response.status != 404) {
-                        //Retorna um json do erro para que o próximo "then"
-                        //possa rejeitar a promise.
-                        return response.json();
-                    } else {
-                        //Retornos abaixo de 400 são considerados "ok"
-                        resolve(response);
+
+                    resolve(response);
+
+                    // if (response.status >= 400
+                    //     && response.status != 412
+                    //     && response.status != 451
+                    //     && response.status != 404) {
+                    //     //Retorna um json do erro para que o próximo "then"
+                    //     //possa rejeitar a promise.
+                    //     return response.json();
+                    // } else {
+                    //     //Retornos abaixo de 400 são considerados "ok"
+
+                    // }
+
+                }).catch((e) => {
+
+                    if (e.toString().toLowerCase().indexOf("failed to fetch")) {
+                        resolve("Não foi possível alcançar os nossos servidores. Verifique a internet e tente novamente.");
+                    }else {
+                        resolve(e.toString());
                     }
 
-                }).then((object: any) => {
-                    reject(object);
+                    removeWindow();
                 });
 
 

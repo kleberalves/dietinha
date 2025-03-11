@@ -25,3 +25,13 @@ https://web.dev/learn/html/template
 ## Gerador de ícones
 
 ### https://pwa-icon-generator.vercel.app/
+
+## Habilitar o Node no Powershell
+
+```
+### fnm env --use-on-cd | Out-String | Invoke-Expressio
+```
+```
+fnm use --install-if-missing 18
+```
+
