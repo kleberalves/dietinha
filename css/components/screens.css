@@ -38,6 +38,7 @@ app-config {
         width: 70%;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     /*Left*/
@@ -154,6 +155,12 @@ app-config {
     margin-top: 25px;
     margin-bottom: 20px;
     color: var(--blackwhite-color);
+
+    @media (max-width: 580px) {
+        & {
+            font-size: 20px;
+        }
+    }
 }
 
 .screen {

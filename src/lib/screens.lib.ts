@@ -66,6 +66,10 @@ export const swapScreen = (id: string) => {
     }
 }
 
+export const goBack = () => {
+    history.back();
+}
+
 const closeScreen = (screen: HTMLElement) => {
     //Só fecha se estiver aberto
     if (screen !== undefined && screen.classList.contains("open")) {

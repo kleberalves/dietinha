@@ -72,9 +72,6 @@ class PesquisaItem extends Base {
             () => {
                 adicionarCalculo(this.props.idx, this.props.item.id);
             });
-
-        // this.showFormCalculo = !this.showFormCalculo;
-        // this.render();
     }
 
     render() {

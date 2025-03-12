@@ -32,12 +32,13 @@ input[type="submit"]:hover {
     background-color: var(--secondary-color);
 }
 
-button:disabled{
+button:disabled {
     background-color: var(--destaque-color);
 }
 
 
-.btn-icon:hover{
+.btn-icon:hover,
+.btn-voltar:hover {
     opacity: 0.5;
 }
 
@@ -205,4 +206,23 @@ button:disabled{
     background-image: url("../img/icons-interface/icon-trash-basket.png");
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+.btn-voltar {
+    height: 30px;
+    cursor: pointer;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.btn-voltar::before {
+    content: "";
+    background-image: url(../img/voltar.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
 }

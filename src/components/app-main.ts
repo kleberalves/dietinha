@@ -1,6 +1,6 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { detectPathScreen, resizeScreens, swapScreen } from "../lib/screens.lib";
+import { detectPathScreen, goBack, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
 import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
@@ -191,9 +191,9 @@ class AppMain extends Base {
                             </div>
 
                         ${this.showTabCaloriaDiaria
-                        && !this.showTabCalculadora
-                        && !this.showTabCardapio
-                        ? html` <div class="wizard-message">
+                && !this.showTabCalculadora
+                && !this.showTabCardapio
+                ? html` <div class="wizard-message">
                             <h1>Primeiro passo</h1>
                             <p>
                                 Vamos descobrir a sua meta de consumo de calorias e proteínas por dia. 
@@ -212,11 +212,12 @@ class AppMain extends Base {
                 <div class="screen close" id="config">
                     <div class="screen-header">
                             <div> 
-                                <img src="img/login.svg" class="btn-icon" @click=${e => swapScreen("login")}/>
+                                <div class="btn-voltar" onclick=${e => goBack()}>
+                                    Voltar
+                                </div>
                             </div>
                             <div class="title">Configurações</div>
                             <div> 
-                                <img src="img/perfil.svg" class="btn-icon" @click=${e => swapScreen("perfil")}/>
                             </div>
                         </div>
 
@@ -227,11 +228,13 @@ class AppMain extends Base {
 
                     <div class="screen-header">
                             <div> 
-                                <img src="img/perfil.svg" class="btn-icon" @click=${e => swapScreen("perfil")}/>
+                                <div class="btn-voltar" onclick=${e => goBack()}>
+                                    Voltar
+                                </div>
                             </div>
                             <div class="title">Login</div>
                             <div> 
-                                <img src="img/configuracoes.svg" class="btn-icon" @click=${e => swapScreen("config")}/>
+                               
                             </div>
                         </div>
                     <app-login />
