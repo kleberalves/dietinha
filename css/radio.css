@@ -85,8 +85,8 @@ input[type="radio"]:valid~span {
 }
 
 input[type="radio"]:checked~span {
-    background-color: var(--theme-color);
-    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    color: var(--theme-color);
     font-weight: bold;
 }
 

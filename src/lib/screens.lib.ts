@@ -11,13 +11,16 @@ export const resizeScreens = () => {
 }
 
 export const detectPathScreen = () => {
-   
+
     const hashPaths = window.location.hash.split("/");
     if (hashPaths.length === 2) {
         var screens = document.getElementsByClassName('screen') as HTMLCollectionOf<HTMLDivElement>;
         for (let t = 0; t < screens.length; t++) {
-            if(screens[t].id === hashPaths[1]){
-                swapScreen(hashPaths[1]);
+            if (screens[t].id === hashPaths[1]) {
+                if (!screens[t].classList.contains("open")) {
+                    swapScreen(hashPaths[1]);
+                }
+
                 return;
             }
         }
@@ -44,25 +47,23 @@ export const swapScreen = (id: string) => {
                     }
                 }
 
-                window.history.pushState(null, "", "#/" + id);
+                setTimeout(() => {
+                    screen.classList.add("open");
+                    screen.classList.remove("close");
+                    screen.style.height = (window.innerHeight - SCREEN_HEIGHT).toString();
+                    scrollElementTo(screen, 0);
+                    window.location.href = "#/" + id;
+                }, 150);
+                
+                //window.history.pushState(null, "", "#/" + id);
                 //https://adityaprabhat.hashnode.dev/routing-in-single-page-application
 
-                execOpen(screen as HTMLElement);
             }
 
         } else {
             closeScreen(screens[t]);
         }
     }
-}
-
-const execOpen = (element: HTMLElement) => {
-    setTimeout(() => {
-        element.classList.add("open");
-        element.classList.remove("close");
-        element.style.height = (window.innerHeight - SCREEN_HEIGHT).toString();
-        scrollElementTo(element, 0);
-    }, 150);
 }
 
 const closeScreen = (screen: HTMLElement) => {
