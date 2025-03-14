@@ -42,7 +42,7 @@ export const getenv = (key: string) => {
                 return `https://${window.location.host}/api`;
 
             case API_MODULE_DIET:
-                `${getenv(API_BASE_URL_SERVER)}-${API_MODULE_DIET}`
+                return `${getenv(API_BASE_URL_SERVER)}-${API_MODULE_DIET}`
 
         }
     }
