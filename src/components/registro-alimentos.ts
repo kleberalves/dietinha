@@ -1,7 +1,7 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE } from "../service/config.service";
+import { REGISTRO_REFEICAO_STORE } from "../service/config.service";
 import { agrupaDias } from "../service/registro-refeicoes.service";
 import { swapScreen } from "../lib/screens.lib";
 
@@ -17,7 +17,7 @@ class RegistroAlimentos extends Base {
     constructor() {
         super();
 
-        store.onAddedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
 
             this.itemsShow = [];
             render(this, html``);
@@ -27,7 +27,7 @@ class RegistroAlimentos extends Base {
 
         });
 
-        store.onRemovedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
+        store.onRemovedItem(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
 
             this.itemsShow = [];
             render(this, html``);
@@ -35,7 +35,7 @@ class RegistroAlimentos extends Base {
             this.render(e.detail.items);
         });
 
-        store.onCleared(ALIMENTACAO_STORE, (e: CustomEventInit) => {
+        store.onCleared(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
             this.itemsShow = [];
             render(this, html``);
         });
@@ -55,7 +55,7 @@ class RegistroAlimentos extends Base {
     render(items?: CardapioItem[]) {
 
         if (items === undefined) {
-            items = store.getItems<CardapioItem[]>(ALIMENTACAO_STORE);
+            items = store.getItems<CardapioItem>(REGISTRO_REFEICAO_STORE);
         }
 
         this.itemsShow = agrupaDias(items);

@@ -2,7 +2,7 @@ import { Hole, html, render } from "uhtml";
 import { Base } from "./base";
 import { showConfirm } from "../lib/message.lib";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE } from "../service/config.service";
+import { REGISTRO_REFEICAO_STORE } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
 
 class RegistroAlimentosItem extends Base {
@@ -20,7 +20,7 @@ class RegistroAlimentosItem extends Base {
 
     removerItemCardapio(id: string) {
         showConfirm("Você tem certeza que deseja remover este item do seu registro diário?", () => {
-            store.removeItemById(ALIMENTACAO_STORE, id);
+            store.removeItemById(REGISTRO_REFEICAO_STORE, id);
         })
     }
 

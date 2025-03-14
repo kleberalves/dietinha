@@ -36,7 +36,7 @@ class Cardapio extends Base {
 
     connectedCallback() {
 
-        this.defineList(store.getItems<CardapioItem[]>(CARDAPIO_STORE));
+        this.defineList(store.getItems<CardapioItem>(CARDAPIO_STORE));
     }
 
     onTxtPesquisaInput(target: HTMLInputElement) {

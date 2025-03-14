@@ -1,3 +1,3 @@
-interface IAppMetaDiaria extends HTMLElement{
+interface IAppPerfil extends HTMLElement{
     save(): void;
 }

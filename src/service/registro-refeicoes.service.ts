@@ -1,8 +1,8 @@
 import { localISOString } from "../lib/treatments";
 
-export const agrupaDias = (items: RegistroRefeicao[]) => {
+export const agrupaDias = (items: RegistroRefeicaoItem[]) => {
 
-    let ordenado: RegistroRefeicao[] = items.sort((a: RegistroRefeicao, b: RegistroRefeicao) => {
+    let ordenado: RegistroRefeicaoItem[] = items.sort((a: RegistroRefeicaoItem, b: RegistroRefeicaoItem) => {
         return new Date(b.created).getTime() - new Date(a.created).getTime();
     });
 
@@ -10,7 +10,7 @@ export const agrupaDias = (items: RegistroRefeicao[]) => {
 
     let diasGroupItem = {
         dia: localISOString(),
-        registros: [] as RegistroRefeicao[]
+        registros: [] as RegistroRefeicaoItem[]
     }
 
     diasGroup.push(diasGroupItem);
@@ -23,7 +23,7 @@ export const agrupaDias = (items: RegistroRefeicao[]) => {
         if (dia !== diaLoop) {
             diasGroupItem = {
                 dia: ordenado[i].created,
-                registros: [] as RegistroRefeicao[]
+                registros: [] as RegistroRefeicaoItem[]
             }
             diasGroup.push(diasGroupItem);
             dia = diaLoop;

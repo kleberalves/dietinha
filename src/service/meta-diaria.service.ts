@@ -1,5 +1,5 @@
 import { getInputInt, getInputNumber, getInputString, validateFields } from "../lib/forms";
-import { META_DIARIA_STORE } from "./config.service";
+import { PERFIL_STORE } from "./config.service";
 import { showError, showOk, showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 
@@ -121,7 +121,7 @@ export const calcularMetaDiaria = () => {
                     });
                 }
 
-                store.updateSingle(META_DIARIA_STORE, data);
+                store.updateSingle(PERFIL_STORE, data);
 
                 showOk("Meta Diária cadastrada com sucesso.");
 

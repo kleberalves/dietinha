@@ -2,12 +2,13 @@ import { store } from "./store.service";
 
 export const INGREDIENTES_STORE = "INGREDIENTES_STORE";
 export const CARDAPIO_STORE = "CARDAPIO_STORE";
-export const ALIMENTACAO_STORE = "ALIMENTACAO_STORE";
+export const REGISTRO_REFEICAO_STORE = "REGISTRO_REFEICAO_STORE";
 export const CONFIG_STORE = "CONFIG_STORE";
-export const META_DIARIA_STORE = "META_DIARIA_STORE";
-export const META_DIARIA_STORE_HISTORICO = "META_DIARIA_STORE_HISTORICO";
+export const PERFIL_STORE = "PERFIL_STORE";
+export const PERFIL_STORE_HISTORICO = "PERFIL_STORE_HISTORICO";
 export const LOGIN_STORE = "LOGIN_STORE";
 export const API_BASE_URL_SERVER = "API_BASE_URL_SERVER";
+export const API_MODULE_DIET = "diet";
 export const API_RECAPTCHA = "6LcxsKoUAAAAANcv1ELzcW54Yh9SWoLuPMdSdStN";
 
 export const swapTheme = () => {
@@ -25,14 +26,26 @@ export const swapTheme = () => {
 
 export const getenv = (key: string) => {
 
-    if (key === API_BASE_URL_SERVER) {
-        if (window.location.host.toLowerCase().indexOf("localhost") > -1) {
-            return "http://localhost:3005";
-        } else {
-            return `https://${window.location.host}/api`;
+    //DEV mode
+    if (window.location.host.toLowerCase().indexOf("localhost") > -1) {
+        switch (key) {
+            case API_BASE_URL_SERVER:
+                return "http://localhost:3005";
+
+            case API_MODULE_DIET:
+                return "http://localhost:3007";
+
+        }
+    } else {
+        switch (key) {
+            case API_BASE_URL_SERVER:
+                return `https://${window.location.host}/api`;
+
+            case API_MODULE_DIET:
+                `${getenv(API_BASE_URL_SERVER)}-${API_MODULE_DIET}`
+
         }
     }
-
 }
 
 export const setTheme = (theme: string) => {

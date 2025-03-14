@@ -84,7 +84,7 @@ const calcularAlimento = (peso: number, idxResultado: number, idProduto: string)
     }
 }
 
-export const adicionarCalculo = (idxResultado: number, idProduto: string) => {
+export const adicionarCalculo = (idxResultado: number, idProduto: string, unidadeAlt: UnidadeAlt) => {
 
     try {
         var elementPeso: HTMLInputElement = document.getElementById("inputPeso" + idxResultado) as HTMLInputElement;
@@ -108,12 +108,15 @@ export const adicionarCalculo = (idxResultado: number, idProduto: string) => {
 
         if (produto !== undefined) {
 
-            store.addItem(INGREDIENTES_STORE, {
+            store.addItem<Ingrediente>(INGREDIENTES_STORE, {
                 "nome": produto.nome,
                 "calorias": caloriasValue,
                 "proteinas": proteinasValue,
+                "idProduto": produto.id,
                 "peso": pesoValue,
-                "unidade": produto.unidade
+                "unidade": produto.unidade,
+                "unidAltDesc": unidadeAlt.desc,
+                "unidAltPeso": unidadeAlt.peso,
             });
         }
 

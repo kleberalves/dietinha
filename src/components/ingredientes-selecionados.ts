@@ -159,7 +159,7 @@ class IngredientesSelecionados extends Base {
                     "calorias": totalCalorias,
                     "proteinas": totalProteinas,
                     "peso": totalPeso,
-                    "itens": this.listaIngredientes,
+                    "ingredientes": this.listaIngredientes,
                     "created": localISOString()
                 }
 

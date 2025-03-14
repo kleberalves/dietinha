@@ -18,10 +18,11 @@ export default {
     }),
     babel({
       extensions,
-      minified:true,
-      comments:false,
+      minified: true,
+      comments: false,
       babelHelpers: 'bundled',
-      exclude: [/\/core-js\//]
+      exclude: [/\/core-js\//],
+      inputSourceMap: true
     })
   ]
 }

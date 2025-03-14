@@ -53,7 +53,7 @@ export const store = (() => {
                         detail: {
                             store: storeName,
                             item: item,
-                            items: store.items
+                            items: filterActive(store.items)
                         }
                     })
                 );
@@ -67,6 +67,40 @@ export const store = (() => {
         });
 
     }
+
+    const addItemsAll = <T>(storeName: string, items: T[]) => {
+
+        return new Promise((resolve, reject) => {
+
+            try {
+
+                let store = {
+                    name: storeName,
+                    items: items as T[]
+                }
+
+                //Salva por padrão no localStorage
+                saveDataLocal(store, storeName);
+
+                window.dispatchEvent(
+                    new CustomEvent(STORE_ADDED_ITEM, {
+                        detail: {
+                            store: storeName,
+                            items: filterActive<T>(store.items as BaseItem[])
+                        }
+                    })
+                );
+
+                resolve(store.items);
+
+            }
+            catch (e) {
+                reject(e);
+            }
+        });
+
+    }
+
 
     const updateSingle = <T>(storeName: string, values: Dictionary[]) => {
 
@@ -138,7 +172,7 @@ export const store = (() => {
                             detail: {
                                 store: storeName,
                                 item: item,
-                                items: store.items
+                                items: filterActive(store.items)
                             }
                         })
                     );
@@ -168,17 +202,36 @@ export const store = (() => {
         saveDataLocal(storeHistorico, storeNameHistorico);
     }
 
-    const getItems = <T>(storeName: string) => {
+
+    const getItemsFull = <BaseItem>(storeName: string): BaseItem[] => {
 
         let store = loadLocalStorage(storeName);
         if (store !== null) {
-            return store["items"] as T;
+            return store["items"] as BaseItem[];
         } else {
-            return [] as T;
+            return [] as BaseItem[];
+        }
+    }
+
+    const filterActive = <T>(storeItems: BaseItem[]): T[] => {
+        return storeItems.filter((item, b, c) => {
+            return item.deleted === undefined;
+        }) as T[];
+    }
+
+    const getItems = <T>(storeName: string): T[] => {
+
+        let storeItems = getItemsFull<BaseItem>(storeName);
+        if (storeItems.length > 0) {
+            return filterActive(storeItems);
+        } else {
+            return [] as T[];
         }
     }
 
     return {
+        getItemsFull: getItemsFull,
+        addItemsAll: addItemsAll,
         /** Adiciona um item na store. A propriedade "Id" será criada no formato uuid (guid) */
         addItem: addItem,
         /** Retorna uma lista de itens de acordo com a uma query/lista de 
@@ -192,7 +245,7 @@ export const store = (() => {
         getItems: getItems,
         /** Obtém os items no Local Storage */
         getSingle: <T>(storeName: string) => {
-            let items: T[] = getItems<T[]>(storeName);
+            let items: T[] = getItems<T>(storeName);
             if (items.length === 0) {
                 return null;
             }
@@ -215,8 +268,6 @@ export const store = (() => {
                         }
                     })
                 )
-            } else {
-                throw new Error("Store não existe.")
             }
         },
 
@@ -270,7 +321,8 @@ export const store = (() => {
                     item = store.items[i];
 
                     if (item.id === itemId) {
-                        store.items.splice(i, 1);
+
+                        item["deleted"] = localISOString();
 
                         saveDataLocal(store, storeName);
 
@@ -279,10 +331,12 @@ export const store = (() => {
                                 detail: {
                                     store: storeName,
                                     item: item,
-                                    items: store.items
+                                    items: filterActive(store.items)
                                 }
                             })
                         )
+
+                        break;
                     }
                 }
 

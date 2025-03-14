@@ -1,7 +1,7 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE, CARDAPIO_STORE } from "../service/config.service";
+import { REGISTRO_REFEICAO_STORE, CARDAPIO_STORE } from "../service/config.service";
 import { uuidv4 } from "../lib/uuidv4";
 import { localISOString } from "../lib/treatments";
 import { showConfirm, showPopup } from "../lib/message.lib";
@@ -78,7 +78,7 @@ class AppCardapioItem extends Base {
                     let calorias: number = Math.round((peso * cardapioItem.calorias) / cardapioItem.peso);
                     let proteinas: number = Math.round((peso * cardapioItem.proteinas) / cardapioItem.peso);
 
-                    let itemAlimentacao: RegistroRefeicao = {
+                    let itemAlimentacao: RegistroRefeicaoItem = {
                         "id": uuidv4(),
                         "idCardapio": cardapioItem.id,
                         "nome": cardapioItem.nome,
@@ -89,7 +89,7 @@ class AppCardapioItem extends Base {
                         "created": localISOString()
                     }
 
-                    store.addItem(ALIMENTACAO_STORE, itemAlimentacao).then((info) => {
+                    store.addItem(REGISTRO_REFEICAO_STORE, itemAlimentacao).then((info) => {
                         this.reiniciarAlimentacao();
                     });
                 }
@@ -98,7 +98,7 @@ class AppCardapioItem extends Base {
                 this.calcularAlimento(this.pesoInicial.toString());
             });
 
-     
+
     }
 
     reiniciarAlimentacao() {
@@ -119,15 +119,18 @@ class AppCardapioItem extends Base {
             item: JSON.parse(this.p("item"))
         }
 
+
         render(this, html`
                 <div class='listItem cardapio delay'>
                    <div class='title'>${this.props.item.nome}</div>
-                        ${this.props.item.itens.map((item, idx) => {
+                        ${this.props.item.ingredientes.map((item, idx) => {
             var peso = item.peso === undefined ? "100" : item.peso;
             var unidade = item.unidade === undefined ? "g" : item.unidade;
+            let unidAltPeso = Math.round(item.peso / item.unidAltPeso);
+
             return html`<div class='list mini'>
                         <div class='item mini'>
-                                <span> ${peso}${unidade} </span> de ${item.nome}
+                                <span> ${peso}${unidade} </span> ${item.unidAltPeso > 0 ? html`/ <span>${unidAltPeso}</span> ${item.unidAltDesc.toLowerCase()}` : null} de ${item.nome} 
                         </div>
                     </div>` })}
                         

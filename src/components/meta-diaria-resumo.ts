@@ -59,4 +59,4 @@ class AppMetaDiariaResumo extends Base {
     }
 }
 
-window.customElements.define("app-meta-diaria-resumo", AppMetaDiariaResumo);
+window.customElements.define("app-perfil-resumo", AppMetaDiariaResumo);

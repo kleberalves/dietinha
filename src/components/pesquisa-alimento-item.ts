@@ -5,6 +5,8 @@ import { showPopup } from "../lib/message.lib";
 
 declare var listaAlimentosUnidades: AlimentoUnidade[];
 
+
+
 class PesquisaItem extends Base {
 
     props: {
@@ -38,14 +40,16 @@ class PesquisaItem extends Base {
         var inputPeso = `inputPeso${this.props.idx}`;
         var inputQuantidade = `inputQuantidade${this.props.idx}`;
 
-        let rating: number = 0;
-        let label: string = "";
+        let unidadeAlt: UnidadeAlt = {
+            peso: 0,
+            desc: ""
+        };
 
         for (let i = 0; i < listaAlimentosUnidades.length; i++) {
 
             if (this.props.item.id === listaAlimentosUnidades[i].idAlimento) {
-                rating = listaAlimentosUnidades[i].rating;
-                label = listaAlimentosUnidades[i].label;
+                unidadeAlt.peso = listaAlimentosUnidades[i].rating;
+                unidadeAlt.desc = listaAlimentosUnidades[i].label;
                 break;
             }
 
@@ -55,13 +59,13 @@ class PesquisaItem extends Base {
             <div class='actions pesquisa-alimento-item-actions'>   
                 <div class='action'> 
                     <b>${(this.props.item.unidade && this.props.item.unidade === "ml") ? html`Quantidade ml` : html`Peso em gramas`}</b>
-                    <input type='number' class="input-number" id=${inputPeso} placeholder='Qtd' 
-                        oninput=${(e) => calcularAlimentoPeso(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />
+                    <input type='number' class="input-number" id=${inputPeso} placeholder='Quantidade' 
+                        oninput=${(e) => calcularAlimentoPeso(e.currentTarget.value, this.props.idx, this.props.item.id, unidadeAlt.peso)} />
                 </div>
 
-                ${(rating > 0) ? html`<div class='action'> <b>${label}</b>
-                    <input type='number' class="input-number" id=${inputQuantidade} placeholder=${label} 
-                        oninput=${(e) => calcularAlimentoUnidade(e.currentTarget.value, this.props.idx, this.props.item.id, rating)} />    
+                ${(unidadeAlt.peso > 0) ? html`<div class='action'> <b>${unidadeAlt.desc}</b>
+                    <input type='number' class="input-number" id=${inputQuantidade} placeholder=${unidadeAlt.desc} 
+                        oninput=${(e) => calcularAlimentoUnidade(e.currentTarget.value, this.props.idx, this.props.item.id, unidadeAlt.peso)} />    
                 </div>` : null}
 
                 <div class="bar">
@@ -70,7 +74,7 @@ class PesquisaItem extends Base {
                 </div>
               </div>`,
             () => {
-                adicionarCalculo(this.props.idx, this.props.item.id);
+                adicionarCalculo(this.props.idx, this.props.item.id, unidadeAlt);
             });
     }
 

@@ -6,23 +6,28 @@
 /// <reference path="definitions/components/ingredientes-selecionados.d.ts" />
 /// <reference path="definitions/lib/forms.ts" />
 
-interface CardapioItem {
+interface BaseItem {
     id: string;
+    created: string;
+    updated?: string;
+    deleted?: string;
+}
+
+interface CardapioItem extends BaseItem {
     nome: string;
     tipo: string;
     calorias: number;
     proteinas: number;
     peso: number;
-    itens: any[];
-    created: string;
+    ingredientes: Ingrediente[];
 }
 
 interface RefeicaoDia {
     dia: string;
-    registros: RegistroRefeicao[];
+    registros: RegistroRefeicaoItem[];
 }
 
-interface RegistroRefeicao {
+interface RegistroRefeicaoItem {
     id: string;
     idCardapio?: string;
     nome: string;
@@ -31,9 +36,16 @@ interface RegistroRefeicao {
     proteinas: number;
     peso: number;
     created: string;
+    updated?: string;
+    deleted?: string;
 }
 
-interface MetaDiaria {
+interface UnidadeAlt {
+    peso: number;
+    desc: string;
+}
+
+interface Perfil {
     altura: number;
     atividadeFisica: number;
     ganharMassa: number;
@@ -46,5 +58,7 @@ interface MetaDiaria {
     peso: number;
     proteinas: number;
     tmb: number
-    created: Date;
+    created: string;
+    updated?: string;
+    deleted?: string;
 }

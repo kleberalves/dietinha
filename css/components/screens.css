@@ -52,7 +52,6 @@ app-config {
     >div:nth-child(3) {
         width: 15%;
         justify-content: flex-end;
-        padding-top: 10px;
         padding-right: 15px;
     }
 
@@ -178,7 +177,7 @@ app-config {
     transition: all 0.3s ease-in-out;
 
     /*Estado inicial - closed*/
-    translate: 0px -30px;
+    translate: 0px -130px;
     opacity: 0;
 }
 

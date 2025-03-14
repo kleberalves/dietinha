@@ -4,16 +4,15 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { login } from "../service/login.service";
 import { store } from "../service/store.service";
-import { LOGIN_STORE } from "../service/config.service";
+import { CARDAPIO_STORE, CONFIG_STORE, INGREDIENTES_STORE, LOGIN_STORE, PERFIL_STORE, REGISTRO_REFEICAO_STORE } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
-
-type Nullable<T> = T | null;
+import { sync } from "../service/sync.service";
 
 interface LoginInfo {
     name?: string;
     email: string;
     token?: string;
-    created:string;
+    created: string;
 }
 
 class AppLogin extends Base {
@@ -21,7 +20,7 @@ class AppLogin extends Base {
     items: CardapioItem[] = [];
     itemsView: CardapioItem[] = [];
     showSearch: boolean = false;
-    loginInfo: Nullable<LoginInfo>;
+    loginInfo: LoginInfo | null;
 
     constructor() {
         super();
@@ -39,8 +38,19 @@ class AppLogin extends Base {
 
     btnLogout(element: HTMLButtonElement) {
         store.clear(LOGIN_STORE);
+        store.clear(CONFIG_STORE);
+        store.clear(INGREDIENTES_STORE);
+        store.clear(CARDAPIO_STORE);
+        store.clear(REGISTRO_REFEICAO_STORE);
+        store.clear(PERFIL_STORE);
         this.loginInfo = null;
         this.render();
+    }
+
+    btnSync(element: HTMLButtonElement) {
+        sync().then(() => {
+            this.render();
+        });
     }
 
     btnLogin(e: SubmitEvent) {
@@ -59,7 +69,7 @@ class AppLogin extends Base {
                         <div class="col-1">
                             <div>
                                 <label>Login:</label>
-                                ${this.loginInfo.email}
+                                <div class="text">${this.loginInfo.email}</div>
                                 <br/>
                                <div class="text-mini">
                                      ${formatDate(this.loginInfo.created, "dd/mm hh:MM")}
@@ -68,6 +78,7 @@ class AppLogin extends Base {
 
                               <div class="col-1">
                                     <button class="btn-main delay4" @click=${(e) => this.btnLogout(e)}>Deslogar</button>
+                                    <button class="btn-main delay5" @click=${(e) => this.btnSync(e)}>Sync</button>
                                 </div> 
                         </div>  
                      </div>                         

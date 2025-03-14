@@ -2,8 +2,9 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { detectPathScreen, goBack, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, META_DIARIA_STORE } from "../service/config.service";
+import { REGISTRO_REFEICAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, PERFIL_STORE } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
+import { removeWindow, showLoading } from "../lib/message.lib";
 
 class AppMain extends Base {
 
@@ -11,19 +12,44 @@ class AppMain extends Base {
         super();
     }
 
-    showTabCaloriaDiaria: boolean = false;
-    showTabCalculadora: boolean = false;
-    showTabCardapio: boolean = false;
+    perfilItem: Perfil | null;
+    cardapioItems: any[];
 
     connectedCallback() {
+        showLoading();
+
         this.render();
+
 
         window.addEventListener("resize", () => {
             resizeScreens();
         });
 
+        window.addEventListener("load", () => {
+            //app starts 
+
+            removeWindow();
+            if (window.location.hash === "") {
+                if (this.perfilItem === null) {
+                    swapScreen("perfil");
+                } else if (this.cardapioItems.length > 0) {
+                    swapScreen("cardapio");
+                } else {
+                    swapScreen("calculadora");
+                }
+            } else {
+                detectPathScreen();
+            }
+
+
+        });
+
+        window.addEventListener("popstate", e => {
+            detectPathScreen();
+        });
+
         //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(PERFIL_STORE, (e: CustomEventInit) => {
             swapScreen("calculadora");
             this.render();
         });
@@ -40,7 +66,7 @@ class AppMain extends Base {
 
 
         //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(ALIMENTACAO_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
             if (e.detail.items.length === 1) {
                 this.render();
             }
@@ -72,8 +98,8 @@ class AppMain extends Base {
             element.adicionarItemCardapio();
         }
     }
-    btnMetaDiariaSaveClick() {
-        let element = this.querySelector<IAppMetaDiaria>("#appMetaDiaria");
+    btnPerfilSaveClick() {
+        let element = this.querySelector<IAppPerfil>("#appPerfil");
         if (element) {
             element.save();
         }
@@ -81,28 +107,18 @@ class AppMain extends Base {
 
     render() {
 
-        var metaDiariaItems: any[] = store.getItems(META_DIARIA_STORE);
-        var cardapioItems: any[] = store.getItems(CARDAPIO_STORE);
-        var alimentacaoItems: any[] = store.getItems(ALIMENTACAO_STORE);
-        var ingredientesItems: any[] = store.getItems(INGREDIENTES_STORE);
+        this.perfilItem = store.getSingle(PERFIL_STORE);
+        this.cardapioItems = store.getItems(CARDAPIO_STORE);
 
-        if (metaDiariaItems.length === 0) {
-            this.showTabCaloriaDiaria = true;
-            swapScreen("perfil");
-        } else if (cardapioItems.length === 0) {
-            this.showTabCalculadora = true;
-        } else {
-            this.showTabCardapio = true;
-            this.showTabCaloriaDiaria = true;
-            this.showTabCalculadora = true;
-        }
+        var registroRefeicaoItems: any[] = store.getItems(REGISTRO_REFEICAO_STORE);
+        var ingredientesItems: any[] = store.getItems(INGREDIENTES_STORE);
 
         render(this, html`
    
                 <div id="main">
                 
-                ${(metaDiariaItems.length > 0
-                && cardapioItems.length >= 1) ? html`
+                ${(this.perfilItem !== null
+                && this.cardapioItems.length >= 1) ? html`
                     <div 
                     class="screen close" 
                     id="cardapio">
@@ -114,8 +130,8 @@ class AppMain extends Base {
                             </div>
                         </div>
 
-                            ${cardapioItems.length === 1
-                        && alimentacaoItems.length === 0
+                            ${this.cardapioItems.length === 1
+                        && registroRefeicaoItems.length === 0
                         ? html` <div class="wizard-message">
                                 <h1>Último passo</h1>
                                 <p>
@@ -135,7 +151,7 @@ class AppMain extends Base {
                 </div>
                 `: null}
 
-                 ${(alimentacaoItems.length > 0) ? html`
+                 ${(registroRefeicaoItems.length > 0) ? html`
                 <div class="screen close" id="registro">
                      <div class="title">Minhas refeições</div>
                     <div class="form">
@@ -151,9 +167,9 @@ class AppMain extends Base {
 
                          <div class="title">Calculadora de alimentos</div>
 
-                          ${metaDiariaItems.length > 0
+                          ${this.perfilItem !== null
                 && ingredientesItems.length === 0
-                && cardapioItems.length === 0
+                && this.cardapioItems.length === 0
                 ? html` <div class="wizard-message">
                                     <h1>Segundo passo</h1>
                                     <p>
@@ -190,9 +206,7 @@ class AppMain extends Base {
                                 </div>
                             </div>
 
-                        ${this.showTabCaloriaDiaria
-                && !this.showTabCalculadora
-                && !this.showTabCardapio
+                        ${this.perfilItem === null
                 ? html` <div class="wizard-message">
                             <h1>Primeiro passo</h1>
                             <p>
@@ -202,10 +216,10 @@ class AppMain extends Base {
                             </p>
                         </div>` : null}
 
-                        <app-meta-diaria id="appMetaDiaria" class="form-bar-bottom" />
+                        <app-perfil id="appPerfil" class="form-bar-bottom" />
 
                         <div class="action-bar-bottom">
-                            <button class="btn-main delay11" onclick=${() => this.btnMetaDiariaSaveClick()}>Salvar</button>
+                            <button class="btn-main delay11" onclick=${() => this.btnPerfilSaveClick()}>Salvar</button>
                         </div>
                 </div>
 
@@ -252,17 +266,17 @@ class AppMain extends Base {
 
         <div class="screens-nav">
             <div>
-                ${(metaDiariaItems.length > 0 && cardapioItems.length >= 1) ? html`<div class="btn-screen-switch open" id="cardapioNav" onclick=${e => swapScreen("cardapio")}>
+                ${(this.perfilItem !== null && this.cardapioItems.length >= 1) ? html`<div class="btn-screen-switch open" id="cardapioNav" onclick=${e => swapScreen("cardapio")}>
                     <img src="img/cardapio.svg" /> 
                     <div class="btn">Cardápio</div>
                 </div>` : null}
 
-                 ${(alimentacaoItems.length > 0) ? html`<div class="btn-screen-switch" id="registroNav" onclick=${e => swapScreen("registro")}>
+                 ${(registroRefeicaoItems.length > 0) ? html`<div class="btn-screen-switch" id="registroNav" onclick=${e => swapScreen("registro")}>
                     <img src="img/registro.svg" /> 
                     <div class="btn">Registro</div>
                 </div>` : null}
 
-                 ${metaDiariaItems.length > 0 ? html`<div class="btn-screen-switch" id="calculadoraNav" onclick=${e => swapScreen("calculadora")}>
+                 ${this.perfilItem !== null ? html`<div class="btn-screen-switch" id="calculadoraNav" onclick=${e => swapScreen("calculadora")}>
                     <img src="img/calculadora.svg" /> 
                     <div class="btn">Calculadora</div>
                 </div>` : null}
@@ -274,21 +288,6 @@ class AppMain extends Base {
             </div>
         </div>
         `);
-
-        //app starts
-        if (metaDiariaItems.length === 0) {
-            swapScreen("perfil");
-        } else if (window.location.hash === "" &&
-            (this.showTabCaloriaDiaria || this.showTabCalculadora) &&
-            cardapioItems.length > 0) {
-            swapScreen("cardapio");
-        } else {
-            detectPathScreen();
-        }
-
-        window.addEventListener("popstate", e => {
-            detectPathScreen();
-        });
     }
 }
 
