@@ -1,4 +1,4 @@
-import { showWarning } from "../lib/message.lib";
+import { showOk, showWarning } from "../lib/message.lib";
 import useRequest from "../lib/request";
 import { REGISTRO_REFEICAO_STORE, CARDAPIO_STORE, PERFIL_STORE, API_MODULE_DIET } from "./config.service";
 import { store } from "./store.service";
@@ -19,26 +19,19 @@ export const sync = () => {
             "cardapioItems": cardapioItems
         }).then(async (resp) => {
 
-            if (typeof resp === "string") {
-                showWarning(resp);
-
-            } else if (resp) {
-
-                const responseBody = await resp.json();
-                if (responseBody.error) {
-                    showWarning(responseBody.error.message);
-                    resolve("ok");
-                } else {
-
-                    await store.addItemsAll(CARDAPIO_STORE, responseBody.cardapioItems);
-                    resolve("ok");
-                }
-            } else {
-                resolve("ok");
+            if (resp && resp.cardapioItems && resp.cardapioItems.length > 0) {
+                await store.addItemsAll(CARDAPIO_STORE, resp.cardapioItems);
             }
 
+            showOk("Seus dados foram sincronizados com sucesso.");
+            resolve("ok");
+
         }).catch((e) => {
-            showWarning(e.error.message);
+            if (e.error) {
+                showWarning(e.error.message);
+            } else {
+                showWarning(e);
+            }
             reject("error");
         });
 

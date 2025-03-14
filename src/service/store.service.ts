@@ -215,7 +215,7 @@ export const store = (() => {
 
     const filterActive = <T>(storeItems: BaseItem[]): T[] => {
         return storeItems.filter((item, b, c) => {
-            return item.deleted === undefined;
+            return item.deleted === null || item.deleted === undefined;
         }) as T[];
     }
 

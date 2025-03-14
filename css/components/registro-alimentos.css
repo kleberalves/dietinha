@@ -21,16 +21,15 @@ app-registro-alimentos .selecionados {
     border: 0px;
     padding-top: 15px;
     padding-bottom: 20px;
-    color: var(--blackwhite-color);
+    color: #fff;
     padding-left: 15px;
     border-radius: 19px;
 }
-
 .selecionados .item b {
-    font-weight: 300;
+    font-weight: 400;
     font-size: 20px;
-    color: var(--blackwhite-color);
-
+    color: #fff;
+    display: block;
 }
 
 

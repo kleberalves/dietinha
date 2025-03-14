@@ -50,6 +50,8 @@ class AppLogin extends Base {
     btnSync(element: HTMLButtonElement) {
         sync().then(() => {
             this.render();
+        }).catch((e)=>{
+            console.log(e);
         });
     }
 
@@ -58,6 +60,8 @@ class AppLogin extends Base {
 
         login().then(() => {
             this.loadInfoLogin();
+        }).catch((e)=>{
+            console.log(e);
         });
     }
 

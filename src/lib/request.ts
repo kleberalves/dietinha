@@ -136,7 +136,7 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
             //Preferência para API_BASE_URL_SERVER caso esteja sendo executado no servidor
             //internamente redirecionará para BASE_URL se estiver no cliente
             fetch(`${base}${url}`, config)
-                .then((response) => {
+                .then(async (response) => {
                     //Tratamentos especiais para não estourar uma mensagem de erro
 
                     //451 - Token necessário para o login
@@ -149,19 +149,22 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
 
                     removeWindow();
 
-                    resolve(response);
 
-                    // if (response.status >= 400
-                    //     && response.status != 412
-                    //     && response.status != 451
-                    //     && response.status != 404) {
-                    //     //Retorna um json do erro para que o próximo "then"
-                    //     //possa rejeitar a promise.
-                    //     return response.json();
-                    // } else {
-                    //     //Retornos abaixo de 400 são considerados "ok"
 
-                    // }
+                    if (response.status >= 400) {
+                        //Retorna um json do erro para que o próximo "then"
+                        //possa rejeitar a promise.
+
+                        let responseBody = await response.json();
+                        console.log(responseBody);
+                        reject(responseBody);
+                    } else {
+
+                        let responseBody = await response.json();
+                        console.log(responseBody);
+                        resolve(responseBody);
+                        //Retornos abaixo de 400 são considerados "ok"
+                    }
 
                 }).catch((e) => {
 

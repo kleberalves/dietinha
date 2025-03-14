@@ -19,50 +19,38 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
             "password": senha
         }).then(async (resp) => {
 
-            if (typeof resp === "string") {
-                showWarning(resp);
-                
-            } else if (resp) {
+            data.push({
+                key: "email",
+                value: email
+            });
 
-                const responseBody = await resp.json();
+            data.push({
+                key: "name",
+                value: resp.name
+            });
 
-                if (responseBody.error) {
-                    showWarning(responseBody.error.message);
-                    resolve("ok");
+            data.push({
+                key: "token",
+                value: resp.token
+            });
 
-                } else {
+            data.push({
+                key: "profiles",
+                value: resp.profiles
+            });
 
-                    data.push({
-                        key: "email",
-                        value: email
-                    });
+            store.updateSingle(LOGIN_STORE, data);
 
-                    data.push({
-                        key: "name",
-                        value: responseBody.name
-                    });
-
-                    data.push({
-                        key: "token",
-                        value: responseBody.token
-                    });
-
-                    data.push({
-                        key: "profiles",
-                        value: responseBody.profiles
-                    });
-
-                    store.updateSingle(LOGIN_STORE, data);
-
-                    resolve("ok");
-                }
-            } else {
-                resolve("ok");
-            }
+            resolve("ok");
 
         }).catch((e) => {
-            showWarning(e.error.message);
-            reject("error");
+            //TODO Adicionar tratamento de erros Global
+            if (e.error) {
+                showWarning(e.error.message);
+            } else {
+                showWarning(e);
+            }
+            reject();
         });
 
     });
