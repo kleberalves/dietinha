@@ -1,7 +1,7 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { INGREDIENTES_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 
 class IngredientesSelecionadosItem extends Base {
 
@@ -59,7 +59,7 @@ class IngredientesSelecionadosItem extends Base {
     removerCalculo(id?: string) {
 
         if (id)
-            store.removeItemById(INGREDIENTES_STORE, id);
+            store.removeItemById(stores.Ingrediente, id);
 
     }
 

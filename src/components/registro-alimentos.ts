@@ -1,7 +1,7 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { REGISTRO_REFEICAO_STORE } from "../service/config.service";
+import { CARDAPIO_STORE, REGISTRO_REFEICAO_STORE } from "../service/config.service";
 import { agrupaDias } from "../service/registro-refeicoes.service";
 import { swapScreen } from "../lib/screens.lib";
 
@@ -25,7 +25,8 @@ class RegistroAlimentos extends Base {
             this.render(e.detail.items);
             
             //Redireciona apenas    se for o primeiro registro
-            if (e.detail.items.length === 1) {
+            let cardapioItems = store.getItems<CardapioItem>(CARDAPIO_STORE);
+            if (cardapioItems.length === 1 && e.detail.items.length === 1) {
                 swapScreen("registro");
             }
 

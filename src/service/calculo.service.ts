@@ -1,4 +1,4 @@
-import { INGREDIENTES_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 
@@ -108,7 +108,7 @@ export const adicionarCalculo = (idxResultado: number, idProduto: string, unidad
 
         if (produto !== undefined) {
 
-            store.addItem<Ingrediente>(INGREDIENTES_STORE, {
+            store.addItem<Ingrediente>(stores.Ingrediente, {
                 "nome": produto.nome,
                 "calorias": caloriasValue,
                 "proteinas": proteinasValue,
@@ -117,7 +117,7 @@ export const adicionarCalculo = (idxResultado: number, idProduto: string, unidad
                 "unidade": produto.unidade,
                 "unidAltDesc": unidadeAlt.desc,
                 "unidAltPeso": unidadeAlt.peso,
-            });
+            } as Ingrediente);
         }
 
     }

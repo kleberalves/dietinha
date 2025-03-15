@@ -4,7 +4,7 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { login } from "../service/login.service";
 import { store } from "../service/store.service";
-import { CARDAPIO_STORE, CONFIG_STORE, INGREDIENTES_STORE, LOGIN_STORE, PERFIL_STORE, REGISTRO_REFEICAO_STORE } from "../service/config.service";
+import { LOGIN_STORE, stores } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
 import { sync } from "../service/sync.service";
 
@@ -29,6 +29,11 @@ class AppLogin extends Base {
     connectedCallback() {
 
         this.loadInfoLogin();
+
+        store.onClearedAll((e: CustomEventInit) => {
+            this.loginInfo = null;
+            this.render();
+        });
     }
 
     loadInfoLogin() {
@@ -37,14 +42,7 @@ class AppLogin extends Base {
     }
 
     btnLogout(element: HTMLButtonElement) {
-        store.clear(LOGIN_STORE);
-        store.clear(CONFIG_STORE);
-        store.clear(INGREDIENTES_STORE);
-        store.clear(CARDAPIO_STORE);
-        store.clear(REGISTRO_REFEICAO_STORE);
-        store.clear(PERFIL_STORE);
-        this.loginInfo = null;
-        this.render();
+        store.clearAll(stores);
     }
 
     btnLogin(e: SubmitEvent) {

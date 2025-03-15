@@ -2,7 +2,7 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { removeCarecEspec } from "../lib/treatments";
 import { store } from "../service/store.service";
-import { INGREDIENTES_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { consultaAlimento } from "../service/pesquisa-alimento.service";
 
 
@@ -18,7 +18,7 @@ class PesquisaAlimento extends Base {
     constructor() {
         super();
 
-        store.onAddedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(stores.Ingrediente, (e: CustomEventInit) => {
             //Quando um novo item for adicionado na lista de ingredientes, 
             //deve reiniciar a lista de pesquisa 
 

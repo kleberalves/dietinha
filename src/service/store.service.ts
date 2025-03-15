@@ -1,6 +1,6 @@
 //export { };
 
-import { loadLocalStorage, saveDataLocal } from "../lib/local-storage";
+import { loadLocalStorage, removeLocalStorage, saveDataLocal } from "../lib/local-storage";
 import { localISOString } from "../lib/treatments";
 import { uuidv4 } from "../lib/uuidv4";
 
@@ -216,7 +216,7 @@ export const store = (() => {
                 if (cont === conditions.length) {
 
                     let props = Object.entries(item);
-                    for(let p=0; p<props.length; p++){
+                    for (let p = 0; p < props.length; p++) {
                         localItem[props[p][0]] = props[p][1];
                     }
 
@@ -287,6 +287,25 @@ export const store = (() => {
         }
     }
 
+    const clear = (storeName: string) => {
+
+        let store = loadLocalStorage(storeName);
+        if (store !== null) {
+
+            store.items = [];
+
+            saveDataLocal(store, storeName);
+
+            window.dispatchEvent(
+                new CustomEvent(STORE_CLEARED, {
+                    detail: {
+                        store: storeName
+                    }
+                })
+            )
+        }
+    }
+
     return {
         getItemsFull: getItemsFull,
         addItemsAll: addItemsAll,
@@ -309,24 +328,22 @@ export const store = (() => {
             }
             return items[0];
         },
-        /** Limpa todos os dados da store incluindo no local storage */
-        clear: (storeName: string) => {
+        /** Limpa todos os dados da store do local storage */
+        clear: clear,
+        /** Limpa todos os stores do local storage */
+        clearAll: (stores: object) => {
 
-            let store = loadLocalStorage(storeName);
-            if (store !== null) {
-
-                store.items = [];
-
-                saveDataLocal(store, storeName);
-
-                window.dispatchEvent(
-                    new CustomEvent(STORE_CLEARED, {
-                        detail: {
-                            store: storeName
-                        }
-                    })
-                )
+            let storesLst = Object.entries(stores);
+            for (let p = 0; p < storesLst.length; p++) {
+                clear(storesLst[p][1]);
             }
+
+            window.dispatchEvent(
+                new CustomEvent(STORE_ALL_CLEARED, {
+                    detail: null
+                })
+            )
+
         },
 
         /** Retorna um item pelo "Id" */
@@ -434,6 +451,12 @@ export const store = (() => {
             });
         },
 
+        onClearedAll: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(STORE_ALL_CLEARED, (e: CustomEventInit) => {
+                func(e);
+            });
+        },
+
         onUpdatedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
             window.addEventListener(STORE_UPDATED_ITEM, (e: CustomEventInit) => {
 
@@ -450,6 +473,7 @@ export const store = (() => {
 export const STORE_ADDED_ITEM = "STORE_ADDED_ITEM";
 export const STORE_REMOVED_ITEM = "STORE_REMOVED_ITEM";
 export const STORE_CLEARED = "STORE_CLEARED";
+export const STORE_ALL_CLEARED = "STORE_ALL_CLEARED";
 export const STORE_STORAGE_LOADED = "STORE_STORAGE_LOADED";
 export const STORE_UPDATED_ITEM = "STORE_UPDATED_ITEM";
 

@@ -2,10 +2,9 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { detectPathScreen, goBack, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
-import { REGISTRO_REFEICAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, PERFIL_STORE, LOGIN_STORE } from "../service/config.service";
+import { REGISTRO_REFEICAO_STORE, CARDAPIO_STORE, PERFIL_STORE, stores } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
 import { removeWindow, showLoading } from "../lib/message.lib";
-import { sync } from "../service/sync.service";
 
 class AppMain extends Base {
 
@@ -49,23 +48,27 @@ class AppMain extends Base {
             detectPathScreen();
         });
 
-        store.onAddedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(stores.Ingrediente, (e: CustomEventInit) => {
             this.render();
         });
-        store.onRemovedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
-            this.render();
-        });
-        store.onCleared(INGREDIENTES_STORE, (e: CustomEventInit) => {
+        store.onRemovedItem(stores.Ingrediente, (e: CustomEventInit) => {
             this.render();
         });
 
+        store.onCleared(stores.Ingrediente, (e: CustomEventInit) => {
+            this.render();
+        });
+
+        store.onAddedItem(stores.Perfil, (e: CustomEventInit) => {
+            this.render();
+        });
 
         //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(stores.RegistroRefeicao, (e: CustomEventInit) => {
             this.render();
         });
 
-        store.onAddedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(stores.Cardapio, (e: CustomEventInit) => {
             this.render();
 
             //Executa esse evento apenas na primeira vez em que um item for
@@ -75,6 +78,10 @@ class AppMain extends Base {
 
                 scrollBodyTop(0);
             }
+        });
+
+        store.onClearedAll((e: CustomEventInit) => {
+            this.render();
         });
 
     }
@@ -101,10 +108,14 @@ class AppMain extends Base {
 
     render() {
 
+
         this.perfilItem = store.getSingle(PERFIL_STORE);
         this.cardapioItems = store.getItems(CARDAPIO_STORE);
         var registroRefeicaoItems: any[] = store.getItems(REGISTRO_REFEICAO_STORE);
-        var ingredientesItems: any[] = store.getItems(INGREDIENTES_STORE);
+        var ingredientesItems: any[] = store.getItems(stores.Ingrediente);
+
+        console.log(this.perfilItem, this.cardapioItems);
+
 
         render(this, html`
    

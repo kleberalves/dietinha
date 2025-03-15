@@ -7,7 +7,7 @@
 /// <reference path="definitions/lib/forms.ts" />
 
 interface BaseItem {
-    id: string;
+    id?: string;
     created: string;
     updated?: string;
     deleted?: string;
