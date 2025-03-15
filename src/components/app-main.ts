@@ -49,12 +49,6 @@ class AppMain extends Base {
             detectPathScreen();
         });
 
-        //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(PERFIL_STORE, (e: CustomEventInit) => {
-            swapScreen("calculadora");
-            this.render();
-        });
-
         store.onAddedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
             this.render();
         });
