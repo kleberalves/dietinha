@@ -80,7 +80,6 @@ class AppCardapioItem extends Base {
 
                     let itemAlimentacao: RegistroRefeicaoItem = {
                         "id": uuidv4(),
-                        "cardapioItemId": cardapioItem.id,
                         "nome": cardapioItem.nome,
                         "tipo": cardapioItem.tipo,
                         "calorias": calorias,

@@ -28,7 +28,6 @@ interface RefeicaoDia {
 }
 
 interface RegistroRefeicaoItem extends BaseItem {
-    cardapioItemId?: string;
     nome: string;
     tipo: string;
     calorias: number;
