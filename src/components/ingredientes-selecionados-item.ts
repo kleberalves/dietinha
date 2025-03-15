@@ -48,8 +48,11 @@ class IngredientesSelecionadosItem extends Base {
         var unidade = this.props.ingrediente.unidade === undefined ? "g" : this.props.ingrediente.unidade;
         render(this, html`
         
-        <div class='item'> <b> ${this.props.ingrediente.nome} </b> <br/>${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso}${unidade}
-            <button class='btn-remove' onclick=${() => this.removerCalculo(this.props.ingrediente.id)}> x </button>
+                <div class='item'> <b> ${this.props.ingrediente.nome} </b> <br/>${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso}${unidade}
+
+                <div class='actions right'>
+                    <div class="btn-trash"  onclick=${() => this.removerCalculo(this.props.ingrediente.id)}></div>
+                </div>
             </div>` );
     }
 

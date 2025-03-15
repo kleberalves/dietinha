@@ -227,3 +227,14 @@ button:disabled {
     height: 30px;
     transform: rotate(90deg);
 }
+
+@keyframes rotate-icon {
+    0% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-icon.rotate {
+    animation: rotate-icon forwards 2s infinite;
+    animation-timing-function: linear;
+}

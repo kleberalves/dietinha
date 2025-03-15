@@ -2,9 +2,10 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { detectPathScreen, goBack, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
-import { REGISTRO_REFEICAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, PERFIL_STORE } from "../service/config.service";
+import { REGISTRO_REFEICAO_STORE, CARDAPIO_STORE, INGREDIENTES_STORE, PERFIL_STORE, LOGIN_STORE } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
 import { removeWindow, showLoading } from "../lib/message.lib";
+import { sync } from "../service/sync.service";
 
 class AppMain extends Base {
 
@@ -86,6 +87,7 @@ class AppMain extends Base {
 
     }
 
+  
     btnShowSearchCardapio() {
         let element = this.querySelector<ICardapio>("#appCardapio");
         if (element) {
@@ -109,7 +111,6 @@ class AppMain extends Base {
 
         this.perfilItem = store.getSingle(PERFIL_STORE);
         this.cardapioItems = store.getItems(CARDAPIO_STORE);
-
         var registroRefeicaoItems: any[] = store.getItems(REGISTRO_REFEICAO_STORE);
         var ingredientesItems: any[] = store.getItems(INGREDIENTES_STORE);
 
@@ -123,7 +124,9 @@ class AppMain extends Base {
                     class="screen close" 
                     id="cardapio">
                         <div class="screen-header">
-                            <div></div>
+                            <div>
+                                <btn-sync />
+                            </div>
                             <div class="title">Meu cardápio</div>
                             <div> 
                                 <img src="img/busca.svg" class="btn-icon" @click=${e => this.btnShowSearchCardapio()}/>

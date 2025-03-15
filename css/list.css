@@ -192,7 +192,7 @@
     margin-top: 15px;
     margin-left: 20px;
     font-weight: 500;
-
+    color: var(--contrast-color);
 }
 
 .listItem .title div span {

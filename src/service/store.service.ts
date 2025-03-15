@@ -244,7 +244,7 @@ export const store = (() => {
         /** Obtém os items no Local Storage */
         getItems: getItems,
         /** Obtém os items no Local Storage */
-        getSingle: <T>(storeName: string) => {
+        getSingle: <T>(storeName: string):T | null => {
             let items: T[] = getItems<T>(storeName);
             if (items.length === 0) {
                 return null;
