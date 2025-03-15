@@ -1,6 +1,6 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { LOGIN_STORE } from "../service/config.service";
+import { LOGIN_STORE, PERFIL_STORE } from "../service/config.service";
 import { store } from "../service/store.service";
 import { sync } from "../service/sync.service";
 
@@ -12,6 +12,15 @@ class BtnSync extends Base {
     }
 
     connectedCallback() {
+
+        store.onAddedItem(PERFIL_STORE, (e: CustomEventInit) => {
+            this.render();
+        });
+
+        store.onCleared(PERFIL_STORE, (e: CustomEventInit) => {
+            this.render();
+        });
+
         this.render();
     }
 

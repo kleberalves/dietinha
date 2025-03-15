@@ -54,8 +54,8 @@ export const setTheme = (theme: string) => {
         link.setAttribute("href", "css/theme." + theme + ".css");
 
     store.updateItemsByFields<Dictionary>(CONFIG_STORE,
-        [{ key: "key", value: "theme" }],
-        [{ key: "value", value: theme }]);
+        [],
+        [{ key: "value", value: theme }, { key: "key", value: "theme" }]);
 }
 
 

@@ -6,6 +6,7 @@ import { login } from "../service/login.service";
 import { store } from "../service/store.service";
 import { CARDAPIO_STORE, CONFIG_STORE, INGREDIENTES_STORE, LOGIN_STORE, PERFIL_STORE, REGISTRO_REFEICAO_STORE } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
+import { sync } from "../service/sync.service";
 
 interface LoginInfo {
     name?: string;
@@ -51,6 +52,13 @@ class AppLogin extends Base {
 
         login().then(() => {
             this.loadInfoLogin();
+
+            sync().then(() => {
+            }).catch((e) => {
+                console.log(e);
+            }).finally(() => {
+            });
+
         }).catch((e) => {
             console.log(e);
         });
@@ -69,16 +77,11 @@ class AppLogin extends Base {
                                      ${formatDate(this.loginInfo.created, "dd/mm hh:MM")}
                                 </div>
                             </div>
-
-                              <div class="col-2">
-                                <div>
-                                    <btn-sync />
-                                </div>
-                                <div>
-                                    <button class="btn-main delay4" @click=${(e) => this.btnLogout(e)}>Deslogar</button>
-                                </div> 
-                            <div>
                         </div>  
+
+                        <div class="action-bar-bottom">
+                        <button class="btn-main delay4" @click=${(e) => this.btnLogout(e)}>Deslogar</button> 
+                        </div>
                      </div>                         
                         ` : null}
 

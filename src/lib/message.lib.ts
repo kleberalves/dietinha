@@ -137,6 +137,12 @@ export const showConfirm = (msg, callback: () => void) => {
 
 export const showOk = (msg: string) => {
     let window = showMessage(msg, "success");
+
+    var element = document.getElementById("main");
+    if (element) {
+        element.classList.remove("blur");
+    }
+
     window.onclick = () => {
         removeWindow();
     }

@@ -68,9 +68,7 @@ class AppMain extends Base {
 
         //Added significa que a meta foi cadastrada pela primeira vez
         store.onAddedItem(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
-            if (e.detail.items.length === 1) {
-                this.render();
-            }
+            this.render();
         });
 
         store.onAddedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
@@ -87,7 +85,7 @@ class AppMain extends Base {
 
     }
 
-  
+
     btnShowSearchCardapio() {
         let element = this.querySelector<ICardapio>("#appCardapio");
         if (element) {
@@ -243,15 +241,15 @@ class AppMain extends Base {
 
                 <div class="screen close" id="login">
 
-                    <div class="screen-header">
+                         <div class="screen-header">
                             <div> 
                                 <div class="btn-voltar" onclick=${e => goBack()}>
                                     Voltar
                                 </div>
                             </div>
                             <div class="title">Login</div>
-                            <div> 
-                               
+                            <div>
+                                <btn-sync />
                             </div>
                         </div>
                     <app-login />

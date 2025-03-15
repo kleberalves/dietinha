@@ -19,27 +19,15 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
             "password": senha
         }).then(async (resp) => {
 
-            data.push({
-                key: "email",
-                value: email
-            });
 
-            data.push({
-                key: "name",
-                value: resp.name
-            });
+            let autoInfo: AuthInfo = {
+                email: email,
+                name: resp.name,
+                token: resp.token,
+                profiles: resp.profiles
+            } as AuthInfo
 
-            data.push({
-                key: "token",
-                value: resp.token
-            });
-
-            data.push({
-                key: "profiles",
-                value: resp.profiles
-            });
-
-            store.updateSingle(LOGIN_STORE, data);
+            store.updateSingle<AuthInfo>(LOGIN_STORE, autoInfo);
 
             resolve("ok");
 

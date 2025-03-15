@@ -1,6 +1,6 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { PERFIL_STORE } from "../service/config.service";
+import { CARDAPIO_STORE, PERFIL_STORE } from "../service/config.service";
 import { setNumberField, setRadiosCheck } from "../lib/forms";
 import { store } from "../service/store.service";
 import { calcularMetaDiaria } from "../service/meta-diaria.service";
@@ -28,12 +28,15 @@ class AppPerfil extends Base implements IAppPerfil {
         store.onAddedItem(PERFIL_STORE, (e: CustomEventInit) => {
             this.showMetaDiaria(e.detail.item as Perfil);
 
-            swapScreen("calculadora");
+            let cardapioItems = store.getItems(CARDAPIO_STORE);
+            if (cardapioItems.length === 0) {
+                swapScreen("calculadora");
+            }
         });
 
-        let items: Perfil[] = store.getItems<Perfil>(PERFIL_STORE);
-        if (items.length > 0) {
-            this.showMetaDiaria(items[0]);
+        let item: Perfil | null = store.getSingle<Perfil>(PERFIL_STORE);
+        if (item !== null) {
+            this.showMetaDiaria(item);
         } else {
             this.render();
         }

@@ -27,17 +27,13 @@ interface RefeicaoDia {
     registros: RegistroRefeicaoItem[];
 }
 
-interface RegistroRefeicaoItem {
-    id: string;
-    idCardapio?: string;
+interface RegistroRefeicaoItem extends BaseItem {
+    cardapioItemId?: string;
     nome: string;
     tipo: string;
     calorias: number;
     proteinas: number;
     peso: number;
-    created: string;
-    updated?: string;
-    deleted?: string;
 }
 
 interface UnidadeAlt {
@@ -45,12 +41,11 @@ interface UnidadeAlt {
     desc: string;
 }
 
-interface Perfil {
+interface Perfil extends BaseItem {
     altura: number;
     atividadeFisica: number;
     ganharMassa: number;
     genero: string;
-    id: string;
     idade: number;
     manterPeso: number;
     objetivo: string;
@@ -58,7 +53,18 @@ interface Perfil {
     peso: number;
     proteinas: number;
     tmb: number
-    created: string;
-    updated?: string;
-    deleted?: string;
 }
+
+interface AuthInfo extends BaseItem {
+    email: string;
+    name: string;
+    token: string;
+    profiles: any[];
+}
+
+interface ISync {
+    cardapioItems: CardapioItem[];
+    perfil: Perfil | null;
+    registroRefeicaoItems: RegistroRefeicaoItem[];
+  }
+  

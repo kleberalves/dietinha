@@ -10,17 +10,26 @@ export const sync = () => {
 
         var perfilItem: Perfil | null = store.getSingle(PERFIL_STORE);
         var cardapioItems: CardapioItem[] = store.getItemsFull(CARDAPIO_STORE);
-        var registroRefeicaoItems: RegistroRefeicaoItem[] = store.getItems(REGISTRO_REFEICAO_STORE);
-
-        // "perfil": perfilItem,
-        // "registros": registroRefeicaoItems,
+        var registroRefeicaoItems: RegistroRefeicaoItem[] = store.getItemsFull(REGISTRO_REFEICAO_STORE);
 
         post(`/sync`, {
-            "cardapioItems": cardapioItems
-        }).then(async (resp) => {
+            "cardapioItems": cardapioItems,
+            "perfil": perfilItem,
+            "registroRefeicaoItems": registroRefeicaoItems
+        }).then(async (resp:ISync) => {
 
-            if (resp && resp.cardapioItems && resp.cardapioItems.length > 0) {
-                await store.addItemsAll(CARDAPIO_STORE, resp.cardapioItems);
+            if (resp) {
+                if (resp.cardapioItems && resp.cardapioItems.length > 0) {
+                    await store.addItemsAll(CARDAPIO_STORE, resp.cardapioItems);
+                }
+
+                if (resp.registroRefeicaoItems && resp.registroRefeicaoItems.length > 0) {
+                    await store.addItemsAll(REGISTRO_REFEICAO_STORE, resp.registroRefeicaoItems);
+                }
+
+                if (resp.perfil !== null) {
+                    await store.updateSingle(PERFIL_STORE, resp.perfil);
+                }
             }
 
             showOk("Seus dados foram sincronizados com sucesso.");

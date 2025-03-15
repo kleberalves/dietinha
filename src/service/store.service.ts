@@ -25,7 +25,7 @@ export const store = (() => {
 
     }
 
-    const addItem = <T>(storeName: string, item: T) => {
+    const addItem = <T>(storeName: string, item: BaseItem) => {
 
         return new Promise((resolve, reject) => {
 
@@ -102,7 +102,8 @@ export const store = (() => {
     }
 
 
-    const updateSingle = <T>(storeName: string, values: Dictionary[]) => {
+    const updateSingle = <T>(storeName: string, item: BaseItem) => {
+
 
         let items: any[] = store.getItems(storeName);
 
@@ -113,16 +114,18 @@ export const store = (() => {
                 key: "id",
                 value: items[0].id
             })
+
+            item["id"] = items[0].id;
         }
 
-        updateItemsByFields<T>(storeName, conditions, values);
+        updateItem<T>(storeName, conditions, item);
 
     }
 
     const updateItemsByFields = <T>(storeName: string, conditions: Dictionary[], values: Dictionary[]) => {
 
         let store = loadLocalStorage(storeName);
-        let item: T = {} as T;
+        let item: BaseItem = {} as BaseItem;
 
         if (store === null) {
             store = {
@@ -134,10 +137,6 @@ export const store = (() => {
         //Se a lista estiver vazia, adiciona na lista
         if (store.items.length === 0) {
 
-            for (let q = 0; q < conditions.length; q++) {
-                item[conditions[q].key] = conditions[q].value;
-            }
-
             for (let v = 0; v < values.length; v++) {
                 item[values[v].key] = values[v].value;
             }
@@ -147,7 +146,7 @@ export const store = (() => {
         } else {
 
             for (let i = 0; i < store.items.length; i++) {
-                item = store.items[i] as T;
+                item = store.items[i] as BaseItem;
 
                 let cont = 0;
                 for (let q = 0; q < conditions.length; q++) {
@@ -186,7 +185,66 @@ export const store = (() => {
 
     }
 
-    const saveHistorico = <T>(storeName: string, item: T) => {
+    const updateItem = <T>(storeName: string, conditions: Dictionary[], item: BaseItem) => {
+
+        let store = loadLocalStorage(storeName);
+
+        if (store === null) {
+            store = {
+                name: storeName,
+                items: []
+            }
+        }
+
+        //Se a lista estiver vazia, adiciona na lista
+        if (store.items.length === 0) {
+
+            addItem<T>(storeName, item);
+
+        } else {
+
+            for (let i = 0; i < store.items.length; i++) {
+                let localItem = store.items[i] as BaseItem;
+
+                let cont = 0;
+                for (let q = 0; q < conditions.length; q++) {
+                    if (item[conditions[q].key] === conditions[q].value) {
+                        cont++;
+                    }
+                }
+
+                if (cont === conditions.length) {
+
+                    let props = Object.entries(item);
+                    for(let p=0; p<props.length; p++){
+                        localItem[props[p][0]] = props[p][1];
+                    }
+
+                    localItem["updated"] = localISOString();
+
+                    //Salva por padrão no localStorage
+                    saveDataLocal(store, storeName);
+
+                    window.dispatchEvent(
+                        new CustomEvent(STORE_UPDATED_ITEM, {
+                            detail: {
+                                store: storeName,
+                                item: localItem,
+                                items: filterActive(store.items)
+                            }
+                        })
+                    );
+                }
+            }
+        }
+
+        saveHistorico<T>(storeName, item);
+
+        return item;
+
+    }
+
+    const saveHistorico = <T>(storeName: string, item: BaseItem) => {
 
         let storeNameHistorico = `${storeName}_HISTORICO`;
         let storeHistorico = loadLocalStorage(storeNameHistorico);
@@ -244,7 +302,7 @@ export const store = (() => {
         /** Obtém os items no Local Storage */
         getItems: getItems,
         /** Obtém os items no Local Storage */
-        getSingle: <T>(storeName: string):T | null => {
+        getSingle: <T>(storeName: string): T | null => {
             let items: T[] = getItems<T>(storeName);
             if (items.length === 0) {
                 return null;

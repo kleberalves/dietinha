@@ -21,9 +21,13 @@ class RegistroAlimentos extends Base {
 
             this.itemsShow = [];
             render(this, html``);
-            
+
             this.render(e.detail.items);
-            swapScreen("registro");
+            
+            //Redireciona apenas    se for o primeiro registro
+            if (e.detail.items.length === 1) {
+                swapScreen("registro");
+            }
 
         });
 
@@ -31,7 +35,7 @@ class RegistroAlimentos extends Base {
 
             this.itemsShow = [];
             render(this, html``);
-            
+
             this.render(e.detail.items);
         });
 

@@ -65,7 +65,7 @@ form {
     border-radius: 20px;
     background-color: var(--theme-color);
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     padding-bottom: 15px;
     position: sticky;
     left: 0px;

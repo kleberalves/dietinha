@@ -40,8 +40,6 @@ export const calcularMetaDiaria = () => {
 
             numTMB = Math.round(numTMB);
 
-            //var numTMB = numPeso * 22;
-
             if (opcaoAtividadeFisica.value >= 1 && opcaoAtividadeFisica.value <= 3) {
 
                 var resultadoCaloriasPorDia = 0;
@@ -63,65 +61,22 @@ export const calcularMetaDiaria = () => {
                 var resultadoParaEmagrecer = Math.round(resultadoCaloriasPorDia - (resultadoCaloriasPorDia * 0.2));
                 var resultadoParaGanharMassa = Math.round(resultadoCaloriasPorDia + (resultadoCaloriasPorDia * 0.1));
                 var resultadoProteinas = Math.round(numPeso.value * 1.6);
-                let data: Dictionary[] = [];
 
-                if (genero &&
-                    altura
-                ) {
-                    data.push({
-                        key: "genero",
-                        value: genero.value
-                    });
+                let perfil: Perfil = {
+                    genero: genero.value,
+                    altura: altura.value,
+                    idade: idade.value,
+                    tmb: numTMB,
+                    peso: numPeso.value,
+                    atividadeFisica: opcaoAtividadeFisica.value,
+                    manterPeso: resultadoCaloriasPorDia,
+                    perderPeso: resultadoParaEmagrecer,
+                    ganharMassa: resultadoParaGanharMassa,
+                    proteinas: resultadoProteinas,
+                    objetivo: objetivo.value
+                } as Perfil
 
-                    data.push({
-                        key: "altura",
-                        value: altura.value
-                    });
-
-                    data.push({
-                        key: "idade",
-                        value: idade.value
-                    });
-
-                    data.push({
-                        key: "tmb",
-                        value: numTMB
-                    });
-
-                    data.push({
-                        key: "peso",
-                        value: numPeso.value
-                    });
-
-                    data.push({
-                        key: "atividadeFisica",
-                        value: opcaoAtividadeFisica.value
-                    });
-
-                    data.push({
-                        key: "manterPeso",
-                        value: resultadoCaloriasPorDia
-                    });
-
-                    data.push({
-                        key: "perderPeso",
-                        value: resultadoParaEmagrecer
-                    });
-                    data.push({
-                        key: "ganharMassa",
-                        value: resultadoParaGanharMassa
-                    });
-                    data.push({
-                        key: "proteinas",
-                        value: resultadoProteinas
-                    });
-                    data.push({
-                        key: "objetivo",
-                        value: objetivo.value
-                    });
-                }
-
-                store.updateSingle(PERFIL_STORE, data);
+                store.updateSingle<Perfil>(PERFIL_STORE, perfil);
 
                 showOk("Meta Diária cadastrada com sucesso.");
 
