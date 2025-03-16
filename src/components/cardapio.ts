@@ -1,7 +1,7 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { CARDAPIO_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { searchList } from "../lib/search.lib";
 
 class Cardapio extends Base {
@@ -13,16 +13,16 @@ class Cardapio extends Base {
     constructor() {
         super();
 
-        store.onAddedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(stores.Cardapio, (e: CustomEventInit) => {
             this.defineList(e.detail.items);
         });
 
-        store.onRemovedItem(CARDAPIO_STORE, (e: CustomEventInit) => {
+        store.onRemovedItem(stores.Cardapio, (e: CustomEventInit) => {
             this.defineList(e.detail.items);
         });
     }
 
-    defineList(items:CardapioItem[]):void{
+    defineList(items: CardapioItem[]): void {
         this.items = items;
         this.itemsView = this.items;
         this.render();
@@ -36,7 +36,16 @@ class Cardapio extends Base {
 
     connectedCallback() {
 
-        this.defineList(store.getItems<CardapioItem>(CARDAPIO_STORE));
+        store.onReplacedAll((e: CustomEventInit) => {
+            //Atualiza o cardápio quando o storage for atualizado via Sync
+            this.getCardapio();
+        });
+
+        this.getCardapio();
+    }
+
+    getCardapio() {
+        this.defineList(store.getItems<CardapioItem>(stores.Cardapio));
     }
 
     onTxtPesquisaInput(target: HTMLInputElement) {

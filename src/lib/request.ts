@@ -1,4 +1,4 @@
-import { API_BASE_URL_SERVER, API_MODULE_DIET, getenv, LOGIN_STORE } from "../service/config.service";
+import { API_BASE_URL_SERVER, API_MODULE_DIET, getenv, stores } from "../service/config.service";
 import { store } from "../service/store.service";
 import { removeWindow, showLoading } from "./message.lib";
 
@@ -95,7 +95,7 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
 
         return new Promise<any>(async (resolve, reject) => {
 
-            let items: any[] = store.getItems(LOGIN_STORE);
+            let items: any[] = store.getItems(stores.Login);
             let token = undefined;
 
             if (items && items.length > 0) {

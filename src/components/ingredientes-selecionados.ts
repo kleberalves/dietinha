@@ -1,7 +1,7 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { CARDAPIO_STORE, stores } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { getRadiosCheck } from "../lib/forms";
 import { uuidv4 } from "../lib/uuidv4";
 import { showWarning } from "../lib/message.lib";
@@ -55,7 +55,7 @@ class IngredientesSelecionados extends Base {
         }
 
         this.listaIngredientes = store.getItems(stores.Ingrediente);
-        this.listaCardapio = store.getItems(CARDAPIO_STORE);
+        this.listaCardapio = store.getItems(stores.Cardapio);
 
         if (this.listaIngredientes.length > 0) {
             this.render();
@@ -163,7 +163,7 @@ class IngredientesSelecionados extends Base {
                     "created": localISOString()
                 }
 
-                store.addItem<CardapioItem>(CARDAPIO_STORE, itemCardapio);
+                store.addItem<CardapioItem>(stores.Cardapio, itemCardapio);
 
                 this.reiniciarListaIngredientes();
 

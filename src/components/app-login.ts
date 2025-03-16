@@ -2,9 +2,9 @@
 
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { login } from "../service/login.service";
+import { login, logout } from "../service/login.service";
 import { store } from "../service/store.service";
-import { LOGIN_STORE, stores } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
 import { sync } from "../service/sync.service";
 
@@ -30,19 +30,19 @@ class AppLogin extends Base {
 
         this.loadInfoLogin();
 
-        store.onClearedAll((e: CustomEventInit) => {
+        store.onCleared(stores.Login, (e: CustomEventInit) => {
             this.loginInfo = null;
             this.render();
         });
     }
 
     loadInfoLogin() {
-        this.loginInfo = store.getSingle<LoginInfo>(LOGIN_STORE);
+        this.loginInfo = store.getSingle<LoginInfo>(stores.Login);
         this.render();
     }
 
     btnLogout(element: HTMLButtonElement) {
-        store.clearAll(stores);
+        logout();
     }
 
     btnLogin(e: SubmitEvent) {
@@ -70,7 +70,6 @@ class AppLogin extends Base {
                         <div class="col-1">
                             <div>
                                 <label>${this.loginInfo.email}</label>
-                                <br/>
                                <div class="text-mini">
                                      ${formatDate(this.loginInfo.created, "dd/mm hh:MM")}
                                 </div>

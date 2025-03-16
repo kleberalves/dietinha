@@ -1,16 +1,14 @@
-import { getInputInt, getInputNumber, getInputString, validateFields } from "../lib/forms";
-import { API_RECAPTCHA, LOGIN_STORE } from "./config.service";
-import { showError, showOk, showWarning } from "../lib/message.lib";
+import { getInputString, validateFields } from "../lib/forms";
+import { API_RECAPTCHA, stores } from "./config.service";
+import { showError, showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 import { useRequest } from "../lib/request";
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
 
-const sendCreate = (email: string, senha: string, token: string): Promise<string> => {
+const send = (email: string, senha: string, token: string): Promise<string> => {
 
     let promise = new Promise<string>((resolve, reject) => {
-
-        let data: Dictionary[] = [];
 
         const { post } = useRequest();
 
@@ -19,7 +17,6 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
             "password": senha
         }).then(async (resp) => {
 
-
             let autoInfo: AuthInfo = {
                 email: email,
                 name: resp.name,
@@ -27,17 +24,13 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
                 profiles: resp.profiles
             } as AuthInfo
 
-            store.updateSingle<AuthInfo>(LOGIN_STORE, autoInfo);
+            store.updateSingle<AuthInfo>(stores.Login, autoInfo);
 
             resolve("ok");
 
         }).catch((e) => {
             //TODO Adicionar tratamento de erros Global
-            if (e.error) {
-                showWarning(e.error.message);
-            } else {
-                showWarning(e);
-            }
+            globalErrors(e);
             reject();
         });
 
@@ -46,6 +39,23 @@ const sendCreate = (email: string, senha: string, token: string): Promise<string
     return promise;
 }
 
+export const globalErrors = (e) => {
+    if (e.error) {
+        if (e.error.name === "TokenExpiredError") {
+            showWarning("Autenticação expirada.");
+            logout();
+        } else {
+            showWarning(e.error.message);
+        }
+    } else {
+        showWarning(e);
+    }
+}
+
+export const logout = () => {
+    // O Logout não deve excluir os demais dados pois o app poderá funcionar offline
+    store.clear(stores.Login);
+}
 export const login = (): Promise<string> => {
 
     let promise = new Promise<string>((resolve, reject) => {
@@ -59,7 +69,7 @@ export const login = (): Promise<string> => {
                 grecaptcha.ready(() => {
                     grecaptcha.execute(API_RECAPTCHA, { action: 'submit' }).then((token) => {
                         if (email.value && senha.value) {
-                            sendCreate(email.value, senha.value, token).then((ok) => {
+                            send(email.value, senha.value, token).then((ok) => {
                                 resolve(ok);
                             }).catch((error) => {
                                 reject(error);

@@ -1,6 +1,6 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { LOGIN_STORE, PERFIL_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { store } from "../service/store.service";
 import { sync } from "../service/sync.service";
 
@@ -13,11 +13,11 @@ class BtnSync extends Base {
 
     connectedCallback() {
 
-        store.onAddedItem(PERFIL_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(stores.Login, (e: CustomEventInit) => {
             this.render();
         });
 
-        store.onCleared(PERFIL_STORE, (e: CustomEventInit) => {
+        store.onCleared(stores.Login, (e: CustomEventInit) => {
             this.render();
         });
 
@@ -40,7 +40,7 @@ class BtnSync extends Base {
 
     render() {
 
-        var loginItem: any = store.getSingle(LOGIN_STORE);
+        var loginItem: any = store.getSingle(stores.Login);
         render(this, html`${loginItem !== null ? html`<img src="img/refresh.svg" class=${this.classLoad} @click=${e => this.btnSync()}/>` : null}
         `);
 

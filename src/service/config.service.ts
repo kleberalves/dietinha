@@ -1,11 +1,6 @@
 import { store } from "./store.service";
 
-export const CARDAPIO_STORE = "CARDAPIO_STORE";
-export const REGISTRO_REFEICAO_STORE = "REGISTRO_REFEICAO_STORE";
-export const CONFIG_STORE = "CONFIG_STORE";
-export const PERFIL_STORE = "PERFIL_STORE";
 export const PERFIL_STORE_HISTORICO = "PERFIL_STORE_HISTORICO";
-export const LOGIN_STORE = "LOGIN_STORE";
 export const API_BASE_URL_SERVER = "API_BASE_URL_SERVER";
 export const API_MODULE_DIET = "diet";
 export const API_RECAPTCHA = "6LcxsKoUAAAAANcv1ELzcW54Yh9SWoLuPMdSdStN";
@@ -61,14 +56,14 @@ export const setTheme = (theme: string) => {
     if (link)
         link.setAttribute("href", "css/theme." + theme + ".css");
 
-    store.updateItemsByFields<Dictionary>(CONFIG_STORE,
+    store.updateItemsByFields<Dictionary>(stores.Config,
         [],
         [{ key: "value", value: theme }, { key: "key", value: "theme" }]);
 }
 
 
 export const loadTheme = () => {
-    var theme = store.getItemByField<Dictionary>(CONFIG_STORE, { key: "key", value: "theme" });
+    var theme = store.getItemByField<Dictionary>(stores.Config, { key: "key", value: "theme" });
 
     if (theme === undefined || theme.value === undefined) {
         setTheme("light");

@@ -101,6 +101,26 @@ export const store = (() => {
 
     }
 
+    const replaceBatch = (stores: [{ storeName: string, items: BaseItem[] }]) => {
+        stores.forEach((store) => {
+            replaceList(store.storeName, store.items);
+        });
+
+        window.dispatchEvent(
+            new CustomEvent(STORE_REPLACED_ALL)
+        );
+
+    }
+    const replaceList = <T>(storeName: string, items: BaseItem[]) => {
+
+        let store = {
+            name: storeName,
+            items: items
+        }
+
+        saveDataLocal(store, storeName);
+
+    }
 
     const updateSingle = <T>(storeName: string, item: BaseItem) => {
 
@@ -307,6 +327,8 @@ export const store = (() => {
     }
 
     return {
+        //Atualiza integralmente os elementos de uma storage
+        replaceList: replaceList,
         getItemsFull: getItemsFull,
         addItemsAll: addItemsAll,
         /** Adiciona um item na store. A propriedade "Id" será criada no formato uuid (guid) */
@@ -420,6 +442,7 @@ export const store = (() => {
                 throw new Error("Store não existe.")
             }
         },
+        replaceBatch: replaceBatch,
         onAddedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
             window.addEventListener(STORE_ADDED_ITEM, (e: CustomEventInit) => {
 
@@ -457,6 +480,14 @@ export const store = (() => {
             });
         },
 
+        /** Quando os storages são atualizaods completamente. */
+        onReplacedAll: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(STORE_REPLACED_ALL, (e: CustomEventInit) => {
+                func(e);
+            });
+        },
+
+
         onUpdatedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
             window.addEventListener(STORE_UPDATED_ITEM, (e: CustomEventInit) => {
 
@@ -476,7 +507,7 @@ export const STORE_CLEARED = "STORE_CLEARED";
 export const STORE_ALL_CLEARED = "STORE_ALL_CLEARED";
 export const STORE_STORAGE_LOADED = "STORE_STORAGE_LOADED";
 export const STORE_UPDATED_ITEM = "STORE_UPDATED_ITEM";
-
+export const STORE_REPLACED_ALL = "STORE_REPLACED_ALL";
 
 declare global {
     interface Window {

@@ -1,7 +1,7 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { CARDAPIO_STORE, REGISTRO_REFEICAO_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { agrupaDias } from "../service/registro-refeicoes.service";
 import { swapScreen } from "../lib/screens.lib";
 
@@ -17,22 +17,22 @@ class RegistroAlimentos extends Base {
     constructor() {
         super();
 
-        store.onAddedItem(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(stores.RegistroRefeicao, (e: CustomEventInit) => {
 
             this.itemsShow = [];
             render(this, html``);
 
             this.render(e.detail.items);
-            
+
             //Redireciona apenas    se for o primeiro registro
-            let cardapioItems = store.getItems<CardapioItem>(CARDAPIO_STORE);
+            let cardapioItems = store.getItems<CardapioItem>(stores.Cardapio);
             if (cardapioItems.length === 1 && e.detail.items.length === 1) {
                 swapScreen("registro");
             }
 
         });
 
-        store.onRemovedItem(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
+        store.onRemovedItem(stores.RegistroRefeicao, (e: CustomEventInit) => {
 
             this.itemsShow = [];
             render(this, html``);
@@ -40,9 +40,17 @@ class RegistroAlimentos extends Base {
             this.render(e.detail.items);
         });
 
-        store.onCleared(REGISTRO_REFEICAO_STORE, (e: CustomEventInit) => {
+        store.onCleared(stores.RegistroRefeicao, (e: CustomEventInit) => {
             this.itemsShow = [];
             render(this, html``);
+        });
+
+        store.onReplacedAll((e: CustomEventInit) => {
+            this.itemsShow = [];
+            render(this, html``);
+
+            //Atualiza o registro quando o storage for atualizado via Sync
+            this.render();
         });
 
     }
@@ -60,7 +68,7 @@ class RegistroAlimentos extends Base {
     render(items?: CardapioItem[]) {
 
         if (items === undefined) {
-            items = store.getItems<CardapioItem>(REGISTRO_REFEICAO_STORE);
+            items = store.getItems<CardapioItem>(stores.RegistroRefeicao);
         }
 
         this.itemsShow = agrupaDias(items);

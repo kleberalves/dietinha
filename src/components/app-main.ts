@@ -2,7 +2,7 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { detectPathScreen, goBack, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
-import { REGISTRO_REFEICAO_STORE, CARDAPIO_STORE, PERFIL_STORE, stores } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
 import { removeWindow, showLoading } from "../lib/message.lib";
 
@@ -80,7 +80,7 @@ class AppMain extends Base {
             }
         });
 
-        store.onClearedAll((e: CustomEventInit) => {
+        store.onReplacedAll((e: CustomEventInit) => {
             this.render();
         });
 
@@ -109,13 +109,10 @@ class AppMain extends Base {
     render() {
 
 
-        this.perfilItem = store.getSingle(PERFIL_STORE);
-        this.cardapioItems = store.getItems(CARDAPIO_STORE);
-        var registroRefeicaoItems: any[] = store.getItems(REGISTRO_REFEICAO_STORE);
+        this.perfilItem = store.getSingle(stores.Perfil);
+        this.cardapioItems = store.getItems(stores.Cardapio);
+        var registroRefeicaoItems: any[] = store.getItems(stores.RegistroRefeicao);
         var ingredientesItems: any[] = store.getItems(stores.Ingrediente);
-
-        console.log(this.perfilItem, this.cardapioItems);
-
 
         render(this, html`
    

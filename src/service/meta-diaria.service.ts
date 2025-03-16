@@ -1,5 +1,5 @@
 import { getInputInt, getInputNumber, getInputString, validateFields } from "../lib/forms";
-import { PERFIL_STORE } from "./config.service";
+import { stores } from "./config.service";
 import { showError, showOk, showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 
@@ -76,7 +76,7 @@ export const calcularMetaDiaria = () => {
                     objetivo: objetivo.value
                 } as Perfil
 
-                store.updateSingle<Perfil>(PERFIL_STORE, perfil);
+                store.updateSingle<Perfil>(stores.Perfil, perfil);
 
                 showOk("Meta Diária cadastrada com sucesso.");
 
