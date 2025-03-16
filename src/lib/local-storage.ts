@@ -5,6 +5,11 @@ export const saveDataLocal = (data, key) => {
     localStorage.setItem(key, data);
 }
 
+
+export const removeLocalStorage = (key: string): void => {
+    localStorage.removeItem(key);
+}
+
 export const loadLocalStorage = (key: string): any | null => {
     var data = localStorage.getItem(key);
 

@@ -1,17 +1,17 @@
-import { API_BASE_URL_SERVER, getenv, LOGIN_STORE } from "../service/config.service";
+import { API_BASE_URL_SERVER, API_MODULE_DIET, getenv, stores } from "../service/config.service";
 import { store } from "../service/store.service";
 import { removeWindow, showLoading } from "./message.lib";
 
-export const useRequest = (error?: any, logout?: () => void) => {
+export const useRequest = (module?: string, error?: any, logout?: () => void) => {
 
-    const post = async (url: string, body: any): Promise<any> => {
-        return await request(url, "POST", JSON.stringify(body));
+    const post = async (url: string, body: any,): Promise<any> => {
+        return await request(url, "POST", JSON.stringify(body), module);
     }
 
     const get = async (url: string): Promise<Response | undefined> => {
 
         try {
-            return await request(url, "GET", null);
+            return await request(url, "GET", null, module);
         } catch (message) {
             showError(message);
         }
@@ -20,7 +20,7 @@ export const useRequest = (error?: any, logout?: () => void) => {
     const del = async (url: string): Promise<Response | undefined> => {
 
         try {
-            return await request(url, "DELETE", null);
+            return await request(url, "DELETE", null, module);
         } catch (message) {
             showError(message);
         }
@@ -30,7 +30,7 @@ export const useRequest = (error?: any, logout?: () => void) => {
         try {
             let formData = new FormData();
             await formData.append('image', file);
-            return await request(url, "POST", formData, "");
+            return await request(url, "POST", formData, module, "");
 
         } catch (error) {
             showError(error);
@@ -40,7 +40,7 @@ export const useRequest = (error?: any, logout?: () => void) => {
 
     const put = async (url: string, body: any): Promise<Response | undefined> => {
         try {
-            return await request(url, "PUT", JSON.stringify(body));
+            return await request(url, "PUT", JSON.stringify(body), module);
 
         } catch (error) {
             showError(error);
@@ -49,7 +49,7 @@ export const useRequest = (error?: any, logout?: () => void) => {
 
     const patch = async (url: string, body: any): Promise<Response | undefined> => {
         try {
-            return await request(url, "PATCH", JSON.stringify(body));
+            return await request(url, "PATCH", JSON.stringify(body), module);
 
         } catch (error) {
             showError(error);
@@ -90,11 +90,12 @@ export const useRequest = (error?: any, logout?: () => void) => {
     const request = async (url: string,
         method: string,
         body: any = null,
+        module?: string,
         contentType: string = 'application/json'): Promise<any> => {
 
         return new Promise<any>(async (resolve, reject) => {
 
-            let items: any[] = store.getItems(LOGIN_STORE);
+            let items: any[] = store.getItems(stores.Login);
             let token = undefined;
 
             if (items && items.length > 0) {
@@ -126,10 +127,16 @@ export const useRequest = (error?: any, logout?: () => void) => {
 
             showLoading();
 
+            let base: string | undefined;
+            if (module) {
+                base = getenv(API_MODULE_DIET);
+            } else {
+                base = getenv(API_BASE_URL_SERVER);
+            }
             //Preferência para API_BASE_URL_SERVER caso esteja sendo executado no servidor
             //internamente redirecionará para BASE_URL se estiver no cliente
-            fetch(`${getenv(API_BASE_URL_SERVER)}${url}`, config)
-                .then((response) => {
+            fetch(`${base}${url}`, config)
+                .then(async (response) => {
                     //Tratamentos especiais para não estourar uma mensagem de erro
 
                     //451 - Token necessário para o login
@@ -142,25 +149,28 @@ export const useRequest = (error?: any, logout?: () => void) => {
 
                     removeWindow();
 
-                    resolve(response);
 
-                    // if (response.status >= 400
-                    //     && response.status != 412
-                    //     && response.status != 451
-                    //     && response.status != 404) {
-                    //     //Retorna um json do erro para que o próximo "then"
-                    //     //possa rejeitar a promise.
-                    //     return response.json();
-                    // } else {
-                    //     //Retornos abaixo de 400 são considerados "ok"
 
-                    // }
+                    if (response.status >= 400) {
+                        //Retorna um json do erro para que o próximo "then"
+                        //possa rejeitar a promise.
+
+                        let responseBody = await response.json();
+                        console.log(responseBody);
+                        reject(responseBody);
+                    } else {
+
+                        let responseBody = await response.json();
+                        console.log(responseBody);
+                        resolve(responseBody);
+                        //Retornos abaixo de 400 são considerados "ok"
+                    }
 
                 }).catch((e) => {
 
                     if (e.toString().toLowerCase().indexOf("failed to fetch")) {
                         resolve("Não foi possível alcançar os nossos servidores. Verifique a internet e tente novamente.");
-                    }else {
+                    } else {
                         resolve(e.toString());
                     }
 

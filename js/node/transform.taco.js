@@ -123,12 +123,40 @@ function transform() {
         {
             "id": "602",
             "nome": "Macarrão cozido",
-            "categoria": "Cereais",
+            "categoria": "Massas",
             "calorias": 158,
             "proteina": 6,
             "gordura": 0
         }
     );
+
+    listaAlimentos.push(
+        {
+            "id": "603",
+            "nome": "Latão Heineken Cerveja",
+            "categoria": "Cervejas",
+            "calorias": 44,
+            "carboidratos": 3.3,
+            "proteina": 0.4,
+            "gordura": 0, 
+            "unidade": "ml"
+        }
+    );
+
+    
+    listaAlimentos.push(
+        {
+            "id": "604",
+            "nome": "Long neck Heineken Cerveja",
+            "categoria": "Cervejas",
+            "calorias": 42,
+            "carboidratos": 3.3,
+            "proteina": 0.4,
+            "gordura": 0,
+            "unidade": "ml"
+        }
+    );
+
 
     fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.js"), "var listaAlimentos = " + JSON.stringify(listaAlimentos) + "; ");
     fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.ausentes.js"), "var listaAlimentosAusentes = " + JSON.stringify(listaAlimentosSemCalorias) + "; ");
@@ -143,7 +171,7 @@ function transform() {
             checkName(alimento.nome, "galinha")) {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
-                "label": "Unidade",
+                "label": "Unidade(s)",
                 "rating": 30
             }
 
@@ -151,7 +179,7 @@ function transform() {
             checkName(alimento.nome, "francês")) {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
-                "label": "Unidade",
+                "label": "Unidade(s)",
                 "rating": 35
             }
 
@@ -161,7 +189,7 @@ function transform() {
             checkName(alimento.nome, "farinha")) {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
-                "label": "Colher de sopa",
+                "label": "Colher(es) de sopa",
                 "rating": 30
             }
 
@@ -169,7 +197,7 @@ function transform() {
             checkName(alimento.nome, "forma")) {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
-                "label": "Fatia pão de forma",
+                "label": "Fatia(s) de pão de forma",
                 "rating": 25
             }
 
@@ -177,7 +205,7 @@ function transform() {
             checkName(alimento.nome, "mussarela")) {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
-                "label": "Fatia",
+                "label": "Fatia(s)",
                 "rating": 25
             }
 
@@ -185,14 +213,26 @@ function transform() {
             checkName(alimento.nome, "codorna")) {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
-                "label": "Unidade",
+                "label": "Unidade(s)",
                 "rating": 10
             }
         } else if (checkName(alimento.nome, "banana")) {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
-                "label": "Unidade",
+                "label": "Unidade(s)",
                 "rating": 70
+            }
+        } else if (checkName(alimento.nome, "latão")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Unidade(s)",
+                "rating": 473
+            }
+        } else if (checkName(alimento.nome, "long neck")) {
+            alimentoUnidade = {
+                "idAlimento": alimento.id,
+                "label": "Unidade(s)",
+                "rating": 330
             }
         }
 

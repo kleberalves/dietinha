@@ -75,7 +75,7 @@ button:disabled {
 
 .btn-remove {
     top: 25%;
-    right: 0px;
+    right: 10px;
 }
 
 .btn-tab-switch {
@@ -225,4 +225,16 @@ button:disabled {
     display: block;
     width: 30px;
     height: 30px;
+    transform: rotate(90deg);
+}
+
+@keyframes rotate-icon {
+    0% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-icon.rotate {
+    animation: rotate-icon forwards 2s infinite;
+    animation-timing-function: linear;
 }

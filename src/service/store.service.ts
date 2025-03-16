@@ -1,6 +1,6 @@
 //export { };
 
-import { loadLocalStorage, saveDataLocal } from "../lib/local-storage";
+import { loadLocalStorage, removeLocalStorage, saveDataLocal } from "../lib/local-storage";
 import { localISOString } from "../lib/treatments";
 import { uuidv4 } from "../lib/uuidv4";
 
@@ -25,7 +25,7 @@ export const store = (() => {
 
     }
 
-    const addItem = <T>(storeName: string, item: T) => {
+    const addItem = <T>(storeName: string, item: BaseItem) => {
 
         return new Promise((resolve, reject) => {
 
@@ -53,7 +53,7 @@ export const store = (() => {
                         detail: {
                             store: storeName,
                             item: item,
-                            items: store.items
+                            items: filterActive(store.items)
                         }
                     })
                 );
@@ -68,7 +68,62 @@ export const store = (() => {
 
     }
 
-    const updateSingle = <T>(storeName: string, values: Dictionary[]) => {
+    const addItemsAll = <T>(storeName: string, items: T[]) => {
+
+        return new Promise((resolve, reject) => {
+
+            try {
+
+                let store = {
+                    name: storeName,
+                    items: items as T[]
+                }
+
+                //Salva por padrão no localStorage
+                saveDataLocal(store, storeName);
+
+                window.dispatchEvent(
+                    new CustomEvent(STORE_ADDED_ITEM, {
+                        detail: {
+                            store: storeName,
+                            items: filterActive<T>(store.items as BaseItem[])
+                        }
+                    })
+                );
+
+                resolve(store.items);
+
+            }
+            catch (e) {
+                reject(e);
+            }
+        });
+
+    }
+
+    const replaceBatch = (stores: [{ storeName: string, items: BaseItem[] }]) => {
+        stores.forEach((store) => {
+            replaceList(store.storeName, store.items);
+        });
+
+        window.dispatchEvent(
+            new CustomEvent(STORE_REPLACED_ALL)
+        );
+
+    }
+    const replaceList = <T>(storeName: string, items: BaseItem[]) => {
+
+        let store = {
+            name: storeName,
+            items: items
+        }
+
+        saveDataLocal(store, storeName);
+
+    }
+
+    const updateSingle = <T>(storeName: string, item: BaseItem) => {
+
 
         let items: any[] = store.getItems(storeName);
 
@@ -79,16 +134,18 @@ export const store = (() => {
                 key: "id",
                 value: items[0].id
             })
+
+            item["id"] = items[0].id;
         }
 
-        updateItemsByFields<T>(storeName, conditions, values);
+        updateItem<T>(storeName, conditions, item);
 
     }
 
     const updateItemsByFields = <T>(storeName: string, conditions: Dictionary[], values: Dictionary[]) => {
 
         let store = loadLocalStorage(storeName);
-        let item: T = {} as T;
+        let item: BaseItem = {} as BaseItem;
 
         if (store === null) {
             store = {
@@ -100,10 +157,6 @@ export const store = (() => {
         //Se a lista estiver vazia, adiciona na lista
         if (store.items.length === 0) {
 
-            for (let q = 0; q < conditions.length; q++) {
-                item[conditions[q].key] = conditions[q].value;
-            }
-
             for (let v = 0; v < values.length; v++) {
                 item[values[v].key] = values[v].value;
             }
@@ -113,7 +166,7 @@ export const store = (() => {
         } else {
 
             for (let i = 0; i < store.items.length; i++) {
-                item = store.items[i] as T;
+                item = store.items[i] as BaseItem;
 
                 let cont = 0;
                 for (let q = 0; q < conditions.length; q++) {
@@ -138,7 +191,7 @@ export const store = (() => {
                             detail: {
                                 store: storeName,
                                 item: item,
-                                items: store.items
+                                items: filterActive(store.items)
                             }
                         })
                     );
@@ -152,7 +205,66 @@ export const store = (() => {
 
     }
 
-    const saveHistorico = <T>(storeName: string, item: T) => {
+    const updateItem = <T>(storeName: string, conditions: Dictionary[], item: BaseItem) => {
+
+        let store = loadLocalStorage(storeName);
+
+        if (store === null) {
+            store = {
+                name: storeName,
+                items: []
+            }
+        }
+
+        //Se a lista estiver vazia, adiciona na lista
+        if (store.items.length === 0) {
+
+            addItem<T>(storeName, item);
+
+        } else {
+
+            for (let i = 0; i < store.items.length; i++) {
+                let localItem = store.items[i] as BaseItem;
+
+                let cont = 0;
+                for (let q = 0; q < conditions.length; q++) {
+                    if (item[conditions[q].key] === conditions[q].value) {
+                        cont++;
+                    }
+                }
+
+                if (cont === conditions.length) {
+
+                    let props = Object.entries(item);
+                    for (let p = 0; p < props.length; p++) {
+                        localItem[props[p][0]] = props[p][1];
+                    }
+
+                    localItem["updated"] = localISOString();
+
+                    //Salva por padrão no localStorage
+                    saveDataLocal(store, storeName);
+
+                    window.dispatchEvent(
+                        new CustomEvent(STORE_UPDATED_ITEM, {
+                            detail: {
+                                store: storeName,
+                                item: localItem,
+                                items: filterActive(store.items)
+                            }
+                        })
+                    );
+                }
+            }
+        }
+
+        saveHistorico<T>(storeName, item);
+
+        return item;
+
+    }
+
+    const saveHistorico = <T>(storeName: string, item: BaseItem) => {
 
         let storeNameHistorico = `${storeName}_HISTORICO`;
         let storeHistorico = loadLocalStorage(storeNameHistorico);
@@ -168,17 +280,57 @@ export const store = (() => {
         saveDataLocal(storeHistorico, storeNameHistorico);
     }
 
-    const getItems = <T>(storeName: string) => {
+
+    const getItemsFull = <BaseItem>(storeName: string): BaseItem[] => {
 
         let store = loadLocalStorage(storeName);
         if (store !== null) {
-            return store["items"] as T;
+            return store["items"] as BaseItem[];
         } else {
-            return [] as T;
+            return [] as BaseItem[];
+        }
+    }
+
+    const filterActive = <T>(storeItems: BaseItem[]): T[] => {
+        return storeItems.filter((item, b, c) => {
+            return item.deleted === null || item.deleted === undefined;
+        }) as T[];
+    }
+
+    const getItems = <T>(storeName: string): T[] => {
+
+        let storeItems = getItemsFull<BaseItem>(storeName);
+        if (storeItems.length > 0) {
+            return filterActive(storeItems);
+        } else {
+            return [] as T[];
+        }
+    }
+
+    const clear = (storeName: string) => {
+
+        let store = loadLocalStorage(storeName);
+        if (store !== null) {
+
+            store.items = [];
+
+            saveDataLocal(store, storeName);
+
+            window.dispatchEvent(
+                new CustomEvent(STORE_CLEARED, {
+                    detail: {
+                        store: storeName
+                    }
+                })
+            )
         }
     }
 
     return {
+        //Atualiza integralmente os elementos de uma storage
+        replaceList: replaceList,
+        getItemsFull: getItemsFull,
+        addItemsAll: addItemsAll,
         /** Adiciona um item na store. A propriedade "Id" será criada no formato uuid (guid) */
         addItem: addItem,
         /** Retorna uma lista de itens de acordo com a uma query/lista de 
@@ -191,33 +343,29 @@ export const store = (() => {
         /** Obtém os items no Local Storage */
         getItems: getItems,
         /** Obtém os items no Local Storage */
-        getSingle: <T>(storeName: string) => {
-            let items: T[] = getItems<T[]>(storeName);
+        getSingle: <T>(storeName: string): T | null => {
+            let items: T[] = getItems<T>(storeName);
             if (items.length === 0) {
                 return null;
             }
             return items[0];
         },
-        /** Limpa todos os dados da store incluindo no local storage */
-        clear: (storeName: string) => {
+        /** Limpa todos os dados da store do local storage */
+        clear: clear,
+        /** Limpa todos os stores do local storage */
+        clearAll: (stores: object) => {
 
-            let store = loadLocalStorage(storeName);
-            if (store !== null) {
-
-                store.items = [];
-
-                saveDataLocal(store, storeName);
-
-                window.dispatchEvent(
-                    new CustomEvent(STORE_CLEARED, {
-                        detail: {
-                            store: storeName
-                        }
-                    })
-                )
-            } else {
-                throw new Error("Store não existe.")
+            let storesLst = Object.entries(stores);
+            for (let p = 0; p < storesLst.length; p++) {
+                clear(storesLst[p][1]);
             }
+
+            window.dispatchEvent(
+                new CustomEvent(STORE_ALL_CLEARED, {
+                    detail: null
+                })
+            )
+
         },
 
         /** Retorna um item pelo "Id" */
@@ -270,7 +418,8 @@ export const store = (() => {
                     item = store.items[i];
 
                     if (item.id === itemId) {
-                        store.items.splice(i, 1);
+
+                        item["deleted"] = localISOString();
 
                         saveDataLocal(store, storeName);
 
@@ -279,10 +428,12 @@ export const store = (() => {
                                 detail: {
                                     store: storeName,
                                     item: item,
-                                    items: store.items
+                                    items: filterActive(store.items)
                                 }
                             })
                         )
+
+                        break;
                     }
                 }
 
@@ -291,6 +442,7 @@ export const store = (() => {
                 throw new Error("Store não existe.")
             }
         },
+        replaceBatch: replaceBatch,
         onAddedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
             window.addEventListener(STORE_ADDED_ITEM, (e: CustomEventInit) => {
 
@@ -322,6 +474,20 @@ export const store = (() => {
             });
         },
 
+        onClearedAll: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(STORE_ALL_CLEARED, (e: CustomEventInit) => {
+                func(e);
+            });
+        },
+
+        /** Quando os storages são atualizaods completamente. */
+        onReplacedAll: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(STORE_REPLACED_ALL, (e: CustomEventInit) => {
+                func(e);
+            });
+        },
+
+
         onUpdatedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
             window.addEventListener(STORE_UPDATED_ITEM, (e: CustomEventInit) => {
 
@@ -338,9 +504,10 @@ export const store = (() => {
 export const STORE_ADDED_ITEM = "STORE_ADDED_ITEM";
 export const STORE_REMOVED_ITEM = "STORE_REMOVED_ITEM";
 export const STORE_CLEARED = "STORE_CLEARED";
+export const STORE_ALL_CLEARED = "STORE_ALL_CLEARED";
 export const STORE_STORAGE_LOADED = "STORE_STORAGE_LOADED";
 export const STORE_UPDATED_ITEM = "STORE_UPDATED_ITEM";
-
+export const STORE_REPLACED_ALL = "STORE_REPLACED_ALL";
 
 declare global {
     interface Window {

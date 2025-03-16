@@ -44,13 +44,13 @@
 }
 
 .alert.success {
-    background-color: #4CAF50;
+    background-color: #207e6e;
     top: 80px;
 
 }
 
 .alert.warning {
-    background-color: #c87200;
+    background-color: #965f18;
 }
 
 .alert .bar-actions {

@@ -1,10 +1,10 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE, CARDAPIO_STORE } from "../service/config.service";
 import { uuidv4 } from "../lib/uuidv4";
 import { localISOString } from "../lib/treatments";
 import { showConfirm, showPopup } from "../lib/message.lib";
+import { stores } from "../service/config.service";
 
 class AppCardapioItem extends Base {
 
@@ -48,7 +48,7 @@ class AppCardapioItem extends Base {
         }
     }
 
-    selecionarItem() {
+    showSelecionarItem() {
 
         this.pesoInicial = this.props.item.peso > 800 ? 100 : this.props.item.peso;
 
@@ -66,39 +66,40 @@ class AppCardapioItem extends Base {
                                         </div>
                             </div>
                     </div>`,
-            () => {
-
-                let ele: HTMLInputElement = document.querySelector("#intPesoAlimento") as HTMLInputElement;
-                let peso: number = parseFloat(ele.value);
-
-                var cardapioItem: CardapioItem | undefined = store.getItemById<CardapioItem>(CARDAPIO_STORE, this.props.item.id);
-
-                if (cardapioItem) {
-
-                    let calorias: number = Math.round((peso * cardapioItem.calorias) / cardapioItem.peso);
-                    let proteinas: number = Math.round((peso * cardapioItem.proteinas) / cardapioItem.peso);
-
-                    let itemAlimentacao: RegistroRefeicao = {
-                        "id": uuidv4(),
-                        "idCardapio": cardapioItem.id,
-                        "nome": cardapioItem.nome,
-                        "tipo": cardapioItem.tipo,
-                        "calorias": calorias,
-                        "proteinas": proteinas,
-                        "peso": peso,
-                        "created": localISOString()
-                    }
-
-                    store.addItem(ALIMENTACAO_STORE, itemAlimentacao).then((info) => {
-                        this.reiniciarAlimentacao();
-                    });
-                }
-            },
+            () => this.selecionarItem(),
             () => {
                 this.calcularAlimento(this.pesoInicial.toString());
             });
 
-     
+
+    }
+
+    selecionarItem() {
+        let ele: HTMLInputElement = document.querySelector("#intPesoAlimento") as HTMLInputElement;
+        let peso: number = parseFloat(ele.value);
+
+        if (this.props.item.id)
+            var cardapioItem: CardapioItem | undefined = store.getItemById<CardapioItem>(stores.Cardapio, this.props.item.id);
+
+        if (cardapioItem) {
+
+            let calorias: number = Math.round((peso * cardapioItem.calorias) / cardapioItem.peso);
+            let proteinas: number = Math.round((peso * cardapioItem.proteinas) / cardapioItem.peso);
+
+            let itemAlimentacao: RegistroRefeicaoItem = {
+                "id": uuidv4(),
+                "nome": cardapioItem.nome,
+                "tipo": cardapioItem.tipo,
+                "calorias": calorias,
+                "proteinas": proteinas,
+                "peso": peso,
+                "created": localISOString()
+            }
+
+            store.addItem(stores.RegistroRefeicao, itemAlimentacao).then((info) => {
+                this.reiniciarAlimentacao();
+            });
+        }
     }
 
     reiniciarAlimentacao() {
@@ -107,27 +108,33 @@ class AppCardapioItem extends Base {
 
     removerItemCardapio() {
 
-        showConfirm("Você tem certeza que deseja remover este item do seu cardário?", () => {
-            store.removeItemById(CARDAPIO_STORE, this.props.item.id);
-        })
+        if (this.props.item.id) {
+            showConfirm("Você tem certeza que deseja remover este item do seu cardário?", () => {
+                if (this.props.item.id)
+                    store.removeItemById(stores.Cardapio, this.props.item.id);
+            })
+        }
     }
 
     render() {
 
         this.props = {
-            idx: JSON.parse(this.p("idx")),
+            idx: parseInt(this.p("idx")),
             item: JSON.parse(this.p("item"))
         }
+
 
         render(this, html`
                 <div class='listItem cardapio delay'>
                    <div class='title'>${this.props.item.nome}</div>
-                        ${this.props.item.itens.map((item, idx) => {
-            var peso = item.peso === undefined ? "100" : item.peso;
-            var unidade = item.unidade === undefined ? "g" : item.unidade;
+                        ${this.props.item.ingredientes.map((item, idx) => {
+            var peso = item.peso === undefined || item.peso === null ? "100" : item.peso;
+            var unidade = item.unidade === null || item.unidade === undefined ? "g" : item.unidade;
+            let unidAltPeso = Math.round(item.peso / item.unidAltPeso);
+
             return html`<div class='list mini'>
                         <div class='item mini'>
-                                <span> ${peso}${unidade} </span> de ${item.nome}
+                                <span> ${peso}${unidade} </span> ${item.unidAltPeso > 0 ? html`/ <span>${unidAltPeso}</span> ${item.unidAltDesc.toLowerCase()}` : null} de ${item.nome} 
                         </div>
                     </div>` })}
                         
@@ -136,7 +143,7 @@ class AppCardapioItem extends Base {
                     <div class="btn-trash" @click=${() => this.removerItemCardapio()}></div>
                 </div>
                 <div class='actions center'>
-                    <button class='btn-selecionar' onclick=${() => this.selecionarItem()}> Consumi este alimento </button>
+                    <button class='btn-selecionar' onclick=${() => this.showSelecionarItem()}> Consumi este alimento </button>
                 </div>
                 </div>`);
     }

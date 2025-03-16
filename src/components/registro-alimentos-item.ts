@@ -2,8 +2,8 @@ import { Hole, html, render } from "uhtml";
 import { Base } from "./base";
 import { showConfirm } from "../lib/message.lib";
 import { store } from "../service/store.service";
-import { ALIMENTACAO_STORE } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
+import { stores } from "../service/config.service";
 
 class RegistroAlimentosItem extends Base {
 
@@ -18,10 +18,12 @@ class RegistroAlimentosItem extends Base {
         this.render();
     }
 
-    removerItemCardapio(id: string) {
-        showConfirm("Você tem certeza que deseja remover este item do seu registro diário?", () => {
-            store.removeItemById(ALIMENTACAO_STORE, id);
-        })
+    removerItemCardapio(id?: string) {
+        if (id) {
+            showConfirm("Você tem certeza que deseja remover este item do seu registro diário?", () => {
+                store.removeItemById(stores.RegistroRefeicao, id);
+            })
+        }
     }
 
     render() {
@@ -51,7 +53,7 @@ class RegistroAlimentosItem extends Base {
             totalCalorias += itemCalculo.calorias;
             totalProteinas += itemCalculo.proteinas;
             totalPeso += itemCalculo.peso;
-            
+
         }
 
 

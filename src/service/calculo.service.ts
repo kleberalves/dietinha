@@ -1,4 +1,4 @@
-import { INGREDIENTES_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 
@@ -84,7 +84,7 @@ const calcularAlimento = (peso: number, idxResultado: number, idProduto: string)
     }
 }
 
-export const adicionarCalculo = (idxResultado: number, idProduto: string) => {
+export const adicionarCalculo = (idxResultado: number, idProduto: string, unidadeAlt: UnidadeAlt) => {
 
     try {
         var elementPeso: HTMLInputElement = document.getElementById("inputPeso" + idxResultado) as HTMLInputElement;
@@ -108,13 +108,16 @@ export const adicionarCalculo = (idxResultado: number, idProduto: string) => {
 
         if (produto !== undefined) {
 
-            store.addItem(INGREDIENTES_STORE, {
+            store.addItem<Ingrediente>(stores.Ingrediente, {
                 "nome": produto.nome,
                 "calorias": caloriasValue,
                 "proteinas": proteinasValue,
+                "idProduto": produto.id,
                 "peso": pesoValue,
-                "unidade": produto.unidade
-            });
+                "unidade": produto.unidade,
+                "unidAltDesc": unidadeAlt.desc,
+                "unidAltPeso": unidadeAlt.peso,
+            } as Ingrediente);
         }
 
     }

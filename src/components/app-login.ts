@@ -2,18 +2,17 @@
 
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { login } from "../service/login.service";
+import { login, logout } from "../service/login.service";
 import { store } from "../service/store.service";
-import { LOGIN_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
-
-type Nullable<T> = T | null;
+import { sync } from "../service/sync.service";
 
 interface LoginInfo {
     name?: string;
     email: string;
     token?: string;
-    created:string;
+    created: string;
 }
 
 class AppLogin extends Base {
@@ -21,7 +20,7 @@ class AppLogin extends Base {
     items: CardapioItem[] = [];
     itemsView: CardapioItem[] = [];
     showSearch: boolean = false;
-    loginInfo: Nullable<LoginInfo>;
+    loginInfo: LoginInfo | null;
 
     constructor() {
         super();
@@ -30,17 +29,20 @@ class AppLogin extends Base {
     connectedCallback() {
 
         this.loadInfoLogin();
+
+        store.onCleared(stores.Login, (e: CustomEventInit) => {
+            this.loginInfo = null;
+            this.render();
+        });
     }
 
     loadInfoLogin() {
-        this.loginInfo = store.getSingle<LoginInfo>(LOGIN_STORE);
+        this.loginInfo = store.getSingle<LoginInfo>(stores.Login);
         this.render();
     }
 
     btnLogout(element: HTMLButtonElement) {
-        store.clear(LOGIN_STORE);
-        this.loginInfo = null;
-        this.render();
+        logout();
     }
 
     btnLogin(e: SubmitEvent) {
@@ -48,6 +50,15 @@ class AppLogin extends Base {
 
         login().then(() => {
             this.loadInfoLogin();
+
+            sync().then(() => {
+            }).catch((e) => {
+                console.log(e);
+            }).finally(() => {
+            });
+
+        }).catch((e) => {
+            console.log(e);
         });
     }
 
@@ -58,18 +69,16 @@ class AppLogin extends Base {
                      <div class="form">
                         <div class="col-1">
                             <div>
-                                <label>Login:</label>
-                                ${this.loginInfo.email}
-                                <br/>
+                                <label>${this.loginInfo.email}</label>
                                <div class="text-mini">
                                      ${formatDate(this.loginInfo.created, "dd/mm hh:MM")}
                                 </div>
                             </div>
-
-                              <div class="col-1">
-                                    <button class="btn-main delay4" @click=${(e) => this.btnLogout(e)}>Deslogar</button>
-                                </div> 
                         </div>  
+
+                        <div class="action-bar-bottom">
+                        <button class="btn-main delay4" @click=${(e) => this.btnLogout(e)}>Deslogar</button> 
+                        </div>
                      </div>                         
                         ` : null}
 

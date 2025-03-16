@@ -1,7 +1,7 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { CARDAPIO_STORE, INGREDIENTES_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { getRadiosCheck } from "../lib/forms";
 import { uuidv4 } from "../lib/uuidv4";
 import { showWarning } from "../lib/message.lib";
@@ -22,13 +22,13 @@ class IngredientesSelecionados extends Base {
         super();
 
 
-        store.onAddedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
+        store.onAddedItem(stores.Ingrediente, (e: CustomEventInit) => {
 
             this.listaIngredientes = e.detail.items;
             this.render();
         });
 
-        store.onRemovedItem(INGREDIENTES_STORE, (e: CustomEventInit) => {
+        store.onRemovedItem(stores.Ingrediente, (e: CustomEventInit) => {
 
             if (e.detail.items.length === 0) {
                 this.listaIngredientes = [];
@@ -39,7 +39,7 @@ class IngredientesSelecionados extends Base {
             }
         });
 
-        store.onCleared(INGREDIENTES_STORE, (e: CustomEventInit) => {
+        store.onCleared(stores.Ingrediente, (e: CustomEventInit) => {
 
             this.listaIngredientes = [];
             render(this, html``);
@@ -54,8 +54,8 @@ class IngredientesSelecionados extends Base {
             id: this.p("id"),
         }
 
-        this.listaIngredientes = store.getItems(INGREDIENTES_STORE);
-        this.listaCardapio = store.getItems(CARDAPIO_STORE);
+        this.listaIngredientes = store.getItems(stores.Ingrediente);
+        this.listaCardapio = store.getItems(stores.Cardapio);
 
         if (this.listaIngredientes.length > 0) {
             this.render();
@@ -159,11 +159,11 @@ class IngredientesSelecionados extends Base {
                     "calorias": totalCalorias,
                     "proteinas": totalProteinas,
                     "peso": totalPeso,
-                    "itens": this.listaIngredientes,
+                    "ingredientes": this.listaIngredientes,
                     "created": localISOString()
                 }
 
-                store.addItem<CardapioItem>(CARDAPIO_STORE, itemCardapio);
+                store.addItem<CardapioItem>(stores.Cardapio, itemCardapio);
 
                 this.reiniciarListaIngredientes();
 
@@ -175,7 +175,7 @@ class IngredientesSelecionados extends Base {
     }
 
     reiniciarListaIngredientes() {
-        store.clear(INGREDIENTES_STORE);
+        store.clear(stores.Ingrediente);
     }
 }
 

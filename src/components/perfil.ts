@@ -1,13 +1,13 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { META_DIARIA_STORE } from "../service/config.service";
+import { stores } from "../service/config.service";
 import { setNumberField, setRadiosCheck } from "../lib/forms";
 import { store } from "../service/store.service";
 import { calcularMetaDiaria } from "../service/meta-diaria.service";
 import { swapScreen } from "../lib/screens.lib";
 
 
-class AppMetaDiaria extends Base implements IAppMetaDiaria {
+class AppPerfil extends Base implements IAppPerfil {
 
     constructor() {
         super();
@@ -21,27 +21,38 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
 
     connectedCallback() {
 
-        store.onUpdatedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
-            this.showMetaDiaria(e.detail.item as MetaDiaria);
+        store.onUpdatedItem(stores.Perfil, (e: CustomEventInit) => {
+            this.showMetaDiaria(e.detail.item as Perfil);
         });
 
-        store.onAddedItem(META_DIARIA_STORE, (e: CustomEventInit) => {
-            this.showMetaDiaria(e.detail.item as MetaDiaria);
+        store.onAddedItem(stores.Perfil, (e: CustomEventInit) => {
+            this.showMetaDiaria(e.detail.item as Perfil);
 
-            swapScreen("calculadora");
+            let cardapioItems = store.getItems(stores.Cardapio);
+            if (cardapioItems.length === 0) {
+                swapScreen("calculadora");
+            }
         });
 
-        let items: MetaDiaria[] = store.getItems<MetaDiaria[]>(META_DIARIA_STORE);
-        if (items.length > 0) {
-            this.showMetaDiaria(items[0]);
+        store.onReplacedAll((e: CustomEventInit) => {
+            this.getPerfil();
+        });
+
+        this.getPerfil();
+    }
+
+    getPerfil() {
+        let item: Perfil | null = store.getSingle<Perfil>(stores.Perfil);
+        if (item !== null) {
+            this.showMetaDiaria(item);
         } else {
             this.render();
         }
     }
 
-    showMetaDiaria(resultado: MetaDiaria) {
+    showMetaDiaria(resultado: Perfil) {
 
-        this.boxResumo = html`<app-meta-diaria-resumo resultado=${JSON.stringify(resultado)} />`
+        this.boxResumo = html`<app-perfil-resumo resultado=${JSON.stringify(resultado)} />`
 
         this.render();
 
@@ -119,4 +130,4 @@ class AppMetaDiaria extends Base implements IAppMetaDiaria {
     }
 }
 
-window.customElements.define("app-meta-diaria", AppMetaDiaria);
+window.customElements.define("app-perfil", AppPerfil);
