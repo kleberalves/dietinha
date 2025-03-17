@@ -5,6 +5,7 @@
   "main": "index.js",
   "types": "@types/global.d.ts",
   "scripts": {
+    "replace": "node js/node/replace-verapp.js",
     "coverage": "vitest run --coverage",
     "test": "vitest",
     "list": "vitest list",
