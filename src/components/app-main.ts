@@ -2,7 +2,7 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { detectPathScreen, goBack, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
-import { stores } from "../service/config.service";
+import { screens, stores } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
 import { removeWindow, showLoading } from "../lib/message.lib";
 
@@ -14,6 +14,7 @@ class AppMain extends Base {
 
     perfilItem: Perfil | null;
     cardapioItems: any[];
+    showEditCardapio: boolean = false;
 
     connectedCallback() {
         showLoading();
@@ -48,16 +49,15 @@ class AppMain extends Base {
             detectPathScreen();
         });
 
-        store.onAddedItem(stores.Ingrediente, (e: CustomEventInit) => {
+        store.onChanged(stores.Ingrediente, (e: CustomEventInit) => {
             this.render();
         });
-        store.onRemovedItem(stores.Ingrediente, (e: CustomEventInit) => {
-            this.render();
-        });
-
-        store.onCleared(stores.Ingrediente, (e: CustomEventInit) => {
-            this.render();
-        });
+        // store.onRemovedItem(stores.Ingrediente, (e: CustomEventInit) => {
+        //     this.render();
+        // });
+        // store.onCleared(stores.Ingrediente, (e: CustomEventInit) => {
+        //     this.render();
+        // });
 
         store.onAddedItem(stores.Perfil, (e: CustomEventInit) => {
             this.render();
@@ -80,9 +80,23 @@ class AppMain extends Base {
             }
         });
 
+        store.onEditStarted((e: CustomEventInit) => {
+            if (e.detail.store === stores.Cardapio) {
+                this.showEditCardapio = true;
+                this.render();
+            }
+        });
+
+        store.onEditFinished((e: CustomEventInit) => {
+            this.showEditCardapio = false;
+            this.render();
+        });
+
         store.onReplacedAll((e: CustomEventInit) => {
             this.render();
         });
+
+        store.editCheck();
 
     }
 
@@ -96,9 +110,15 @@ class AppMain extends Base {
     btnAdicionarIngredientesCardapio() {
         let element = this.querySelector<IIngredientesSelecionados>("#appIngredientesSelecionados");
         if (element) {
-            element.adicionarItemCardapio();
+
+            element.salvarItemCardapio();
         }
     }
+    btnLimparIngredientesCardapio() {
+        store.editFinish();
+        swapScreen(screens.Cardapio);
+    }
+
     btnPerfilSaveClick() {
         let element = this.querySelector<IAppPerfil>("#appPerfil");
         if (element) {
@@ -107,7 +127,6 @@ class AppMain extends Base {
     }
 
     render() {
-
 
         this.perfilItem = store.getSingle(stores.Perfil);
         this.cardapioItems = store.getItems(stores.Cardapio);
@@ -190,12 +209,15 @@ class AppMain extends Base {
                         <div class="full">
                             <app-pesquisa-alimento />
                         </div>
-                        <div class="full">
-                            <app-ingredientes-selecionados id="appIngredientesSelecionados" />
-                        </div>
+                           ${ingredientesItems.length > 0 ? html`<div class="full">
+                                                                        <app-ingredientes-selecionados id="appIngredientesSelecionados" />
+                                                                </div>` : null}
                     </div>
 
-                    ${ingredientesItems.length > 0 ? html`<div class="action-bar-bottom"><button class='btn-main' onclick=${e => this.btnAdicionarIngredientesCardapio()}> Adicionar ao cardápio </button></div>` : null}
+                    ${ingredientesItems.length > 0 || this.showEditCardapio === true ? html`<div class="action-bar-bottom"><button class='btn-main' onclick=${e => this.btnAdicionarIngredientesCardapio()}> Salvar no cardápio </button>
+                         ${this.showEditCardapio === true ? html`<button class='btn-cancelar' onclick=${e => this.btnLimparIngredientesCardapio()}> Cancelar </button>` : null}
+                    </div>` : null}
+                    
                 </div>
 
                 <div class="screen close" id="perfil">
@@ -268,6 +290,7 @@ class AppMain extends Base {
 <!--  https://www.svgrepo.com/collection/solar-outline-icons/10 -->
 
         <div class="screens-nav">
+            <span class="logo-main"> </span>
             <div>
                 ${(this.perfilItem !== null && this.cardapioItems.length >= 1) ? html`<div class="btn-screen-switch open" id="cardapioNav" onclick=${e => swapScreen("cardapio")}>
                     <img src="img/cardapio.svg" /> 

@@ -36,7 +36,7 @@ export const sync = () => {
                     });
                 }
 
-                if (resp.perfil !== null) {
+                if (resp.perfil !== undefined && resp.perfil !== null) {
                     storesReplace.push({
                         storeName: stores.Perfil,
                         items: [resp.perfil]

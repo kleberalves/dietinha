@@ -11,7 +11,15 @@ export const stores = {
     RegistroRefeicao: "REGISTRO_REFEICAO_STORE",
     Config: "CONFIG_STORE",
     Perfil: "PERFIL_STORE",
-    Login: "LOGIN_STORE",
+    Login: "LOGIN_STORE"
+}
+
+export const screens = {
+    Cardapio: "cardapio",
+    Calculadora: "calculadora",
+    Perfil: "perfil",
+    Login: "login",
+    Configuracoes: "config",
 }
 
 export const swapTheme = () => {

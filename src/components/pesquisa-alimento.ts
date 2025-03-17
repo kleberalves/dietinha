@@ -1,6 +1,5 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { removeCarecEspec } from "../lib/treatments";
 import { store } from "../service/store.service";
 import { stores } from "../service/config.service";
 import { consultaAlimento } from "../service/pesquisa-alimento.service";
@@ -17,17 +16,6 @@ class PesquisaAlimento extends Base {
 
     constructor() {
         super();
-
-        store.onAddedItem(stores.Ingrediente, (e: CustomEventInit) => {
-            //Quando um novo item for adicionado na lista de ingredientes, 
-            //deve reiniciar a lista de pesquisa 
-
-            var ele: HTMLInputElement = this.querySelector("#txtPesquisa") as HTMLInputElement;
-            ele.value = "";
-
-            this.resultList = [];
-            this.render();
-        });
     }
 
 
@@ -51,6 +39,33 @@ class PesquisaAlimento extends Base {
         }
         this.render();
 
+        store.onAddedItem(stores.Cardapio, (e: CustomEventInit) => {
+            //Quando um novo item for adicionado ao cardapio, 
+            //deve reiniciar a lista de pesquisa 
+            this.restart();
+        });
+
+        store.onAddedItem(stores.Ingrediente, (e: CustomEventInit) => {
+            //Quando um novo item for adicionado na lista de indredientes, 
+            //deve reiniciar a lista de pesquisa 
+            this.restart();
+        });
+
+        store.onEditStarted((e: CustomEventInit) => {
+            if (e.detail.store === stores.Cardapio) {
+                this.restart();
+            }
+        });
+
+
+    }
+
+    restart() {
+        var ele: HTMLInputElement = this.querySelector("#txtPesquisa") as HTMLInputElement;
+        ele.value = "";
+
+        this.resultList = [];
+        this.render();
     }
 
     render() {

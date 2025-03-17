@@ -24,6 +24,7 @@ input[type="submit"] {
 
 button:hover,
 .btn-trash:hover,
+.btn-edit:hover,
 input[type="submit"]:hover {
     opacity: 0.7;
     cursor: pointer;
@@ -68,7 +69,6 @@ button:disabled {
     padding-left: 10px;
     padding-right: 10px;
     font-size: 15px;
-    margin-top: 15px;
     font-weight: 400;
     background-color: var(--contrast-high-color);
 }
@@ -160,7 +160,8 @@ button:disabled {
 
 
 
-.btn-trash {
+.btn-trash,
+.btn-edit {
     position: relative;
     width: 30px;
     height: 30px;
@@ -171,9 +172,34 @@ button:disabled {
     justify-content: center;
     align-items: center;
 
-    background-color: #bb0c0c;
 
     cursor: pointer;
+}
+
+.btn-trash {
+    background-color: #650000;
+}
+
+.btn-edit {
+    background-color: #794a07;
+}
+
+/**/
+
+.btn-edit::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 7px;
+    width: 15px;
+    height: 17px;
+    background-image: url(../img/editar.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.btn-edit:hover::before {
+    transform: scale(1.1) rotate(-36deg);
 }
 
 /* Cover */

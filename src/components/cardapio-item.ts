@@ -4,7 +4,8 @@ import { store } from "../service/store.service";
 import { uuidv4 } from "../lib/uuidv4";
 import { localISOString } from "../lib/treatments";
 import { showConfirm, showPopup } from "../lib/message.lib";
-import { stores } from "../service/config.service";
+import { screens, stores } from "../service/config.service";
+import { swapScreen } from "../lib/screens.lib";
 
 class AppCardapioItem extends Base {
 
@@ -116,6 +117,34 @@ class AppCardapioItem extends Base {
         }
     }
 
+    editarItemCardapio() {
+
+        if (this.props.item.id) {
+
+            let ingredientes: Ingrediente[] = [];
+
+            for (let i = 0; i < this.props.item.ingredientes.length; i++) {
+                ingredientes.push({
+                    "nome": this.props.item.ingredientes[i].nome,
+                    "calorias": this.props.item.ingredientes[i].calorias,
+                    "proteinas": this.props.item.ingredientes[i].proteinas,
+                    "idProduto": this.props.item.ingredientes[i].idProduto,
+                    "peso": this.props.item.ingredientes[i].peso,
+                    "unidade": this.props.item.ingredientes[i].unidade,
+                    "unidAltDesc": this.props.item.ingredientes[i].unidAltDesc,
+                    "unidAltPeso": this.props.item.ingredientes[i].unidAltPeso,
+                    "id": this.props.item.ingredientes[i].id
+                });
+
+            }
+
+            store.replaceBatch([{ storeName: stores.Ingrediente, items: ingredientes }]);
+            store.editStart(stores.Cardapio, this.props.item);
+
+            swapScreen(screens.Calculadora);
+        }
+    }
+
     render() {
 
         this.props = {
@@ -123,24 +152,31 @@ class AppCardapioItem extends Base {
             item: JSON.parse(this.p("item"))
         }
 
+        //Remove os itens "deleted"
+        this.props.item.ingredientes = this.props.item.ingredientes.filter((i) => {
+            return i.deleted === undefined || i.deleted === null;
+        });
+
 
         render(this, html`
                 <div class='listItem cardapio delay'>
                    <div class='title'>${this.props.item.nome}</div>
                         ${this.props.item.ingredientes.map((item, idx) => {
+
             var peso = item.peso === undefined || item.peso === null ? "100" : item.peso;
             var unidade = item.unidade === null || item.unidade === undefined ? "g" : item.unidade;
             let unidAltPeso = Math.round(item.peso / item.unidAltPeso);
 
             return html`<div class='list mini'>
-                        <div class='item mini'>
-                                <span> ${peso}${unidade} </span> ${item.unidAltPeso > 0 ? html`/ <span>${unidAltPeso}</span> ${item.unidAltDesc.toLowerCase()}` : null} de ${item.nome} 
-                        </div>
-                    </div>` })}
+                                        <div class='item mini'>
+                                                <span> ${peso}${unidade} </span> ${item.unidAltPeso > 0 ? html`/ <span>${unidAltPeso}</span> ${item.unidAltDesc.toLowerCase()}` : null} de ${item.nome} 
+                                        </div>
+                                    </div>` })}
                         
                 <div class='total'> Total de <span> ${this.props.item.peso}g</span>, <span>${this.props.item.calorias} calorias </span> e <span> ${this.props.item.proteinas}g de proteínas</span>.</div>
                 <div class='actions right'>
-                    <div class="btn-trash" @click=${() => this.removerItemCardapio()}></div>
+                    <div class="btn-trash" title="Remover" @click=${() => this.removerItemCardapio()}></div>
+                    <div class="btn-edit" title="Editar" @click=${() => this.editarItemCardapio()}></div>
                 </div>
                 <div class='actions center'>
                     <button class='btn-selecionar' onclick=${() => this.showSelecionarItem()}> Consumi este alimento </button>

@@ -67,14 +67,31 @@ form {
     display: flex;
     justify-content: space-evenly;
     padding-bottom: 15px;
+    padding-top: 15px;
     position: sticky;
     left: 0px;
     bottom: 0px;
+
+    .btn-cancelar {
+        width: 200px;
+    }
 
     @media (min-width: 1000px) {
         & {
             width: 900px;
         }
+    }
+
+    @media  (max-width: 500px) {
+        & {
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-content: center;
+        }
+        button {
+            margin: 2px;
+        }
+        
     }
 }
 

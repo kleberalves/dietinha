@@ -1,9 +1,23 @@
-//export { };
-
-import { loadLocalStorage, removeLocalStorage, saveDataLocal } from "../lib/local-storage";
+import { loadLocalStorage, saveDataLocal } from "../lib/local-storage";
 import { localISOString } from "../lib/treatments";
 import { uuidv4 } from "../lib/uuidv4";
 
+const events = {
+    addedItem: "STORE_ADDED_ITEM",
+    removedItem: "STORE_REMOVED_ITEM",
+    changed: "STORE_CHANGED",
+    cleared: "STORE_CLEARED",
+    clearedAll: "STORE_ALL_CLEARED",
+    loaded: "STORE_STORAGE_LOADED",
+    updatedItem: "STORE_UPDATED_ITEM",
+    replacedAll: "STORE_REPLACED_ALL",
+    editStart: "STORE_EDIT_START",
+    editFinish: "STORE_EDIT_END"
+}
+
+const internal = {
+    Edit: "EDIT_STORE"
+}
 
 export const store = (() => {
 
@@ -40,7 +54,10 @@ export const store = (() => {
                     }
                 }
 
-                item["id"] = uuidv4();
+                if (!item["id"]) {
+                    item["id"] = uuidv4();
+                }
+
                 item["created"] = localISOString();
 
                 store.items.push(item);
@@ -49,7 +66,17 @@ export const store = (() => {
                 saveDataLocal(store, storeName);
 
                 window.dispatchEvent(
-                    new CustomEvent(STORE_ADDED_ITEM, {
+                    new CustomEvent(events.addedItem, {
+                        detail: {
+                            store: storeName,
+                            item: item,
+                            items: filterActive(store.items)
+                        }
+                    })
+                );
+
+                window.dispatchEvent(
+                    new CustomEvent(events.changed, {
                         detail: {
                             store: storeName,
                             item: item,
@@ -83,7 +110,7 @@ export const store = (() => {
                 saveDataLocal(store, storeName);
 
                 window.dispatchEvent(
-                    new CustomEvent(STORE_ADDED_ITEM, {
+                    new CustomEvent(events.addedItem, {
                         detail: {
                             store: storeName,
                             items: filterActive<T>(store.items as BaseItem[])
@@ -107,7 +134,7 @@ export const store = (() => {
         });
 
         window.dispatchEvent(
-            new CustomEvent(STORE_REPLACED_ALL)
+            new CustomEvent(events.replacedAll)
         );
 
     }
@@ -124,7 +151,6 @@ export const store = (() => {
 
     const updateSingle = <T>(storeName: string, item: BaseItem) => {
 
-
         let items: any[] = store.getItems(storeName);
 
         let conditions: Dictionary[] = [];
@@ -136,6 +162,19 @@ export const store = (() => {
             })
 
             item["id"] = items[0].id;
+        }
+
+        updateItem<T>(storeName, conditions, item);
+    }
+
+    const updateCreate = <T>(storeName: string, item: BaseItem) => {
+        let conditions: Dictionary[] = [];
+
+        if (item.id) {
+            conditions.push({
+                key: "id",
+                value: item.id
+            })
         }
 
         updateItem<T>(storeName, conditions, item);
@@ -187,7 +226,7 @@ export const store = (() => {
                     saveDataLocal(store, storeName);
 
                     window.dispatchEvent(
-                        new CustomEvent(STORE_UPDATED_ITEM, {
+                        new CustomEvent(events.updatedItem, {
                             detail: {
                                 store: storeName,
                                 item: item,
@@ -205,7 +244,7 @@ export const store = (() => {
 
     }
 
-    const updateItem = <T>(storeName: string, conditions: Dictionary[], item: BaseItem) => {
+    const updateItem = async <T>(storeName: string, conditions: Dictionary[], item: BaseItem) => {
 
         let store = loadLocalStorage(storeName);
 
@@ -217,18 +256,15 @@ export const store = (() => {
         }
 
         //Se a lista estiver vazia, adiciona na lista
-        if (store.items.length === 0) {
-
-            addItem<T>(storeName, item);
-
-        } else {
+        if (store.items.length === 0 || !item.id) {
+            await addItem<T>(storeName, item);
+        } else if (conditions.length > 0) {
 
             for (let i = 0; i < store.items.length; i++) {
-                let localItem = store.items[i] as BaseItem;
 
                 let cont = 0;
                 for (let q = 0; q < conditions.length; q++) {
-                    if (item[conditions[q].key] === conditions[q].value) {
+                    if (store.items[i][conditions[q].key] === conditions[q].value) {
                         cont++;
                     }
                 }
@@ -237,28 +273,39 @@ export const store = (() => {
 
                     let props = Object.entries(item);
                     for (let p = 0; p < props.length; p++) {
-                        localItem[props[p][0]] = props[p][1];
+                        store.items[i][props[p][0]] = props[p][1];
                     }
 
-                    localItem["updated"] = localISOString();
+                    store.items[i]["updated"] = localISOString();
 
                     //Salva por padrão no localStorage
                     saveDataLocal(store, storeName);
 
                     window.dispatchEvent(
-                        new CustomEvent(STORE_UPDATED_ITEM, {
+                        new CustomEvent(events.updatedItem, {
                             detail: {
                                 store: storeName,
-                                item: localItem,
+                                item: store.items[i],
                                 items: filterActive(store.items)
                             }
                         })
                     );
+
+                    window.dispatchEvent(
+                        new CustomEvent(events.changed, {
+                            detail: {
+                                store: storeName,
+                                item: store.items[i],
+                                items: filterActive(store.items)
+                            }
+                        })
+                    );
+
+                    saveHistorico<T>(storeName, item);
+
                 }
             }
         }
-
-        saveHistorico<T>(storeName, item);
 
         return item;
 
@@ -293,14 +340,14 @@ export const store = (() => {
 
     const filterActive = <T>(storeItems: BaseItem[]): T[] => {
         return storeItems.filter((item, b, c) => {
-            return item.deleted === null || item.deleted === undefined;
+            return item === null ? null : (item.deleted === undefined || item.deleted === null);
         }) as T[];
     }
 
     const getItems = <T>(storeName: string): T[] => {
 
         let storeItems = getItemsFull<BaseItem>(storeName);
-        if (storeItems.length > 0) {
+        if (storeItems !== null && storeItems.length > 0) {
             return filterActive(storeItems);
         } else {
             return [] as T[];
@@ -317,18 +364,70 @@ export const store = (() => {
             saveDataLocal(store, storeName);
 
             window.dispatchEvent(
-                new CustomEvent(STORE_CLEARED, {
+                new CustomEvent(events.cleared, {
                     detail: {
                         store: storeName
                     }
                 })
             )
+
+            window.dispatchEvent(
+                new CustomEvent(events.changed, {
+                    detail: {
+                        store: storeName
+                    }
+                })
+            );
+        }
+    }
+    const editStart = <T>(storeName: string, item: BaseItem) => {
+        let edit = {
+            itemRef: item,
+            store: storeName
+        }
+
+        store.updateSingle(internal.Edit, edit as Edit);
+
+        window.dispatchEvent(
+            new CustomEvent(events.editStart, {
+                detail: edit
+            })
+        )
+    }
+
+    const editCheck = () => {
+        let items = store.getItems(internal.Edit);
+        if (items.length > 0) {
+            window.dispatchEvent(
+                new CustomEvent(events.editStart, {
+                    detail: items[0]
+                })
+            )
         }
     }
 
+    const editFinish = () => {
+
+        store.clear(internal.Edit);
+
+        window.dispatchEvent(
+            new CustomEvent(events.editFinish, {
+                detail: null
+            })
+        )
+    }
     return {
-        //Atualiza integralmente os elementos de uma storage
-        replaceList: replaceList,
+        /** Verifica se tem algum item na storage para edição e sinaliza o início */
+        editCheck: editCheck,
+        /** Sinaliza o fim da edição de qualquer item.*/
+        editFinish: editFinish,
+        /** Sinaliza a edição do item e a storage respectiva */
+        editStart: editStart,
+        /** Atualiza ou criar pelo ID*/
+        updateCreate: updateCreate,
+        /** Atualiza integralmente os elementos de uma storage */
+        replaceBatch: replaceBatch,
+        /** Obtém todos os itens da storage, incluindos os marcados como "deleted" */
         getItemsFull: getItemsFull,
         addItemsAll: addItemsAll,
         /** Adiciona um item na store. A propriedade "Id" será criada no formato uuid (guid) */
@@ -338,7 +437,7 @@ export const store = (() => {
         getItemByField: getItemByField,
         /** Atualiza ou insere um conjunto de itens com um conjunto de valores */
         updateItemsByFields: updateItemsByFields,
-        /** Atualiza ou insere um conjunto de itens com um conjunto de valores */
+        /** Atualiza ou insere um item em uma storage */
         updateSingle: updateSingle,
         /** Obtém os items no Local Storage */
         getItems: getItems,
@@ -361,13 +460,12 @@ export const store = (() => {
             }
 
             window.dispatchEvent(
-                new CustomEvent(STORE_ALL_CLEARED, {
+                new CustomEvent(events.clearedAll, {
                     detail: null
                 })
             )
 
         },
-
         /** Retorna um item pelo "Id" */
         getItemById: <T>(storeName: string, itemId: string) => {
 
@@ -424,7 +522,7 @@ export const store = (() => {
                         saveDataLocal(store, storeName);
 
                         window.dispatchEvent(
-                            new CustomEvent(STORE_REMOVED_ITEM, {
+                            new CustomEvent(events.removedItem, {
                                 detail: {
                                     store: storeName,
                                     item: item,
@@ -432,6 +530,14 @@ export const store = (() => {
                                 }
                             })
                         )
+
+                        window.dispatchEvent(
+                            new CustomEvent(events.changed, {
+                                detail: {
+                                    store: storeName
+                                }
+                            })
+                        );
 
                         break;
                     }
@@ -442,9 +548,8 @@ export const store = (() => {
                 throw new Error("Store não existe.")
             }
         },
-        replaceBatch: replaceBatch,
         onAddedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
-            window.addEventListener(STORE_ADDED_ITEM, (e: CustomEventInit) => {
+            window.addEventListener(events.addedItem, (e: CustomEventInit) => {
 
                 if (e.detail.store !== storeName) {
                     return;
@@ -454,7 +559,7 @@ export const store = (() => {
             });
         },
         onRemovedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
-            window.addEventListener(STORE_REMOVED_ITEM, (e: CustomEventInit) => {
+            window.addEventListener(events.removedItem, (e: CustomEventInit) => {
 
                 if (e.detail.store !== storeName) {
                     return;
@@ -464,7 +569,7 @@ export const store = (() => {
             });
         },
         onCleared: (storeName: string, func: (e: CustomEventInit) => void) => {
-            window.addEventListener(STORE_CLEARED, (e: CustomEventInit) => {
+            window.addEventListener(events.cleared, (e: CustomEventInit) => {
 
                 if (e.detail.store !== storeName) {
                     return;
@@ -473,45 +578,47 @@ export const store = (() => {
 
             });
         },
-
-        onClearedAll: (func: (e: CustomEventInit) => void) => {
-            window.addEventListener(STORE_ALL_CLEARED, (e: CustomEventInit) => {
+        /** Quando ocorre quando ocorre qualquer evento de inserção, update e delete, sendo em elemtnossingular ou em lote. */
+        onChanged: (storeName: string, func: (e: CustomEventInit) => void) => {
+            window.addEventListener(events.changed, (e: CustomEventInit) => {
+                if (e.detail.store !== storeName) {
+                    return;
+                }
                 func(e);
             });
         },
-
+        onClearedAll: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(events.clearedAll, (e: CustomEventInit) => {
+                func(e);
+            });
+        },
         /** Quando os storages são atualizaods completamente. */
         onReplacedAll: (func: (e: CustomEventInit) => void) => {
-            window.addEventListener(STORE_REPLACED_ALL, (e: CustomEventInit) => {
+            window.addEventListener(events.replacedAll, (e: CustomEventInit) => {
                 func(e);
             });
         },
-
-
         onUpdatedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
-            window.addEventListener(STORE_UPDATED_ITEM, (e: CustomEventInit) => {
+            window.addEventListener(events.updatedItem, (e: CustomEventInit) => {
 
                 if (e.detail.store !== storeName) {
                     return;
                 }
                 func(e);
 
+            });
+        },
+        onEditStarted: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(events.editStart, (e: CustomEventInit) => {
+                func(e);
+            });
+        },
+        onEditFinished: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(events.editFinish, (e: CustomEventInit) => {
+                func(e);
             });
         }
     }
 })();
 
-export const STORE_ADDED_ITEM = "STORE_ADDED_ITEM";
-export const STORE_REMOVED_ITEM = "STORE_REMOVED_ITEM";
-export const STORE_CLEARED = "STORE_CLEARED";
-export const STORE_ALL_CLEARED = "STORE_ALL_CLEARED";
-export const STORE_STORAGE_LOADED = "STORE_STORAGE_LOADED";
-export const STORE_UPDATED_ITEM = "STORE_UPDATED_ITEM";
-export const STORE_REPLACED_ALL = "STORE_REPLACED_ALL";
 
-declare global {
-    interface Window {
-        STORE_ADDED_ITEM: string;
-        STORE_REMOVED_ITEM: string;
-    }
-}

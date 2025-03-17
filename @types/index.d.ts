@@ -6,9 +6,14 @@
 /// <reference path="definitions/components/ingredientes-selecionados.d.ts" />
 /// <reference path="definitions/lib/forms.ts" />
 
+interface Edit extends BaseItem{
+    store: string;
+    itemRef: BaseItem;
+}
+
 interface BaseItem {
     id?: string;
-    created: string;
+    created?: string;
     updated?: string;
     deleted?: string;
 }

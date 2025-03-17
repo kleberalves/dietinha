@@ -3,19 +3,61 @@
     src: url("../assets/roboto.woff2") format('woff2');
 }
 
+:root,
+html,
+body {
+    overscroll-behavior: none;
+}
+
+.logo-main {
+    position: absolute;
+    width: 155px;
+    height: 52px;
+    background-image: url(../assets/logo_dietinha.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: 20px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+
+    @media (max-width: 900px) {
+        display: none;
+    }
+}
+
 app-login {
     display: flex;
     justify-content: center;
 }
+
 a {
     color: var(--primary-color);
     text-decoration: none;
 }
-a:hover{
+
+a:hover {
     color: var(--secondary-color);
 }
+
 * {
     font-family: 'Roboto';
+
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                        supported by Chrome, Edge, Opera and Firefox */
+
+
 }
 
 html,
@@ -36,9 +78,11 @@ label {
     font-size: 17px;
     color: var(--primary-color);
 }
-h1{
+
+h1 {
     color: var(--blackwhite-color);
 }
+
 h4 {
     padding-bottom: 6px;
     font-size: 25px;
@@ -79,7 +123,7 @@ input[type="password"] {
     color: var(--blackwhite-color);
 }
 
-.text-mini{
+.text-mini {
     color: var(--contrast-color);
     font-size: 12px;
 }
@@ -116,7 +160,7 @@ input[type="password"] {
 
 *::-webkit-scrollbar,
 *::-webkit-scrollbar {
-    width: 10px;
+    width: 3px;
     height: 10px;
 }
 

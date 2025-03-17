@@ -63,3 +63,14 @@
 .alert .bar-actions>* {
     margin-left: 10px;
 }
+
+.msg-warning{
+    width: 100%;
+    color: #fff;
+    background-color: #d98000;
+    border-radius: 23px;
+    margin-bottom: 20PX;
+    padding-top: 15px;
+    text-align: center;
+    padding-bottom: 15px;
+}

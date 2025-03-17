@@ -1,10 +1,15 @@
-app-cardapio{
+app-cardapio {
     padding: 10px;
     display: block;
     border-radius: 15px;
 }
+
 app-cardapio-item {
     display: flex;
+
+    @media (max-width: 1000px) {
+        width: 100%;
+    }
 }
 
 app-cardapio-item {

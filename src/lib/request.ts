@@ -137,24 +137,9 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
             //internamente redirecionará para BASE_URL se estiver no cliente
             fetch(`${base}${url}`, config)
                 .then(async (response) => {
-                    //Tratamentos especiais para não estourar uma mensagem de erro
-
-                    //451 - Token necessário para o login
-                    //404 - Utilizado quando o dado não é encontrado
-                    // if (response.status == 412) {
-                    //       //412 - Recaptcha inválido
-                    //     window.location.reload();
-                    // } else
-                    //
-
                     removeWindow();
 
-
-
                     if (response.status >= 400) {
-                        //Retorna um json do erro para que o próximo "then"
-                        //possa rejeitar a promise.
-
                         let responseBody = await response.json();
                         console.log(responseBody);
                         reject(responseBody);
@@ -163,15 +148,14 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
                         let responseBody = await response.json();
                         console.log(responseBody);
                         resolve(responseBody);
-                        //Retornos abaixo de 400 são considerados "ok"
                     }
 
                 }).catch((e) => {
 
                     if (e.toString().toLowerCase().indexOf("failed to fetch")) {
-                        resolve("Não foi possível alcançar os nossos servidores. Verifique a internet e tente novamente.");
+                        reject("Não foi possível alcançar os nossos servidores. Verifique a internet e tente novamente.");
                     } else {
-                        resolve(e.toString());
+                        reject(e.toString());
                     }
 
                     removeWindow();

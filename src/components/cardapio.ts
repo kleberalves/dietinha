@@ -16,6 +16,9 @@ class Cardapio extends Base {
         store.onAddedItem(stores.Cardapio, (e: CustomEventInit) => {
             this.defineList(e.detail.items);
         });
+        store.onUpdatedItem(stores.Cardapio, (e: CustomEventInit) => {
+            this.defineList(e.detail.items);
+        });
 
         store.onRemovedItem(stores.Cardapio, (e: CustomEventInit) => {
             this.defineList(e.detail.items);
