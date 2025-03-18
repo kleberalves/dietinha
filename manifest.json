@@ -3,52 +3,52 @@
   "short_name": "Dietinha",
   "icons": [
     {
-      "src": "img/iconsv2/icon-48x48.png?VerAPP",
-      "sizes": "48x48",
+      "src": "img/icons/40.png?VerAPP",
+      "sizes": "40x40",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-72x72.png?VerAPP",
+      "src": "img/icons/72.png?VerAPP",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-96x96.png?VerAPP",
-      "sizes": "96x96",
+      "src": "img/icons/87.png?VerAPP",
+      "sizes": "87x87",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-128x128.png?VerAPP",
+      "src": "img/icons/128.png?VerAPP",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-144x144.png?VerAPP",
+      "src": "img/icons/144.png?VerAPP",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-152x152.png?VerAPP",
-      "sizes": "152x152",
+      "src": "img/icons/152.png?VerAPP",
+      "sizes": "152",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-192x192.png?VerAPP",
-      "sizes": "192x192",
+      "src": "img/icons/192.png?VerAPP",
+      "sizes": "192",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-256x256.png?VerAPP",
+      "src": "img/icons/256.png?VerAPP",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-384x384.png?VerAPP",
-      "sizes": "384x384",
+      "src": "img/icons/1024.png?VerAPP",
+      "sizes": "1024x1024",
       "type": "image/png"
     },
     {
-      "src": "img/iconsv2/icon-512x512.png?VerAPP",
+      "src": "img/icons/512.png?VerAPP",
       "sizes": "512x512",
       "type": "image/png"
     }
