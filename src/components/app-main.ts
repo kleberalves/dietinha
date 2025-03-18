@@ -141,7 +141,7 @@ class AppMain extends Base {
                             </div>
                             <div class="title">Meu cardápio</div>
                             <div> 
-                                <img src="img/busca.svg" class="btn-icon" @click=${e => this.btnShowSearchCardapio()}/>
+                                <img src="img/busca.svg" class="btn-icon" title="Filtrar o cardápio" @click=${e => this.btnShowSearchCardapio()}/>
                             </div>
                         </div>
 
@@ -228,8 +228,8 @@ class AppMain extends Base {
                                 </div>
                                 <div class="title">Perfil</div>
                                 <div> 
-                                <img src="img/login.svg" class="btn-icon" @click=${e => swapScreen("login")}/>
-                                <img src="img/configuracoes.svg" class="btn-icon" @click=${e => swapScreen("config")}/>
+                                <img src="img/login.svg" title="Autenticar" class="btn-icon" @click=${e => swapScreen("login")}/>
+                                <img src="img/configuracoes.svg" title="Configurações" class="btn-icon" @click=${e => swapScreen("config")}/>
                                 </div>
                             </div>
 

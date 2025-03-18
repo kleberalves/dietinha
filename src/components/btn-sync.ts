@@ -58,7 +58,7 @@ class BtnSync extends Base {
         }
 
         var loginItem: any = store.getSingle(stores.Login);
-        render(this, html`${loginItem !== null ? html`<img src="img/refresh.svg" class=${this.classLoad} @click=${e => this.btnSync()}/> <span>${this.time}</span>` : null}
+        render(this, html`${loginItem !== null ? html`<img src="img/refresh.svg" title="Sincronizar dados..." class=${this.classLoad} @click=${e => this.btnSync()}/> <span>${this.time}</span>` : null}
         `);
 
     }
