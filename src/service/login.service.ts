@@ -1,9 +1,10 @@
 import { getInputString, validateFields } from "../lib/forms";
-import { API_RECAPTCHA, stores } from "./config.service";
-import { showError, showWarning } from "../lib/message.lib";
+import { API_RECAPTCHA, screens, stores } from "./config.service";
+import { showConfirm, showError, showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 import { useRequest } from "../lib/request";
 import { localISOString } from "../lib/treatments";
+import { swapScreen } from "../lib/screens.lib";
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
 
@@ -44,7 +45,18 @@ export const globalErrors = (e) => {
     if (e.error) {
         if (e.error.name === "TokenExpiredError") {
             showWarning("Autenticação expirada.");
+            swapScreen(screens.Login);
             logout();
+        } else if (e.error.name === "UnauthorizedError") {
+            let loginInfo = getLoginInfo();
+
+            if (loginInfo === null || (loginInfo && loginInfo.email !== "guest")) {
+                showConfirm("Você está usando como visitante anônimo. Recomendamos que utilize o seu email com senha para sincronizar os seus dados na nossa nuvem. Gostaria de fazer isso agora?", () => {
+                    swapScreen(screens.Login);
+                });
+
+                setGuest();
+            }
         } else {
             showWarning(e.error.message);
         }
@@ -56,6 +68,10 @@ export const globalErrors = (e) => {
 export const logout = () => {
     // O Logout não deve excluir os demais dados pois o app poderá funcionar offline
     store.clear(stores.Login);
+}
+
+export const setGuest = (): void => {
+    store.updateSingle(stores.Login, { email: "guest" } as AuthInfo);
 }
 
 export const updateLastSync = (): Date => {
@@ -71,7 +87,7 @@ export const getLoginInfo = (): AuthInfo | null => {
     return store.getSingle<AuthInfo>(stores.Login);
 }
 
-export const getLastSync = (): string | undefined=> {
+export const getLastSync = (): string | undefined => {
     let login = store.getSingle<AuthInfo>(stores.Login);
     if (login && login.lastSync) {
         return login.lastSync

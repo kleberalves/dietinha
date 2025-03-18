@@ -30,10 +30,10 @@ export const getDif = (date: string) => {
     dif = Math.round(dif);
 
     if (dif === 0) {
-        return `Sincronizado agora.`;
+        return `Agora`;
     }
     
-    return `${Math.round(dif)} minuto(s)`;
+    return `${Math.round(dif)} min`;
 }
 
 /** Converte uma string Date no formato ISO e retorna em uma das opções: dd/mm/yyyy, dd/mm e hh:MM */

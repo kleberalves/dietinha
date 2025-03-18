@@ -12,10 +12,9 @@ body {
 .logo-main {
     position: absolute;
     width: 155px;
-    height: 52px;
-    background-image: url(../assets/logo_dietinha.png);
+    height: 53px;
+    background-image: url(../assets/logo_dietinha.png?VerAPP1);
     background-repeat: no-repeat;
-    background-size: contain;
     left: 20px;
     margin: auto;
     top: 0;
@@ -32,14 +31,22 @@ app-login {
 }
 
 btn-sync {
+
+    width: 50px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-direction: row;
     font-size: 11px;
     color: var(--primary-color);
+
     img {
         margin-right: 5px;
     }
+
+    span {
+        text-align: center;
+        /* white-space: nowrap; */
+    } 
 }
 
 a {

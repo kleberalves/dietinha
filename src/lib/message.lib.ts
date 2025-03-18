@@ -118,14 +118,16 @@ const showMessage = (msg, type) => {
 
     barActions.appendChild(btnConfirm);
 
-    timedoutshowMessage = setTimeout(() => {
-        removeWindow();
-    }, msg.length * 150);
+    // timedoutshowMessage = setTimeout(() => {
+    //     removeWindow();
+    // }, msg.length * 150);
 
     return msgWindow;
 }
 
 export const showConfirm = (msg, callback: () => void) => {
+
+    clearTimeout(timedoutshowMessage);
 
     var msgWindow = createWindow("warning");
 

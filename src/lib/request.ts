@@ -151,7 +151,9 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
             //internamente redirecionará para BASE_URL se estiver no cliente
             fetch(`${base}${url}`, config)
                 .then(async (response) => {
-                    removeWindow();
+                    if (!silent) {
+                        removeWindow();
+                    }
 
                     if (response.status >= 400) {
                         let responseBody = await response.json();

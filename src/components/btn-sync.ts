@@ -15,10 +15,13 @@ class BtnSync extends Base {
         super();
     }
 
+    time: string = "";
+
     connectedCallback() {
 
         onSync((e) => {
             this.classLoad = "btn-icon rotate";
+            this.time = "Sincroni zando...";
             this.render();
         });
         onSyncEnd((e) => {
@@ -27,9 +30,19 @@ class BtnSync extends Base {
                 this.lastSync = e.detail.lastSync
             }
 
+            this.time = "";
             this.classLoad = "btn-icon";
             this.render();
         })
+
+        setInterval(() => {
+            this.start();
+        }, 75000);
+
+        this.start();
+    }
+
+    start() {
         this.lastSync = getLastSync();
         this.render();
     }
@@ -39,10 +52,13 @@ class BtnSync extends Base {
     }
 
     render() {
-        let time = this.lastSync ? getDif(this.lastSync) : "";
+
+        if(this.time === ""){
+            this.time = this.lastSync ? getDif(this.lastSync) : "";
+        }
 
         var loginItem: any = store.getSingle(stores.Login);
-        render(this, html`${loginItem !== null ? html`<img src="img/refresh.svg" class=${this.classLoad} @click=${e => this.btnSync()}/> <span>${time}</span>` : null}
+        render(this, html`${loginItem !== null ? html`<img src="img/refresh.svg" class=${this.classLoad} @click=${e => this.btnSync()}/> <span>${this.time}</span>` : null}
         `);
 
     }

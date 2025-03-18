@@ -94,7 +94,6 @@ class AppMain extends Base {
 
     }
 
-
     btnShowSearchCardapio() {
         let element = this.querySelector<ICardapio>("#appCardapio");
         if (element) {
@@ -225,12 +224,11 @@ class AppMain extends Base {
                 <div class="screen close" id="perfil">
                         <div class="screen-header">
                                 <div> 
-                                    <img src="img/login.svg" class="btn-icon" @click=${e => swapScreen("login")}/>
                                     <btn-sync /> 
                                 </div>
                                 <div class="title">Perfil</div>
                                 <div> 
-                               
+                                <img src="img/login.svg" class="btn-icon" @click=${e => swapScreen("login")}/>
                                 <img src="img/configuracoes.svg" class="btn-icon" @click=${e => swapScreen("config")}/>
                                 </div>
                             </div>

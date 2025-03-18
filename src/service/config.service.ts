@@ -71,10 +71,19 @@ export const setTheme = (theme: string) => {
 
 
 export const loadTheme = () => {
-    var theme = store.getItemByField<Dictionary>(stores.Config, { key: "key", value: "theme" });
 
+    var theme = store.getItemByField<Dictionary>(stores.Config, { key: "key", value: "theme" });
     if (theme === undefined || theme.value === undefined) {
-        setTheme("light");
+        if (window.matchMedia) {
+            let check = window.matchMedia('(prefers-color-scheme: light)');
+            if (check.matches === true) {
+                setTheme("light");
+            } else {
+                setTheme("dark");
+            }
+        } else {
+            setTheme("light");
+        }
     } else {
         if (typeof theme.value === "string")
             setTheme(theme.value);

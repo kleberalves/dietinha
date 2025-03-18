@@ -43,7 +43,7 @@ class RegistroAlimentosItem extends Base {
                     <div class='title'>${itemCalculo.nome}</div>
                     <div class='total'> Total de <span> ${itemCalculo.peso}g</span>, <span>${itemCalculo.calorias} calorias </span> e <span> ${itemCalculo.proteinas}g de proteínas</span>.</div>
                 
-                    <div class="hora">${formatDate(itemCalculo.created, "hh:MM")}</div>
+                    <div class="hora">${itemCalculo.created ? formatDate(itemCalculo.created, "hh:MM") : null}</div>
 
                     <div class='actions right'>
                         <div class="btn-trash" @click=${() => this.removerItemCardapio(itemIdCalculo)}></div>

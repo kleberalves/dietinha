@@ -29,12 +29,12 @@
     },
     {
       "src": "img/icons/152.png?VerAPP",
-      "sizes": "152",
+      "sizes": "152x152",
       "type": "image/png"
     },
     {
       "src": "img/icons/192.png?VerAPP",
-      "sizes": "192",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
