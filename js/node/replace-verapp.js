@@ -1,4 +1,4 @@
-
+/** Arquivo para fazer o replace do coringa "VerAPP" parametrizado nas URLs internas forçando o download dos arquivos. */
 const crypto = require("crypto");
 var path = require('path');
 
@@ -8,11 +8,15 @@ function uuidv4() {
     );
 }
 
+function replace(file) {
+    var fs = require('fs');
+    var pathPage = path.join(__dirname, '..', "..", file)
+    var pageContent = fs.readFileSync(pathPage, 'utf8');
+    pageContent = pageContent.split("VerAPP").join(uuidv4());
+    fs.writeFileSync(pathPage, pageContent);
+}
 
-var fs = require('fs');
-var pathPage = path.join(__dirname, '..', "..", "index.html")
-var pageContent = fs.readFileSync(pathPage, 'utf8');
+replace("index.html");
+replace("manifest.json");
 
-pageContent = pageContent.split("VerAPP").join(uuidv4());
 
-fs.writeFileSync(pathPage, pageContent);

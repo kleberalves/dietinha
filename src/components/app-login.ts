@@ -2,25 +2,19 @@
 
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { login, logout } from "../service/login.service";
+import { getLoginInfo, login, logout } from "../service/login.service";
 import { store } from "../service/store.service";
 import { stores } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
 import { sync } from "../service/sync.service";
 
-interface LoginInfo {
-    name?: string;
-    email: string;
-    token?: string;
-    created: string;
-}
 
 class AppLogin extends Base {
 
     items: CardapioItem[] = [];
     itemsView: CardapioItem[] = [];
     showSearch: boolean = false;
-    loginInfo: LoginInfo | null;
+    loginInfo: AuthInfo | null;
 
     constructor() {
         super();
@@ -37,7 +31,7 @@ class AppLogin extends Base {
     }
 
     loadInfoLogin() {
-        this.loginInfo = store.getSingle<LoginInfo>(stores.Login);
+        this.loginInfo = getLoginInfo();
         this.render();
     }
 
@@ -49,13 +43,9 @@ class AppLogin extends Base {
         e.preventDefault();
 
         login().then(() => {
+            
             this.loadInfoLogin();
-
-            sync().then(() => {
-            }).catch((e) => {
-                console.log(e);
-            }).finally(() => {
-            });
+            sync();
 
         }).catch((e) => {
             console.log(e);
@@ -71,7 +61,7 @@ class AppLogin extends Base {
                             <div>
                                 <label>${this.loginInfo.email}</label>
                                <div class="text-mini">
-                                     ${formatDate(this.loginInfo.created, "dd/mm hh:MM")}
+                                     ${this.loginInfo.created ? formatDate(this.loginInfo.created, "dd/mm hh:MM") : null}
                                 </div>
                             </div>
                         </div>  

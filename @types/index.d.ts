@@ -63,6 +63,7 @@ interface AuthInfo extends BaseItem {
     email: string;
     name: string;
     token: string;
+    lastSync?: string;
     profiles: any[];
 }
 

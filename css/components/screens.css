@@ -46,6 +46,10 @@ app-config {
         width: 15%;
         justify-content: flex-start;
         padding-left: 15px;
+
+        img {
+            margin-right: 5px;
+        }
     }
 
     /*Right*/

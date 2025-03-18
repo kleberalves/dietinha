@@ -3,6 +3,7 @@ import { API_RECAPTCHA, stores } from "./config.service";
 import { showError, showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
 import { useRequest } from "../lib/request";
+import { localISOString } from "../lib/treatments";
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
 
@@ -56,6 +57,28 @@ export const logout = () => {
     // O Logout não deve excluir os demais dados pois o app poderá funcionar offline
     store.clear(stores.Login);
 }
+
+export const updateLastSync = (): Date => {
+
+    let date = localISOString();
+
+    store.updateSingle(stores.Login, { lastSync: date } as AuthInfo);
+
+    return new Date(date);
+}
+
+export const getLoginInfo = (): AuthInfo | null => {
+    return store.getSingle<AuthInfo>(stores.Login);
+}
+
+export const getLastSync = (): string | undefined=> {
+    let login = store.getSingle<AuthInfo>(stores.Login);
+    if (login && login.lastSync) {
+        return login.lastSync
+    }
+    return undefined
+}
+
 export const login = (): Promise<string> => {
 
     let promise = new Promise<string>((resolve, reject) => {

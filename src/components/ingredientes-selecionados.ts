@@ -6,6 +6,7 @@ import { getRadiosCheck } from "../lib/forms";
 import { showWarning } from "../lib/message.lib";
 import { localISOString } from "../lib/treatments";
 import { swapScreen } from "../lib/screens.lib";
+import { sync } from "../service/sync.service";
 
 class IngredientesSelecionados extends Base {
 
@@ -155,6 +156,8 @@ class IngredientesSelecionados extends Base {
 
                 store.updateCreate<CardapioItem>(stores.Cardapio, itemCardapio);
                 store.editFinish();
+
+                sync();
 
                 swapScreen("cardapio");
             }

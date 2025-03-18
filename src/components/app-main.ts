@@ -52,12 +52,6 @@ class AppMain extends Base {
         store.onChanged(stores.Ingrediente, (e: CustomEventInit) => {
             this.render();
         });
-        // store.onRemovedItem(stores.Ingrediente, (e: CustomEventInit) => {
-        //     this.render();
-        // });
-        // store.onCleared(stores.Ingrediente, (e: CustomEventInit) => {
-        //     this.render();
-        // });
 
         store.onAddedItem(stores.Perfil, (e: CustomEventInit) => {
             this.render();
@@ -175,8 +169,16 @@ class AppMain extends Base {
 
                  ${(registroRefeicaoItems.length > 0) ? html`
                 <div class="screen close" id="registro">
-                     <div class="title">Minhas refeições</div>
-                    <div class="form">
+                        <div class="screen-header">
+                            <div>
+                                <btn-sync />
+                            </div>
+                            <div class="title">Minhas refeições</div>
+                            <div> 
+                            </div>
+                        </div>
+
+                   <div class="form">
                         <app-registro-alimentos />
                     </div>
                 </div>
@@ -224,10 +226,12 @@ class AppMain extends Base {
                         <div class="screen-header">
                                 <div> 
                                     <img src="img/login.svg" class="btn-icon" @click=${e => swapScreen("login")}/>
+                                    <btn-sync /> 
                                 </div>
                                 <div class="title">Perfil</div>
                                 <div> 
-                                    <img src="img/configuracoes.svg" class="btn-icon" @click=${e => swapScreen("config")}/>
+                               
+                                <img src="img/configuracoes.svg" class="btn-icon" @click=${e => swapScreen("config")}/>
                                 </div>
                             </div>
 

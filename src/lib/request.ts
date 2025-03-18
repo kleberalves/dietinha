@@ -4,10 +4,21 @@ import { removeWindow, showLoading } from "./message.lib";
 
 export const useRequest = (module?: string, error?: any, logout?: () => void) => {
 
-    const post = async (url: string, body: any,): Promise<any> => {
-        return await request(url, "POST", JSON.stringify(body), module);
+    /**
+     * Realiza uma requisição Post
+     * @param url URL relativa
+     * @param body JSON body
+     * @param silent Se true, não exibe o "loading"
+     * @returns 
+     */
+    const post = async (url: string, body: any, silent?: boolean): Promise<any> => {
+        return await request(url, "POST", JSON.stringify(body), module, silent);
     }
-
+    /**
+     * 
+     * @param url 
+     * @returns 
+     */
     const get = async (url: string): Promise<Response | undefined> => {
 
         try {
@@ -30,7 +41,7 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
         try {
             let formData = new FormData();
             await formData.append('image', file);
-            return await request(url, "POST", formData, module, "");
+            return await request(url, "POST", formData, module, false, "");
 
         } catch (error) {
             showError(error);
@@ -91,6 +102,7 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
         method: string,
         body: any = null,
         module?: string,
+        silent?: boolean,
         contentType: string = 'application/json'): Promise<any> => {
 
         return new Promise<any>(async (resolve, reject) => {
@@ -125,7 +137,9 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
                 config["body"] = body;
             }
 
-            showLoading();
+            if (!silent) {
+                showLoading();
+            }
 
             let base: string | undefined;
             if (module) {
@@ -157,8 +171,9 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
                     } else {
                         reject(e.toString());
                     }
-
-                    removeWindow();
+                    if (!silent) {
+                        removeWindow();
+                    }
                 });
 
 

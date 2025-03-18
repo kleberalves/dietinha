@@ -2,6 +2,7 @@ import { getInputInt, getInputNumber, getInputString, validateFields } from "../
 import { stores } from "./config.service";
 import { showError, showOk, showWarning } from "../lib/message.lib";
 import { store } from "./store.service";
+import { sync } from "./sync.service";
 
 
 export const calcularMetaDiaria = () => {
@@ -79,6 +80,8 @@ export const calcularMetaDiaria = () => {
                 store.updateSingle<Perfil>(stores.Perfil, perfil);
 
                 showOk("Meta Diária cadastrada com sucesso.");
+
+                sync();
 
             } else {
                 showWarning("Digite de 1 a 3");

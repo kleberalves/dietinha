@@ -578,7 +578,7 @@ export const store = (() => {
 
             });
         },
-        /** Quando ocorre quando ocorre qualquer evento de inserção, update e delete, sendo em elemtnossingular ou em lote. */
+        /** Quando ocorre quando ocorre qualquer evento de inserção, update e delete, sendo em elemento singular. */
         onChanged: (storeName: string, func: (e: CustomEventInit) => void) => {
             window.addEventListener(events.changed, (e: CustomEventInit) => {
                 if (e.detail.store !== storeName) {
