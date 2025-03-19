@@ -179,10 +179,10 @@ app-config {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.1s ease-in-out;
 
     /*Estado inicial - closed*/
-    translate: 0px -130px;
+    translate: 0px -10px;
     opacity: 0;
 }
 
@@ -193,7 +193,7 @@ app-config {
 }
 
 .screen.close {
-    translate: 0px -30px;
+    translate: 0px -10px;
     opacity: 0;
     z-index: 109;
 }

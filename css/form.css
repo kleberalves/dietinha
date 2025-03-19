@@ -1,4 +1,4 @@
-.form, 
+.form,
 form {
     position: relative;
     display: flex;
@@ -29,6 +29,7 @@ form {
         & {
             width: 95%;
         }
+
         >div {
             width: 100%;
         }
@@ -43,6 +44,7 @@ form {
 
 
 @media (min-width: 600px) {
+
     .form,
     form {
         min-width: 570px;
@@ -50,6 +52,7 @@ form {
 }
 
 @media (min-width: 1000px) {
+
     .form,
     form {
         min-width: 900px;
@@ -82,16 +85,17 @@ form {
         }
     }
 
-    @media  (max-width: 500px) {
+    @media (max-width: 500px) {
         & {
             flex-wrap: wrap;
             flex-direction: column;
             align-content: center;
         }
+
         button {
             margin: 2px;
         }
-        
+
     }
 }
 
@@ -99,4 +103,59 @@ form {
 form .full {
     width: 100%;
     margin: 0px;
+}
+
+input-password {
+    position: relative;
+    #btnChange {
+        position: absolute;
+        right: 11px;
+        z-index: 100;
+        top: 0px;
+    }
+}
+
+.password-strength-meter {
+    text-align: center;
+    width: 50%;
+    justify-self: center;
+}
+
+.password-strength-meter-progress {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.password-strength-meter-progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 3px;
+}
+
+.password-strength-meter-label {
+    font-size: 14px;
+}
+
+.password-strength-meter-progress::-webkit-progress-value {
+    border-radius: 2px;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.strength-Weak::-webkit-progress-value {
+    background-color: #F25F5C;
+}
+
+.strength-Fair::-webkit-progress-value {
+    background-color: #FFE066;
+}
+
+.strength-Strong::-webkit-progress-value {
+    background-color: #247BA0;
+}
+
+.strength-Good::-webkit-progress-value {
+    background-color: #70C1B3;
 }

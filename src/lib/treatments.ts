@@ -22,9 +22,9 @@ export const getDif = (date: string) => {
 
     let dif = Math.round((now - ref) / 60000);
 
-    if (dif > 60) {
+    if (dif >= 120) {
         dif = Math.round(dif / 60);
-        return `${dif} hora(s)`;
+        return `${dif} horas`;
     }
 
     dif = Math.round(dif);
@@ -32,8 +32,9 @@ export const getDif = (date: string) => {
     if (dif === 0) {
         return `Agora`;
     }
-    
-    return `${Math.round(dif)} min`;
+
+    return dif === 1 ? `${dif} min` : `${dif} mins`;
+
 }
 
 /** Converte uma string Date no formato ISO e retorna em uma das opções: dd/mm/yyyy, dd/mm e hh:MM */

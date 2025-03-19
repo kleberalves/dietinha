@@ -1,4 +1,5 @@
 import { scrollElementTo } from "../service/animation.service";
+import { setActiveToken } from "../service/login.service";
 
 let SCREEN_HEIGHT: number = 80;
 
@@ -10,14 +11,17 @@ export const resizeScreens = () => {
     }
 }
 
-export const detectPathScreen = () => {
+export const detectPathScreen = (onDetected?: (paths: string[]) => void) => {
 
     const hashPaths = window.location.hash.split("/");
-    if (hashPaths.length === 2) {
+    if (hashPaths.length >= 2) {
         var screens = document.getElementsByClassName('screen') as HTMLCollectionOf<HTMLDivElement>;
         for (let t = 0; t < screens.length; t++) {
             if (screens[t].id === hashPaths[1]) {
                 if (!screens[t].classList.contains("open")) {
+                    if (onDetected) {
+                        onDetected(hashPaths);
+                    }
                     swapScreen(hashPaths[1]);
                 }
 
@@ -54,7 +58,7 @@ export const swapScreen = (id: string) => {
                     scrollElementTo(screen, 0);
                     window.location.href = "#/" + id;
                 }, 150);
-                
+
                 //window.history.pushState(null, "", "#/" + id);
                 //https://adityaprabhat.hashnode.dev/routing-in-single-page-application
 

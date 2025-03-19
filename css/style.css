@@ -10,9 +10,11 @@ body {
 }
 
 .logo-main {
+
+    width: 126px;
+    height: 46px;
+    background-size: contain;
     position: absolute;
-    width: 155px;
-    height: 53px;
     background-image: url(../assets/logo_dietinha.png?VerAPP1);
     background-repeat: no-repeat;
     left: 20px;

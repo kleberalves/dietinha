@@ -47,10 +47,12 @@
     "standard": "14.3.4",
     "typescript": "3.9.7",
     "uhtml": "^2.8.1",
-    "watch": "^1.0.2"
+    "watch": "^1.0.2",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@types/dietinha": "file:./@types",
+    "@types/zxcvbn": "^4.4.5",
     "@vitest/browser": "^3.0.6",
     "vitest": "^3.0.6"
   }

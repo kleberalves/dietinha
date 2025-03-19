@@ -1,7 +1,7 @@
 import { Hole, html, render } from "uhtml";
 import { Base } from "./base";
 import { store } from "../service/store.service";
-import { stores } from "../service/config.service";
+import { screens, stores } from "../service/config.service";
 import { getRadiosCheck } from "../lib/forms";
 import { showWarning } from "../lib/message.lib";
 import { localISOString } from "../lib/treatments";
@@ -159,7 +159,7 @@ class IngredientesSelecionados extends Base {
 
                 sync();
 
-                swapScreen("cardapio");
+                swapScreen(screens.Cardapio);
             }
         } catch (e) {
             showWarning(e.message);

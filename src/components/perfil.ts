@@ -1,6 +1,6 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { stores } from "../service/config.service";
+import { screens, stores } from "../service/config.service";
 import { setNumberField, setRadiosCheck } from "../lib/forms";
 import { store } from "../service/store.service";
 import { calcularMetaDiaria } from "../service/meta-diaria.service";
@@ -30,7 +30,7 @@ class AppPerfil extends Base implements IAppPerfil {
 
             let cardapioItems = store.getItems(stores.Cardapio);
             if (cardapioItems.length === 0) {
-                swapScreen("calculadora");
+                swapScreen(screens.Calculadora);
             }
         });
 

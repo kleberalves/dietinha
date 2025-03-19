@@ -6,7 +6,7 @@
 /// <reference path="definitions/components/ingredientes-selecionados.d.ts" />
 /// <reference path="definitions/lib/forms.ts" />
 
-interface Edit extends BaseItem{
+interface Edit extends BaseItem {
     store: string;
     itemRef: BaseItem;
 }
@@ -64,6 +64,8 @@ interface AuthInfo extends BaseItem {
     name: string;
     token: string;
     lastSync?: string;
+    activeToken?: string;
+    activeTokenMode?: string;
     profiles: any[];
 }
 
@@ -71,5 +73,4 @@ interface ISync {
     cardapioItems: CardapioItem[];
     perfil: Perfil | null;
     registroRefeicaoItems: RegistroRefeicaoItem[];
-  }
-  
+}

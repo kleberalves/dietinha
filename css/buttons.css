@@ -4,12 +4,18 @@ input[type="submit"] {
     border-radius: 15px;
     background-color: var(--primary-color);
     color: #fff;
-    font-size: 0.8em;
+    font-size: 15px;
+    font-weight: 400;
     border: 0px;
 }
 
 .btn-ok {
     background-color: var(--sucess-color);
+}
+
+.btn-icon-small {
+    width: 20px;
+    cursor: pointer;
 }
 
 .btn-icon {
@@ -25,6 +31,7 @@ input[type="submit"] {
 button:hover,
 .btn-trash:hover,
 .btn-edit:hover,
+.btn-icon-small:hover,
 input[type="submit"]:hover {
     opacity: 0.7;
     cursor: pointer;

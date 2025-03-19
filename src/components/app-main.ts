@@ -5,6 +5,7 @@ import { store } from "../service/store.service";
 import { screens, stores } from "../service/config.service";
 import { scrollBodyTop } from "../service/animation.service";
 import { removeWindow, showLoading } from "../lib/message.lib";
+import { setActiveToken } from "../service/login.service";
 
 class AppMain extends Base {
 
@@ -32,21 +33,21 @@ class AppMain extends Base {
             removeWindow();
             if (window.location.hash === "") {
                 if (this.perfilItem === null) {
-                    swapScreen("perfil");
+                    swapScreen(screens.Perfil);
                 } else if (this.cardapioItems.length > 0) {
-                    swapScreen("cardapio");
+                    swapScreen(screens.Cardapio);
                 } else {
-                    swapScreen("calculadora");
+                    swapScreen(screens.Calculadora);
                 }
             } else {
-                detectPathScreen();
+                this.detectPath();
             }
 
 
         });
 
         window.addEventListener("popstate", e => {
-            detectPathScreen();
+            this.detectPath();
         });
 
         store.onChanged(stores.Ingrediente, (e: CustomEventInit) => {
@@ -68,7 +69,7 @@ class AppMain extends Base {
             //Executa esse evento apenas na primeira vez em que um item for
             //adicionado no cardápio
             if (e.detail.items.length === 1) {
-                swapScreen("cardapio");
+                swapScreen(screens.Cardapio);
 
                 scrollBodyTop(0);
             }
@@ -92,6 +93,14 @@ class AppMain extends Base {
 
         store.editCheck();
 
+    }
+
+    detectPath() {
+        detectPathScreen((paths: string[]) => {
+            if (paths[1] === screens.Active || paths[1] === screens.ResetPassword) {
+                setActiveToken(paths[2], paths[1]);
+            }
+        });
     }
 
     btnShowSearchCardapio() {
@@ -228,8 +237,8 @@ class AppMain extends Base {
                                 </div>
                                 <div class="title">Perfil</div>
                                 <div> 
-                                <img src="img/login.svg" title="Autenticar" class="btn-icon" @click=${e => swapScreen("login")}/>
-                                <img src="img/configuracoes.svg" title="Configurações" class="btn-icon" @click=${e => swapScreen("config")}/>
+                                <img src="img/login.svg" title="Autenticar" class="btn-icon" @click=${e => swapScreen(screens.Login)}/>
+                                <img src="img/configuracoes.svg" title="Configurações" class="btn-icon" @click=${e => swapScreen(screens.Configuracoes)}/>
                                 </div>
                             </div>
 
@@ -269,7 +278,7 @@ class AppMain extends Base {
 
                          <div class="screen-header">
                             <div> 
-                                <div class="btn-voltar" onclick=${e => goBack()}>
+                                <div class="btn-voltar" onclick=${e => swapScreen(screens.Perfil)}>
                                     Voltar
                                 </div>
                             </div>
@@ -279,6 +288,34 @@ class AppMain extends Base {
                             </div>
                         </div>
                     <app-login />
+                </div>
+
+                <div class="screen close" id="activate">
+
+                    <div class="screen-header">
+                        <div> 
+                        
+                        </div>
+                        <div class="title">Ativar a conta</div>
+                        <div>
+                            
+                        </div>
+                    </div>
+                    <app-login mode="activate" />
+                </div>
+
+                <div class="screen close" id="resetpassword">
+
+                    <div class="screen-header">
+                        <div> 
+                        
+                        </div>
+                        <div class="title">Redefinir a senha</div>
+                        <div>
+                            
+                        </div>
+                    </div>
+                    <app-login mode="resetpassword" />
                 </div>
 
                 <div class="screen close" id="notfound">
@@ -294,22 +331,22 @@ class AppMain extends Base {
         <div class="screens-nav">
             <span class="logo-main"> </span>
             <div>
-                ${(this.perfilItem !== null && this.cardapioItems.length >= 1) ? html`<div class="btn-screen-switch open" id="cardapioNav" onclick=${e => swapScreen("cardapio")}>
+                ${(this.perfilItem !== null && this.cardapioItems.length >= 1) ? html`<div class="btn-screen-switch open" id="cardapioNav" onclick=${e => swapScreen(screens.Cardapio)}>
                     <img src="img/cardapio.svg" /> 
                     <div class="btn">Cardápio</div>
                 </div>` : null}
 
-                 ${(registroRefeicaoItems.length > 0) ? html`<div class="btn-screen-switch" id="registroNav" onclick=${e => swapScreen("registro")}>
+                 ${(registroRefeicaoItems.length > 0) ? html`<div class="btn-screen-switch" id="registroNav" onclick=${e => swapScreen(screens.Registro)}>
                     <img src="img/registro.svg" /> 
                     <div class="btn">Registro</div>
                 </div>` : null}
 
-                 ${this.perfilItem !== null ? html`<div class="btn-screen-switch" id="calculadoraNav" onclick=${e => swapScreen("calculadora")}>
+                 ${this.perfilItem !== null ? html`<div class="btn-screen-switch" id="calculadoraNav" onclick=${e => swapScreen(screens.Calculadora)}>
                     <img src="img/calculadora.svg" /> 
                     <div class="btn">Calculadora</div>
                 </div>` : null}
 
-                <div class="btn-screen-switch" id="perfilNav" onclick=${e => swapScreen("perfil")}>     
+                <div class="btn-screen-switch" id="perfilNav" onclick=${e => swapScreen(screens.Perfil)}>     
                     <img src="img/perfil.svg" /> 
                     <div class="btn">Perfil</div>
                 </div>

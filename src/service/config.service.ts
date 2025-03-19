@@ -17,9 +17,12 @@ export const stores = {
 export const screens = {
     Cardapio: "cardapio",
     Calculadora: "calculadora",
+    Registro: "registro",
     Perfil: "perfil",
     Login: "login",
     Configuracoes: "config",
+    Active: "active",
+    ResetPassword: "resetpassword"
 }
 
 export const swapTheme = () => {

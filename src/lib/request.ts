@@ -14,6 +14,11 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
     const post = async (url: string, body: any, silent?: boolean): Promise<any> => {
         return await request(url, "POST", JSON.stringify(body), module, silent);
     }
+
+    const put = async (url: string, body: any): Promise<Response | undefined> => {
+        return await request(url, "PUT", JSON.stringify(body), module);
+    }
+
     /**
      * 
      * @param url 
@@ -49,14 +54,7 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
 
     }
 
-    const put = async (url: string, body: any): Promise<Response | undefined> => {
-        try {
-            return await request(url, "PUT", JSON.stringify(body), module);
 
-        } catch (error) {
-            showError(error);
-        }
-    }
 
     const patch = async (url: string, body: any): Promise<Response | undefined> => {
         try {
@@ -161,9 +159,14 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
                         reject(responseBody);
                     } else {
 
-                        let responseBody = await response.json();
-                        console.log(responseBody);
-                        resolve(responseBody);
+                        if (response.status === 204) {
+                            //Sem conteúto, portanto, sem .json()
+                            resolve(response);
+                        } else {
+                            let responseBody = await response.json();
+                            console.log(responseBody);
+                            resolve(responseBody);
+                        }
                     }
 
                 }).catch((e) => {
