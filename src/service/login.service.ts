@@ -70,7 +70,7 @@ export const sendActive = (): Promise<void> => {
 }
 
 
-export const resetPassword = (password: string): void => {
+export const resetPassword = (password: string, email: string): void => {
     let loginInfo = getLoginInfo();
     if (loginInfo && loginInfo.activeToken) {
         getTokenRecaptcha((captchaToken) => {
@@ -78,7 +78,8 @@ export const resetPassword = (password: string): void => {
             put(`/login/reset-password/${captchaToken}`,
                 {
                     "token": loginInfo.activeToken,
-                    "password": password
+                    "password": password,
+                    "email": email
                 }
             ).then(async (resp) => {
                 showOk("Sua senha foi alterada com sucesso!");

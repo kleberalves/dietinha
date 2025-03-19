@@ -128,11 +128,13 @@ class AppLogin extends Base {
     async resetPassword(e: SubmitEvent) {
         e.preventDefault();
 
+        let email = getInputString('#inputEmail', "Insira o seu email");
+
         let senha = getInputString('#inputNewPassword', "Insira a sua senha");
 
         try {
-            if (validateFields([senha]) && senha.value) {
-                await resetPassword(senha.value);
+            if (validateFields([senha, email]) && senha.value && email.value) {
+                await resetPassword(senha.value, email.value);
             }
         } catch (e: any) {
             showError(e.message);
@@ -192,6 +194,10 @@ class AppLogin extends Base {
               ${this.modeView === "resetpassword" ? html`
                 <form onsubmit=${(e) => this.resetPassword(e)}>
                     <div class="col-1">
+                        <div>
+                            <label>Seu email:</label>
+                            <input type="email" class="textForm delay1" id="inputEmail" />
+                        </div>
                         <div>
                             <label>Nova senha:</label>
                             <input-password name="inputNewPassword" id="inputNewPassword" value="" />
