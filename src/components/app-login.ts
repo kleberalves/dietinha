@@ -48,7 +48,7 @@ class AppLogin extends Base {
 
         store.onChanged(stores.Login, (e: CustomEventInit) => {
 
-            if (e.detail.item && e.detail.item.activeTokenMode === screens.Active) {
+            if (e.detail.item && e.detail.item.activeTokenMode === screens.Activate) {
                 sendActive().then(() => {
                     showOk("Conta ativada com sucesso.");
                     swapScreen(screens.Login);

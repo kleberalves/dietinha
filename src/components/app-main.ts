@@ -97,7 +97,7 @@ class AppMain extends Base {
 
     detectPath() {
         detectPathScreen((paths: string[]) => {
-            if (paths[1] === screens.Active || paths[1] === screens.ResetPassword) {
+            if (paths[1] === screens.Activate || paths[1] === screens.ResetPassword) {
                 setActiveToken(paths[2], paths[1]);
             }
         });

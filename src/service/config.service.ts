@@ -21,7 +21,7 @@ export const screens = {
     Perfil: "perfil",
     Login: "login",
     Configuracoes: "config",
-    Active: "active",
+    Activate: "activate",
     ResetPassword: "resetpassword"
 }
 
