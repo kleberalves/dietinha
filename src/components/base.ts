@@ -1,7 +1,8 @@
-export interface IBase {
-    id: number;
+interface IBase {
+    id: string;
+    onChange?: (evt: (e: CustomEventInit) => void) => void;
 }
-export class Base extends HTMLElement {
+export class Base extends HTMLElement implements IBase {
 
     constructor() {
         super();
@@ -9,7 +10,7 @@ export class Base extends HTMLElement {
         //do pai antes da própria renderização.
         this.childrenHTML = this.innerHTML;
     }
-    debug:boolean = false;
+    debug: boolean = false;
     childrenHTML: string;
 
     p(prop: string): any | undefined {

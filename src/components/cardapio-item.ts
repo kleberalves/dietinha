@@ -97,7 +97,7 @@ class AppCardapioItem extends Base {
                 "created": localISOString()
             }
 
-            store.addItem(stores.RegistroRefeicao, itemAlimentacao).then((info) => {
+            store.addItem<RegistroRefeicaoItem>(stores.RegistroRefeicao, itemAlimentacao).then((info) => {
                 this.reiniciarAlimentacao();
             });
         }

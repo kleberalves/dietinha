@@ -18,11 +18,7 @@ class PesquisaAlimento extends Base {
         super();
     }
 
-
     onTxtPesquisaInput(target: HTMLInputElement) {
-        // this.resultList = [];
-        // this.render();
-
         this.resultList = consultaAlimento(target.value.toLowerCase());
         this.render();
     }
@@ -30,6 +26,14 @@ class PesquisaAlimento extends Base {
     attributeChangedCallback(name, oldValue, newValue) {
         console.log(`Attribute ${name} has changed.`);
     }
+
+    onAddedItem = (e: CustomEventInit) => {
+        if (e.detail.store === stores.Cardapio || e.detail.store === stores.Ingrediente) {
+            //Quando um novo item for adicionado ao cardapio, 
+            //deve reiniciar a lista de pesquisa 
+            this.restart();
+        }
+    };
 
     connectedCallback() {
 
@@ -39,24 +43,13 @@ class PesquisaAlimento extends Base {
         }
         this.render();
 
-        store.onAddedItem(stores.Cardapio, (e: CustomEventInit) => {
-            //Quando um novo item for adicionado ao cardapio, 
-            //deve reiniciar a lista de pesquisa 
-            this.restart();
-        });
-
-        store.onAddedItem(stores.Ingrediente, (e: CustomEventInit) => {
-            //Quando um novo item for adicionado na lista de indredientes, 
-            //deve reiniciar a lista de pesquisa 
-            this.restart();
-        });
+        store.onAddedItem(this.onAddedItem);
 
         store.onEditStarted((e: CustomEventInit) => {
             if (e.detail.store === stores.Cardapio) {
                 this.restart();
             }
         });
-
 
     }
 

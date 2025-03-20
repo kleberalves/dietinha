@@ -12,7 +12,7 @@ const events = {
     updatedItem: "STORE_UPDATED_ITEM",
     replacedAll: "STORE_REPLACED_ALL",
     editStart: "STORE_EDIT_START",
-    editFinish: "STORE_EDIT_END"
+    editFinished: "STORE_EDIT_FINISHED"
 }
 
 const internal = {
@@ -411,7 +411,7 @@ export const store = (() => {
         store.clear(internal.Edit);
 
         window.dispatchEvent(
-            new CustomEvent(events.editFinish, {
+            new CustomEvent(events.editFinished, {
                 detail: null
             })
         )
@@ -548,35 +548,23 @@ export const store = (() => {
                 throw new Error("Store não existe.")
             }
         },
-        onAddedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
-            window.addEventListener(events.addedItem, (e: CustomEventInit) => {
-
-                if (e.detail.store !== storeName) {
-                    return;
-                }
-                func(e);
-
-            });
+        onAddedItem: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(events.addedItem, func);
         },
-        onRemovedItem: (storeName: string, func: (e: CustomEventInit) => void) => {
-            window.addEventListener(events.removedItem, (e: CustomEventInit) => {
-
-                if (e.detail.store !== storeName) {
-                    return;
-                }
-                func(e);
-
-            });
+        removeOnAddedItem: (func: (e: CustomEventInit) => void) => {
+            window.removeEventListener(events.addedItem, func);
         },
-        onCleared: (storeName: string, func: (e: CustomEventInit) => void) => {
-            window.addEventListener(events.cleared, (e: CustomEventInit) => {
-
-                if (e.detail.store !== storeName) {
-                    return;
-                }
-                func(e);
-
-            });
+        onRemovedItem: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(events.removedItem, func);
+        },
+        removeOnRemovedItem: (func: (e: CustomEventInit) => void) => {
+            window.removeEventListener(events.removedItem, func);
+        },
+        onCleared: (func: (e: CustomEventInit) => void) => {
+            window.addEventListener(events.cleared, func);
+        },
+        removeOnCleared: (func: (e: CustomEventInit) => void) => {
+            window.removeEventListener(events.cleared, func);
         },
         /** Quando ocorre quando ocorre qualquer evento de inserção, update e delete, sendo em elemento singular. */
         onChanged: (storeName: string, func: (e: CustomEventInit) => void) => {
@@ -609,14 +597,14 @@ export const store = (() => {
             });
         },
         onEditStarted: (func: (e: CustomEventInit) => void) => {
-            window.addEventListener(events.editStart, (e: CustomEventInit) => {
-                func(e);
-            });
+            window.addEventListener(events.editStart, func);
         },
         onEditFinished: (func: (e: CustomEventInit) => void) => {
-            window.addEventListener(events.editFinish, (e: CustomEventInit) => {
-                func(e);
-            });
+            window.addEventListener(events.editFinished, func);
+        },
+        removeEditEvents: (start: (e: CustomEventInit) => void, end: (e: CustomEventInit) => void) => {
+            window.removeEventListener(events.editStart, start);
+            window.removeEventListener(events.editFinished, end);
         }
     }
 })();

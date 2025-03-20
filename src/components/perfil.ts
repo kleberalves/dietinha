@@ -19,6 +19,17 @@ class AppPerfil extends Base implements IAppPerfil {
         calcularMetaDiaria();
     }
 
+    onAddedItem = (e: CustomEventInit) => {
+        if (e.detail.store === stores.Perfil) {
+            this.showMetaDiaria(e.detail.item as Perfil);
+
+            let cardapioItems = store.getItems(stores.Cardapio);
+            if (cardapioItems.length === 0) {
+                swapScreen(screens.Calculadora);
+            }
+        }
+    };
+
     connectedCallback() {
 
         store.onChanged(stores.Perfil, (e: CustomEventInit) => {
@@ -31,14 +42,7 @@ class AppPerfil extends Base implements IAppPerfil {
             }
         });
 
-        store.onAddedItem(stores.Perfil, (e: CustomEventInit) => {
-            this.showMetaDiaria(e.detail.item as Perfil);
-
-            let cardapioItems = store.getItems(stores.Cardapio);
-            if (cardapioItems.length === 0) {
-                swapScreen(screens.Calculadora);
-            }
-        });
+        store.onAddedItem(this.onAddedItem);
 
         store.onReplacedAll((e: CustomEventInit) => {
             this.getPerfil();
@@ -70,7 +74,7 @@ class AppPerfil extends Base implements IAppPerfil {
 
     }
 
- 
+
     render() {
         render(this, html` 
             <div class="form form-bar-bottom">

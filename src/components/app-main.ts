@@ -15,13 +15,23 @@ class AppMain extends Base {
 
     perfilItem: Perfil | null;
     cardapioItems: any[];
-    showEditCardapio: boolean = false;
+
+    onAddedItem = (e: CustomEventInit) => {
+        if (e.detail.store === stores.Cardapio || e.detail.store === stores.RegistroRefeicao) {
+            this.render();
+            //Executa esse evento apenas na primeira vez em que um item for
+            //adicionado no cardápio
+            if (e.detail.items.length === 1) {
+                swapScreen(screens.Cardapio);
+                scrollBodyTop(0);
+            }
+        }
+    }
 
     connectedCallback() {
+
         showLoading();
-
         this.render();
-
 
         window.addEventListener("resize", () => {
             resizeScreens();
@@ -43,15 +53,10 @@ class AppMain extends Base {
                 this.detectPath();
             }
 
-
         });
 
         window.addEventListener("popstate", e => {
             this.detectPath();
-        });
-
-        store.onChanged(stores.Ingrediente, (e: CustomEventInit) => {
-            this.render();
         });
 
         store.onChanged(stores.Perfil, (e: CustomEventInit) => {
@@ -59,39 +64,11 @@ class AppMain extends Base {
         });
 
         //Added significa que a meta foi cadastrada pela primeira vez
-        store.onAddedItem(stores.RegistroRefeicao, (e: CustomEventInit) => {
-            this.render();
-        });
-
-        store.onAddedItem(stores.Cardapio, (e: CustomEventInit) => {
-            this.render();
-
-            //Executa esse evento apenas na primeira vez em que um item for
-            //adicionado no cardápio
-            if (e.detail.items.length === 1) {
-                swapScreen(screens.Cardapio);
-
-                scrollBodyTop(0);
-            }
-        });
-
-        store.onEditStarted((e: CustomEventInit) => {
-            if (e.detail.store === stores.Cardapio) {
-                this.showEditCardapio = true;
-                this.render();
-            }
-        });
-
-        store.onEditFinished((e: CustomEventInit) => {
-            this.showEditCardapio = false;
-            this.render();
-        });
+        store.onAddedItem(this.onAddedItem);
 
         store.onReplacedAll((e: CustomEventInit) => {
             this.render();
         });
-
-        store.editCheck();
 
     }
 
@@ -109,17 +86,6 @@ class AppMain extends Base {
             element.swapSearch();
         }
     }
-    btnAdicionarIngredientesCardapio() {
-        let element = this.querySelector<IIngredientesSelecionados>("#appIngredientesSelecionados");
-        if (element) {
-
-            element.salvarItemCardapio();
-        }
-    }
-    btnLimparIngredientesCardapio() {
-        store.editFinish();
-        swapScreen(screens.Cardapio);
-    }
 
     btnPerfilSaveClick() {
         let element = this.querySelector<IAppPerfil>("#appPerfil");
@@ -133,7 +99,6 @@ class AppMain extends Base {
         this.perfilItem = store.getSingle(stores.Perfil);
         this.cardapioItems = store.getItems(stores.Cardapio);
         var registroRefeicaoItems: any[] = store.getItems(stores.RegistroRefeicao);
-        var ingredientesItems: any[] = store.getItems(stores.Ingrediente);
 
         render(this, html`
    
@@ -200,7 +165,6 @@ class AppMain extends Base {
                          <div class="title">Calculadora de alimentos</div>
 
                           ${this.perfilItem !== null
-                && ingredientesItems.length === 0
                 && this.cardapioItems.length === 0
                 ? html` <div class="wizard-message">
                                     <h1>Segundo passo</h1>
@@ -213,21 +177,7 @@ class AppMain extends Base {
                                         itens você consumiu.
                                     </p>
                                 </div>` : null}
-       
-
-                    <div class="form">
-                        <div class="full">
-                            <app-pesquisa-alimento />
-                        </div>
-                           ${ingredientesItems.length > 0 ? html`<div class="full">
-                                                                        <app-ingredientes-selecionados id="appIngredientesSelecionados" />
-                                                                </div>` : null}
-                    </div>
-
-                    ${ingredientesItems.length > 0 || this.showEditCardapio === true ? html`<div class="action-bar-bottom"><button class='btn-main' onclick=${e => this.btnAdicionarIngredientesCardapio()}> Salvar no cardápio </button>
-                         ${this.showEditCardapio === true ? html`<button class='btn-cancelar' onclick=${e => this.btnLimparIngredientesCardapio()}> Cancelar </button>` : null}
-                    </div>` : null}
-                    
+                            <screen-calculadora />
                 </div>
 
                 <div class="screen close" id="perfil">

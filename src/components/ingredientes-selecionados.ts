@@ -8,7 +8,7 @@ import { localISOString } from "../lib/treatments";
 import { swapScreen } from "../lib/screens.lib";
 import { sync } from "../service/sync.service";
 
-class IngredientesSelecionados extends Base {
+class IngredientesSelecionados extends Base implements IIngredientesSelecionados {
 
     props: {
         idx: number;
@@ -17,20 +17,65 @@ class IngredientesSelecionados extends Base {
 
     listaIngredientes: Ingrediente[] = [];
     listaCardapio: CardapioItem[] = [];
-
     cardapioItemEdit: CardapioItem | null = null;
 
     constructor() {
         super();
+    }
 
+    //Declara os eventos como Arrow Functions pois Functions normais coibem o acesso ao "this".
 
+    onEditStarted = (e: CustomEventInit) => {
+      
+        if (e.detail !== null && e.detail.store === stores.Cardapio) {
+            this.cardapioItemEdit = e.detail.itemRef;
+            this.render();
+        }
+    }
 
-        store.onCleared(stores.Ingrediente, (e: CustomEventInit) => {
+    onEditFinished = (e: CustomEventInit) => {
+     
+        this.cardapioItemEdit = null;
+        store.clear(stores.Ingrediente);
+        this.render();
 
+        store.removeEditEvents(this.onEditStarted, this.onEditFinished);
+        store.removeOnCleared(this.onCleared);
+        store.removeOnAddedItem(this.onAddedItem);
+        store.removeOnRemovedItem(this.onRemovedItem);
+    }
+
+    onCleared = (e: CustomEventInit) => {
+
+        if (e.detail.store === stores.Ingrediente) {
             this.listaIngredientes = [];
             render(this, html``);
-        });
+        }
+    };
 
+    onAddedItem = (e: CustomEventInit) => {
+      
+        if (e.detail.store === stores.Ingrediente) {
+            this.listaIngredientes = e.detail.items;
+            this.render();
+        }
+    };
+
+    onRemovedItem = (e: CustomEventInit) => {
+
+        if (e.detail.store === stores.Ingrediente) {
+            if (e.detail.items.length === 0) {
+                store.editFinish();
+
+            } else {
+                this.listaIngredientes = e.detail.items;
+                if (this.cardapioItemEdit) {
+                    this.removerIngredienteCardapioItem(this.cardapioItemEdit, e.detail.item.id);
+                }
+            }
+
+            this.render();
+        }
     }
 
     connectedCallback() {
@@ -47,41 +92,14 @@ class IngredientesSelecionados extends Base {
             this.render();
         }
 
-        store.onEditStarted((e: CustomEventInit) => {
-            if (e.detail.store === stores.Cardapio) {
-                this.cardapioItemEdit = e.detail.itemRef;
-                this.render();
-            }
-        });
+        store.onEditStarted(this.onEditStarted);
+        store.onEditFinished(this.onEditFinished);
+        store.onCleared(this.onCleared);
+        store.onAddedItem(this.onAddedItem);
+        store.onRemovedItem(this.onRemovedItem);
 
-        store.onEditFinished((e: CustomEventInit) => {
-            this.cardapioItemEdit = null;
-            store.clear(stores.Ingrediente);
-            this.render();
-        });
+        store.editCheck();
 
-        store.onAddedItem(stores.Ingrediente, (e: CustomEventInit) => {
-
-            this.listaIngredientes = e.detail.items;
-            this.render();
-        });
-
-        store.onRemovedItem(stores.Ingrediente, (e: CustomEventInit) => {
-
-            if (e.detail.items.length === 0) {
-                store.editFinish();
-
-            } else {
-                this.listaIngredientes = e.detail.items;
-                if (this.cardapioItemEdit) {
-                    this.removerIngredienteCardapioItem(this.cardapioItemEdit, e.detail.item.id);
-                }
-            }
-
-            this.render();
-        });
-
-        this.cardapioItemEdit = null;
     }
 
     removerIngredienteCardapioItem(cardapioItem: CardapioItem, ingredienteId: string) {
@@ -187,15 +205,17 @@ class IngredientesSelecionados extends Base {
         render(this, html`
         <div class='list selecionados'>
             <div class='title'>Ingredientes selecionados</div>
-            ${this.cardapioItemEdit !== null ? html`<div class="msg-warning">Você está editando um item do cardápio.</div>` : null}
-                           ${(this.listaCardapio.length === 0 && this.listaIngredientes.length === 1) ? html`<div class="wizard-message">
-                                  <h1>Dica</h1>
-                                <p>
-                                    Faça uma outra consulta e adicione novos ingredientes para compor a sua refeição. <br/>
-                                     Exemplo: Arroz cozido, Feijão preto cozido, Ovo de galinha inteiro cozido e Batata inglesa cozida.
-                                </p>
 
-                            </div>` : null}
+            ${this.cardapioItemEdit !== null ? html`<div class="msg-warning">Você está editando um item do cardápio.</div>` : null}
+
+            ${(this.listaCardapio.length === 0 && this.listaIngredientes.length === 1) ? html`<div class="wizard-message">
+                    <h1>Dica</h1>
+                <p>
+                    Faça uma outra consulta e adicione novos ingredientes para compor a sua refeição. <br/>
+                        Exemplo: Arroz cozido, Feijão preto cozido, Ovo de galinha inteiro cozido e Batata inglesa cozida.
+                </p>
+            </div>` : null}
+
                 <div class="list-space-around">
                     ${items.map(item => item)}
                 </div>

@@ -19,6 +19,22 @@ class InputPassword extends Base {
         return this.passwordValue;
     }
 
+    onChange = (evt: (e: CustomEventInit) => void) => {
+        this.addEventListener("ON_CHANGED", (e: CustomEventInit) => {
+            evt(e);
+        });
+    };
+
+    dispatchOnChange = (value: string) => {
+        this.dispatchEvent(
+            new CustomEvent("ON_CHANGE", {
+                detail: {
+                    value: value
+                }
+            })
+        );
+    }
+
     connectedCallback() {
 
         this.props = {
@@ -74,14 +90,7 @@ class InputPassword extends Base {
                 this.testScore = testedResult.score;
             }
 
-            this.dispatchEvent(
-                new CustomEvent("ON_CHANGE", {
-                    detail: {
-                        value: target.value
-                    }
-                })
-            );
-
+            this.dispatchOnChange(target.value);
         }
 
         this.render();

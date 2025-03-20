@@ -18,7 +18,7 @@ function transform() {
     //Cria a lista de unidades
     for (var i = 0; i < listaAlimentos.length; i++) {
 
-        var alimentoUnidade = {};
+        var alimentoUnidade = null;
         var alimento = listaAlimentos[i];
 
         if (checkName(alimento.nome, "ovo") &&
@@ -26,7 +26,7 @@ function transform() {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
                 "label": "Unidade(s)",
-                "rating": 30
+                "rating": 35
             }
 
         } else if (checkName(alimento.nome, "pão") &&
@@ -60,7 +60,7 @@ function transform() {
             alimentoUnidade = {
                 "idAlimento": alimento.id,
                 "label": "Fatia(s)",
-                "rating": 25
+                "rating": 30
             }
 
         } else if (checkName(alimento.nome, "ovo") &&
@@ -90,7 +90,9 @@ function transform() {
             }
         }
 
-        listaAlimentosUnidades.push(alimentoUnidade);
+        if (alimentoUnidade !== null) {
+            listaAlimentosUnidades.push(alimentoUnidade);
+        }
     }
 
 

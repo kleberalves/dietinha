@@ -17,12 +17,21 @@ class RegistroAlimentos extends Base {
 
     constructor() {
         super();
+    }
 
-        store.onAddedItem(stores.RegistroRefeicao, (e: CustomEventInit) => {
+    onCleared = (e: CustomEventInit) => {
+        if (e.detail.store === stores.RegistroRefeicao) {
+            this.itemsShow = [];
+            render(this, html``);
+        }
+    };
+
+    onAddedItem = (e: CustomEventInit) => {
+
+        if (e.detail.store === stores.RegistroRefeicao) {
 
             this.itemsShow = [];
             render(this, html``);
-
             this.render(e.detail.items);
 
             sync();
@@ -32,21 +41,29 @@ class RegistroAlimentos extends Base {
             if (cardapioItems.length === 1 && e.detail.items.length === 1) {
                 swapScreen(screens.Registro);
             }
+        }
+    };
 
-        });
-
-        store.onRemovedItem(stores.RegistroRefeicao, (e: CustomEventInit) => {
+    onRemovedItem = (e: CustomEventInit) => {
+        if (e.detail.store === stores.RegistroRefeicao) {
 
             this.itemsShow = [];
             render(this, html``);
 
             this.render(e.detail.items);
-        });
+        }
+    };
 
-        store.onCleared(stores.RegistroRefeicao, (e: CustomEventInit) => {
-            this.itemsShow = [];
-            render(this, html``);
-        });
+    connectedCallback() {
+
+        this.props = {
+            idx: this.p("idx"),
+            id: this.p("id"),
+        }
+
+        store.onCleared(this.onCleared);
+        store.onAddedItem(this.onAddedItem);
+        store.onRemovedItem(this.onRemovedItem);
 
         store.onReplacedAll((e: CustomEventInit) => {
             this.itemsShow = [];
@@ -55,15 +72,6 @@ class RegistroAlimentos extends Base {
             //Atualiza o registro quando o storage for atualizado via Sync
             this.render();
         });
-
-    }
-
-    connectedCallback() {
-
-        this.props = {
-            idx: this.p("idx"),
-            id: this.p("id"),
-        }
 
         this.render();
     }

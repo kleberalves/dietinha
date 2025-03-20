@@ -170,6 +170,7 @@ export const useRequest = (module?: string, error?: any, logout?: () => void) =>
                     }
 
                 }).catch((e) => {
+                    console.log(e);
 
                     if (e.toString().toLowerCase().indexOf("failed to fetch")) {
                         reject("Não foi possível alcançar os nossos servidores. Verifique a internet e tente novamente.");

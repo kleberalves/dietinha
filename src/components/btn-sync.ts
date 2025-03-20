@@ -10,6 +10,7 @@ class BtnSync extends Base {
 
     classLoad: string = "btn-icon";
     lastSync: string | undefined;
+    loginItem: AuthInfo | null;
 
     constructor() {
         super();
@@ -21,7 +22,7 @@ class BtnSync extends Base {
 
         onSync((e) => {
             this.classLoad = "btn-icon rotate";
-            this.time = "Sincroni zando...";
+            this.time = "Sinc...";
             this.render();
         });
         onSyncEnd((e) => {
@@ -39,10 +40,28 @@ class BtnSync extends Base {
             this.start();
         }, 75000);
 
+        store.onCleared(this.onClearedLogin);
+        store.onAddedItem(this.onAddedItemLogin);
+
         this.start();
     }
 
+    onAddedItemLogin = (e: CustomEventInit) => {
+        if (e.detail.store === stores.Login) {
+            this.loginItem = store.getSingle(stores.Login);
+            this.render();
+        }
+    }
+
+
+    onClearedLogin = (e: CustomEventInit) => {
+        //store.getSingle
+        this.loginItem = null;
+        this.render();
+    }
+
     start() {
+        this.loginItem = store.getSingle(stores.Login);
         this.lastSync = getLastSync();
         this.render();
     }
@@ -53,12 +72,11 @@ class BtnSync extends Base {
 
     render() {
 
-        if(this.time === ""){
+        if (this.time === "") {
             this.time = this.lastSync ? getDif(this.lastSync) : "";
         }
 
-        var loginItem: any = store.getSingle(stores.Login);
-        render(this, html`${loginItem !== null ? html`<img src="img/refresh.svg" title="Sincronizar dados..." class=${this.classLoad} @click=${e => this.btnSync()}/> <span>${this.time}</span>` : null}
+        render(this, html`${this.loginItem !== null ? html`<img src="img/refresh.svg" title="Sincronizar dados..." class=${this.classLoad} @click=${e => this.btnSync()}/> <span>${this.time}</span>` : null}
         `);
 
     }

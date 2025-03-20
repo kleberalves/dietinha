@@ -34,6 +34,12 @@ class AppLogin extends Base {
         return ['mode'];
     }
 
+    onCleared = (e: CustomEventInit) => {
+        if (e.detail.store === stores.Login) {
+            this.loginInfo = null;
+            this.render();
+        }
+    };
 
     connectedCallback() {
 
@@ -41,11 +47,7 @@ class AppLogin extends Base {
             this.modeView = this.p("mode");
         }
 
-        store.onCleared(stores.Login, (e: CustomEventInit) => {
-            this.loginInfo = null;
-            this.render();
-        });
-
+        store.onCleared(this.onCleared);
         store.onChanged(stores.Login, (e: CustomEventInit) => {
 
             if (e.detail.item && e.detail.item.activeTokenMode === screens.Activate) {
@@ -109,7 +111,7 @@ class AppLogin extends Base {
     }
 
     btnEnviarNovaSenha(e: any) {
-        console.log(e);
+
         e.preventDefault();
 
 
@@ -128,7 +130,7 @@ class AppLogin extends Base {
     async resetPassword(e: SubmitEvent) {
         e.preventDefault();
 
-        let email = getInputString('#inputEmail', "Insira o seu email");
+        let email = getInputString('#inputEmailReset', "Insira o seu email");
 
         let senha = getInputString('#inputNewPassword', "Insira a sua senha");
 
@@ -196,7 +198,7 @@ class AppLogin extends Base {
                     <div class="col-1">
                         <div>
                             <label>Seu email:</label>
-                            <input type="email" class="textForm delay1" id="inputEmail" />
+                            <input type="email" class="textForm delay1" id="inputEmailReset" />
                         </div>
                         <div>
                             <label>Nova senha:</label>
