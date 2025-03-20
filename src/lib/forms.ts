@@ -45,7 +45,7 @@ export const getInputString = (id: string, msg: string): FieldValue => {
 
     let value = getInputValue(id);
 
-    if(value){
+    if (value) {
         return {
             value: value.toString()
         }
@@ -144,5 +144,18 @@ export const setNumberField = (id, value) => {
         input.value = value;
     }
 }
+
+export const resetForm = (element:HTMLElement) => {
+
+        let inputs = element.querySelectorAll("input");
+        inputs.forEach((item) => {
+            if (item.type === "radio") {
+                item.checked = false;
+            } else {
+                item.value = "";
+            }
+        })
+    }
+
 
 

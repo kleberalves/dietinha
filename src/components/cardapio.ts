@@ -13,16 +13,14 @@ class Cardapio extends Base {
     constructor() {
         super();
 
-        store.onAddedItem(stores.Cardapio, (e: CustomEventInit) => {
-            this.defineList(e.detail.items);
-        });
-        store.onUpdatedItem(stores.Cardapio, (e: CustomEventInit) => {
-            this.defineList(e.detail.items);
+        store.onChanged(stores.Cardapio, (e: CustomEventInit) => {
+            if (e.detail.items) {
+                this.defineList(e.detail.items);
+            } else {
+                this.defineList([]);
+            }
         });
 
-        store.onRemovedItem(stores.Cardapio, (e: CustomEventInit) => {
-            this.defineList(e.detail.items);
-        });
     }
 
     defineList(items: CardapioItem[]): void {

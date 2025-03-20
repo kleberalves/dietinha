@@ -54,7 +54,7 @@ class AppMain extends Base {
             this.render();
         });
 
-        store.onAddedItem(stores.Perfil, (e: CustomEventInit) => {
+        store.onChanged(stores.Perfil, (e: CustomEventInit) => {
             this.render();
         });
 

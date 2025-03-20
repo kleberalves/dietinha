@@ -1,7 +1,7 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
 import { screens, stores } from "../service/config.service";
-import { setNumberField, setRadiosCheck } from "../lib/forms";
+import { resetForm, setNumberField, setRadiosCheck } from "../lib/forms";
 import { store } from "../service/store.service";
 import { calcularMetaDiaria } from "../service/meta-diaria.service";
 import { swapScreen } from "../lib/screens.lib";
@@ -21,8 +21,14 @@ class AppPerfil extends Base implements IAppPerfil {
 
     connectedCallback() {
 
-        store.onUpdatedItem(stores.Perfil, (e: CustomEventInit) => {
-            this.showMetaDiaria(e.detail.item as Perfil);
+        store.onChanged(stores.Perfil, (e: CustomEventInit) => {
+            if (e.detail.item) {
+                this.showMetaDiaria(e.detail.item as Perfil);
+            } else {
+                this.boxResumo = null;
+                this.render();
+                resetForm(this);
+            }
         });
 
         store.onAddedItem(stores.Perfil, (e: CustomEventInit) => {
@@ -53,7 +59,6 @@ class AppPerfil extends Base implements IAppPerfil {
     showMetaDiaria(resultado: Perfil) {
 
         this.boxResumo = html`<app-perfil-resumo resultado=${JSON.stringify(resultado)} />`
-
         this.render();
 
         setRadiosCheck("inputGenero", resultado.genero);
@@ -62,8 +67,10 @@ class AppPerfil extends Base implements IAppPerfil {
         setNumberField("inputAltura", resultado.altura);
         setNumberField("inputIdade", resultado.idade);
         setRadiosCheck("inputObjetivo", resultado.objetivo);
+
     }
 
+ 
     render() {
         render(this, html` 
             <div class="form form-bar-bottom">
