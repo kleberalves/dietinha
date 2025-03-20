@@ -8,7 +8,7 @@ class AppMetaDiariaResumo extends Base {
     }
 
     props: {
-        resultado: MetaDiaria;
+        resultado: Perfil;
     };
 
     //Para ativar o evento "attributeChangedCallback"
@@ -27,7 +27,7 @@ class AppMetaDiariaResumo extends Base {
 
     connectedCallback() {
         this.props = {
-            resultado: JSON.parse(this.p("resultado")) as MetaDiaria
+            resultado: JSON.parse(this.p("resultado")) as Perfil
         }
         //Se for maior que 800gr, sugere 100g a porção.
         this.render();
@@ -42,17 +42,17 @@ class AppMetaDiariaResumo extends Base {
             objetivo = "Emagrecimento";
             calorias = this.props.resultado.perderPeso;
         } else {
-            objetivo = "Ganhanho de massa";
+            objetivo = "Ganho de massa";
             calorias = this.props.resultado.ganharMassa;
         }
 
         render(this, html`
                     <div class='list resumo-calorias-diarias'>
-                            <div class='cols'>
-                            <div class='title-objetivo'>${objetivo}</div>
-                            <div><div class='title'>Calorias por dia</div> <div><b>${calorias} cal </b> </div></div>
-                            <div><div class='title'>Proteínas por dia</div> <div><b>${this.props.resultado.proteinas}g </b> </div></div>
-                            </div>
+                        <div class='cols'>
+                        <div class='title-objetivo'>${objetivo}</div>
+                        <div><div class='title'>Calorias por dia</div> <div><b>${calorias} cal </b> </div></div>
+                        <div><div class='title'>Proteínas por dia</div> <div><b>${this.props.resultado.proteinas}g </b> </div></div>
+                        </div>
                    </div>`
         );
 
