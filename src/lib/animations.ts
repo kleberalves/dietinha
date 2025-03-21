@@ -58,8 +58,20 @@ export const startAnimation = (startValue: number, endValue: number, onFrame: (v
         if (n < 1) return 0.5 * n * n * n;
         return 0.5 * ((n -= 2) * n * n + 2);
     };
-
-
     goAnime();
+}
 
+export const scrollBodyTop = (to:number) => {
+    let body = document.querySelector("body");
+    scrollElementTo(body as HTMLElement, to);
+}
+
+export const scrollElementTo = (element:HTMLElement, to:number) => {
+    if (element) {
+        startAnimation(element.scrollTop,
+            to,
+            (value) => {
+                element.scrollTop = value;
+            });
+    }
 }

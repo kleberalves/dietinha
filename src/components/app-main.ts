@@ -3,9 +3,9 @@ import { Base } from "./base";
 import { detectPathScreen, goBack, resizeScreens, swapScreen } from "../lib/screens.lib";
 import { store } from "../service/store.service";
 import { screens, stores } from "../service/config.service";
-import { scrollBodyTop } from "../service/animation.service";
 import { removeWindow, showLoading } from "../lib/message.lib";
 import { setActiveToken } from "../service/login.service";
+import { scrollBodyTop } from "../lib/animations";
 
 class AppMain extends Base {
 
