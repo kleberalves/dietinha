@@ -175,7 +175,10 @@ export const globalErrors = (e) => {
         if (e.error.name === "TokenExpiredError") {
             showWarning("Autenticação expirada.");
             swapScreen(screens.Login);
-            logout();
+
+            //Não deve-se executar o logout pois a ação limpa todos os dados locais
+            //
+            // logout();
         } else if (e.error.name === "UnauthorizedError") {
             let loginInfo = getLoginInfo();
 

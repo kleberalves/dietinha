@@ -98,7 +98,7 @@ class Cardapio extends Base {
 
 
         render(this, html`
-                ${this.showSearch ? html`<input type="text" class="textForm" id="txtPesquisa" placeholder="Pesquise no seu cardápio." oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />` : null}
+                ${this.showSearch ? html`<input type="text" class="textForm" id="txtFiltro" placeholder="Pesquise no seu cardápio." oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />` : null}
 
             <h4>Café da manhã/tarde</h4>
             ${listCA.length === 0 ? html`<span class='text-intro'> Nenhum item encontrado nesta categoria. </span>` : html`<div class="list-space-around">${listCA.map((item, idx) => item)}</div>`}

@@ -534,7 +534,9 @@ export const store = (() => {
                         window.dispatchEvent(
                             new CustomEvent(events.changed, {
                                 detail: {
-                                    store: storeName
+                                    store: storeName,
+                                    item: item,
+                                    items: filterActive(store.items)
                                 }
                             })
                         );

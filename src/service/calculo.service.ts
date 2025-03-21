@@ -84,6 +84,37 @@ const calcularAlimento = (peso: number, idxResultado: number, idProduto: string)
     }
 }
 
+declare var listaAlimentosUnidades: AlimentoUnidade[];
+
+export const getUnidades = (id: string): UnidadeAlt => {
+    let unidadeAlt: UnidadeAlt = {
+        peso: 0,
+        desc: ""
+    };
+
+    for (let i = 0; i < listaAlimentosUnidades.length; i++) {
+
+        if (id === listaAlimentosUnidades[i].idAlimento) {
+            unidadeAlt.peso = listaAlimentosUnidades[i].rating;
+            unidadeAlt.desc = listaAlimentosUnidades[i].label;
+            return unidadeAlt;
+        }
+    }
+
+    return unidadeAlt;
+}
+
+export const adicionarIngredienteAssistente = (idProduto: string) => {
+
+    try {
+        let unidadeAlt: UnidadeAlt = getUnidades(idProduto);
+        addIngredienteStorage(stores.IngredienteAssistente, idProduto, 0, 0, 0, unidadeAlt);
+    }
+    catch (e) {
+        showWarning(e.message);
+    }
+}
+
 export const adicionarCalculo = (idxResultado: number, idProduto: string, unidadeAlt: UnidadeAlt) => {
 
     try {
@@ -98,30 +129,32 @@ export const adicionarCalculo = (idxResultado: number, idProduto: string, unidad
             throw new Error("Peso deve ser maior que zero.");
         }
 
-        var produto = buscarProdutoPorId(idProduto);
-
         var elementCaloria: HTMLDivElement = document.getElementById("itemResultadoCalorias" + idxResultado) as HTMLDivElement;
         var elementProteina: HTMLDivElement = document.getElementById("itemResultadoProteinas" + idxResultado) as HTMLDivElement;
-
         var caloriasValue = parseFloat(elementCaloria.innerText);
         var proteinasValue = parseFloat(elementProteina.innerText);
 
-        if (produto !== undefined) {
-
-            store.addItem<Ingrediente>(stores.Ingrediente, {
-                "nome": produto.nome,
-                "calorias": caloriasValue,
-                "proteinas": proteinasValue,
-                "idProduto": produto.id,
-                "peso": pesoValue,
-                "unidade": produto.unidade,
-                "unidAltDesc": unidadeAlt.desc,
-                "unidAltPeso": unidadeAlt.peso,
-            } as Ingrediente);
-        }
-
+        addIngredienteStorage(stores.Ingrediente, idProduto, caloriasValue, proteinasValue, pesoValue, unidadeAlt);
     }
     catch (e) {
         showWarning(e.message);
+    }
+}
+
+function addIngredienteStorage(storeName:string, idProduto: string, caloriasValue: number, proteinasValue: number, pesoValue: number, unidadeAlt: UnidadeAlt) {
+    var produto = buscarProdutoPorId(idProduto);
+
+    if (produto !== undefined) {
+
+        store.addItem<Ingrediente>(storeName, {
+            "nome": produto.nome,
+            "calorias": caloriasValue,
+            "proteinas": proteinasValue,
+            "idProduto": produto.id,
+            "peso": pesoValue,
+            "unidade": produto.unidade,
+            "unidAltDesc": unidadeAlt.desc,
+            "unidAltPeso": unidadeAlt.peso,
+        } as Ingrediente);
     }
 }

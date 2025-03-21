@@ -18,6 +18,10 @@ function transform() {
 
     for (var i = 0; i < listaAlimentos.length; i++) {
 
+        if (listaAlimentos[i].nome.indexOf("/") > -1) {
+            listaAlimentos[i].nome = listaAlimentos[i].nome.split("/")[0];
+        }
+
         if (listaAlimentos[i].nome.toLowerCase().indexOf("cru") > -1) {
             if (listaAlimentos[i].nome.toLowerCase().indexOf("carne bovina") === -1
                 && listaAlimentos[i].nome.toLowerCase().indexOf("porco") === -1
@@ -38,13 +42,13 @@ function transform() {
     // listaAlimentos.push(
     //     {
     //         "id": uuidv4(),
-    //         "nome": "Long neck Heineken Cerveja",
-    //         "categoria": "Cervejas",
-    //         "calorias": 42,
-    //         "carboidratos": 3.3,
-    //         "proteina": 0.4,
+    //         "nome": "Farinha de Tapioca",
+    //         "categoria": "Cereais",
+    //         "calorias": 241,
+    //         "carboidratos": 60,
+    //         "proteina": 0,
     //         "gordura": 0,
-    //         "unidade": "ml"
+    //         "unidade": null
     //     }
     // );
     // fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.json"), JSON.stringify(listaAlimentos));

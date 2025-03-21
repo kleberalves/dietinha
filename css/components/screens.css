@@ -28,6 +28,14 @@ app-config {
     }
 }
 
+screen-assistente,
+screen-calculadora {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 .screen-header {
     display: flex;
     width: 100%;
@@ -119,6 +127,12 @@ app-config {
                 }
             }
 
+            @media (max-width: 500px) {
+                img {
+                    transform: scale(0.9);
+                }
+            }
+
         }
 
         .btn-screen-switch.open {
@@ -144,9 +158,14 @@ app-config {
         }
     }
 
-    @media (min-width: 580px) {
+    @media (min-width: 600px) {
         >div {
-            width: 580px;
+            width: 600px;
+        }
+    }
+    @media (min-width: 1000px) {
+        >div {
+            width: 800px;
         }
     }
 

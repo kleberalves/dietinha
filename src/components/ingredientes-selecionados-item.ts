@@ -1,13 +1,13 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { store } from "../service/store.service";
-import { stores } from "../service/config.service";
+import { removerIngrediente, removerIngredienteAssistente } from "../service/cardapio.service";
 
 class IngredientesSelecionadosItem extends Base {
 
     props: {
         idx: number;
         id: number;
+        mode: string;
         ingrediente: Ingrediente;
     }
 
@@ -27,6 +27,7 @@ class IngredientesSelecionadosItem extends Base {
         this.props = {
             idx: this.p("idx"),
             id: this.p("id"),
+            mode: this.p("mode"),
             ingrediente: JSON.parse(this.p("ingrediente"))
         }
 
@@ -48,20 +49,22 @@ class IngredientesSelecionadosItem extends Base {
         var unidade = this.props.ingrediente.unidade === undefined ? "g" : this.props.ingrediente.unidade;
         render(this, html`
         
-                <div class='item'> <b> ${this.props.ingrediente.nome} </b> <br/>${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso}${unidade}
-
-                <div class='actions right'>
-                    <div class="btn-trash"  onclick=${() => this.removerCalculo(this.props.ingrediente.id)}></div>
-                </div>
+                <div class='item'> <b> ${this.props.ingrediente.nome} </b> 
+                
+                ${this.props.mode !== "simple" ? html`
+                        <br/>${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso}${unidade}         
+                        <div class='actions right'>
+                            <div class="btn-trash"  onclick=${() => removerIngrediente(this.props.ingrediente.id)}></div>
+                        </div>
+                ` : html`<div class='actions right'>
+                    <div class="btn-trash"  onclick=${() => removerIngredienteAssistente(this.props.ingrediente.id)}></div>
+                </div>`}
+                
+                
             </div>` );
     }
 
-    removerCalculo(id?: string) {
 
-        if (id)
-            store.removeItemById(stores.Ingrediente, id);
-
-    }
 
 }
 

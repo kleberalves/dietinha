@@ -5,9 +5,22 @@
 
 }
 
+@media (min-width: 500px) {
+    .list-space-around>*,
+    .list-space-around>.simple {
+        width: 48%;
+        /** 32% */
+    }
+}
+
 @media (min-width: 1000px) {
     .list-space-around>* {
         width: 48%;
+        /** 32% */
+    }
+
+    .list-space-around>.simple {
+        width: 24%;
     }
 }
 
@@ -157,8 +170,7 @@
     right: 5px;
     width: 30px;
     height: 100%;
-    display: flex
-;
+    display: flex;
     flex-direction: column;
     padding-top: 10px;
     justify-content: space-evenly

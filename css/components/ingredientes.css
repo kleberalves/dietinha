@@ -39,8 +39,8 @@ app-ingredientes-selecionados-item{
 }
 
 .selecionados .item b {
-    font-weight: 400;
-    font-size: 20px;
+    font-weight: 300;
+    font-size: 18;  
     color: #fff;
     display: block;
 }

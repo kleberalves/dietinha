@@ -158,26 +158,45 @@ class AppMain extends Base {
                 `: null}
 
            
-                    <div 
-                        class="screen close"
-                        id="calculadora">
+                <div class="screen close" id="calculadora">
 
-                         <div class="title">Calculadora de alimentos</div>
+                    <div class="screen-header">
+                        <div>
+                        </div>
+                        <div class="title">Calculadora de alimentos</div>
+                        <div> 
+                        <img src="img/configuracoes.svg" title="Configurações" class="btn-icon" @click=${e => swapScreen(screens.Assistente)}/>
+                        </div>
+                    </div>
 
-                          ${this.perfilItem !== null
+                        ${this.perfilItem !== null
                 && this.cardapioItems.length === 0
                 ? html` <div class="wizard-message">
-                                    <h1>Segundo passo</h1>
-                                    <p>
-                                        Faça consultas no campo abaixo para descobrir alimentos e compor 
-                                        refeições que você mais consome. 
-                                        <br/> Você pode separar em 4 categorias:<br/>
-                                        <b>Café da manhã/tarde</b> -  <b>Almoço/jantar</b> -  <b>Lanches</b> -  <b>Sobremesas</b>. <br/>                        
-                                        Depois do seu Cardápio pronto, basta registrar diariamente quais
-                                        itens você consumiu.
-                                    </p>
-                                </div>` : null}
-                            <screen-calculadora />
+                                        <h1>Segundo passo</h1>
+                                        <p>
+                                            Faça consultas no campo abaixo para descobrir alimentos e compor 
+                                            refeições que você mais consome. 
+                                            <br/> Você pode separar em 4 categorias:<br/>
+                                            <b>Café da manhã/tarde</b> -  <b>Almoço/jantar</b> -  <b>Lanches</b> -  <b>Sobremesas</b>. <br/>                        
+                                            Depois do seu Cardápio pronto, basta registrar diariamente quais
+                                            itens você consumiu.
+                                        </p>
+                                    </div>` : null}
+                        <screen-calculadora />
+                </div>
+
+
+                <div class="screen close" id="assistente">
+
+                    <div class="screen-header">
+                        <div>
+                        </div>
+                        <div class="title">Seu assistente</div>
+                        <div> 
+                        <img src="img/configuracoes.svg" title="Configurações" class="btn-icon" @click=${e => swapScreen(screens.Calculadora)}/>
+                        </div>
+                    </div>
+                        <screen-assistente />
                 </div>
 
                 <div class="screen close" id="perfil">
@@ -294,6 +313,11 @@ class AppMain extends Base {
                  ${this.perfilItem !== null ? html`<div class="btn-screen-switch" id="calculadoraNav" onclick=${e => swapScreen(screens.Calculadora)}>
                     <img src="img/calculadora.svg" /> 
                     <div class="btn">Calculadora</div>
+                </div>` : null}
+
+                ${this.perfilItem !== null ? html`<div class="btn-screen-switch" id="assistenteNav" onclick=${e => swapScreen(screens.Assistente)}>
+                    <img src="img/assistente.svg" /> 
+                    <div class="btn">Assistente</div>
                 </div>` : null}
 
                 <div class="btn-screen-switch" id="perfilNav" onclick=${e => swapScreen(screens.Perfil)}>     

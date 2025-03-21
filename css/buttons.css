@@ -70,7 +70,8 @@ button:disabled {
     font-weight: bold;
 }
 
-.btn-main {
+.btn-main,
+.btn-main-lg {
     width: 200px;
     height: 38px;
     padding-left: 10px;
@@ -78,6 +79,10 @@ button:disabled {
     font-size: 15px;
     font-weight: 400;
     background-color: var(--contrast-high-color);
+}
+
+.btn-main-lg {
+    width: 300px;
 }
 
 .btn-remove {

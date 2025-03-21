@@ -10,6 +10,7 @@ class PesquisaAlimento extends Base {
     props: {
         idx: number;
         id: number;
+        mode: string;
     }
 
     resultList: Alimento[] = [];
@@ -28,7 +29,9 @@ class PesquisaAlimento extends Base {
     }
 
     onAddedItem = (e: CustomEventInit) => {
-        if (e.detail.store === stores.Cardapio || e.detail.store === stores.Ingrediente) {
+        if (e.detail.store === stores.Cardapio 
+            || e.detail.store === stores.Ingrediente
+            || e.detail.store === stores.IngredienteAssistente) {
             //Quando um novo item for adicionado ao cardapio, 
             //deve reiniciar a lista de pesquisa 
             this.restart();
@@ -40,6 +43,7 @@ class PesquisaAlimento extends Base {
         this.props = {
             idx: this.p("idx"),
             id: this.p("id"),
+            mode: this.p("mode")
         }
         this.render();
 
@@ -54,7 +58,7 @@ class PesquisaAlimento extends Base {
     }
 
     restart() {
-        var ele: HTMLInputElement = this.querySelector("#txtPesquisa") as HTMLInputElement;
+        var ele: HTMLInputElement = this.querySelector(".txtPesquisa") as HTMLInputElement;
         ele.value = "";
 
         this.resultList = [];
@@ -66,10 +70,11 @@ class PesquisaAlimento extends Base {
         render(this, html`
         
                 <label>Digite o nome do alimento</label>
-                <input type="text" class="textForm" id="txtPesquisa" oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />  
+                <input type="text" class="textForm txtPesquisa" oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />  
                 <div class="list-space-around">
                 ${this.resultList.map((item, idx) => html`<app-pesquisa-alimento-item 
                                 item=${JSON.stringify(item)}
+                                mode=${this.props.mode}
                                 idx=${idx} />`)}
                 </div>
            `);

@@ -7,6 +7,7 @@ export const API_RECAPTCHA = "6LcxsKoUAAAAANcv1ELzcW54Yh9SWoLuPMdSdStN";
 
 export const stores = {
     Ingrediente: "INGREDIENTES_STORE",
+    IngredienteAssistente: "INGREDIENTES_ASSISTENTE_STORE",
     Cardapio: "CARDAPIO_STORE",
     RegistroRefeicao: "REGISTRO_REFEICAO_STORE",
     Config: "CONFIG_STORE",
@@ -22,7 +23,8 @@ export const screens = {
     Login: "login",
     Configuracoes: "config",
     Activate: "activate",
-    ResetPassword: "resetpassword"
+    ResetPassword: "resetpassword",
+    Assistente: "assistente"
 }
 
 export const swapTheme = () => {

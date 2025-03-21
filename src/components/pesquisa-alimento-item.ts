@@ -1,9 +1,8 @@
 import { html, render } from "uhtml";
-import { adicionarCalculo, calcularAlimentoColher as calcularAlimentoUnidade, calcularAlimentoPeso } from "../service/calculo.service";
+import { adicionarCalculo, calcularAlimentoColher as calcularAlimentoUnidade, calcularAlimentoPeso, getUnidades, adicionarIngredienteAssistente } from "../service/calculo.service";
 import { Base } from "./base";
 import { showPopup } from "../lib/message.lib";
 
-declare var listaAlimentosUnidades: AlimentoUnidade[];
 
 
 
@@ -12,6 +11,7 @@ class PesquisaItem extends Base {
     props: {
         idx: number;
         item: Alimento;
+        mode: string;
     }
 
     constructor() {
@@ -19,7 +19,7 @@ class PesquisaItem extends Base {
     }
 
     static get observedAttributes() {
-        return ['item', 'idx'];
+        return ['item', 'idx', 'mode'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -34,26 +34,17 @@ class PesquisaItem extends Base {
 
     showFormCalculo: Boolean = false;
 
+    selecionarSimple() {
+        adicionarIngredienteAssistente(this.props.item.id);
+    }
+
     showCalculo() {
         var idItemResultadoCalorias = `itemResultadoCalorias${this.props.idx}`
         var idItemResultadoProteinas = `itemResultadoProteinas${this.props.idx}`
         var inputPeso = `inputPeso${this.props.idx}`;
         var inputQuantidade = `inputQuantidade${this.props.idx}`;
 
-        let unidadeAlt: UnidadeAlt = {
-            peso: 0,
-            desc: ""
-        };
-
-        for (let i = 0; i < listaAlimentosUnidades.length; i++) {
-
-            if (this.props.item.id === listaAlimentosUnidades[i].idAlimento) {
-                unidadeAlt.peso = listaAlimentosUnidades[i].rating;
-                unidadeAlt.desc = listaAlimentosUnidades[i].label;
-                break;
-            }
-
-        }
+        let unidadeAlt: UnidadeAlt = getUnidades(this.props.item.id)
 
         showPopup(html`<div class='title'> ${this.props.item.nome} <div>
             <div class='actions pesquisa-alimento-item-actions'>   
@@ -82,16 +73,25 @@ class PesquisaItem extends Base {
 
         this.props = {
             idx: this.p("idx"),
+            mode: this.p("mode"),
             item: JSON.parse(this.p("item")),
         }
 
-        var className = `listItem pesquisa - alimento - item filtro delay${this.props.idx}`;
+        var className = `listItem pesquisa-alimento-item filtro delay${this.props.idx}`;
         var unidade: string = this.props.item.unidade ? this.props.item.unidade : "g";
 
-        render(this, html`<div class= ${className}>
+        if (this.props.mode !== "simple") {
+
+            render(this, html`<div class= ${className}>
                                 <div class='title'> ${this.props.item.nome} <div> <span>${this.props.item.calorias} </span> cal por <span> 100${unidade}</span > </div></div>
                                 <button class='btn-selecionar' onclick=${() => this.showCalculo()}> Calcular </button>
                             </div>`);
+        } else {
+            render(this, html`<div class= ${className}>
+                <div class='title'> ${this.props.item.nome}</div>
+                <button class='btn-selecionar' onclick=${() => this.selecionarSimple()}> Selecionar </button>
+            </div>`);
+        }
     }
 }
 

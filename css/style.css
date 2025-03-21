@@ -148,9 +148,8 @@ input[type="password"] {
     font-size: 12px;
 }
 
-#txtPesquisa {
+.txtPesquisa {
     margin-bottom: 15px;
-    ;
 }
 
 .textForm {
