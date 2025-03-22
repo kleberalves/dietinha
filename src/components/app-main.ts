@@ -121,15 +121,12 @@ class AppMain extends Base {
 
                             ${this.cardapioItems.length === 1
                         && registroRefeicaoItems.length === 0
-                        ? html` <div class="wizard-message">
-                                <h1>Último passo</h1>
-                                <p>
+                        ? html` <wizard-message title="Último passo">
                                     Após o cadastro da sua refeição, basta informar
                                     quais consumiu utilizando o botão "Consumi este alimento". 
                                     <br/>Faça diariamente para acompanhar e comparar com a sua meta 
                                     diária de calorias e de proteínas.
-                                </p>
-                            </div>` : null}
+                                 </wizard-message>` : null}
                             
                        
                     <div class="form">
@@ -171,17 +168,14 @@ class AppMain extends Base {
 
                         ${this.perfilItem !== null
                 && this.cardapioItems.length === 0
-                ? html` <div class="wizard-message">
-                                        <h1>Segundo passo</h1>
-                                        <p>
-                                            Faça consultas no campo abaixo para descobrir alimentos e compor 
-                                            refeições que você mais consome. 
-                                            <br/> Você pode separar em 4 categorias:<br/>
-                                            <b>Café da manhã/tarde</b> -  <b>Almoço/jantar</b> -  <b>Lanches</b> -  <b>Sobremesas</b>. <br/>                        
-                                            Depois do seu Cardápio pronto, basta registrar diariamente quais
-                                            itens você consumiu.
-                                        </p>
-                                    </div>` : null}
+                ? html`  <wizard-message title="Segundo passo">        
+                            Faça consultas no campo abaixo para descobrir alimentos e compor 
+                            refeições que você mais consome. 
+                            <br/> Você pode separar em 4 categorias:<br/>
+                            <b>Café da manhã/tarde</b> -  <b>Almoço/jantar</b> -  <b>Lanches</b> -  <b>Sobremesas</b>. <br/>                        
+                            Depois do seu Cardápio pronto, basta registrar diariamente quais
+                            itens você consumiu.
+                        </wizard-message>` : null}
                         <screen-calculadora />
                 </div>
 
@@ -189,11 +183,12 @@ class AppMain extends Base {
                 <div class="screen close" id="assistente">
 
                     <div class="screen-header">
-                        <div>
+                        <div> 
+                            <btn-sync /> 
                         </div>
                         <div class="title">Seu assistente</div>
                         <div> 
-                        <img src="img/configuracoes.svg" title="Configurações" class="btn-icon" @click=${e => swapScreen(screens.Calculadora)}/>
+                        <img src="img/calculadora.svg" title="Configurações" class="btn-icon" @click=${e => swapScreen(screens.Calculadora)}/>
                         </div>
                     </div>
                         <screen-assistente />
@@ -212,14 +207,11 @@ class AppMain extends Base {
                             </div>
 
                         ${this.perfilItem === null
-                ? html` <div class="wizard-message">
-                            <h1>Primeiro passo</h1>
-                            <p>
-                                Vamos descobrir a sua meta de consumo de calorias e proteínas por dia. 
-                                Insira as informações no formulário abaixo e pressione "<b>Calcular</b>". <br/>
-                                Não se preocupe... você poderá atualizar depois.
-                            </p>
-                        </div>` : null}
+                ? html`  <wizard-message title="Primeiro passo">
+                            Vamos descobrir a sua meta de consumo de calorias e proteínas por dia. 
+                            Insira as informações no formulário abaixo e pressione "<b>Calcular</b>". <br/>
+                            Não se preocupe... você poderá atualizar depois.
+                        </wizard-message>` : null}
 
                         <app-perfil id="appPerfil" class="form-bar-bottom" />
 
@@ -256,7 +248,7 @@ class AppMain extends Base {
                                 <btn-sync />
                             </div>
                         </div>
-                    <app-login />
+                    <app-login mode="login" />
                 </div>
 
                 <div class="screen close" id="activate">

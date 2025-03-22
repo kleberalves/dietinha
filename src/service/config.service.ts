@@ -8,6 +8,7 @@ export const API_RECAPTCHA = "6LcxsKoUAAAAANcv1ELzcW54Yh9SWoLuPMdSdStN";
 export const stores = {
     Ingrediente: "INGREDIENTES_STORE",
     IngredienteAssistente: "INGREDIENTES_ASSISTENTE_STORE",
+    Processamento: "PROCESSAMENTO_STORE",
     Cardapio: "CARDAPIO_STORE",
     RegistroRefeicao: "REGISTRO_REFEICAO_STORE",
     Config: "CONFIG_STORE",

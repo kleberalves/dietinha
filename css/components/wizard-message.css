@@ -1,5 +1,5 @@
-.wizard-message {
-    background-color: var(--contrast-high-color);
+wizard-message {
+    background-color: #c83c98;
     border-radius: 25px;
     margin-bottom: 10px;
     margin-right: 15px;
@@ -7,6 +7,20 @@
     margin-top: 10px;
     padding: 20px;
     padding-bottom: 5px;
+
+    h1,
+    p,
+    b {
+        color: #fff;
+        font-weight: 300;
+        line-height: 25px;
+        font-size: 0.9em;
+    }
+
+    b {
+        font-weight: bold;
+        font-size: 1em;
+    }
 
     p {
         margin-top: 5px;
@@ -19,19 +33,10 @@
         font-weight: 400;
         color: #fff;
     }
-}
-
-.wizard-message
-
-.wizard-message h1,
-.wizard-message p,
-.wizard-message b {
-    color: #fff;
-    font-weight: 300;
-    line-height: 25px;
-    font-size: 0.9em;
-}
-
-.wizard-message b {
-    font-weight: bold;
+    .bar-actions{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
 }

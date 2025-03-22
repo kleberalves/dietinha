@@ -15,12 +15,6 @@ export const removerIngrediente = (id?: string) => {
 
 }
 
-export const removerIngredienteAssistente = (id?: string) => {
-
-    if (id)
-        store.removeItemById(stores.IngredienteAssistente, id);
-
-}
 
 export const somaMacros = (listaIngredientes: Ingrediente[], componentMode: string) => {
     let items: Hole[] = [];

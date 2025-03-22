@@ -43,14 +43,13 @@
 <body>
 
     <app-main />
-
-    <script src="dist/bundle.js?VerAPP"></script>
+    <!-- Scripts com DADOS para desempenho -->
     <script src="js/data/lista.alimentos.js?VerAPP"></script>
     <script src="js/data/lista.alimentos.unidades.js?VerAPP"></script>
-    <script src="js/sw/install.js?VerAPP"></script>
-    <script src="js/logs/manager.js?VerAPP"></script>
+
     <script src="https://www.google.com/recaptcha/api.js?render=6LcxsKoUAAAAANcv1ELzcW54Yh9SWoLuPMdSdStN"></script>
 
+    <script src="js/logs/manager.js?VerAPP"></script>
     <script>
         try {
             logInstall();
@@ -59,6 +58,10 @@
             alert(e.message);
         }
     </script>
+
+    <script src="dist/bundle.js?VerAPP"></script>
+    <script src="js/sw/install.js?VerAPP"></script>
+
 </body>
 
 </html>

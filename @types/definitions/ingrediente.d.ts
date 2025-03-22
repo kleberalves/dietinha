@@ -9,3 +9,9 @@ interface Ingrediente extends BaseItem{
     unidAltDesc: string;
     unidAltPeso: number;
 }
+
+
+interface IngredienteAssistente extends BaseItem{
+    nome: string;
+    idProduto: string;
+}

@@ -15,7 +15,7 @@ class AppMiniSlide extends Base {
         super();
     }
 
-    container: HTMLDivElement;
+    container: HTMLElement | undefined;
 
     props: {
         totalSlides: number;
@@ -51,51 +51,52 @@ class AppMiniSlide extends Base {
             this.debug = true;
         }
 
-        this.container.style.height = (window.innerHeight - this.REDUCE_HEIGHT).toString();
+        if (this.container)
+            this.container.style.height = (window.innerHeight - this.REDUCE_HEIGHT).toString();
     }
 
     setCurrentIndex(newIndex: number) {
+        if (this.container) {
+            let newIndexElement = this.container.children[newIndex] as HTMLElement;
 
-        let newIndexElement = this.container.children[newIndex] as HTMLElement;
+            //A altura do container deve representar 60% da altura da tela 
+            this.container.style.height = (window.innerHeight - this.REDUCE_HEIGHT).toString();
 
-        //A altura do container deve representar 60% da altura da tela 
-        this.container.style.height = (window.innerHeight - this.REDUCE_HEIGHT).toString();
+            newIndexElement.classList.remove("close");
+            newIndexElement.classList.remove("close-left");
 
-        newIndexElement.classList.remove("close");
-        newIndexElement.classList.remove("close-left");
-
-
-        switch (this.touchMove.direction) {
-            case "prev":
-                newIndexElement.classList.add("show-right");
-                break;
-
-            case "next":
-                newIndexElement.classList.add("show");
-                break;
-        }
-
-        if (this.currentIndex !== newIndex) {
-            let oldIndexElement = this.container.children[this.currentIndex] as HTMLElement;
-
-            oldIndexElement.classList.remove("show");
-            oldIndexElement.classList.remove("show-right");
 
             switch (this.touchMove.direction) {
                 case "prev":
-                    oldIndexElement.classList.add("close-left");
+                    newIndexElement.classList.add("show-right");
                     break;
 
                 case "next":
-                    oldIndexElement.classList.add("close");
+                    newIndexElement.classList.add("show");
                     break;
             }
+
+            if (this.currentIndex !== newIndex) {
+                let oldIndexElement = this.container.children[this.currentIndex] as HTMLElement;
+
+                oldIndexElement.classList.remove("show");
+                oldIndexElement.classList.remove("show-right");
+
+                switch (this.touchMove.direction) {
+                    case "prev":
+                        oldIndexElement.classList.add("close-left");
+                        break;
+
+                    case "next":
+                        oldIndexElement.classList.add("close");
+                        break;
+                }
+            }
+
+            this.currentIndex = newIndex;
+
+            this.render();
         }
-
-        this.currentIndex = newIndex;
-
-        this.render();
-
     }
 
     setIndex = (pIdx: number) => {
@@ -215,11 +216,8 @@ class AppMiniSlide extends Base {
 
     renderContainer() {
 
-        this.container = this.querySelector("#container") as HTMLDivElement;
-        if (this.container &&
-            this.childrenHTML !== undefined &&
-            this.childrenHTML !== null) {
-            this.container.innerHTML = this.childrenHTML;
+        this.container = this.renderChildren();
+        if (this.container) {
             this.container.addEventListener("touchstart", e => this.onTouchStart(e));
             this.container.addEventListener("touchmove", e => this.onTouchMove(e));
             this.container.addEventListener("touchend", e => this.onTouchEnd(e));

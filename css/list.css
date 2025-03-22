@@ -3,9 +3,19 @@
     flex-wrap: wrap;
     justify-content: space-around;
 
+    .item {
+        width: 100%;
+    }
+
+    >*,
+    .simple {
+        display: flex;
+    }
+
 }
 
 @media (min-width: 500px) {
+
     .list-space-around>*,
     .list-space-around>.simple {
         width: 48%;
@@ -16,11 +26,11 @@
 @media (min-width: 1000px) {
     .list-space-around>* {
         width: 48%;
-        /** 32% */
     }
 
     .list-space-around>.simple {
         width: 24%;
+        justify-content: center;
     }
 }
 

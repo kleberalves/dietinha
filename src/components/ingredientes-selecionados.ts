@@ -118,23 +118,25 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
 
     render() {
 
+        if (!this.listaIngredientes) {
+            return;
+        }
+
         let result = somaMacros(this.listaIngredientes, this.props.mode);
 
         render(this, html`
                 <div class='list selecionados'>
-                    <div class='title'>Ingredientes selecionados</div>
+                    <div class='title'>Ingredientes selecionados (${result.items.length})</div>
+
 
                     ${this.cardapioItemEdit !== null ? html`<div class="msg-warning">Você está editando um item do cardápio.</div>` : null}
 
                     ${(this.listaCardapio.length === 0
                 && this.listaIngredientes.length === 1
-                && this.props.mode !== "simple") ? html`<div class="wizard-message">
-                            <h1>Dica</h1>
-                            <p>
-                                Faça uma outra consulta e adicione novos ingredientes para compor a sua refeição. <br/>
-                                    Exemplo: Arroz cozido, Feijão preto cozido, Ovo de galinha inteiro cozido e Batata inglesa cozida.
-                            </p>
-                        </div>` : null}
+                && this.props.mode !== "simple") ? html` <wizard-message title="Dica">
+                                                            Faça uma outra consulta e adicione novos ingredientes para compor a sua refeição. <br/>
+                                                                Exemplo: Arroz cozido, Feijão preto cozido, Ovo de galinha inteiro cozido e Batata inglesa cozida.
+                                                        </wizard-message>` : null}
 
                         <div class="list-space-around">
                             ${result.items.map(item => item)}
@@ -146,19 +148,16 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
                                 <div>Proteínas <span class='text'>${result.totalProteinas} </span></div>
                                 <div>Peso <span class='text'>${result.totalPeso}g</span></div>
                             </div>
-                                ${(this.listaCardapio.length === 0 && this.listaIngredientes.length > 1) ? html`<div class="wizard-message">
-                                    <h1>Dica</h1>
-                                    <p>
+                                ${(this.listaCardapio.length === 0 && this.listaIngredientes.length > 1) ? html`<wizard-message title="Dica">
                                         Após selecionar os ingredientes da refeição, selecione a categoria adequada e clique em <b>"Adicionar ao cardápio"</b>.
-                                    </p>                        
-                                </div>` : null}
-                    <div class='cols bar-add-ingredientes'>
-                        <div class='radio-col-2'>
-                            <div class='radio'><input type="radio" name="inputTipoCardapio" value="CA" /> <span>Café da manhã/tarde</span> </div>
-                            <div class='radio'><input type="radio" name="inputTipoCardapio" value="AJ" /> <span>Almoço/Jantar</span> </div>
-                            <div class='radio'><input type="radio" name="inputTipoCardapio" value="LC" /> <span>Lanches</span> </div>
-                            <div class='radio'><input type="radio" name="inputTipoCardapio" value="SM" /> <span>Sobremesas</span> </div>
-                        </div>
+                                    </wizard-message>` : null}
+                            <div class='cols bar-add-ingredientes'>
+                                <div class='radio-col-2'>
+                                    <div class='radio'><input type="radio" name="inputTipoCardapio" value="CA" /> <span>Café da manhã/tarde</span> </div>
+                                    <div class='radio'><input type="radio" name="inputTipoCardapio" value="AJ" /> <span>Almoço/Jantar</span> </div>
+                                    <div class='radio'><input type="radio" name="inputTipoCardapio" value="LC" /> <span>Lanches</span> </div>
+                                    <div class='radio'><input type="radio" name="inputTipoCardapio" value="SM" /> <span>Sobremesas</span> </div>
+                                </div>
                     </div>` : null}
                 </div>`);
 

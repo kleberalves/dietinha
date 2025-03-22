@@ -20,7 +20,7 @@ export const buscarProdutoPorId = (idProduto: string) => {
     return undefined;
 }
 
-export const calcularAlimentoColher = (unidade: string, idxResultado: number, idProduto: string, rating: number): void => {
+export const calcularAlimentoUnidade = (unidade: string, idxResultado: number, idProduto: string, rating: number): void => {
 
     if (unidade !== "" &&
         unidade !== null &&
@@ -104,17 +104,6 @@ export const getUnidades = (id: string): UnidadeAlt => {
     return unidadeAlt;
 }
 
-export const adicionarIngredienteAssistente = (idProduto: string) => {
-
-    try {
-        let unidadeAlt: UnidadeAlt = getUnidades(idProduto);
-        addIngredienteStorage(stores.IngredienteAssistente, idProduto, 0, 0, 0, unidadeAlt);
-    }
-    catch (e) {
-        showWarning(e.message);
-    }
-}
-
 export const adicionarCalculo = (idxResultado: number, idProduto: string, unidadeAlt: UnidadeAlt) => {
 
     try {
@@ -134,27 +123,23 @@ export const adicionarCalculo = (idxResultado: number, idProduto: string, unidad
         var caloriasValue = parseFloat(elementCaloria.innerText);
         var proteinasValue = parseFloat(elementProteina.innerText);
 
-        addIngredienteStorage(stores.Ingrediente, idProduto, caloriasValue, proteinasValue, pesoValue, unidadeAlt);
+        var produto = buscarProdutoPorId(idProduto);
+
+        if (produto !== undefined) {
+    
+            store.addItem<Ingrediente>(stores.Ingrediente, {
+                "nome": produto.nome,
+                "calorias": caloriasValue,
+                "proteinas": proteinasValue,
+                "idProduto": produto.id,
+                "peso": pesoValue,
+                "unidade": produto.unidade,
+                "unidAltDesc": unidadeAlt.desc,
+                "unidAltPeso": unidadeAlt.peso,
+            } as Ingrediente);
+        }
     }
     catch (e) {
         showWarning(e.message);
-    }
-}
-
-function addIngredienteStorage(storeName:string, idProduto: string, caloriasValue: number, proteinasValue: number, pesoValue: number, unidadeAlt: UnidadeAlt) {
-    var produto = buscarProdutoPorId(idProduto);
-
-    if (produto !== undefined) {
-
-        store.addItem<Ingrediente>(storeName, {
-            "nome": produto.nome,
-            "calorias": caloriasValue,
-            "proteinas": proteinasValue,
-            "idProduto": produto.id,
-            "peso": pesoValue,
-            "unidade": produto.unidade,
-            "unidAltDesc": unidadeAlt.desc,
-            "unidAltPeso": unidadeAlt.peso,
-        } as Ingrediente);
     }
 }

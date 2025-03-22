@@ -70,6 +70,7 @@ form {
     display: flex;
     justify-content: space-evenly;
     padding-bottom: 15px;
+    align-items: center;
     padding-top: 15px;
     position: sticky;
     left: 0px;
@@ -85,7 +86,7 @@ form {
         }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 650px) {
         & {
             flex-wrap: wrap;
             flex-direction: column;

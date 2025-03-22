@@ -5,18 +5,19 @@ import { store } from "./store.service";
 
 export const onSync = (func: (e: CustomEventInit) => void) => {
     window.addEventListener("START_SYNC", (e: CustomEventInit) => {
+        console.log("start sync");
         func(e);
     });
 }
 
 export const onSyncEnd = (func: (e: CustomEventInit) => void) => {
     window.addEventListener("END_SYNC", (e: CustomEventInit) => {
+        console.log("end sync");
         func(e);
     });
 }
 
 export const sync = () => {
-    //  let promise = new Promise<string>((resolve, reject) => {
 
     const { post } = useRequest(API_MODULE_DIET);
 
@@ -50,6 +51,11 @@ export const sync = () => {
                 });
             }
 
+            storesReplace.push({
+                storeName: stores.Processamento,
+                items: resp.processamentosItems
+            });
+
             if (resp.perfil !== undefined && resp.perfil !== null) {
                 storesReplace.push({
                     storeName: stores.Perfil,
@@ -68,10 +74,6 @@ export const sync = () => {
             })
         );
 
-        ;
-        // showOk("Dados sincronizados com sucesso.");
-        // resolve("ok");
-
     }).catch((e) => {
 
         window.dispatchEvent(
@@ -83,11 +85,6 @@ export const sync = () => {
         );
 
         globalErrors(e);
-        //reject("error");
     });
-
-    // });
-
-    // return promise;
 
 }

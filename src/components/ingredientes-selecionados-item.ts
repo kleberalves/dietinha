@@ -1,6 +1,7 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { removerIngrediente, removerIngredienteAssistente } from "../service/cardapio.service";
+import { removerIngrediente } from "../service/cardapio.service";
+import { removerIngredienteAssistente } from "../service/assistente.service";
 
 class IngredientesSelecionadosItem extends Base {
 
@@ -52,12 +53,12 @@ class IngredientesSelecionadosItem extends Base {
                 <div class='item'> <b> ${this.props.ingrediente.nome} </b> 
                 
                 ${this.props.mode !== "simple" ? html`
-                        <br/>${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso}${unidade}         
+                        <div class="desc">${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso}${unidade}</div>        
                         <div class='actions right'>
-                            <div class="btn-trash"  onclick=${() => removerIngrediente(this.props.ingrediente.id)}></div>
+                            <div class="btn-trash" title="Remover" onclick=${() => removerIngrediente(this.props.ingrediente.id)}></div>
                         </div>
                 ` : html`<div class='actions right'>
-                    <div class="btn-trash"  onclick=${() => removerIngredienteAssistente(this.props.ingrediente.id)}></div>
+                    <div class="btn-trash" title="Remover" onclick=${() => removerIngredienteAssistente(this.props.ingrediente.id)}></div>
                 </div>`}
                 
                 

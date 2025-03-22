@@ -46,6 +46,7 @@ app-registro-alimentos-item {
     width: 100%;
     font-size: 16px;
     font-weight: 200;
+    color: var(--blackwhite-color);
 }
 
 app-registro-alimentos-item>.total {

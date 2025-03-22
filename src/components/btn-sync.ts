@@ -37,6 +37,7 @@ class BtnSync extends Base {
         })
 
         setInterval(() => {
+            this.time = "";
             this.start();
         }, 75000);
 
@@ -53,11 +54,12 @@ class BtnSync extends Base {
         }
     }
 
-
     onClearedLogin = (e: CustomEventInit) => {
-        //store.getSingle
-        this.loginItem = null;
-        this.render();
+        if (e.detail.store === stores.Login) {
+            //store.getSingle
+            this.loginItem = null;
+            this.render();
+        }
     }
 
     start() {

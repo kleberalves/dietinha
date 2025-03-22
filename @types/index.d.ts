@@ -1,3 +1,4 @@
+/// <reference path="definitions/processamento-assistente.d.ts" />
 /// <reference path="definitions/alimento.d.ts" />
 /// <reference path="definitions/ingrediente.d.ts" />
 /// <reference path="definitions/dictionary.d.ts" />
@@ -23,6 +24,7 @@ interface CardapioItem extends BaseItem {
     tipo: string;
     calorias: number;
     proteinas: number;
+    origem?: string;
     peso: number;
     ingredientes: Ingrediente[];
 }
@@ -73,4 +75,5 @@ interface ISync {
     cardapioItems: CardapioItem[];
     perfil: Perfil | null;
     registroRefeicaoItems: RegistroRefeicaoItem[];
+    processamentosItems: ProcessamentoAssistente[];
 }

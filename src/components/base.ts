@@ -1,6 +1,7 @@
 interface IBase {
     id: string;
     onChange?: (evt: (e: CustomEventInit) => void) => void;
+    renderChildren: () => void;
 }
 export class Base extends HTMLElement implements IBase {
 
@@ -21,12 +22,15 @@ export class Base extends HTMLElement implements IBase {
         }
     }
 
-    renderChildren() {
-        let children = this.querySelector("#children");
-        if (children &&
+    renderChildren() : HTMLElement | undefined{
+        let container = this.querySelector("#container") as HTMLElement;
+        if (container &&
             this.childrenHTML !== undefined &&
-            this.childrenHTML !== null)
-            children.innerHTML = this.childrenHTML;
+            this.childrenHTML !== null) {
+            container.innerHTML = this.childrenHTML;
+
+            return container;
+        }
     }
 
 }

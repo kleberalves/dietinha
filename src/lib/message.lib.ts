@@ -72,15 +72,22 @@ const configActions = (msgWindow: HTMLDivElement, callback: () => void) => {
         removeWindow();
     }
 
-    barActions.appendChild(btnCancelar);
+    barActions.appendChild(btnCancelar)
 }
 
 export const showLoading = () => {
 
+    //TODO Adicionar o window.stop() para cancelar as requisições infinitas
+
     var msgWindow = createWindow("none");
     render(msgWindow, html`
     <div className="loading">
-    <svg width="59" height="59" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><circle cx="50" cy="50" fill="none" stroke="#57bfd4" stroke-width="3" r="10" stroke-dasharray="30 10" transform="rotate(203.862 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;-360 50 50" keyTimes="0;1" dur="0.6s" begin="0s" repeatCount="indefinite"/></circle><circle cx="50" cy="50" fill="none" stroke="#57bfd4" stroke-width="3" r="22" stroke-dasharray="110 110" transform="rotate(203.862 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="0.7s" begin="0s" repeatCount="indefinite"/></circle><circle cx="50" cy="50" fill="none" stroke="#57bfd4" stroke-width="3" r="35" stroke-dasharray="190 190" transform="rotate(203.862 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;-360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"/></circle></svg></div>`);
+    <svg width="59" height="59" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><circle cx="50" cy="50" fill="none" stroke="#57bfd4" stroke-width="3" r="10" stroke-dasharray="30 10" transform="rotate(203.862 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;-360 50 50" keyTimes="0;1" dur="0.6s" begin="0s" repeatCount="indefinite"/></circle><circle cx="50" cy="50" fill="none" stroke="#57bfd4" stroke-width="3" r="22" stroke-dasharray="110 110" transform="rotate(203.862 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="0.7s" begin="0s" repeatCount="indefinite"/></circle>
+        <circle cx="50" cy="50" fill="none" stroke="#57bfd4" stroke-width="3" r="35" stroke-dasharray="190 190" transform="rotate(203.862 50 50)">
+        <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;-360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"/>
+        </circle>
+        </svg>
+    </div>`);
 
 }
 

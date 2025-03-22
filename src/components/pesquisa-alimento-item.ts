@@ -1,10 +1,8 @@
 import { html, render } from "uhtml";
-import { adicionarCalculo, calcularAlimentoColher as calcularAlimentoUnidade, calcularAlimentoPeso, getUnidades, adicionarIngredienteAssistente } from "../service/calculo.service";
+import { adicionarCalculo, calcularAlimentoUnidade, calcularAlimentoPeso, getUnidades } from "../service/calculo.service";
 import { Base } from "./base";
 import { showPopup } from "../lib/message.lib";
-
-
-
+import { addIngredienteStorage } from "../service/assistente.service";
 
 class PesquisaItem extends Base {
 
@@ -35,7 +33,7 @@ class PesquisaItem extends Base {
     showFormCalculo: Boolean = false;
 
     selecionarSimple() {
-        adicionarIngredienteAssistente(this.props.item.id);
+        addIngredienteStorage(this.props.item.id);
     }
 
     showCalculo() {

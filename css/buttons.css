@@ -72,18 +72,25 @@ button:disabled {
 
 .btn-main,
 .btn-main-lg {
-    width: 200px;
+    width: 90%;
     height: 38px;
     padding-left: 10px;
     padding-right: 10px;
     font-size: 15px;
     font-weight: 400;
     background-color: var(--contrast-high-color);
+
 }
 
-.btn-main-lg {
-    width: 300px;
+@media (min-width: 650px) {
+    .btn-main-lg {
+        width: 300px;
+    }
+    .btn-main {
+        width: 200px;
+    }
 }
+
 
 .btn-remove {
     top: 25%;
@@ -188,12 +195,16 @@ button:disabled {
     cursor: pointer;
 }
 
+.btn-sm {
+    font-size: 11px;
+}
+
 .btn-trash {
-    background-color: #650000;
+    background-color: #ad0000;
 }
 
 .btn-edit {
-    background-color: #794a07;
+    background-color: #a35f00;
 }
 
 /**/

@@ -19,15 +19,10 @@ class AppLogin extends Base {
     showSearch: boolean = false;
     loginInfo: AuthInfo | null;
 
-    modeView: string = "login";
+    modeView: string = "";
 
     constructor() {
         super();
-    }
-
-
-    attributeChangedCallback(name, oldValue, newValue) {
-
     }
 
     static get observedAttributes() {

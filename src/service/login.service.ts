@@ -108,7 +108,7 @@ export const sendResetPassword = (email: string): void => {
 
 export const logout = () => {
     // O Logout não deve excluir os demais dados pois o app poderá funcionar offline
-    store.clearAll(stores);
+    store.clear(stores.Login);
 }
 
 export const setGuest = (): void => {
@@ -175,10 +175,7 @@ export const globalErrors = (e) => {
         if (e.error.name === "TokenExpiredError") {
             showWarning("Autenticação expirada.");
             swapScreen(screens.Login);
-
-            //Não deve-se executar o logout pois a ação limpa todos os dados locais
-            //
-            // logout();
+            logout();
         } else if (e.error.name === "UnauthorizedError") {
             let loginInfo = getLoginInfo();
 
