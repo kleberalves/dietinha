@@ -17,7 +17,7 @@ export const sendAssistente = () => {
         "ingredienteAssistenteItems": ingredientesItems,
     }).then(async (resp: ISync) => {
         showOk("Os ingredientes foram enviados com sucesso para a fila de processamento. Em breve os novos itens estarão disponíveis no seu cardápio.");
-        store.clear(stores.IngredienteAssistente);
+        //store.clear(stores.IngredienteAssistente);
     }).catch((e) => {
         globalErrors(e);
     }).finally(()=>{
@@ -62,11 +62,9 @@ export const adicionaPreItems = (): IngredienteAssistente[] => {
         "d9e1a7ba-24cd-450a-a001-4b5d779cf2d8",
         "9d3dd118-a687-4455-8549-e1f9f2baf7e5",
         "63e8232a-fce2-4a8d-bba5-6eba474a4e92",
-        "0ec99cbe-f70c-4b54-a5f3-b261f91621b0",
         "63a210b4-b088-4a11-95c4-f09596d4363a",
         "4062bea0-298d-4b66-92fa-49c9001aa090",
         "9e14deed-27f8-477a-83f4-4450589cf34a",
-        "dc304a7c-ff1c-4f74-b5eb-e1fe168ee008",
         "dc304a7c-ff1c-4f74-b5eb-e1fe168ee008",
         "698db76b-cc5b-4d3b-8e48-acdf225ef7c8"];
 
