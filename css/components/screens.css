@@ -45,6 +45,7 @@ screen-assistente {
         padding: 10px;
         border-radius: 25px;
         margin-bottom: 15px !important;
+        font-size: 0.9em;
 
         >div {
             width: 50%;
@@ -52,6 +53,7 @@ screen-assistente {
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
         }
 
         .info {
@@ -68,6 +70,13 @@ screen-assistente {
 
         .fail {
             color: #ca2b45;
+        }
+
+        @media (max-width:600px) {
+            & {
+                width: 75% !important;
+            }
+
         }
     }
 }
