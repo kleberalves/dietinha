@@ -104,16 +104,17 @@ class ScreenAssistente extends Base {
                         ` : null}
             </div>
 
-            <div class="action-bar-bottom">
-                ${this.ingredientesItems.length > 15 &&
-                ((this.processamentoItems[0] !== undefined 
-                        && (this.processamentoItems[0].status !== "Active" && this.processamentoItems[0].status !== "Created"))
-                    || this.processamentoItems.length === 0) ? html`<button class='btn-main-lg' onclick=${e => this.btnEnviarDeepSeek()}> Enviar para o seu assistente </button>
-                    ` : null}
+            ${(this.processamentoItems[0] !== undefined
+                && (this.processamentoItems[0].status !== "Active" && this.processamentoItems[0].status !== "Created"))
+                || this.processamentoItems.length === 0 ? html`   
+                <div class="action-bar-bottom">
+                    ${this.ingredientesItems.length > 15 ? html`<button class='btn-main-lg' onclick=${e => this.btnEnviarDeepSeek()}> Enviar para o seu assistente </button>
+                        ` : null}
 
-                    <button class='btn-main' onclick=${e => this.btnSelecionarSugestoes()}> Selecionar sugestões </button>
-                    <button class='btn-cancelar' onclick=${e => this.btnLimparIngredientes()}> Limpar </button>
-            </div>
+                        <button class='btn-main' onclick=${e => this.btnSelecionarSugestoes()}> Selecionar sugestões </button>
+                        <button class='btn-cancelar' onclick=${e => this.btnLimparIngredientes()}> Limpar </button>
+                </div>
+            ` : null}
         `);
 
     }
