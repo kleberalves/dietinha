@@ -84,7 +84,7 @@ class ScreenAssistente extends Base {
          <div class="form">
                  ${this.processamentoItems.length > 0
                 && this.processamentoItems[0].created !== undefined ? html`<div class="full bar-table">
-                                <div class="info">Solicitação: ${formatDate(this.processamentoItems[0].created, "dd/mm hh:MM")}</div>
+                                <div class="info"><b>Processamento:</b> ${formatDate(this.processamentoItems[0].created, "dd/mm hh:MM")}</div>
                                ${this.processamentoItems[0].status === "Created"
                         || this.processamentoItems[0].status === "Active" ? html`<div class="progress">Em andamento...</div>` : null}
                                ${this.processamentoItems[0].status === "Finished" ? html`<div class="finished">Concluído</div>` : null}

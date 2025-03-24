@@ -15,6 +15,7 @@ class AppMain extends Base {
 
     perfilItem: Perfil | null;
     cardapioItems: any[];
+    showScreenResetPassword: boolean = false;
 
     onAddedItem = (e: CustomEventInit) => {
         if (e.detail.store === stores.Cardapio || e.detail.store === stores.RegistroRefeicao) {
@@ -76,6 +77,13 @@ class AppMain extends Base {
         detectPathScreen((paths: string[]) => {
             if (paths[1] === screens.Activate || paths[1] === screens.ResetPassword) {
                 setActiveToken(paths[2], paths[1]);
+            }
+
+            if (paths[1] === screens.ResetPassword) {
+                //Só renderiza a screen resetpassword apenas quando necessário pois o chrome
+                //está detectando uma tela de login e sugerindo o preenchimento automático do login e senha
+                this.showScreenResetPassword = true;
+                this.render();
             }
         });
     }
@@ -265,7 +273,7 @@ class AppMain extends Base {
                     <app-login mode="activate" />
                 </div>
 
-                <div class="screen close" id="resetpassword">
+                ${this.showScreenResetPassword ? html`<div class="screen close" id="resetpassword">
 
                     <div class="screen-header">
                         <div> 
@@ -277,7 +285,7 @@ class AppMain extends Base {
                         </div>
                     </div>
                     <app-login mode="resetpassword" />
-                </div>
+                </div>` : null}
 
                 <div class="screen close" id="notfound">
                     <div class="form">
