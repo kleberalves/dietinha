@@ -2,7 +2,7 @@
 
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { getLoginInfo, login, logout, resetPassword, sendActive, sendResetPassword } from "../service/login.service";
+import { getLoginInfo, login, logout, resetPassword, sendActive, sendResetPassword, setActiveToken } from "../service/login.service";
 import { store } from "../service/store.service";
 import { screens, stores } from "../service/config.service";
 import { formatDate } from "../lib/treatments";
@@ -43,17 +43,22 @@ class AppLogin extends Base {
         }
 
         store.onCleared(this.onCleared);
-        store.onChanged(stores.Login, (e: CustomEventInit) => {
 
-            if (e.detail.item && e.detail.item.activeTokenMode === screens.Activate) {
-                sendActive().then(() => {
-                    showOk("Conta ativada com sucesso.");
-                    swapScreen(screens.Login);
-                    this.loadInfoLogin();
-                }).catch(() => {
-                });
-            }
-        });
+        if (this.modeView === screens.Activate) {
+            //Só registra o evento OnChange apenas no modo Activate
+            store.onChanged(stores.Login, (e: CustomEventInit) => {
+                if (e.detail.item && e.detail.item.activeTokenMode === screens.Activate) {
+                    sendActive().then(() => {
+                        showOk("Conta ativada com sucesso.");
+                        swapScreen(screens.Login);
+                        this.loadInfoLogin();
+                    }).catch(() => {
+                    }).finally(() => {
+                        setActiveToken("", "")
+                    });
+                }
+            });
+        }
 
         this.loadInfoLogin();
 

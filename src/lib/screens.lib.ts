@@ -1,4 +1,3 @@
-import { setActiveToken } from "../service/login.service";
 import { scrollElementTo } from "./animations";
 
 let SCREEN_HEIGHT: number = 80;
