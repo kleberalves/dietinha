@@ -84,14 +84,15 @@ class ScreenAssistente extends Base {
          <div class="form">
                  ${this.processamentoItems.length > 0
                 && this.processamentoItems[0].created !== undefined ? html`<div class="full bar-table">
-                                <div>Solicitação: ${formatDate(this.processamentoItems[0].created, "dd/mm hh:MM")}</div>
+                                <div class="info">Solicitação: ${formatDate(this.processamentoItems[0].created, "dd/mm hh:MM")}</div>
                                ${this.processamentoItems[0].status === "Created"
                         || this.processamentoItems[0].status === "Active" ? html`<div class="progress">Em andamento...</div>` : null}
-                               ${this.processamentoItems[0].status === "Finished" ? html`<div class="finished">Concluído.</div>` : null}
+                               ${this.processamentoItems[0].status === "Finished" ? html`<div class="finished">Concluído</div>` : null}
+                               ${this.processamentoItems[0].status === "Fail" ? html`<div class="fail">Falha</div>` : null}
                           </div>
                           ` : null}
 
-                ${(this.processamentoItems[0] !== undefined && this.processamentoItems[0].status === "Finished")
+                ${(this.processamentoItems[0] !== undefined && (this.processamentoItems[0].status !== "Active" && this.processamentoItems[0].status !== "Created"))
                 || this.processamentoItems.length === 0 ?
                 html`<div class="full">
                             <app-pesquisa-alimento mode="simple" />
@@ -103,13 +104,16 @@ class ScreenAssistente extends Base {
                         ` : null}
             </div>
 
-                ${this.ingredientesItems.length > 0 &&
+            <div class="action-bar-bottom">
+                ${this.ingredientesItems.length > 15 &&
                 ((this.processamentoItems[0] !== undefined 
-                        && this.processamentoItems[0].status === "Finished")
-                    || this.processamentoItems.length === 0) ? html`<div class="action-bar-bottom"><button class='btn-main-lg' onclick=${e => this.btnEnviarDeepSeek()}> Enviar para o seu assistente </button>
-                        <button class='btn-main' onclick=${e => this.btnSelecionarSugestoes()}> Selecionar sugestões </button>
-                        <button class='btn-cancelar' onclick=${e => this.btnLimparIngredientes()}> Limpar </button>
-                    </div>` : null}
+                        && (this.processamentoItems[0].status !== "Active" && this.processamentoItems[0].status !== "Created"))
+                    || this.processamentoItems.length === 0) ? html`<button class='btn-main-lg' onclick=${e => this.btnEnviarDeepSeek()}> Enviar para o seu assistente </button>
+                    ` : null}
+
+                    <button class='btn-main' onclick=${e => this.btnSelecionarSugestoes()}> Selecionar sugestões </button>
+                    <button class='btn-cancelar' onclick=${e => this.btnLimparIngredientes()}> Limpar </button>
+            </div>
         `);
 
     }

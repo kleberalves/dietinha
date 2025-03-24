@@ -79,6 +79,7 @@ export const adicionaPreItems = (): IngredienteAssistente[] => {
             let produto = buscarProdutoPorId(ids[i]);
             if (produto) {
                 ingredientes.push({
+                    "id": produto.id,
                     "nome": produto.nome,
                     "idProduto": produto.id
                 })

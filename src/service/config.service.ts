@@ -13,7 +13,8 @@ export const stores = {
     RegistroRefeicao: "REGISTRO_REFEICAO_STORE",
     Config: "CONFIG_STORE",
     Perfil: "PERFIL_STORE",
-    Login: "LOGIN_STORE"
+    Login: "LOGIN_STORE",
+    LoginBefore: "LOGIN_BEFORE_STORE"
 }
 
 export const screens = {

@@ -158,8 +158,10 @@ class AppCardapioItem extends Base {
         });
 
 
+        let className: string = `listItem cardapio delay ${this.props.item.origem}`;
+
         render(this, html`
-                <div class='listItem cardapio delay'>
+                <div class=${className}>
                    <div class='title'>${this.props.item.nome}</div>
                         ${this.props.item.ingredientes.map((item, idx) => {
 

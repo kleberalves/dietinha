@@ -77,6 +77,10 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
             }
 
             this.render();
+            
+        } else if (e.detail.store === stores.IngredienteAssistente) {
+            this.listaIngredientes = e.detail.items;
+            this.render();
         }
     }
 

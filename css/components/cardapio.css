@@ -41,6 +41,19 @@ app-cardapio-item {
     font-weight: 300;
 }
 
+.listItem.cardapio.assistente {
+    border: 2px solid var(--contrast-high-color);
+    &::before {
+        content: "";
+        background-image: url("../../img/assistente.svg");
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        position: absolute;
+        right: 7px;
+    }
+}
+
 .text-intro {
     color: var(--glow-color);
 }

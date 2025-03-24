@@ -108,6 +108,10 @@ export const sendResetPassword = (email: string): void => {
 
 export const logout = () => {
     // O Logout não deve excluir os demais dados pois o app poderá funcionar offline
+    let authInfo: AuthInfo | null = store.getSingle(stores.Login);
+    if (authInfo !== null) {
+        store.addItem<AuthInfo>(stores.LoginBefore, { email: authInfo.email } as AuthInfo);
+    }
     store.clear(stores.Login);
 }
 
@@ -143,6 +147,12 @@ export const getLastSync = (): string | undefined => {
 export const login = (email: string, senha: string): Promise<void> => {
 
     let promise = new Promise<void>((resolve, reject) => {
+
+        let loginBefore = store.getSingle<AuthInfo>(stores.LoginBefore);
+
+        if (loginBefore !== null && loginBefore.email !== email) {
+            store.clearAll(stores);
+        }
 
         getTokenRecaptcha((token) => {
             send(email, senha, token).then((ok) => {

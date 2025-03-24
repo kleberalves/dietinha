@@ -45,11 +45,17 @@ screen-assistente {
         padding: 10px;
         border-radius: 25px;
         margin-bottom: 15px !important;
+        .info{
+            color: var(--blackwhite-color);
+        }
         .progress{
             color: #965f18;
         }
         .finished{
             color: var(--sucess-color);
+        }
+        .fail{
+            color: #ca2b45;
         }
     }
 }
