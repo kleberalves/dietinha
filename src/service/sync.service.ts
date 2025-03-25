@@ -5,14 +5,12 @@ import { store } from "./store.service";
 
 export const onSync = (func: (e: CustomEventInit) => void) => {
     window.addEventListener("START_SYNC", (e: CustomEventInit) => {
-        console.log("start sync");
         func(e);
     });
 }
 
 export const onSyncEnd = (func: (e: CustomEventInit) => void) => {
     window.addEventListener("END_SYNC", (e: CustomEventInit) => {
-        console.log("end sync");
         func(e);
     });
 }
