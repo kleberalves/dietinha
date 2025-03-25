@@ -14,7 +14,7 @@
     z-index: 10000;
 
     color: #fff !important;
-    
+
 
     .loading {
         display: flex;
@@ -36,15 +36,29 @@
     box-shadow: 3px 3px 30px var(--glow-color);
 
 }
-.alert.default{
+
+.alert.default {
     background-color: var(--theme-color);
 }
+
 .alert.error {
     background-color: #771c44;
 }
 
-.alert.success {
+.alert.success,
+.alert.success-mini {
     background-color: #207e6e;
+}
+
+.alert.success-mini {
+    top: auto;
+    bottom: 24px;
+    width: 100%;
+    text-align: center;
+
+    @media (min-width: 1000px) {
+        bottom: -30px;
+    }
 }
 
 .alert.warning {
@@ -62,7 +76,7 @@
     margin-left: 10px;
 }
 
-.msg-warning{
+.msg-warning {
     width: 100%;
     color: #fff;
     background-color: #d98000;

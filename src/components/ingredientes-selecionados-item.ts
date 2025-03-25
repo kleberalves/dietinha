@@ -46,11 +46,82 @@ class IngredientesSelecionadosItem extends Base {
         }
     }
 
+    getClassCategoria(categoria: string): string {
+
+        categoria = categoria.toLowerCase();
+
+        if (categoria === "pães") {
+            return "paes";
+        }
+
+        if (categoria === "batatas") {
+            return "batatas";
+        }
+
+        if (categoria === "cereais e derivados") {
+            return "cereais";
+        }
+
+        if (categoria === "carnes e derivados") {
+            return "carnes";
+        }
+
+        if (categoria === "verduras, hortaliças e derivados") {
+            return "verduras"
+        }
+
+        if (categoria === "leguminosas e derivados") {
+            return "legumes"
+        }
+
+        if (categoria === "frutas e derivados") {
+            return "frutas"
+        }
+
+        if (categoria === "queijos") {
+            return "queijos"
+        }
+
+        if (categoria === "feijões") {
+            return "feijoes"
+        }
+
+        if (categoria === "ovos e derivados") {
+            return "ovos"
+        }
+
+        if (categoria === "pescados e frutos do mar") {
+            return "peixes"
+        }
+
+        if (categoria === "massas") {
+            return "massas"
+        }
+
+        if (categoria === "cervejas") {
+            return "cervejas"
+        }
+
+        if (categoria === "frangos") {
+            return "frangos"
+        }
+
+        return "";
+    }
+
+
     render() {
         var unidade = this.props.ingrediente.unidade === undefined ? "g" : this.props.ingrediente.unidade;
+
+        var className = "item "
+
+        if (this.props.ingrediente.categoria) {
+            className += this.getClassCategoria(this.props.ingrediente.categoria);
+        }
+        
         render(this, html`
         
-                <div class='item'> <b> ${this.props.ingrediente.nome} </b> 
+                <div class=${className}> <b> ${this.props.ingrediente.nome} </b> 
                 
                 ${this.props.mode !== "simple" ? html`
                         <div class="desc">${this.props.ingrediente.calorias} calorias e ${this.props.ingrediente.proteinas} proteínas em ${this.props.ingrediente.peso}${unidade}</div>        
@@ -61,7 +132,7 @@ class IngredientesSelecionadosItem extends Base {
                     <div class="btn-trash" title="Remover" onclick=${() => removerIngredienteAssistente(this.props.ingrediente.id)}></div>
                 </div>`}
                 
-                
+                ${this.props.ingrediente.categoria ? html`<div class="categoria">${this.props.ingrediente.categoria}</div>` : null}
             </div>` );
     }
 

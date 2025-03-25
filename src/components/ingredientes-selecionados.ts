@@ -128,6 +128,15 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
             return;
         }
 
+        this.listaIngredientes = this.listaIngredientes.sort((a, b) => {
+
+            if (a.categoria && b.categoria) {
+                return a.categoria < b.categoria ? -1 : 1
+            }
+
+            return 0
+        })
+
         let result = somaMacros(this.listaIngredientes, this.props.mode);
 
         render(this, html`

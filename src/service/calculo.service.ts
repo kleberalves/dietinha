@@ -126,7 +126,7 @@ export const adicionarCalculo = (idxResultado: number, idProduto: string, unidad
         var produto = buscarProdutoPorId(idProduto);
 
         if (produto !== undefined) {
-    
+
             store.addItem<Ingrediente>(stores.Ingrediente, {
                 "nome": produto.nome,
                 "calorias": caloriasValue,
@@ -136,6 +136,7 @@ export const adicionarCalculo = (idxResultado: number, idProduto: string, unidad
                 "unidade": produto.unidade,
                 "unidAltDesc": unidadeAlt.desc,
                 "unidAltPeso": unidadeAlt.peso,
+                "categoria": produto.categoria
             } as Ingrediente);
         }
     }

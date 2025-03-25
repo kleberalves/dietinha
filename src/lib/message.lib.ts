@@ -112,19 +112,20 @@ const showMessage = (msg, type) => {
     msgWindow.appendChild(msgNode);
     msgNode.innerHTML = msg;
 
-    var barActions = document.createElement("div");
-    barActions.classList.add("bar-actions");
-    msgWindow.appendChild(barActions);
+    if (type !== "success-mini") {
+        var barActions = document.createElement("div");
+        barActions.classList.add("bar-actions");
+        msgWindow.appendChild(barActions);
 
-    var btnConfirm = document.createElement("button");
-    btnConfirm.innerText = "Ok";
-    btnConfirm.classList.add("btn-ok");
-    btnConfirm.onclick = () => {
-        removeWindow();
+        var btnConfirm = document.createElement("button");
+        btnConfirm.innerText = "Ok";
+        btnConfirm.classList.add("btn-ok");
+        btnConfirm.onclick = () => {
+            removeWindow();
+        }
+
+        barActions.appendChild(btnConfirm);
     }
-
-    barActions.appendChild(btnConfirm);
-
     // timedoutshowMessage = setTimeout(() => {
     //     removeWindow();
     // }, msg.length * 150);
@@ -151,6 +152,25 @@ export const showOk = (msg: string) => {
     if (element) {
         element.classList.remove("blur");
     }
+
+    window.onclick = () => {
+        removeWindow();
+    }
+}
+
+export const showOkMini = (msg: string) => {
+    let window = showMessage(msg, "success-mini");
+
+    var element = document.getElementById("main");
+    if (element) {
+        element.classList.remove("blur");
+    }
+
+    clearTimeout(timedoutshowMessage);
+
+    timedoutshowMessage = setTimeout(() => {
+        removeWindow();
+    }, msg.length * 250);
 
     window.onclick = () => {
         removeWindow();

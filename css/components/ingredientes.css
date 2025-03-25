@@ -10,7 +10,7 @@ app-ingredientes-selecionados {
     }
 }
 
-app-ingredientes-selecionados-item{
+app-ingredientes-selecionados-item {
     @media (max-width: 1000px) {
         width: 100%;
     }
@@ -31,22 +31,171 @@ app-ingredientes-selecionados-item{
         margin-bottom: 15px;
         border: 0px;
         padding-top: 15px;
-        padding-bottom: 20px;
+        padding-bottom: 25px;
         color: #fff;
-        padding-left: 15px;
+        padding-left: 45px;
         border-radius: 19px;
-    
+
+
+
         .desc {
             font-size: 12px;
-            margin-top: 10px;
+            margin-top: 7px;
+            margin-bottom: 5px;
         }
-    
+
         b {
-            font-weight: 500;
-            font-size: 16px;  
+            font-weight: 300;
+            font-size: 16px;
             color: #fff;
             display: block;
         }
-        
+
+        .categoria {
+            position: absolute;
+            bottom: 6px;
+            left: 13px;
+            font-size: 10px;
+            opacity: 0.4;
+        }
+
     }
+
+    .item.carnes::before,
+    .item.cereais::before,
+    .item.paes::before,
+    .item.legumes::before,
+    .item.frutas::before,
+    .item.batatas::before,
+    .item.feijoes::before,
+    .item.ovos::before,
+    .item.peixes::before,
+    .item.queijos::before,
+    .item.massas::before,
+    .item.cervejas::before,
+    .item.frangos::before,
+    .item.verduras::before {
+        content: "";
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute;
+        left: 7px;
+        top: 7px;
+    }
+
+
+    .item.carnes {
+        background-color: #7d6254;
+
+        &::before {
+            background-image: url("../../img/carnes.svg");
+        }
+    }
+
+    .item.cereais {
+        background-color: #6d7d54;
+
+        &::before {
+            background-image: url("../../img/cereais.svg");
+        }
+    }
+
+    .item.paes {
+        background-color: #7d5454;
+
+        &::before {
+            background-image: url("../../img/paes.svg");
+        }
+    }
+
+    .item.legumes {
+        background-color: #68547d;
+
+        &::before {
+            background-image: url("../../img/legumes.svg");
+        }
+    }
+
+    .item.frutas {
+        background-color: #0a3f26;
+
+        &::before {
+            background-image: url("../../img/frutas.svg");
+        }
+    }
+
+    .item.verduras {
+        background-color: #0a3f26;
+
+        &::before {
+            background-image: url("../../img/verduras.svg");
+        }
+    }
+
+    .item.batatas {
+        background-color: #54767d;
+
+        &::before {
+            background-image: url("../../img/batata.svg");
+        }
+    }
+
+    .item.queijos {
+        background-color: #917b00;
+
+        &::before {
+            background-image: url("../../img/queijos.svg");
+        }
+    }
+
+    .item.feijoes {
+        background-color: #547d72;
+
+        &::before {
+            background-image: url("../../img/feijoes.svg");
+        }
+    }
+
+    .item.ovos {
+        background-color: #7d5470;
+
+        &::before {
+            background-image: url("../../img/ovos.svg");
+        }
+    }
+
+    .item.peixes {
+        background-color: #547d5d;
+
+        &::before {
+            background-image: url("../../img/peixes.svg");
+        }
+    }
+
+    .item.massas {
+        background-color: #547d7a;
+
+        &::before {
+            background-image: url("../../img/massas.svg");
+        }
+    }
+
+    .item.frangos {
+        background-color: #7d7c54;
+
+        &::before {
+            background-image: url("../../img/frangos.svg");
+        }
+    }
+
+    .item.cervejas {
+        background-color: #546f7d;
+
+        &::before {
+            background-image: url("../../img/cervejas.svg");
+        }
+    }
+
 }

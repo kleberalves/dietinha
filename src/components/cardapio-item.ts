@@ -3,7 +3,7 @@ import { Base } from "./base";
 import { store } from "../service/store.service";
 import { uuidv4 } from "../lib/uuidv4";
 import { localISOString } from "../lib/treatments";
-import { showConfirm, showPopup } from "../lib/message.lib";
+import { showConfirm, showOk, showOkMini, showPopup } from "../lib/message.lib";
 import { screens, stores } from "../service/config.service";
 import { swapScreen } from "../lib/screens.lib";
 
@@ -98,7 +98,7 @@ class AppCardapioItem extends Base {
             }
 
             store.addItem<RegistroRefeicaoItem>(stores.RegistroRefeicao, itemAlimentacao).then((info) => {
-                this.reiniciarAlimentacao();
+                showOkMini("Refeição registrada.");
             });
         }
     }

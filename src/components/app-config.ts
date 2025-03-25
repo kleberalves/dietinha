@@ -1,6 +1,8 @@
 import { html, render } from "uhtml";
 import { Base } from "./base";
-import { swapTheme } from "../service/config.service";
+import { screens, stores, swapTheme } from "../service/config.service";
+import { store } from "../service/store.service";
+import { swapScreen } from "../lib/screens.lib";
 
 class AppConfig extends Base {
 
@@ -12,6 +14,15 @@ class AppConfig extends Base {
         this.render();
     }
 
+    limparCache() {
+        store.clearAll(stores);
+        swapScreen(screens.Login);
+    }
+
+    reloadApp() {
+        window.location.reload();
+    }
+
     render() {
 
         render(this, html`
@@ -19,6 +30,16 @@ class AppConfig extends Base {
             <div class="row">
                 <h4> Tema do app </h4>
                 <button class="btn-mini" onclick=${() => swapTheme()}>Trocar tema</button>
+            </div>
+
+            <div class="row">
+                <h4> Limpar cache </h4>
+                <button class="btn-mini" onclick=${() => this.limparCache()}>Limpar cache</button>
+            </div>
+
+            <div class="row">
+                <h4> Limpar cache </h4>
+                <button class="btn-mini" onclick=${() => this.reloadApp()}>Forçar reload do app</button>
             </div>
         </div>
         `);

@@ -41,7 +41,8 @@ export const addIngredienteStorage = (idProduto: string) => {
 
         store.addItem<IngredienteAssistente>(stores.IngredienteAssistente, {
             "nome": produto.nome,
-            "idProduto": produto.id
+            "idProduto": produto.id,
+            "categoria": produto.categoria
         } as IngredienteAssistente);
     }
 }
@@ -79,7 +80,8 @@ export const adicionaPreItems = (): IngredienteAssistente[] => {
                 ingredientes.push({
                     "id": produto.id,
                     "nome": produto.nome,
-                    "idProduto": produto.id
+                    "idProduto": produto.id,
+                    "categoria": produto.categoria
                 })
             }
         }

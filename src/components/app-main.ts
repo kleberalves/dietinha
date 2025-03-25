@@ -170,7 +170,7 @@ class AppMain extends Base {
                         </div>
                         <div class="title">Calculadora de alimentos</div>
                         <div> 
-                        <img src="img/configuracoes.svg" title="Configurações" class="btn-icon" @click=${e => swapScreen(screens.Assistente)}/>
+                        <img src="img/assistente.svg" title="Assistente virtual" class="btn-icon" @click=${e => swapScreen(screens.Assistente)}/>
                         </div>
                     </div>
 
