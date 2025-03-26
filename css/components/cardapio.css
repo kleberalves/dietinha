@@ -21,7 +21,9 @@ app-cardapio-item {
 .listItem.cardapio {
     padding-bottom: 15px;
     padding-right: 30px;
+    padding-top: 15px;
     margin-bottom: 20px;
+
     background-color: var(--theme-color);
     align-items: flex-start;
 
@@ -30,6 +32,11 @@ app-cardapio-item {
         display: flex;
         justify-content: space-around;
         width: 100%;
+    }
+
+    .title{
+        color: var(--primary-color);
+        padding-left: 6px;
     }
 }
 

@@ -38,9 +38,12 @@
     color: var(--contrast-color);
 }
 
-.list>.item.mini span,
-.listItem .title div span {
+.list>.item.mini span {
     color: var(--primary-color);
+}
+
+.listItem .title div span {
+    color: #a7f0ff;
 }
 
 .list>.title {

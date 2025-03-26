@@ -166,7 +166,7 @@ class AppLogin extends Base {
                      </div>                         
                         ` : null}
 
-                 ${this.loginInfo === null ? html`
+                 ${this.loginInfo === null || (this.loginInfo !== null && this.loginInfo.email === "guest") ? html`
                              <form onsubmit=${(e) => this.btnLogin(e)}>
                                 <div class="col-1">
                                     <div>

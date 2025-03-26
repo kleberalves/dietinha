@@ -1,10 +1,11 @@
 import { html, render } from "uhtml";
 import { Base } from "../base";
 
-class WizardMessage extends Base {
+class WizardMessage extends Base implements IWizardMessage {
 
     props: {
         title: string;
+        supressClose: boolean;
     }
 
     constructor() {
@@ -13,14 +14,30 @@ class WizardMessage extends Base {
 
     connectedCallback() {
         this.props = {
-            title: this.p("title")
+            title: this.p("title"),
+            supressClose: this.pb("supress-close")
         }
         this.render();
         this.renderChildren();
     }
 
+    onOk = (env: (e: CustomEventInit) => void) => {
+        this.addEventListener("ON_OK", (e) => {
+            if (env) {
+                env(e);
+            }
+        })
+    }
+
     btnOk() {
-        this.style.display = "none";
+
+        if (!this.props.supressClose) {
+            this.style.display = "none";
+        }
+
+        this.dispatchEvent(
+            new CustomEvent("ON_OK")
+        );
     }
 
     render() {

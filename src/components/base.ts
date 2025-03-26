@@ -21,8 +21,18 @@ export class Base extends HTMLElement implements IBase {
             return value;
         }
     }
+    /** get property boolean */
+    pb(prop: string): boolean {
+        let value = this.p(prop);
 
-    renderChildren() : HTMLElement | undefined{
+        if (value === "true") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    renderChildren(): HTMLElement | undefined {
         let container = this.querySelector("#container") as HTMLElement;
         if (container &&
             this.childrenHTML !== undefined &&
