@@ -128,6 +128,7 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
             return;
         }
 
+        //Ordenar por categoria crescente
         this.listaIngredientes = this.listaIngredientes.sort((a, b) => {
 
             if (a.categoria && b.categoria) {

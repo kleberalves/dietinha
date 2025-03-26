@@ -28,8 +28,10 @@ button {
 
 .btn-screen-switch {
 
+    color: var(--secondary-color);
+
     img {
-        filter: brightness(0);
+        filter: brightness(0.7);
     }
 
 }
@@ -55,18 +57,13 @@ button {
     background-color: #fafafa;
 }
 
-
-.listItem.filtro {
-    background-color: #f1f1f1;
-}
-
 .listItem.filtro .actions .action {
     color: #000;
 }
 
 * {
     --primary-color: #57bfd4;
-    --secondary-color: #0a95b0;
+    --secondary-color: #34737f;
     --theme-color: #f5f5f5;
     --destaque-color: #8d8d8d;
     --contrast-color: #5d7f85;

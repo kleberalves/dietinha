@@ -6,6 +6,69 @@ declare var listaAlimentos: Alimento[];
 
 let produtoCalculo: Alimento | undefined;
 
+export const getClassCategoria = (categoria: string): string => {
+
+    categoria = categoria.toLowerCase();
+
+    if (categoria === "pães") {
+        return "paes";
+    }
+
+    if (categoria === "batatas") {
+        return "batatas";
+    }
+
+    if (categoria === "cereais e derivados") {
+        return "cereais";
+    }
+
+    if (categoria === "carnes e derivados") {
+        return "carnes";
+    }
+
+    if (categoria === "verduras, hortaliças e derivados") {
+        return "verduras"
+    }
+
+    if (categoria === "leguminosas e derivados") {
+        return "legumes"
+    }
+
+    if (categoria === "frutas e derivados") {
+        return "frutas"
+    }
+
+    if (categoria === "queijos") {
+        return "queijos"
+    }
+
+    if (categoria === "feijões") {
+        return "feijoes"
+    }
+
+    if (categoria === "ovos e derivados") {
+        return "ovos"
+    }
+
+    if (categoria === "pescados e frutos do mar") {
+        return "peixes"
+    }
+
+    if (categoria === "massas") {
+        return "massas"
+    }
+
+    if (categoria === "cervejas") {
+        return "cervejas"
+    }
+
+    if (categoria === "frangos") {
+        return "frangos"
+    }
+
+    return "";
+}
+
 export const buscarProdutoPorId = (idProduto: string) => {
 
     //Busca o produto na listaProdutos comparando a propriedade Id com o paramëtro "idProduto"

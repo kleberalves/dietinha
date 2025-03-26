@@ -2,6 +2,7 @@ import { html, render } from "uhtml";
 import { Base } from "./base";
 import { removerIngrediente } from "../service/cardapio.service";
 import { removerIngredienteAssistente } from "../service/assistente.service";
+import { getClassCategoria } from "../service/calculo.service";
 
 class IngredientesSelecionadosItem extends Base {
 
@@ -46,77 +47,15 @@ class IngredientesSelecionadosItem extends Base {
         }
     }
 
-    getClassCategoria(categoria: string): string {
-
-        categoria = categoria.toLowerCase();
-
-        if (categoria === "pães") {
-            return "paes";
-        }
-
-        if (categoria === "batatas") {
-            return "batatas";
-        }
-
-        if (categoria === "cereais e derivados") {
-            return "cereais";
-        }
-
-        if (categoria === "carnes e derivados") {
-            return "carnes";
-        }
-
-        if (categoria === "verduras, hortaliças e derivados") {
-            return "verduras"
-        }
-
-        if (categoria === "leguminosas e derivados") {
-            return "legumes"
-        }
-
-        if (categoria === "frutas e derivados") {
-            return "frutas"
-        }
-
-        if (categoria === "queijos") {
-            return "queijos"
-        }
-
-        if (categoria === "feijões") {
-            return "feijoes"
-        }
-
-        if (categoria === "ovos e derivados") {
-            return "ovos"
-        }
-
-        if (categoria === "pescados e frutos do mar") {
-            return "peixes"
-        }
-
-        if (categoria === "massas") {
-            return "massas"
-        }
-
-        if (categoria === "cervejas") {
-            return "cervejas"
-        }
-
-        if (categoria === "frangos") {
-            return "frangos"
-        }
-
-        return "";
-    }
+    
 
 
     render() {
         var unidade = this.props.ingrediente.unidade === undefined ? "g" : this.props.ingrediente.unidade;
 
         var className = "item "
-
         if (this.props.ingrediente.categoria) {
-            className += this.getClassCategoria(this.props.ingrediente.categoria);
+            className += getClassCategoria(this.props.ingrediente.categoria);
         }
         
         render(this, html`

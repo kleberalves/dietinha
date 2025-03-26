@@ -51,11 +51,6 @@ app-pesquisa-alimento-item {
     color: var(--primary-color);
 }
 
-.listItem .title {
-    color: var(--primary-color);
-    border-bottom-color: var(--border-color);
-}
-
 .listItem .title div {
     color: var(--destaque-color);
 }

@@ -1,5 +1,5 @@
 import { html, render } from "uhtml";
-import { adicionarCalculo, calcularAlimentoUnidade, calcularAlimentoPeso, getUnidades } from "../service/calculo.service";
+import { adicionarCalculo, calcularAlimentoUnidade, calcularAlimentoPeso, getUnidades, getClassCategoria } from "../service/calculo.service";
 import { Base } from "./base";
 import { showPopup } from "../lib/message.lib";
 import { addIngredienteStorage } from "../service/assistente.service";
@@ -75,7 +75,13 @@ class PesquisaItem extends Base {
             item: JSON.parse(this.p("item")),
         }
 
-        var className = `listItem pesquisa-alimento-item filtro delay${this.props.idx}`;
+
+        var className = `listItem pesquisa-alimento-item filtro delay${this.props.idx} `;
+
+        if (this.props.item.categoria) {
+            className += getClassCategoria(this.props.item.categoria);
+        }
+
         var unidade: string = this.props.item.unidade ? this.props.item.unidade : "g";
 
         if (this.props.mode !== "simple") {

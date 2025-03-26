@@ -10,7 +10,7 @@ export const resizeScreens = () => {
     }
 }
 
-export const detectPathScreen = (onDetected?: (paths: string[]) => void) => {
+export const detectPathScreen = (onDetected: (paths: string[]) => void, onNotFound: () => void) => {
 
     const hashPaths = window.location.hash.split("/");
     if (hashPaths.length >= 2) {
@@ -18,9 +18,8 @@ export const detectPathScreen = (onDetected?: (paths: string[]) => void) => {
         for (let t = 0; t < screens.length; t++) {
             if (screens[t].id === hashPaths[1]) {
                 if (!screens[t].classList.contains("open")) {
-                    if (onDetected) {
-                        onDetected(hashPaths);
-                    }
+
+                    onDetected(hashPaths);
                     swapScreen(hashPaths[1]);
                 }
 
@@ -28,7 +27,7 @@ export const detectPathScreen = (onDetected?: (paths: string[]) => void) => {
             }
         }
 
-        swapScreen("notfound");
+        onNotFound();
     }
 }
 

@@ -23,6 +23,8 @@ body {
 
 .btn-screen-switch {
 
+    color: #fff;
+
     img {
         filter: brightness(100);
     }
@@ -56,13 +58,6 @@ body {
     background-color: #383838;
 }
 
-/* .list>.title {
-    color: #e87610;
-}
-
-.list>.cols>div>.text {
-    color: #5db1ea;
-} */
 
 .list>.cols.total {
     background-color: #232323;
@@ -71,10 +66,6 @@ body {
 
 .list>.cols>.options>label input:checked~label {
     background-color: #da7d00;
-}
-
-.listItem.filtro {
-    background-color: #161616;
 }
 
 .listItem.filtro .actions .action div {

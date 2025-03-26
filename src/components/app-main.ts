@@ -85,6 +85,9 @@ class AppMain extends Base {
                 this.showScreenResetPassword = true;
                 this.render();
             }
+        }, () => {
+            //Se não encontrar nenhuma página, redirecionar para a perfil
+            swapScreen(screens.Perfil);
         });
     }
 
@@ -287,13 +290,6 @@ class AppMain extends Base {
                     <app-login mode="resetpassword" />
                 </div>` : null}
 
-                <div class="screen close" id="notfound">
-                    <div class="form">
-                        <div class="row">
-                            <h4> 404 Seção não encontrada. </h4>
-                        </div>
-                    </div>
-                </div>
             </div>
 <!--  https://www.svgrepo.com/collection/solar-outline-icons/10 -->
 

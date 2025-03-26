@@ -30,7 +30,8 @@ app-config {
         border-bottom: 1px solid var(--destaque-color);
         padding-bottom: 10px;
         font-size: 1em;
-        h4{
+
+        h4 {
             font-size: 1.2em;
         }
     }
@@ -152,8 +153,6 @@ screen-assistente {
 
         .btn-screen-switch {
 
-            color: var(--blackwhite-color);
-
             border-top: 2px solid transparent;
             width: 23%;
             cursor: pointer;
@@ -189,7 +188,11 @@ screen-assistente {
         }
 
         .btn-screen-switch.open {
-            border-top: 2px solid var(--primary-color);
+            @media (max-width: 999px) {
+                & {
+                    border-top: 2px solid var(--primary-color);
+                }
+            }
 
             .btn {
                 color: var(--primary-color);

@@ -40,8 +40,6 @@ function transform() {
             listaAlimentos[i].categoria = "Cereais e derivados";
         }
 
-
-
         if (listaAlimentos[i].nome.toLowerCase().indexOf("macarrão") === 0) {
             listaAlimentos[i].categoria = "Massas";
         }
@@ -70,6 +68,8 @@ function transform() {
         }
     }
 
+
+
     //Script para adicionar produtos manualmente 
     //TODO adicionar CRUD na API
     // listaAlimentos.push(
@@ -85,6 +85,16 @@ function transform() {
     //     }
     // );
     // fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.json"), JSON.stringify(listaAlimentos));
+
+    //Ordenar por categoria crescente
+    tabela = tabela.sort((a, b) => {
+
+        if (a.categoria && b.categoria) {
+            return a.categoria < b.categoria ? -1 : 1
+        }
+
+        return 0
+    })
 
     fs.writeFileSync(path.join(__dirname, '..', "data", "lista.alimentos.js"), "var listaAlimentos = " + JSON.stringify(tabela) + "; ");
 }
