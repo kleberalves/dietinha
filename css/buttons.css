@@ -5,7 +5,7 @@ input[type="submit"] {
     background-color: var(--primary-color);
     color: #fff;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 300;
     border: 0px;
 }
 

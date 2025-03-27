@@ -48,7 +48,7 @@ input[type="radio"] {
 
     border-radius: 15px;
 
-    font-weight: 400;
+    font-weight: 300;
 
     position: absolute;
     top: 0px;
@@ -85,9 +85,9 @@ input[type="radio"]:valid~span {
 }
 
 input[type="radio"]:checked~span {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: var(--theme-color);
-    font-weight: bold;
+    font-weight: 300;
 }
 
 .radio-group {
@@ -103,7 +103,7 @@ input[type="radio"]:checked~span {
 
 .radio:hover span {
     background-color: var(--destaque-color);
-    color: var(--primary-color) !important;
+    color: #fff !important;
 }
 
 

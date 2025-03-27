@@ -169,15 +169,53 @@ export const login = (email: string, senha: string): Promise<void> => {
 
 
 const getTokenRecaptcha = (func: (token: string) => void) => {
-    grecaptcha.ready(() => {
-        grecaptcha.execute(API_RECAPTCHA, { action: 'submit' }).then((token) => {
-            func(token);
-            // Add your logic to submit to your backend server here.
-        }, (err) => {
-            showError(err.message)
-            console.log(err);
+    try {
+
+
+        grecaptcha.ready(() => {
+            grecaptcha.execute(API_RECAPTCHA, { action: 'submit' }).then((token) => {
+                func(token);
+                // Add your logic to submit to your backend server here.
+            }, (err) => {
+                showError(err.message)
+                console.log(err);
+            });
         });
-    });
+
+
+
+    }
+    catch (e) {
+
+        if (e.message.indexOf("grecaptcha is not defined") > -1) {
+            let login: AuthInfo | null = getLoginInfo()
+
+            if (login !== null) {
+
+                if (!login.incReload) {
+                    login.incReload = 1;
+                } else {
+                    login.incReload += 1;
+                }
+
+            } else {
+                login = {
+                    incReload: 1
+                } as AuthInfo
+            }
+
+            if (login && login.incReload && login.incReload < 3) {
+                store.updateSingle(stores.Login, login);
+                window.location.reload();
+            } else {
+                showWarning("Não foi possível obter o ReCaptcha do Google. Por favor, verifique a internet e tente novamente.")
+            }
+        } else {
+            showWarning(e.message);
+        }
+    }
+
+
 }
 
 export const globalErrors = (e) => {

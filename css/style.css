@@ -128,9 +128,10 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
     color: var(--blackwhite-color);
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 19px;
+    font-weight: 300;
     padding: 5px 10px;
+    padding-left: 15px;
     border-radius: 14px;
     margin-top: 2px;
     height: 50px;

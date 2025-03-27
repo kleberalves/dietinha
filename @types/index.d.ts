@@ -68,6 +68,7 @@ interface AuthInfo extends BaseItem {
     lastSync?: string;
     activeToken?: string;
     activeTokenMode?: string;
+    incReload?: number;
     profiles: any[];
 }
 

@@ -38,8 +38,8 @@ class AppConfig extends Base {
             </div>
 
             <div class="row">
-                <h4> Limpar cache </h4>
-                <button class="btn-mini" onclick=${() => this.reloadApp()}>Forçar reload do app</button>
+                <h4> Reload do app </h4>
+                <button class="btn-mini" onclick=${() => this.reloadApp()}>Forçar reload</button>
             </div>
         </div>
         `);

@@ -36,7 +36,7 @@ app-cardapio-item {
 
     .title{
         color: var(--primary-color);
-        padding-left: 6px;
+        padding-left: 40px;
     }
 }
 

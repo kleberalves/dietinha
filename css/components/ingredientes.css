@@ -66,6 +66,7 @@ app-ingredientes-selecionados-item {
 .item,
 .listItem {
 
+    &::before,
     &.carnes::before,
     &.cereais::before,
     &.paes::before,
@@ -88,6 +89,13 @@ app-ingredientes-selecionados-item {
         position: absolute;
         left: 7px;
         top: 7px;
+
+        background-image: url("../../img/alimento.svg");
+
+    }
+
+    &.mini::before {
+      display: none;
     }
 
     &.carnes {

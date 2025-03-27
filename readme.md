@@ -26,12 +26,14 @@ https://web.dev/learn/html/template
 
 ### https://pwa-icon-generator.vercel.app/
 
+https://www.svgrepo.com/collection/restaurant-meal-and-food-vectors/
+
 ## Habilitar o Node no Powershell
 
 ```
 ### fnm env --use-on-cd | Out-String | Invoke-Expressio
 ```
+
 ```
 fnm use --install-if-missing 18
 ```
-

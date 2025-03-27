@@ -166,13 +166,15 @@
     flex-direction: column;
 
     padding: 8px;
-    padding-top: 5px;
+    padding-top: 15px;
     border-radius: 21px;
 
     transition: all 0.3s ease-in-out;
     animation-name: slide-in;
     animation-timing-function: ease-in-out;
     animation-duration: 0.5s;
+
+    background-color: var(--secondary-color);
 
     justify-content: space-between;
 

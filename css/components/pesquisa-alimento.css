@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
 
     .bar {
         width: 100%;
@@ -29,7 +29,7 @@ app-pesquisa-alimento-item {
 }
 
 .pesquisa-alimento-item-actions .action {
-    font-size: 15px;
+    font-size: 17px;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -44,6 +44,8 @@ app-pesquisa-alimento-item {
 
 .pesquisa-alimento-item-actions .action>b {
     color: var(--blackwhite-color);
+    font-weight: 300;
+    text-wrap: nowrap;
 }
 
 .pesquisa-alimento-item-actions .action>div {
