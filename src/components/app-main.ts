@@ -74,16 +74,19 @@ class AppMain extends Base {
     }
 
     detectPath() {
+
+        const hashPaths = window.location.hash.split("/");
+
+        if (hashPaths[1] === screens.ResetPassword) {
+            //Só renderiza a screen resetpassword apenas quando necessário pois o chrome
+            //está detectando uma tela de login e sugerindo o preenchimento automático do login e senha
+            this.showScreenResetPassword = true;
+            this.render();
+        }
+
         detectPathScreen((paths: string[]) => {
             if (paths[1] === screens.Activate || paths[1] === screens.ResetPassword) {
                 setActiveToken(paths[2], paths[1]);
-            }
-
-            if (paths[1] === screens.ResetPassword) {
-                //Só renderiza a screen resetpassword apenas quando necessário pois o chrome
-                //está detectando uma tela de login e sugerindo o preenchimento automático do login e senha
-                this.showScreenResetPassword = true;
-                this.render();
             }
         }, () => {
             //Se não encontrar nenhuma página, redirecionar para a perfil
