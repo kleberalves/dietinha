@@ -59,11 +59,33 @@ class RegistroAlimentosItem extends Base {
 
         render(this, html`<div class="data">${formatDate(this.refeicaoDia.dia, "dd/mm")}</div> ${itemsShow.length === 0 ?
             html`<b class="info-none text"> Você ainda não registrou nenhuma refeição hoje.</b>`
-            : html` <div class='cols total'>
-                        <div>Total de calorias<span class='text'>${totalCalorias}</span></div>
+            : html` 
+                ${this.refeicaoDia.meta ? html`
+                    <div class='cols total meta'>
+                        <div>
+                            <span>Calorias</span> 
+                            <div> 
+                                <div>Meta diária<span class='text'>${this.refeicaoDia.meta.caloriasMeta}</span></div>
+                                <div>Progresso<span class='text'>${this.refeicaoDia.meta.calorias} (${this.refeicaoDia.meta.percentualMeta}%)</span></div>
+                            </div>
+                        </div>
+                        <div>
+                             <span>Proteínas</span>
+                            <div>  
+                                <div>Meta diária<span class='text'>${this.refeicaoDia.meta.proteinasMeta}</span></div>
+                                <div>Progresso<span class='text'>${this.refeicaoDia.meta.proteinas} (${this.refeicaoDia.meta.percentualMetaProteinas}%)</span></div>
+                            </div>
+                      </div>
+
+                    </div>` :
+                    html`<div class='cols total'>
+                        <div>Calorias<span class='text'>${totalCalorias}</span></div>
                         <div>Proteínas<span class='text'>${totalProteinas}</span></div>
                         <div>Volume <span class='text'>${totalPeso}g </span></div>
                     </div>
+`}
+
+
                     <div class="list-space-around">
                         ${itemsShow.map(item => item)}
                     </div>

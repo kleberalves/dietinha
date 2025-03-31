@@ -11,6 +11,7 @@ export const stores = {
     Processamento: "PROCESSAMENTO_STORE",
     Cardapio: "CARDAPIO_STORE",
     RegistroRefeicao: "REGISTRO_REFEICAO_STORE",
+    RegistroMetas: "REGISTRO_METAS_STORE",
     Config: "CONFIG_STORE",
     Perfil: "PERFIL_STORE",
     Login: "LOGIN_STORE",

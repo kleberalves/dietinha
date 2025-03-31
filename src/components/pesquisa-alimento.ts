@@ -69,7 +69,7 @@ class PesquisaAlimento extends Base {
 
         render(this, html`
         
-                <label>Digite o nome do alimento</label>
+                <label>Digite o nome do alimento:</label>
                 <input type="text" class="textForm txtPesquisa" oninput=${(e) => this.onTxtPesquisaInput(e.currentTarget)} />  
                 <div class="list-space-around">
                 ${this.resultList.map((item, idx) => html`<app-pesquisa-alimento-item 

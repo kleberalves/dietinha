@@ -9,7 +9,6 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
     props: {
         idx: number;
         id: number;
-        mode: string;
     }
 
     listaIngredientes: Ingrediente[] = [];
@@ -35,16 +34,14 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
 
     onEditFinished = (e: CustomEventInit) => {
 
-        if (this.props.mode !== "simple") {
-            this.cardapioItemEdit = null;
-            store.clear(stores.Ingrediente);
-            this.render();
+        this.cardapioItemEdit = null;
+        store.clear(stores.Ingrediente);
+        this.render();
 
-            store.removeEditEvents(this.onEditStarted, this.onEditFinished);
-            store.removeOnCleared(this.onCleared);
-            store.removeOnAddedItem(this.onAddedItem);
-            store.removeOnRemovedItem(this.onRemovedItem);
-        }
+        store.removeEditEvents(this.onEditStarted, this.onEditFinished);
+        store.removeOnCleared(this.onCleared);
+        store.removeOnAddedItem(this.onAddedItem);
+        store.removeOnRemovedItem(this.onRemovedItem);
     }
 
     onCleared = (e: CustomEventInit) => {
@@ -78,11 +75,6 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
 
             this.render();
 
-        } else if (e.detail.store === stores.IngredienteAssistente
-            && this.props.mode === "simple"
-        ) {
-            this.listaIngredientes = e.detail.items;
-            this.render();
         }
     }
 
@@ -97,27 +89,20 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
 
         this.props = {
             idx: this.p("idx"),
-            id: this.p("id"),
-            mode: this.p("mode"),
+            id: this.p("id")
         }
 
-        if (this.props.mode === "simple") {
-            this.listaIngredientes = store.getItems(stores.IngredienteAssistente);
-            store.onChanged(stores.IngredienteAssistente, this.onChangedIngredienteAssistente);
+        //Modo calculadora
+        this.listaIngredientes = store.getItems(stores.Ingrediente);
+        store.onEditStarted(this.onEditStarted);
+        store.onEditFinished(this.onEditFinished);
+        store.onCleared(this.onCleared);
+        store.onAddedItem(this.onAddedItem);
+        store.onRemovedItem(this.onRemovedItem);
 
-        } else {
-            //Modo calculadora
-            this.listaIngredientes = store.getItems(stores.Ingrediente);
-            store.onEditStarted(this.onEditStarted);
-            store.onEditFinished(this.onEditFinished);
-            store.onCleared(this.onCleared);
-            store.onAddedItem(this.onAddedItem);
-            store.onRemovedItem(this.onRemovedItem);
+        store.editCheck();
 
-            store.editCheck();
-
-            this.listaCardapio = store.getItems(stores.Cardapio);
-        }
+        this.listaCardapio = store.getItems(stores.Cardapio);
 
         this.render();
     }
@@ -138,43 +123,36 @@ class IngredientesSelecionados extends Base implements IIngredientesSelecionados
             return 0
         })
 
-        let result = somaMacros(this.listaIngredientes, this.props.mode);
+        let result = somaMacros(this.listaIngredientes, "normal");
 
-        render(this, html`
-                <div class='list selecionados'>
+        render(this, html`<div class='list selecionados'>
                     <div class='title'>Ingredientes selecionados (${result.items.length})</div>
 
-
                     ${this.cardapioItemEdit !== null ? html`<div class="msg-warning">Você está editando um item do cardápio.</div>` : null}
-
                     ${(this.listaCardapio.length === 0
-                && this.listaIngredientes.length === 1
-                && this.props.mode !== "simple") ? html` <wizard-message title="Dica">
+                && this.listaIngredientes.length === 1) ? html` <wizard-message title="Dica">
                                                             Faça uma outra consulta e adicione novos ingredientes para compor a sua refeição. <br/>
                                                                 Exemplo: Arroz cozido, Feijão preto cozido, Ovo de galinha inteiro cozido e Batata inglesa cozida.
                                                         </wizard-message>` : null}
-
                         <div class="list-space-around">
                             ${result.items.map(item => item)}
                         </div>
-
-                    ${this.props.mode !== "simple" ? html`
-                            <div class='cols total'>
-                                <div>Calorias <span class='text'> ${result.totalCalorias} </span></div>
-                                <div>Proteínas <span class='text'>${result.totalProteinas} </span></div>
-                                <div>Peso <span class='text'>${result.totalPeso}g</span></div>
-                            </div>
-                                ${(this.listaCardapio.length === 0 && this.listaIngredientes.length > 1) ? html`<wizard-message title="Dica">
-                                        Após selecionar os ingredientes da refeição, selecione a categoria adequada e clique em <b>"Adicionar ao cardápio"</b>.
-                                    </wizard-message>` : null}
-                            <div class='cols bar-add-ingredientes'>
-                                <div class='radio-col-2'>
-                                    <div class='radio'><input type="radio" name="inputTipoCardapio" value="CA" /> <span>Café da manhã/tarde</span> </div>
-                                    <div class='radio'><input type="radio" name="inputTipoCardapio" value="AJ" /> <span>Almoço/Jantar</span> </div>
-                                    <div class='radio'><input type="radio" name="inputTipoCardapio" value="LC" /> <span>Lanches</span> </div>
-                                    <div class='radio'><input type="radio" name="inputTipoCardapio" value="SM" /> <span>Sobremesas</span> </div>
-                                </div>
-                    </div>` : null}
+                        <div class='cols total'>
+                            <div>Calorias <span class='text'> ${result.totalCalorias} </span></div>
+                            <div>Proteínas <span class='text'>${result.totalProteinas} </span></div>
+                            <div>Peso <span class='text'>${result.totalPeso}g</span></div>
+                        </div>
+                            ${(this.listaCardapio.length === 0 && this.listaIngredientes.length > 1) ? html`<wizard-message title="Dica">
+                                    Após selecionar os ingredientes da refeição, selecione a categoria adequada e clique em <b>"Adicionar ao cardápio"</b>.
+                                </wizard-message>` : null}
+                        <div class='cols bar-add-ingredientes'>
+                            <div class='radio-col-2'>
+                                <div class='radio'><input type="radio" name="inputTipoCardapio" value="CA" /> <span>Café da manhã/tarde</span> </div>
+                                <div class='radio'><input type="radio" name="inputTipoCardapio" value="AJ" /> <span>Almoço/Jantar</span> </div>
+                                <div class='radio'><input type="radio" name="inputTipoCardapio" value="LC" /> <span>Lanches</span> </div>
+                                <div class='radio'><input type="radio" name="inputTipoCardapio" value="SM" /> <span>Sobremesas</span> </div>
+                        </div>
+                    </div>
                 </div>`);
 
     }

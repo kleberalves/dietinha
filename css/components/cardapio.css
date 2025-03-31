@@ -21,7 +21,7 @@ app-cardapio-item {
 .listItem.cardapio {
     padding-bottom: 15px;
     padding-right: 30px;
-    padding-top: 15px;
+    padding-top: 11px;
     margin-bottom: 20px;
 
     background-color: var(--theme-color);
@@ -43,6 +43,7 @@ app-cardapio-item {
 .listItem.cardapio .total {
     margin: 15px;
     margin-bottom: 5px;
+    margin-top: 0px;
     font-size: 15px;
     color: var(--blackwhite-color);
     font-weight: 300;

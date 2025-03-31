@@ -1,5 +1,5 @@
 
-interface Ingrediente extends BaseItem{
+interface Ingrediente extends BaseItem {
     nome: string;
     calorias: number;
     proteinas: number;
@@ -8,12 +8,13 @@ interface Ingrediente extends BaseItem{
     idProduto: string;
     unidAltDesc: string;
     unidAltPeso: number;
-    categoria?:string;
+    categoria?: string;
 }
 
 
-interface IngredienteAssistente extends BaseItem{
+interface IngredienteAssistente extends BaseItem {
     nome: string;
     idProduto: string;
     categoria: string;
+    tipo: string;
 }

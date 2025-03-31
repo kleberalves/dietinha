@@ -2,7 +2,7 @@ import { html, render } from "uhtml";
 import { adicionarCalculo, calcularAlimentoUnidade, calcularAlimentoPeso, getUnidades, getClassCategoria } from "../service/calculo.service";
 import { Base } from "./base";
 import { showPopup } from "../lib/message.lib";
-import { addIngredienteStorage } from "../service/assistente.service";
+import { addIngredienteAssistente } from "../service/assistente.service";
 
 class PesquisaItem extends Base {
 
@@ -32,8 +32,8 @@ class PesquisaItem extends Base {
 
     showFormCalculo: Boolean = false;
 
-    selecionarSimple() {
-        addIngredienteStorage(this.props.item.id);
+    selecionarSimple(tipo: string) {
+        addIngredienteAssistente(this.props.item.id, tipo);
     }
 
     showCalculo() {
@@ -93,7 +93,10 @@ class PesquisaItem extends Base {
         } else {
             render(this, html`<div class= ${className}>
                 <div class='title'> ${this.props.item.nome}</div>
-                <button class='btn-selecionar' onclick=${() => this.selecionarSimple()}> Selecionar </button>
+                <div class="bar-actions">
+                     <button class='btn-selecionar' onclick=${() => this.selecionarSimple("CA")}> Café da manhã/tarde </button>
+                    <button class='btn-selecionar' onclick=${() => this.selecionarSimple("AJ")}> Almoço/Jantar </button>
+                </div>
             </div>`);
         }
     }

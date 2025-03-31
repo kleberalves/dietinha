@@ -14,6 +14,7 @@ class RegistroAlimentos extends Base {
     }
 
     itemsShow: RefeicaoDia[] = [];
+    itemsMeta: RegistroMeta[] = [];
 
     constructor() {
         super();
@@ -22,19 +23,22 @@ class RegistroAlimentos extends Base {
     onCleared = (e: CustomEventInit) => {
         if (e.detail.store === stores.RegistroRefeicao) {
             this.itemsShow = [];
+            this.itemsMeta = [];
             render(this, html``);
         }
     };
 
     onAddedItem = (e: CustomEventInit) => {
 
+        if (e.detail.store === stores.RegistroMetas) {
+
+        }
+
         if (e.detail.store === stores.RegistroRefeicao) {
 
             this.itemsShow = [];
             render(this, html``);
             this.render(e.detail.items);
-
-            sync();
 
             //Redireciona apenas se for o primeiro registro
             let cardapioItems = store.getItems<CardapioItem>(stores.Cardapio);
@@ -64,9 +68,9 @@ class RegistroAlimentos extends Base {
         store.onCleared(this.onCleared);
         store.onAddedItem(this.onAddedItem);
         store.onRemovedItem(this.onRemovedItem);
-
         store.onReplacedAll((e: CustomEventInit) => {
             this.itemsShow = [];
+            this.itemsMeta = []; 
             render(this, html``);
 
             //Atualiza o registro quando o storage for atualizado via Sync
@@ -82,7 +86,11 @@ class RegistroAlimentos extends Base {
             items = store.getItems<CardapioItem>(stores.RegistroRefeicao);
         }
 
-        this.itemsShow = agrupaDias(items);
+        if (this.itemsMeta.length === 0) {
+            this.itemsMeta = store.getItems<RegistroMeta>(stores.RegistroMetas);
+        }
+
+        this.itemsShow = agrupaDias(items, this.itemsMeta);
 
         render(this, html`
 

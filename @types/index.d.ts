@@ -5,6 +5,7 @@
 /// <reference path="definitions/components/cardapio.d.ts" />
 /// <reference path="definitions/components/meta-diaria.d.ts" />
 /// <reference path="definitions/components/ingredientes-selecionados.d.ts" />
+/// <reference path="definitions/components/wizard-message.d.ts" />
 /// <reference path="definitions/lib/forms.ts" />
 
 interface Edit extends BaseItem {
@@ -31,6 +32,7 @@ interface CardapioItem extends BaseItem {
 
 interface RefeicaoDia {
     dia: string;
+    meta: undefined | RegistroMeta;
     registros: RegistroRefeicaoItem[];
 }
 
@@ -40,6 +42,19 @@ interface RegistroRefeicaoItem extends BaseItem {
     calorias: number;
     proteinas: number;
     peso: number;
+}
+
+interface RegistroMeta extends BaseItem {
+    calorias: number;
+    caloriasMeta: number;
+    dia: Date;
+    id: string;
+    percentualMeta: number;
+    percentualMetaProteinas: number;
+    peso: number;
+    proteinas: number;
+    proteinasMeta: number;
+    tipoMeta: string;
 }
 
 interface UnidadeAlt {
@@ -77,4 +92,5 @@ interface ISync {
     perfil: Perfil | null;
     registroRefeicaoItems: RegistroRefeicaoItem[];
     processamentosItems: ProcessamentoAssistente[];
+    metas: RegistroMeta[];
 }

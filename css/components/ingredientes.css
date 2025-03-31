@@ -1,10 +1,15 @@
-app-ingredientes-selecionados .actions.right {
-    position: absolute;
-    top: -6px;
-    right: -2px;
+app-ingredientes-selecionados,
+app-ingredientes-selecionados-assistente {
+
+    .actions.right {
+        position: absolute;
+        top: -6px;
+        right: -2px;
+    }
 }
 
-app-ingredientes-selecionados {
+app-ingredientes-selecionados,
+app-ingredientes-selecionados-assistente {
     .list-space-around {
         margin-top: 30px;
     }
@@ -87,15 +92,19 @@ app-ingredientes-selecionados-item {
         background-repeat: no-repeat;
         background-size: contain;
         position: absolute;
-        left: 7px;
-        top: 7px;
+        left: 10px;
+        top: 13px;
 
         background-image: url("../../img/alimento.svg");
 
     }
 
     &.mini::before {
-      display: none;
+        display: none;
+    }
+
+    &.cardapio::before {
+        filter: brightness(0.5);
     }
 
     &.carnes {

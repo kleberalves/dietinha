@@ -1,15 +1,17 @@
-
 .tab {
     position: relative;
-    padding: 10px;
     box-shadow: 10px 10px 100px 2px #ccc;
     border-radius: 26px;
     margin-bottom: 20px;
     overflow: hidden;
+    padding: 0px;
+
+    display: flex;
+    justify-content: center;
 }
 
 .tab .form {
-    margin-top: 60px;
+    margin-top: 70px;
 }
 
 @media (max-width: 625px) {
@@ -19,7 +21,7 @@
 }
 
 .tab.close {
-    height: 42px;
+    height: 60px;
 }
 
 .tab.open .btn-close {
@@ -34,4 +36,85 @@
     top: 10px;
     right: 10px;
     z-index: 1;
+}
+
+.btn-tab-switch {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 62px;
+    width: 100%;
+    z-index: 1000;
+    cursor: pointer;
+    color: var(--blackwhite-color);
+    background-color: rgb(157 157 157 / 34%);
+}
+
+.btn-tab-switch>.title {
+    font-weight: 200;
+    font-size: 25px;
+    padding-left: 20px;
+    padding-top: 15px;
+    overflow: hidden;
+    height: 30px;
+    padding-right: 40px;
+
+    @media (max-width: 500px) {
+        & {
+            font-size: 20px;
+        }
+    }
+
+}
+
+
+.btn-tab-switch>.btn {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 40px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.tab.open>.btn-tab-switch>.btn {
+    transform: rotate(45deg);
+}
+
+.btn-tab-switch>.btn::after {
+    content: "|";
+    transform: rotate(90deg);
+    position: absolute;
+    left: 14px;
+    top: 10px;
+}
+
+.btn-tab-switch>.btn::before {
+    content: "|";
+    transform: rotate(90deg);
+    position: absolute;
+    top: 2px;
+    left: 14px;
+}
+
+
+.tab.open>.btn-tab-switch>.btn::after {
+    content: "|";
+    transform: rotate(90deg);
+    position: absolute;
+    left: 14px;
+    top: 6px;
+}
+
+.tab.open>.btn-tab-switch>.btn::before {
+    content: "|";
+    transform: rotate(0deg);
+    position: absolute;
+    top: 5px;
+    left: 13px;
 }
