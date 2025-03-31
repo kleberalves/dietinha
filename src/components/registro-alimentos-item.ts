@@ -39,7 +39,7 @@ class RegistroAlimentosItem extends Base {
             let itemIdCalculo = this.refeicaoDia.registros[i].id;
 
             itemsShow.push(html`
-                <div class='listItem cardapio delay'>
+                <div class='listItem registro delay'>
                     <div class='title'>${itemCalculo.nome}</div>
                     <div class='total'> Total de <span> ${itemCalculo.peso}g</span>, <span>${itemCalculo.calorias} calorias </span> e <span> ${itemCalculo.proteinas}g de proteínas</span>.</div>
                 

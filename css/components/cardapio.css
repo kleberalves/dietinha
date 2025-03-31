@@ -18,7 +18,8 @@ app-cardapio-item {
     }
 }
 
-.listItem.cardapio {
+.listItem.cardapio,
+.listItem.registro {
     padding-bottom: 15px;
     padding-right: 30px;
     padding-top: 11px;
@@ -34,23 +35,30 @@ app-cardapio-item {
         width: 100%;
     }
 
-    .title{
+    .title {
         color: var(--primary-color);
         padding-left: 40px;
     }
+
+    .total {
+        margin: 15px;
+        margin-bottom: 5px;
+        margin-top: 0px;
+        font-size: 15px;
+        color: var(--blackwhite-color);
+        font-weight: 300;
+    }
 }
 
-.listItem.cardapio .total {
-    margin: 15px;
-    margin-bottom: 5px;
-    margin-top: 0px;
-    font-size: 15px;
-    color: var(--blackwhite-color);
-    font-weight: 300;
+.listItem.cardapio {
+    .total {
+        margin-top: 15px;
+    }
 }
 
 .listItem.cardapio.assistente {
     border: 2px solid var(--contrast-high-color);
+
     &::before {
         content: "";
         background-image: url("../../img/assistente.svg");

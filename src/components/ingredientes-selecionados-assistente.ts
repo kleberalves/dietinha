@@ -34,7 +34,13 @@ class IngredientesSelecionadosAssistente extends Base implements IIngredientesSe
 
     onChangedIngredienteAssistente = (e: CustomEventInit) => {
         if (e.detail.store === stores.IngredienteAssistente) {
-            this.listaIngredientes = e.detail.items;
+
+            if (e.detail.items !== undefined) {
+                this.listaIngredientes = e.detail.items;
+            } else {
+                this.listaIngredientes = [];
+            }
+
             this.render();
         }
     };
@@ -83,7 +89,7 @@ class IngredientesSelecionadosAssistente extends Base implements IIngredientesSe
         //this.outputIDs(this.listaIngredientesAJ);
 
         render(this,
-            html`<div class='selecionados tab open' id="tab1">
+            html`<div class='selecionados tab close' id="tab1">
                     <div class="btn-tab-switch" onclick=${() => swapTabs("tab1")}>
                             <div class='title'>Para o café da manhã/tarde (${this.listaIngredientesCA.length})</div>
                             <div class="btn"></div>

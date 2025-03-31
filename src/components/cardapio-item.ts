@@ -160,14 +160,14 @@ class AppCardapioItem extends Base {
 
         let className: string = `listItem cardapio delay ${this.props.item.origem}`;
 
-        render(this, html`
+        render(this, html`  
                 <div class=${className}>
                    <div class='title'>${this.props.item.nome}</div>
                         ${this.props.item.ingredientes.map((item, idx) => {
 
             var peso = item.peso === undefined || item.peso === null ? "100" : item.peso;
             var unidade = item.unidade === null || item.unidade === undefined ? "g" : item.unidade;
-            let unidAltPeso = Math.round(item.peso / item.unidAltPeso);
+            let unidAltPeso = Math.ceil(item.peso / item.unidAltPeso);
 
             return html`<div class='list mini'>
                                         <div class='item mini'>

@@ -109,12 +109,21 @@ export const store = (() => {
                 //Salva por padrão no localStorage
                 saveDataLocal(store, storeName);
 
+                let detail = {
+                    store: storeName,
+                    items: filterActive<T>(store.items as BaseItem[])
+                };
+
                 window.dispatchEvent(
                     new CustomEvent(events.addedItem, {
-                        detail: {
-                            store: storeName,
-                            items: filterActive<T>(store.items as BaseItem[])
-                        }
+                        detail: detail
+                    })
+                );
+
+
+                window.dispatchEvent(
+                    new CustomEvent(events.changed, {
+                        detail: detail
                     })
                 );
 
