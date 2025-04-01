@@ -121,21 +121,7 @@
     display: flex;
     justify-content: space-around;
 
-    &.meta {
-        >div>div {
-            display: flex;
-
-            @media (max-width: 600px) {
-                flex-direction: column;
-            }
-        }
-
-        >div>div>div {
-            display: flex;
-            flex-direction: column;
-            margin: 10px;
-        }
-    }
+   
 }
 
 .list>.cols>div>.text {
@@ -215,7 +201,7 @@
         width: 90%;
         color: #fff;
         border-bottom-color: var(--border-color);
-        padding-left: 25px;
+        padding-left: 40px;
 
         div {
             font-size: 15px;

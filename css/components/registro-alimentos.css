@@ -6,7 +6,7 @@ app-registro-alimentos .selecionados {
 
 app-registro-alimentos {
     width: 100%;
-    
+
 }
 
 app-registro-alimentos .cardapio .data {
@@ -20,7 +20,7 @@ app-registro-alimentos-item {
     padding-top: 0px;
     padding-bottom: 0px;
 
-    .info-none{
+    .info-none {
         margin-top: 30px;
         display: block;
         text-align: center;
@@ -29,6 +29,113 @@ app-registro-alimentos-item {
     @media (min-width: 1000px) {
         .list-space-around>* {
             width: 44%;
+        }
+    }
+
+    .progress-bar {
+
+        width: 100%;
+        background-color: var(--destaque-color);
+        position: relative;
+        margin-top: 25px;
+        margin-bottom: 10px;
+        border-radius: 15px;
+
+        .progress {
+            background-color: var(--contrast-high-color);
+            width: 0%;
+            height: 15px;
+            font-size: 11px;
+            padding-top: 2px;
+            padding-right: 5px;
+            text-align: right;
+            margin: 10px;
+            transition: all 0.3s ease-in-out;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .textTarget {
+            position: absolute;
+            right: 3px;
+            top: -15px;
+        }
+
+        .textProgress {
+            position: absolute;
+            left: 10%;
+            top: 30px;
+            margin-left: -10% !important;
+            border-top: 1px solid var(--primary-color);
+            padding-top: 5px;
+            transition: all 0.3s ease-in-out;
+
+            &::before {
+                content: "|";
+                transform: rotate(180deg);
+                position: absolute;
+                top: -15px;
+                color: var(--primary-color);
+                left: 27px;
+            }
+        }
+    }
+
+    .total.meta {
+
+        @media (max-width: 500px) {
+            & {
+                flex-direction: column;
+                margin: 0px;
+            }
+        }
+
+        >div {
+            width: 50%;
+            position: relative;
+
+            @media (max-width: 500px) {
+                & {
+                    width: 100%;
+                }
+            }
+
+            >div {
+                display: flex;
+
+                @media (max-width: 600px) {
+                    flex-direction: column;
+                }
+            }
+        }
+
+        .destaque {
+            background-color: var(--contrast-high-color);
+            color: #fff;
+            padding: 7px;
+            border-radius: 16px;
+            padding-bottom: 2px;
+            padding-top: 2px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .text {
+            font-size: 14px;
+            display: flex;
+            flex-wrap: wrap;
+
+            .target {
+                margin-left: 5px;
+                background-color: var(--secondary-color);
+                color: #fff;
+                border-radius: 10px;
+                padding-left: 5px;
+                padding-right: 7px;
+                padding-top: 2px;
+                padding-bottom: 2px;
+                margin-top: -2px;
+            }
         }
     }
 }

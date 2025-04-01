@@ -63,19 +63,24 @@ class RegistroAlimentosItem extends Base {
                 ${this.refeicaoDia.meta ? html`
                     <div class='cols total meta'>
                         <div>
-                            <span>Calorias</span> 
-                            <div> 
-                                <div>Meta diária<span class='text'>${this.refeicaoDia.meta.caloriasMeta}</span></div>
-                                <div>Progresso<span class='text'>${this.refeicaoDia.meta.calorias} (${this.refeicaoDia.meta.percentualMeta}%)</span></div>
+                            <span>Calorias consumidas <span class="destaque">${this.refeicaoDia.meta.calorias}</span> </span>
+                            <div class="progress-bar">
+                                <div class="text textTarget">Meta<span class='text target'>${this.refeicaoDia.meta.caloriasMeta}</span></div>
+                                <div id="barProgressCalorias" class="progress">
+                                  ${this.refeicaoDia.meta.percentualMeta}%
+                                </div>
                             </div>
                         </div>
+
                         <div>
-                             <span>Proteínas</span>
-                            <div>  
-                                <div>Meta diária<span class='text'>${this.refeicaoDia.meta.proteinasMeta}</span></div>
-                                <div>Progresso<span class='text'>${this.refeicaoDia.meta.proteinas} (${this.refeicaoDia.meta.percentualMetaProteinas}%)</span></div>
+                            <span>Proteínas consumidas <span class="destaque">${this.refeicaoDia.meta.proteinas}</span></span> 
+                            <div class="progress-bar">
+                                <div class="text textTarget">Meta<span class='text target'>${this.refeicaoDia.meta.proteinasMeta}</span></div>
+                                <div id="barProgressProteinas" class="progress">
+                                  ${this.refeicaoDia.meta.percentualMetaProteinas}%
+                                </div>
                             </div>
-                      </div>
+                        </div>
 
                     </div>` :
                     html`<div class='cols total'>
@@ -83,15 +88,24 @@ class RegistroAlimentosItem extends Base {
                         <div>Proteínas<span class='text'>${totalProteinas}</span></div>
                         <div>Volume <span class='text'>${totalPeso}g </span></div>
                     </div>
-`}
-
-
+                    `}
                     <div class="list-space-around">
                         ${itemsShow.map(item => item)}
                     </div>
                     `}
            `);
 
+        if (this.refeicaoDia.meta) {
+            let barProgressCalorias = this.querySelector<HTMLDivElement>("#barProgressCalorias");
+            if (barProgressCalorias) {
+                barProgressCalorias.style.width = this.refeicaoDia.meta.percentualMeta.toString() + "%";
+            }
+
+            let barProgressProteinas = this.querySelector<HTMLDivElement>("#barProgressProteinas");
+            if (barProgressProteinas) {
+                barProgressProteinas.style.width = this.refeicaoDia.meta.percentualMetaProteinas.toString() + "%";
+            }
+        }
     }
 }
 

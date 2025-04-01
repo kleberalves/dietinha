@@ -11,7 +11,7 @@
     }
 }
 
-app-pesquisa-alimento{
+app-pesquisa-alimento {
     margin-bottom: 20px;
     display: block;
 }
@@ -25,6 +25,15 @@ app-pesquisa-alimento-item {
         display: flex;
         justify-content: space-evenly;
         width: 100%;
+
+        @media (max-width: 800px) {
+            & {
+                flex-direction: column;
+            }
+            .btn-selecionar{
+                margin: 2px;
+            }
+        }
     }
 }
 
