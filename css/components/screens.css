@@ -157,13 +157,15 @@ screen-assistente {
             width: 23%;
             cursor: pointer;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: flex-start;
             align-items: center;
             flex-direction: column;
+            padding-top: 5px;
 
             .btn {
                 font-weight: 400;
                 font-size: 11px;
+                margin-top: 5px;
             }
 
             @media (min-width: 1000px) {
