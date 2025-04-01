@@ -84,6 +84,7 @@ export const salvarItemCardapio = (listaIngredientes: Ingrediente[], cardapioIte
                 "calorias": totalCalorias,
                 "proteinas": totalProteinas,
                 "peso": totalPeso,
+                "origem": "user",
                 "ingredientes": listaIngredientes
             }
 
@@ -96,7 +97,7 @@ export const salvarItemCardapio = (listaIngredientes: Ingrediente[], cardapioIte
 
                     let ingrediente = cardapioItemEdit.ingredientes[i];
                     let itemFound = itemCardapio.ingredientes.filter((i) => {
-                        return i.id === ingrediente.id
+                        return i.id === ingrediente.id 
                     });
 
                     if (itemFound.length === 0) {

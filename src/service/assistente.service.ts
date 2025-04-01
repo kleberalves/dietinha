@@ -76,7 +76,7 @@ export const adicionaPreItems = (): IngredienteAssistente[] => {
             "4062bea0-298d-4b66-92fa-49c9001aa090",
             "05084a61-3174-4dcf-bb29-06638c87cdbf",
             "698db76b-cc5b-4d3b-8e48-acdf225ef7c8",
-            "6e604173-d6b4-47eb-8b44-303dc207df9a"];
+            "513db7fa-1070-47ac-a5d1-801275537216"];
 
         /**
          * CA" /> <span>Café da manhã/tarde

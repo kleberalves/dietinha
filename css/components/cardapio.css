@@ -37,6 +37,7 @@ app-cardapio-item {
 
     .title {
         color: var(--primary-color);
+        padding-left: 40px;
     }
 
     .total {
@@ -67,6 +68,10 @@ app-cardapio-item {
         position: absolute;
         right: 7px;
     }
+}
+
+.listItem.cardapio.user {
+    border: 2px solid #a35f00;
 }
 
 .text-intro {

@@ -119,6 +119,11 @@ class AppCardapioItem extends Base {
 
     editarItemCardapio() {
 
+        this.props = {
+            idx: parseInt(this.p("idx")),
+            item: JSON.parse(this.p("item"))
+        }
+
         if (this.props.item.id) {
 
             let ingredientes: Ingrediente[] = [];
