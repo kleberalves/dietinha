@@ -64,22 +64,12 @@ class RegistroAlimentosItem extends Base {
                     <div class='cols total meta'>
                         <div>
                             <span>Calorias consumidas <span class="destaque">${this.refeicaoDia.meta.calorias}</span> </span>
-                            <div class="progress-bar">
-                                <div class="text textTarget">Meta<span class='text target'>${this.refeicaoDia.meta.caloriasMeta}</span></div>
-                                <div id="barProgressCalorias" class="progress">
-                                  ${this.refeicaoDia.meta.percentualMeta}%
-                                </div>
-                            </div>
+                            <progress-bar target=${this.refeicaoDia.meta.caloriasMeta} descricao="Meta" percentual=${this.refeicaoDia.meta.percentualMeta} />
                         </div>
 
                         <div>
-                            <span>Proteínas consumidas <span class="destaque">${this.refeicaoDia.meta.proteinas}</span></span> 
-                            <div class="progress-bar">
-                                <div class="text textTarget">Meta<span class='text target'>${this.refeicaoDia.meta.proteinasMeta}</span></div>
-                                <div id="barProgressProteinas" class="progress">
-                                  ${this.refeicaoDia.meta.percentualMetaProteinas}%
-                                </div>
-                            </div>
+                            <span>Proteínas consumidas <span class="destaque">${this.refeicaoDia.meta.proteinas}</span></span>
+                            <progress-bar target=${this.refeicaoDia.meta.proteinasMeta} descricao="Meta" percentual=${this.refeicaoDia.meta.percentualMetaProteinas} />
                         </div>
 
                     </div>` :
@@ -95,17 +85,6 @@ class RegistroAlimentosItem extends Base {
                     `}
            `);
 
-        if (this.refeicaoDia.meta) {
-            let barProgressCalorias = this.querySelector<HTMLDivElement>("#barProgressCalorias");
-            if (barProgressCalorias) {
-                barProgressCalorias.style.width = this.refeicaoDia.meta.percentualMeta.toString() + "%";
-            }
-
-            let barProgressProteinas = this.querySelector<HTMLDivElement>("#barProgressProteinas");
-            if (barProgressProteinas) {
-                barProgressProteinas.style.width = this.refeicaoDia.meta.percentualMetaProteinas.toString() + "%";
-            }
-        }
     }
 }
 

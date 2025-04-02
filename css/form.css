@@ -108,6 +108,7 @@ form .full {
 
 input-password {
     position: relative;
+
     #btnChange {
         position: absolute;
         right: 11px;
@@ -159,4 +160,63 @@ input-password {
 
 .strength-Good::-webkit-progress-value {
     background-color: #70C1B3;
+}
+
+/** progress-bar */
+
+progress-bar {
+    position: relative;
+    width: 100%;
+    margin-top: 25px;
+
+    .progress-bar {
+
+        background-color: var(--destaque-color);
+        position: relative;
+        border-radius: 15px;
+        padding: 2px;
+
+        .progress {
+            background-color: var(--contrast-high-color);
+            height: 15px;
+            font-size: 13px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            padding-right: 5px;
+            text-align: right;
+            margin: 5px;
+            transition: all 0.3s ease-in-out;
+            border-radius: 5px;
+            color: #fff;
+
+            &.red {
+                background-color: #6f2b2b;
+            }
+        }
+
+        .textTarget {
+            position: absolute;
+            right: 3px;
+            top: -15px;
+        }
+
+        .textProgress {
+            position: absolute;
+            left: 10%;
+            top: 30px;
+            margin-left: -10% !important;
+            border-top: 1px solid var(--primary-color);
+            padding-top: 5px;
+            transition: all 0.3s ease-in-out;
+
+            &::before {
+                content: "|";
+                transform: rotate(180deg);
+                position: absolute;
+                top: -15px;
+                color: var(--primary-color);
+                left: 27px;
+            }
+        }
+    }
 }

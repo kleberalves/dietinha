@@ -21,6 +21,15 @@ export class Base extends HTMLElement implements IBase {
             return value;
         }
     }
+
+    pn(prop: string): number | undefined {
+
+        var value = this.p(prop);
+        if (value !== null) {
+            return parseFloat(value);
+        }
+    }
+    
     /** get property boolean */
     pb(prop: string): boolean {
         let value = this.p(prop);

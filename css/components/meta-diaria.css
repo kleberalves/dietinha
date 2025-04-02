@@ -78,6 +78,7 @@ app-perfil>.form>.action {
 
 .resumo-calorias-diarias {
     margin-bottom: 20px;
+    padding-bottom: 10px;
     background-color: var(--theme-color);
 }
 
